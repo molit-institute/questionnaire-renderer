@@ -6,20 +6,96 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-
+    interface BooleanQuestion {
+        /**
+          * Color used to symbolise danger
+         */
+        "danger": string;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en]
+         */
+        "locale": string;
+        "mode": string;
+        /**
+          * Primary color
+         */
+        "primary": string;
+        "question": any;
+        "questionnaireResponse": Object;
+        /**
+          * Secondary color
+         */
+        "secondary": string;
+    }
+    interface DisplayQuestion {
+        /**
+          * Language property of the component. </br> Currently suported: [de, en]
+         */
+        "locale": string;
+        "mode": string;
+        "question": any;
+    }
 }
 declare global {
+    interface HTMLBooleanQuestionElement extends Components.BooleanQuestion, HTMLStencilElement {
+    }
+    var HTMLBooleanQuestionElement: {
+        prototype: HTMLBooleanQuestionElement;
+        new (): HTMLBooleanQuestionElement;
+    };
+    interface HTMLDisplayQuestionElement extends Components.DisplayQuestion, HTMLStencilElement {
+    }
+    var HTMLDisplayQuestionElement: {
+        prototype: HTMLDisplayQuestionElement;
+        new (): HTMLDisplayQuestionElement;
+    };
     interface HTMLElementTagNameMap {
+        "boolean-question": HTMLBooleanQuestionElement;
+        "display-question": HTMLDisplayQuestionElement;
     }
 }
 declare namespace LocalJSX {
+    interface BooleanQuestion {
+        /**
+          * Color used to symbolise danger
+         */
+        "danger"?: string;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en]
+         */
+        "locale"?: string;
+        "mode"?: string;
+        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Primary color
+         */
+        "primary"?: string;
+        "question"?: any;
+        "questionnaireResponse"?: Object;
+        /**
+          * Secondary color
+         */
+        "secondary"?: string;
+    }
+    interface DisplayQuestion {
+        /**
+          * Language property of the component. </br> Currently suported: [de, en]
+         */
+        "locale"?: string;
+        "mode"?: string;
+        "question"?: any;
+    }
     interface IntrinsicElements {
+        "boolean-question": BooleanQuestion;
+        "display-question": DisplayQuestion;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "boolean-question": LocalJSX.BooleanQuestion & JSXBase.HTMLAttributes<HTMLBooleanQuestionElement>;
+            "display-question": LocalJSX.DisplayQuestion & JSXBase.HTMLAttributes<HTMLDisplayQuestionElement>;
         }
     }
 }

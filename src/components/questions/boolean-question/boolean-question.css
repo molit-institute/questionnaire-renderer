@@ -1,0 +1,39 @@
+:host {
+  display: block;
+}
+.hidden {
+  visibility: hidden;
+}
+.radio-button-card {
+  min-height: 60px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.radio-button {
+  margin: 0.35em;
+  height: 1.1em;
+  width: 1.1em;
+}
+.card {
+  border-radius: 20px;
+  border: 0;
+  margin: 6px;
+  cursor: pointer;
+}
+.title {
+  width: 100%;
+  padding-left: 2em;
+  font-size: 1.22em;
+  font-weight: 600;
+}
+.margin-left {
+  margin-left: 20px;
+}
+.option-card {
+  margin-top: 6px;
+}
+.card-selected {
+  border-color: #1680d1;
+  background-color: #e8f4fd;
+}
