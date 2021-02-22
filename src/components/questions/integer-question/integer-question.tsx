@@ -46,13 +46,7 @@ export class IntegerQuestion {
     }
   }
 
-  @Prop() question: any = {
-    linkId: '2.3.2',
-    prefix: '2.3.2',
-    text: 'Integer?',
-    type: 'integer',
-    required: true,
-  };
+  @Prop() question: any;
   @Watch('question')
   watchQuestion() {
     /**Note: This code prevents the input from showing the invalid value as long as the type of the question
@@ -162,6 +156,10 @@ export class IntegerQuestion {
     this.selected = parseInt(value.detail, 10);
   }
 
+  handleChange(event) {
+    this.selected = event.target.value;
+  }
+
   /**
    *  Handles KeyPresses by adding Eventlisteners
    */
@@ -227,13 +225,14 @@ export class IntegerQuestion {
                   type="number"
                   step="1"
                   onKeyPress={e => {
-                    if(['1','2','3','4','5', '6', '7', '8', '9', '0'].indexOf(e.key) === -1){
+                    if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].indexOf(e.key) === -1) {
                       e.preventDefault();
                     }
                   }}
                   inputMode="numeric"
                   pattern="[0-9]*"
-                  v-model="selected"
+                  value={this.selected}
+                  onInput={e => this.handleChange(e)}
                   class="form-control"
                 />
                 {this.strings ? (
