@@ -105,7 +105,9 @@ export class BooleanQuestion {
 
   async componentWillLoad(): Promise<void> {
     try {
-      this.strings = await getLocaleComponentStrings(this.element, this.locale);
+      this.strings = await getLocaleComponentStrings(this.element, this.locale);        
+      await this.setSelected();
+      this.allow_events = true;
     } catch (e) {
       console.error(e);
     }

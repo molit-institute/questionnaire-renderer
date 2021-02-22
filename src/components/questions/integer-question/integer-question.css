@@ -1,0 +1,25 @@
+:host {
+  display: block;
+}
+.hidden {
+  visibility: hidden;
+}
+.visible {
+  visibility: visible;
+}
+.my-invalid-feedback {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+.card {
+  border-radius: 20px;
+  border: 0;
+}
+.option-card {
+  margin-top: 3px;
+}
+.size {
+  width: 100%;
+}

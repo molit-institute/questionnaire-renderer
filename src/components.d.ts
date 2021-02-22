@@ -27,6 +27,27 @@ export namespace Components {
          */
         "secondary": string;
     }
+    interface DecimalQuestion {
+        /**
+          * Color used to symbolise danger
+         */
+        "danger": string;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en]
+         */
+        "locale": string;
+        "mode": string;
+        /**
+          * Primary color
+         */
+        "primary": string;
+        "question": any;
+        "questionnaireResponse": Object;
+        /**
+          * Secondary color
+         */
+        "secondary": string;
+    }
     interface DisplayQuestion {
         /**
           * Language property of the component. </br> Currently suported: [de, en]
@@ -34,6 +55,35 @@ export namespace Components {
         "locale": string;
         "mode": string;
         "question": any;
+    }
+    interface IntegerQuestion {
+        /**
+          * Color used to symbolise danger
+         */
+        "danger": string;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en]
+         */
+        "locale": string;
+        "mode": string;
+        /**
+          * Primary color
+         */
+        "primary": string;
+        "question": any;
+        "questionnaireResponse": Object;
+        /**
+          * Secondary color
+         */
+        "secondary": string;
+    }
+    interface VasQuestion {
+        "labelLower": String;
+        "labelUpper": String;
+        "max": number;
+        "min": number;
+        "selected": number;
+        "step": number;
     }
 }
 declare global {
@@ -43,15 +93,36 @@ declare global {
         prototype: HTMLBooleanQuestionElement;
         new (): HTMLBooleanQuestionElement;
     };
+    interface HTMLDecimalQuestionElement extends Components.DecimalQuestion, HTMLStencilElement {
+    }
+    var HTMLDecimalQuestionElement: {
+        prototype: HTMLDecimalQuestionElement;
+        new (): HTMLDecimalQuestionElement;
+    };
     interface HTMLDisplayQuestionElement extends Components.DisplayQuestion, HTMLStencilElement {
     }
     var HTMLDisplayQuestionElement: {
         prototype: HTMLDisplayQuestionElement;
         new (): HTMLDisplayQuestionElement;
     };
+    interface HTMLIntegerQuestionElement extends Components.IntegerQuestion, HTMLStencilElement {
+    }
+    var HTMLIntegerQuestionElement: {
+        prototype: HTMLIntegerQuestionElement;
+        new (): HTMLIntegerQuestionElement;
+    };
+    interface HTMLVasQuestionElement extends Components.VasQuestion, HTMLStencilElement {
+    }
+    var HTMLVasQuestionElement: {
+        prototype: HTMLVasQuestionElement;
+        new (): HTMLVasQuestionElement;
+    };
     interface HTMLElementTagNameMap {
         "boolean-question": HTMLBooleanQuestionElement;
+        "decimal-question": HTMLDecimalQuestionElement;
         "display-question": HTMLDisplayQuestionElement;
+        "integer-question": HTMLIntegerQuestionElement;
+        "vas-question": HTMLVasQuestionElement;
     }
 }
 declare namespace LocalJSX {
@@ -77,6 +148,32 @@ declare namespace LocalJSX {
          */
         "secondary"?: string;
     }
+    interface DecimalQuestion {
+        /**
+          * Color used to symbolise danger
+         */
+        "danger"?: string;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en]
+         */
+        "locale"?: string;
+        "mode"?: string;
+        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Handles KeyPresses by adding Eventlisteners
+         */
+        "onEmitNext"?: (event: CustomEvent<any>) => void;
+        /**
+          * Primary color
+         */
+        "primary"?: string;
+        "question"?: any;
+        "questionnaireResponse"?: Object;
+        /**
+          * Secondary color
+         */
+        "secondary"?: string;
+    }
     interface DisplayQuestion {
         /**
           * Language property of the component. </br> Currently suported: [de, en]
@@ -85,9 +182,47 @@ declare namespace LocalJSX {
         "mode"?: string;
         "question"?: any;
     }
+    interface IntegerQuestion {
+        /**
+          * Color used to symbolise danger
+         */
+        "danger"?: string;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en]
+         */
+        "locale"?: string;
+        "mode"?: string;
+        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Handles KeyPresses by adding Eventlisteners
+         */
+        "onEmitNext"?: (event: CustomEvent<any>) => void;
+        /**
+          * Primary color
+         */
+        "primary"?: string;
+        "question"?: any;
+        "questionnaireResponse"?: Object;
+        /**
+          * Secondary color
+         */
+        "secondary"?: string;
+    }
+    interface VasQuestion {
+        "labelLower"?: String;
+        "labelUpper"?: String;
+        "max"?: number;
+        "min"?: number;
+        "onEmitSelected"?: (event: CustomEvent<any>) => void;
+        "selected"?: number;
+        "step"?: number;
+    }
     interface IntrinsicElements {
         "boolean-question": BooleanQuestion;
+        "decimal-question": DecimalQuestion;
         "display-question": DisplayQuestion;
+        "integer-question": IntegerQuestion;
+        "vas-question": VasQuestion;
     }
 }
 export { LocalJSX as JSX };
@@ -95,7 +230,10 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "boolean-question": LocalJSX.BooleanQuestion & JSXBase.HTMLAttributes<HTMLBooleanQuestionElement>;
+            "decimal-question": LocalJSX.DecimalQuestion & JSXBase.HTMLAttributes<HTMLDecimalQuestionElement>;
             "display-question": LocalJSX.DisplayQuestion & JSXBase.HTMLAttributes<HTMLDisplayQuestionElement>;
+            "integer-question": LocalJSX.IntegerQuestion & JSXBase.HTMLAttributes<HTMLIntegerQuestionElement>;
+            "vas-question": LocalJSX.VasQuestion & JSXBase.HTMLAttributes<HTMLVasQuestionElement>;
         }
     }
 }
