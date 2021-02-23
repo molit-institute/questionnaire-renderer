@@ -27,6 +27,31 @@ export namespace Components {
          */
         "secondary": string;
     }
+    interface ChoiceQuestion {
+        "answers": any;
+        "baseUrl": string;
+        /**
+          * Color used to symbolise danger
+         */
+        "danger": string;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en]
+         */
+        "locale": string;
+        "mode": string;
+        /**
+          * Primary color
+         */
+        "primary": string;
+        "question": any;
+        "questionnaire": any;
+        "questionnaireResponse": Object;
+        /**
+          * Secondary color
+         */
+        "secondary": string;
+        "valueSets": Array<any>;
+    }
     interface DateQuestion {
         /**
           * Color used to symbolise danger
@@ -156,6 +181,12 @@ declare global {
         prototype: HTMLBooleanQuestionElement;
         new (): HTMLBooleanQuestionElement;
     };
+    interface HTMLChoiceQuestionElement extends Components.ChoiceQuestion, HTMLStencilElement {
+    }
+    var HTMLChoiceQuestionElement: {
+        prototype: HTMLChoiceQuestionElement;
+        new (): HTMLChoiceQuestionElement;
+    };
     interface HTMLDateQuestionElement extends Components.DateQuestion, HTMLStencilElement {
     }
     var HTMLDateQuestionElement: {
@@ -200,6 +231,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "boolean-question": HTMLBooleanQuestionElement;
+        "choice-question": HTMLChoiceQuestionElement;
         "date-question": HTMLDateQuestionElement;
         "date-time-question": HTMLDateTimeQuestionElement;
         "decimal-question": HTMLDecimalQuestionElement;
@@ -231,6 +263,33 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
+    }
+    interface ChoiceQuestion {
+        "answers"?: any;
+        "baseUrl"?: string;
+        /**
+          * Color used to symbolise danger
+         */
+        "danger"?: string;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en]
+         */
+        "locale"?: string;
+        "mode"?: string;
+        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        "onEmitRemoveRequiredAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Primary color
+         */
+        "primary"?: string;
+        "question"?: any;
+        "questionnaire"?: any;
+        "questionnaireResponse"?: Object;
+        /**
+          * Secondary color
+         */
+        "secondary"?: string;
+        "valueSets"?: Array<any>;
     }
     interface DateQuestion {
         /**
@@ -369,6 +428,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "boolean-question": BooleanQuestion;
+        "choice-question": ChoiceQuestion;
         "date-question": DateQuestion;
         "date-time-question": DateTimeQuestion;
         "decimal-question": DecimalQuestion;
@@ -383,6 +443,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "boolean-question": LocalJSX.BooleanQuestion & JSXBase.HTMLAttributes<HTMLBooleanQuestionElement>;
+            "choice-question": LocalJSX.ChoiceQuestion & JSXBase.HTMLAttributes<HTMLChoiceQuestionElement>;
             "date-question": LocalJSX.DateQuestion & JSXBase.HTMLAttributes<HTMLDateQuestionElement>;
             "date-time-question": LocalJSX.DateTimeQuestion & JSXBase.HTMLAttributes<HTMLDateTimeQuestionElement>;
             "decimal-question": LocalJSX.DecimalQuestion & JSXBase.HTMLAttributes<HTMLDecimalQuestionElement>;
