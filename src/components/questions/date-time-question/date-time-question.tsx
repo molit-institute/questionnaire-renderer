@@ -14,7 +14,6 @@ import moment from 'moment';
 })
 export class DateTimeQuestion {
   @Element() element: HTMLElement;
-  decimalInput!: HTMLInputElement;
 
   /**
    *  String containing the translations for the current locale
