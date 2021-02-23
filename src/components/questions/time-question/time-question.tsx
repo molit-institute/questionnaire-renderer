@@ -13,7 +13,6 @@ import { getLocaleComponentStrings } from '../../../utils/locale';
 })
 export class TimeQuestion {
   @Element() element: HTMLElement;
-  decimalInput!: HTMLInputElement;
 
   /**
    *  String containing the translations for the current locale

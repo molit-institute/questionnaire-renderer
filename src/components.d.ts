@@ -123,6 +123,36 @@ export namespace Components {
         "mode": string;
         "question": any;
     }
+    interface GroupQuestion {
+        "baseUrl": string;
+        /**
+          * Color used to symbolise danger
+         */
+        "danger": string;
+        "editMode": boolean;
+        "enableReturn": boolean;
+        "filteredItemList": Array<any>;
+        "lastQuestion": boolean;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en]
+         */
+        "locale": string;
+        "mode": string;
+        /**
+          * Primary color
+         */
+        "primary": string;
+        "question": any;
+        "questionnaire": any;
+        "questionnaireResponse": Object;
+        "requiredQuestionList": Array<any>;
+        /**
+          * Secondary color
+         */
+        "secondary": string;
+        "startCount": Number;
+        "valueSets": Array<any>;
+    }
     interface IntegerQuestion {
         /**
           * Color used to symbolise danger
@@ -211,6 +241,12 @@ declare global {
         prototype: HTMLDisplayQuestionElement;
         new (): HTMLDisplayQuestionElement;
     };
+    interface HTMLGroupQuestionElement extends Components.GroupQuestion, HTMLStencilElement {
+    }
+    var HTMLGroupQuestionElement: {
+        prototype: HTMLGroupQuestionElement;
+        new (): HTMLGroupQuestionElement;
+    };
     interface HTMLIntegerQuestionElement extends Components.IntegerQuestion, HTMLStencilElement {
     }
     var HTMLIntegerQuestionElement: {
@@ -236,6 +272,7 @@ declare global {
         "date-time-question": HTMLDateTimeQuestionElement;
         "decimal-question": HTMLDecimalQuestionElement;
         "display-question": HTMLDisplayQuestionElement;
+        "group-question": HTMLGroupQuestionElement;
         "integer-question": HTMLIntegerQuestionElement;
         "time-question": HTMLTimeQuestionElement;
         "vas-question": HTMLVasQuestionElement;
@@ -369,6 +406,48 @@ declare namespace LocalJSX {
         "mode"?: string;
         "question"?: any;
     }
+    interface GroupQuestion {
+        "baseUrl"?: string;
+        /**
+          * Color used to symbolise danger
+         */
+        "danger"?: string;
+        "editMode"?: boolean;
+        "enableReturn"?: boolean;
+        "filteredItemList"?: Array<any>;
+        "lastQuestion"?: boolean;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en]
+         */
+        "locale"?: string;
+        "mode"?: string;
+        /**
+          * Emits new Event to give the required Question to Parent-Component to be added to the List of answered Questions
+         */
+        "onAddRequiredAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Relays the Event from the question-components to the top-component
+         */
+        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits new Event to give the required Question to Parent-Component to be removed from the List of answered Questions
+         */
+        "onEmitRemoveRequiredAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Primary color
+         */
+        "primary"?: string;
+        "question"?: any;
+        "questionnaire"?: any;
+        "questionnaireResponse"?: Object;
+        "requiredQuestionList"?: Array<any>;
+        /**
+          * Secondary color
+         */
+        "secondary"?: string;
+        "startCount"?: Number;
+        "valueSets"?: Array<any>;
+    }
     interface IntegerQuestion {
         /**
           * Color used to symbolise danger
@@ -433,6 +512,7 @@ declare namespace LocalJSX {
         "date-time-question": DateTimeQuestion;
         "decimal-question": DecimalQuestion;
         "display-question": DisplayQuestion;
+        "group-question": GroupQuestion;
         "integer-question": IntegerQuestion;
         "time-question": TimeQuestion;
         "vas-question": VasQuestion;
@@ -448,6 +528,7 @@ declare module "@stencil/core" {
             "date-time-question": LocalJSX.DateTimeQuestion & JSXBase.HTMLAttributes<HTMLDateTimeQuestionElement>;
             "decimal-question": LocalJSX.DecimalQuestion & JSXBase.HTMLAttributes<HTMLDecimalQuestionElement>;
             "display-question": LocalJSX.DisplayQuestion & JSXBase.HTMLAttributes<HTMLDisplayQuestionElement>;
+            "group-question": LocalJSX.GroupQuestion & JSXBase.HTMLAttributes<HTMLGroupQuestionElement>;
             "integer-question": LocalJSX.IntegerQuestion & JSXBase.HTMLAttributes<HTMLIntegerQuestionElement>;
             "time-question": LocalJSX.TimeQuestion & JSXBase.HTMLAttributes<HTMLTimeQuestionElement>;
             "vas-question": LocalJSX.VasQuestion & JSXBase.HTMLAttributes<HTMLVasQuestionElement>;

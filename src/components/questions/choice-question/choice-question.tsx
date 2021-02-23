@@ -14,7 +14,6 @@ import { getLocaleComponentStrings } from '../../../utils/locale';
 })
 export class ChoiceQuestion {
   @Element() element: HTMLElement;
-  integerInput!: HTMLInputElement;
 
   /**
    *  String containing the translations for the current locale
