@@ -123,6 +123,32 @@ export namespace Components {
         "mode": string;
         "question": any;
     }
+    interface FullQuestionnaire {
+        "baseUrl": string;
+        /**
+          * Color used to symbolise danger
+         */
+        "danger": string;
+        "filteredItemList": Array<any>;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en]
+         */
+        "locale": string;
+        /**
+          * Primary color
+         */
+        "primary": string;
+        "questionnaire": any;
+        "questionnaireResponse": Object;
+        "requiredQuestionList": Array<any>;
+        /**
+          * Secondary color
+         */
+        "secondary": string;
+        "spinner": any;
+        "startCount": Number;
+        "valueSets": Array<any>;
+    }
     interface GroupQuestion {
         "baseUrl": string;
         /**
@@ -153,6 +179,8 @@ export namespace Components {
         "startCount": Number;
         "valueSets": Array<any>;
     }
+    interface GroupsQuestionnaire {
+    }
     interface IntegerQuestion {
         /**
           * Color used to symbolise danger
@@ -173,6 +201,12 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
+    }
+    interface SimpleSpinner {
+        "borderTopColor": string;
+        "message": String;
+    }
+    interface StepperQuestionnaire {
     }
     interface TimeQuestion {
         /**
@@ -241,17 +275,41 @@ declare global {
         prototype: HTMLDisplayQuestionElement;
         new (): HTMLDisplayQuestionElement;
     };
+    interface HTMLFullQuestionnaireElement extends Components.FullQuestionnaire, HTMLStencilElement {
+    }
+    var HTMLFullQuestionnaireElement: {
+        prototype: HTMLFullQuestionnaireElement;
+        new (): HTMLFullQuestionnaireElement;
+    };
     interface HTMLGroupQuestionElement extends Components.GroupQuestion, HTMLStencilElement {
     }
     var HTMLGroupQuestionElement: {
         prototype: HTMLGroupQuestionElement;
         new (): HTMLGroupQuestionElement;
     };
+    interface HTMLGroupsQuestionnaireElement extends Components.GroupsQuestionnaire, HTMLStencilElement {
+    }
+    var HTMLGroupsQuestionnaireElement: {
+        prototype: HTMLGroupsQuestionnaireElement;
+        new (): HTMLGroupsQuestionnaireElement;
+    };
     interface HTMLIntegerQuestionElement extends Components.IntegerQuestion, HTMLStencilElement {
     }
     var HTMLIntegerQuestionElement: {
         prototype: HTMLIntegerQuestionElement;
         new (): HTMLIntegerQuestionElement;
+    };
+    interface HTMLSimpleSpinnerElement extends Components.SimpleSpinner, HTMLStencilElement {
+    }
+    var HTMLSimpleSpinnerElement: {
+        prototype: HTMLSimpleSpinnerElement;
+        new (): HTMLSimpleSpinnerElement;
+    };
+    interface HTMLStepperQuestionnaireElement extends Components.StepperQuestionnaire, HTMLStencilElement {
+    }
+    var HTMLStepperQuestionnaireElement: {
+        prototype: HTMLStepperQuestionnaireElement;
+        new (): HTMLStepperQuestionnaireElement;
     };
     interface HTMLTimeQuestionElement extends Components.TimeQuestion, HTMLStencilElement {
     }
@@ -272,8 +330,12 @@ declare global {
         "date-time-question": HTMLDateTimeQuestionElement;
         "decimal-question": HTMLDecimalQuestionElement;
         "display-question": HTMLDisplayQuestionElement;
+        "full-questionnaire": HTMLFullQuestionnaireElement;
         "group-question": HTMLGroupQuestionElement;
+        "groups-questionnaire": HTMLGroupsQuestionnaireElement;
         "integer-question": HTMLIntegerQuestionElement;
+        "simple-spinner": HTMLSimpleSpinnerElement;
+        "stepper-questionnaire": HTMLStepperQuestionnaireElement;
         "time-question": HTMLTimeQuestionElement;
         "vas-question": HTMLVasQuestionElement;
     }
@@ -406,6 +468,38 @@ declare namespace LocalJSX {
         "mode"?: string;
         "question"?: any;
     }
+    interface FullQuestionnaire {
+        "baseUrl"?: string;
+        /**
+          * Color used to symbolise danger
+         */
+        "danger"?: string;
+        "filteredItemList"?: Array<any>;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en]
+         */
+        "locale"?: string;
+        "onBack"?: (event: CustomEvent<any>) => void;
+        /**
+          * Relays the Event from the question-components to the top-component
+         */
+        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        "onSummery"?: (event: CustomEvent<any>) => void;
+        /**
+          * Primary color
+         */
+        "primary"?: string;
+        "questionnaire"?: any;
+        "questionnaireResponse"?: Object;
+        "requiredQuestionList"?: Array<any>;
+        /**
+          * Secondary color
+         */
+        "secondary"?: string;
+        "spinner"?: any;
+        "startCount"?: Number;
+        "valueSets"?: Array<any>;
+    }
     interface GroupQuestion {
         "baseUrl"?: string;
         /**
@@ -438,7 +532,7 @@ declare namespace LocalJSX {
          */
         "primary"?: string;
         "question"?: any;
-        "questionnaire"?: any;
+        "questionnaire": any;
         "questionnaireResponse"?: Object;
         "requiredQuestionList"?: Array<any>;
         /**
@@ -447,6 +541,8 @@ declare namespace LocalJSX {
         "secondary"?: string;
         "startCount"?: Number;
         "valueSets"?: Array<any>;
+    }
+    interface GroupsQuestionnaire {
     }
     interface IntegerQuestion {
         /**
@@ -473,6 +569,12 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
+    }
+    interface SimpleSpinner {
+        "borderTopColor"?: string;
+        "message"?: String;
+    }
+    interface StepperQuestionnaire {
     }
     interface TimeQuestion {
         /**
@@ -512,8 +614,12 @@ declare namespace LocalJSX {
         "date-time-question": DateTimeQuestion;
         "decimal-question": DecimalQuestion;
         "display-question": DisplayQuestion;
+        "full-questionnaire": FullQuestionnaire;
         "group-question": GroupQuestion;
+        "groups-questionnaire": GroupsQuestionnaire;
         "integer-question": IntegerQuestion;
+        "simple-spinner": SimpleSpinner;
+        "stepper-questionnaire": StepperQuestionnaire;
         "time-question": TimeQuestion;
         "vas-question": VasQuestion;
     }
@@ -528,8 +634,12 @@ declare module "@stencil/core" {
             "date-time-question": LocalJSX.DateTimeQuestion & JSXBase.HTMLAttributes<HTMLDateTimeQuestionElement>;
             "decimal-question": LocalJSX.DecimalQuestion & JSXBase.HTMLAttributes<HTMLDecimalQuestionElement>;
             "display-question": LocalJSX.DisplayQuestion & JSXBase.HTMLAttributes<HTMLDisplayQuestionElement>;
+            "full-questionnaire": LocalJSX.FullQuestionnaire & JSXBase.HTMLAttributes<HTMLFullQuestionnaireElement>;
             "group-question": LocalJSX.GroupQuestion & JSXBase.HTMLAttributes<HTMLGroupQuestionElement>;
+            "groups-questionnaire": LocalJSX.GroupsQuestionnaire & JSXBase.HTMLAttributes<HTMLGroupsQuestionnaireElement>;
             "integer-question": LocalJSX.IntegerQuestion & JSXBase.HTMLAttributes<HTMLIntegerQuestionElement>;
+            "simple-spinner": LocalJSX.SimpleSpinner & JSXBase.HTMLAttributes<HTMLSimpleSpinnerElement>;
+            "stepper-questionnaire": LocalJSX.StepperQuestionnaire & JSXBase.HTMLAttributes<HTMLStepperQuestionnaireElement>;
             "time-question": LocalJSX.TimeQuestion & JSXBase.HTMLAttributes<HTMLTimeQuestionElement>;
             "vas-question": LocalJSX.VasQuestion & JSXBase.HTMLAttributes<HTMLVasQuestionElement>;
         }

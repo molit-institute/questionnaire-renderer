@@ -81,7 +81,7 @@ export class DecimalQuestion {
   @Prop() danger: string;
   /**
    * Language property of the component. </br>
-   * Currently suported: [de, en]
+   * Currently suported: [de, en, es]
    */
   @Prop() locale: string = 'en';
   @Watch('locale')
