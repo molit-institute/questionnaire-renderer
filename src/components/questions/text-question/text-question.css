@@ -7,8 +7,6 @@
 .card {
     border-radius: 20px;
     border: 0;
-    margin: 6px;
-    cursor: pointer;
 }
 .option-card {
     margin-top: 6px;

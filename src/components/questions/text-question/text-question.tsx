@@ -99,9 +99,22 @@ export class TextQuestion {
     }
 
     setSelected() {
-        let value = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, "text");
+        this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, "text");
     }
-
+    /**
+      *  Handles KeyPresses by adding Eventlisteners
+      */
+    @Event() emitNext: EventEmitter;
+    handleKeyPress() {
+        let input = document.getElementById('text' + this.question.linkId);
+        let object = this;
+        input.addEventListener('keyup', function (event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                object.emitNext.emit('next'); //TODO passt das?
+            }
+        });
+    }
     /* Lifecycle Methods */
 
     async componentWillLoad(): Promise<void> {
@@ -127,7 +140,7 @@ export class TextQuestion {
                 </div>
                 <hr />
 
-                <div class="option-card">
+                <div id={'text' + this.question.linkId} class="option-card">
                     {this.strings ? (
                         <label class="" htmlFor="textarea">
                             {this.strings.text.text}:

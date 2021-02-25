@@ -1,0 +1,27 @@
+:host {
+    display: block;
+}
+.hidden {
+    visibility: hidden;
+}
+.card {
+    border-radius: 20px;
+    border: 0;
+}
+.my-invalid-feedback {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+  }
+.option-card {
+    margin-top: 3px;
+}
+.align-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.size {
+    width: 100%;
+}
