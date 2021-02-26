@@ -12,7 +12,7 @@ export namespace Components {
          */
         "danger": string;
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale": string;
         "mode": string;
@@ -35,7 +35,7 @@ export namespace Components {
          */
         "danger": string;
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale": string;
         "mode": string;
@@ -58,7 +58,7 @@ export namespace Components {
          */
         "danger": string;
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale": string;
         "mode": string;
@@ -79,7 +79,7 @@ export namespace Components {
          */
         "danger": string;
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale": string;
         "mode": string;
@@ -100,7 +100,7 @@ export namespace Components {
          */
         "danger": string;
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale": string;
         "mode": string;
@@ -117,7 +117,7 @@ export namespace Components {
     }
     interface DisplayQuestion {
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale": string;
         "mode": string;
@@ -130,9 +130,6 @@ export namespace Components {
          */
         "danger": string;
         "filteredItemList": Array<any>;
-        /**
-          * Language property of the component. </br> Currently suported: [de, en]
-         */
         "locale": string;
         /**
           * Primary color
@@ -145,8 +142,11 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
         "spinner": any;
-        "startCount": Number;
+        "startCount": number;
         "valueSets": Array<any>;
     }
     interface GroupQuestion {
@@ -160,7 +160,7 @@ export namespace Components {
         "filteredItemList": Array<any>;
         "lastQuestion": boolean;
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale": string;
         "mode": string;
@@ -180,6 +180,33 @@ export namespace Components {
         "valueSets": Array<any>;
     }
     interface GroupsQuestionnaire {
+        "baseUrl": string;
+        /**
+          * Color used to symbolise danger
+         */
+        "danger": string;
+        "editMode": boolean;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "enableReturn": boolean;
+        "filteredItemList": Array<any>;
+        "lastQuestion": boolean;
+        "locale": string;
+        /**
+          * Primary color
+         */
+        "primary": string;
+        "questionnaire": any;
+        "questionnaireResponse": Object;
+        "requiredQuestionList": Array<any>;
+        /**
+          * Secondary color
+         */
+        "secondary": string;
+        "spinner": any;
+        "startCount": number;
+        "valueSets": Array<any>;
     }
     interface IntegerQuestion {
         /**
@@ -187,7 +214,7 @@ export namespace Components {
          */
         "danger": string;
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale": string;
         "mode": string;
@@ -202,11 +229,144 @@ export namespace Components {
          */
         "secondary": string;
     }
+    interface QuestionnaireRenderer {
+        /**
+          * FHIR-Base Url
+         */
+        "baseUrl": string;
+        /**
+          * Color used to symbolise danger
+         */
+        "danger": string;
+        /**
+          * If true the render will show the button to exit the renderer
+         */
+        "editMode": boolean;
+        /**
+          * Enable the return-button to exit the render-view
+         */
+        "enableReturn": boolean;
+        /**
+          * If true, the Renderer will show the last question
+         */
+        "lastQuestion": boolean;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "locale": string;
+        /**
+          * Current type of Questionnaire-Style to display Available: StepperQuestionnaire, GroupedQuestionnaire, FullQuestionnaire
+         */
+        "mode": string;
+        /**
+          * Primary color
+         */
+        "primary": string;
+        /**
+          * FHIR-Resource Questionnaire
+         */
+        "questionnaire": any;
+        /**
+          * FHIR-Resource QuestionnaireResponse
+         */
+        "questionnaireResponse": any;
+        /**
+          * The Url to fetch the Questionnaire from
+         */
+        "questionnaireUrl": string;
+        /**
+          * Secondary color
+         */
+        "secondary": string;
+        /**
+          * ID of the question in the ItemList where in the list of questions the renderer should start
+         */
+        "startQuestion": Object;
+        /**
+          * FHIR-Resource Patient
+         */
+        "subject": any;
+        /**
+          * List of ValueSets that are needed to display the given questionnaire
+         */
+        "valueSets": Array<any>;
+    }
     interface SimpleSpinner {
         "borderTopColor": string;
         "message": String;
     }
     interface StepperQuestionnaire {
+        "baseUrl": string;
+        /**
+          * Color used to symbolise danger
+         */
+        "danger": string;
+        "editMode": boolean;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "enableReturn": boolean;
+        "filteredItemList": Array<any>;
+        "lastQuestion": boolean;
+        "locale": string;
+        /**
+          * Primary color
+         */
+        "primary": string;
+        "questionnaire": any;
+        "questionnaireResponse": Object;
+        "requiredQuestionList": Array<any>;
+        /**
+          * Secondary color
+         */
+        "secondary": string;
+        "spinner": any;
+        "startCount": number;
+        "valueSets": Array<any>;
+    }
+    interface StringQuestion {
+        /**
+          * Color used to symbolise danger
+         */
+        "danger": string;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "locale": string;
+        "mode": string;
+        /**
+          * Primary color
+         */
+        "primary": string;
+        "question": any;
+        "questionnaireResponse": Object;
+        /**
+          * Secondary color
+         */
+        "secondary": string;
+    }
+    interface TestUi {
+    }
+    interface TextQuestion {
+        /**
+          * Color used to symbolise danger
+         */
+        "danger": string;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "locale": string;
+        "mode": string;
+        /**
+          * Primary color
+         */
+        "primary": string;
+        "question": any;
+        "questionnaireResponse": Object;
+        /**
+          * Secondary color
+         */
+        "secondary": string;
     }
     interface TimeQuestion {
         /**
@@ -214,7 +374,28 @@ export namespace Components {
          */
         "danger": string;
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "locale": string;
+        "mode": string;
+        /**
+          * Primary color
+         */
+        "primary": string;
+        "question": any;
+        "questionnaireResponse": Object;
+        /**
+          * Secondary color
+         */
+        "secondary": string;
+    }
+    interface UrlQuestion {
+        /**
+          * Color used to symbolise danger
+         */
+        "danger": string;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale": string;
         "mode": string;
@@ -299,6 +480,12 @@ declare global {
         prototype: HTMLIntegerQuestionElement;
         new (): HTMLIntegerQuestionElement;
     };
+    interface HTMLQuestionnaireRendererElement extends Components.QuestionnaireRenderer, HTMLStencilElement {
+    }
+    var HTMLQuestionnaireRendererElement: {
+        prototype: HTMLQuestionnaireRendererElement;
+        new (): HTMLQuestionnaireRendererElement;
+    };
     interface HTMLSimpleSpinnerElement extends Components.SimpleSpinner, HTMLStencilElement {
     }
     var HTMLSimpleSpinnerElement: {
@@ -311,11 +498,35 @@ declare global {
         prototype: HTMLStepperQuestionnaireElement;
         new (): HTMLStepperQuestionnaireElement;
     };
+    interface HTMLStringQuestionElement extends Components.StringQuestion, HTMLStencilElement {
+    }
+    var HTMLStringQuestionElement: {
+        prototype: HTMLStringQuestionElement;
+        new (): HTMLStringQuestionElement;
+    };
+    interface HTMLTestUiElement extends Components.TestUi, HTMLStencilElement {
+    }
+    var HTMLTestUiElement: {
+        prototype: HTMLTestUiElement;
+        new (): HTMLTestUiElement;
+    };
+    interface HTMLTextQuestionElement extends Components.TextQuestion, HTMLStencilElement {
+    }
+    var HTMLTextQuestionElement: {
+        prototype: HTMLTextQuestionElement;
+        new (): HTMLTextQuestionElement;
+    };
     interface HTMLTimeQuestionElement extends Components.TimeQuestion, HTMLStencilElement {
     }
     var HTMLTimeQuestionElement: {
         prototype: HTMLTimeQuestionElement;
         new (): HTMLTimeQuestionElement;
+    };
+    interface HTMLUrlQuestionElement extends Components.UrlQuestion, HTMLStencilElement {
+    }
+    var HTMLUrlQuestionElement: {
+        prototype: HTMLUrlQuestionElement;
+        new (): HTMLUrlQuestionElement;
     };
     interface HTMLVasQuestionElement extends Components.VasQuestion, HTMLStencilElement {
     }
@@ -334,9 +545,14 @@ declare global {
         "group-question": HTMLGroupQuestionElement;
         "groups-questionnaire": HTMLGroupsQuestionnaireElement;
         "integer-question": HTMLIntegerQuestionElement;
+        "questionnaire-renderer": HTMLQuestionnaireRendererElement;
         "simple-spinner": HTMLSimpleSpinnerElement;
         "stepper-questionnaire": HTMLStepperQuestionnaireElement;
+        "string-question": HTMLStringQuestionElement;
+        "test-ui": HTMLTestUiElement;
+        "text-question": HTMLTextQuestionElement;
         "time-question": HTMLTimeQuestionElement;
+        "url-question": HTMLUrlQuestionElement;
         "vas-question": HTMLVasQuestionElement;
     }
 }
@@ -347,7 +563,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale"?: string;
         "mode"?: string;
@@ -371,7 +587,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale"?: string;
         "mode"?: string;
@@ -396,7 +612,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale"?: string;
         "mode"?: string;
@@ -418,7 +634,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale"?: string;
         "mode"?: string;
@@ -440,7 +656,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale"?: string;
         "mode"?: string;
@@ -462,7 +678,7 @@ declare namespace LocalJSX {
     }
     interface DisplayQuestion {
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale"?: string;
         "mode"?: string;
@@ -475,9 +691,6 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         "filteredItemList"?: Array<any>;
-        /**
-          * Language property of the component. </br> Currently suported: [de, en]
-         */
         "locale"?: string;
         "onBack"?: (event: CustomEvent<any>) => void;
         /**
@@ -496,8 +709,11 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
         "spinner"?: any;
-        "startCount"?: Number;
+        "startCount"?: number;
         "valueSets"?: Array<any>;
     }
     interface GroupQuestion {
@@ -511,7 +727,7 @@ declare namespace LocalJSX {
         "filteredItemList"?: Array<any>;
         "lastQuestion"?: boolean;
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale"?: string;
         "mode"?: string;
@@ -543,6 +759,46 @@ declare namespace LocalJSX {
         "valueSets"?: Array<any>;
     }
     interface GroupsQuestionnaire {
+        "baseUrl"?: string;
+        /**
+          * Color used to symbolise danger
+         */
+        "danger"?: string;
+        "editMode"?: boolean;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "enableReturn"?: boolean;
+        "filteredItemList"?: Array<any>;
+        "lastQuestion"?: boolean;
+        "locale"?: string;
+        /**
+          * Counts down the Question-Number
+         */
+        "onBack"?: (event: CustomEvent<any>) => void;
+        /**
+          * Relays the Event from the question-components to the top-component
+         */
+        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Counts up the Question-Number
+         */
+        "onFinished"?: (event: CustomEvent<any>) => void;
+        "onSummery"?: (event: CustomEvent<any>) => void;
+        /**
+          * Primary color
+         */
+        "primary"?: string;
+        "questionnaire": any;
+        "questionnaireResponse"?: Object;
+        "requiredQuestionList"?: Array<any>;
+        /**
+          * Secondary color
+         */
+        "secondary"?: string;
+        "spinner"?: any;
+        "startCount"?: number;
+        "valueSets"?: Array<any>;
     }
     interface IntegerQuestion {
         /**
@@ -550,7 +806,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale"?: string;
         "mode"?: string;
@@ -570,11 +826,173 @@ declare namespace LocalJSX {
          */
         "secondary"?: string;
     }
+    interface QuestionnaireRenderer {
+        /**
+          * FHIR-Base Url
+         */
+        "baseUrl"?: string;
+        /**
+          * Color used to symbolise danger
+         */
+        "danger"?: string;
+        /**
+          * If true the render will show the button to exit the renderer
+         */
+        "editMode"?: boolean;
+        /**
+          * Enable the return-button to exit the render-view
+         */
+        "enableReturn"?: boolean;
+        /**
+          * If true, the Renderer will show the last question
+         */
+        "lastQuestion"?: boolean;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "locale"?: string;
+        /**
+          * Current type of Questionnaire-Style to display Available: StepperQuestionnaire, GroupedQuestionnaire, FullQuestionnaire
+         */
+        "mode"?: string;
+        /**
+          * Emits an Event to exit the Renderer
+         */
+        "onExit"?: (event: CustomEvent<any>) => void;
+        "onFinished"?: (event: CustomEvent<any>) => void;
+        "onUpdated"?: (event: CustomEvent<any>) => void;
+        /**
+          * Primary color
+         */
+        "primary"?: string;
+        /**
+          * FHIR-Resource Questionnaire
+         */
+        "questionnaire"?: any;
+        /**
+          * FHIR-Resource QuestionnaireResponse
+         */
+        "questionnaireResponse"?: any;
+        /**
+          * The Url to fetch the Questionnaire from
+         */
+        "questionnaireUrl"?: string;
+        /**
+          * Secondary color
+         */
+        "secondary"?: string;
+        /**
+          * ID of the question in the ItemList where in the list of questions the renderer should start
+         */
+        "startQuestion"?: Object;
+        /**
+          * FHIR-Resource Patient
+         */
+        "subject"?: any;
+        /**
+          * List of ValueSets that are needed to display the given questionnaire
+         */
+        "valueSets"?: Array<any>;
+    }
     interface SimpleSpinner {
         "borderTopColor"?: string;
         "message"?: String;
     }
     interface StepperQuestionnaire {
+        "baseUrl"?: string;
+        /**
+          * Color used to symbolise danger
+         */
+        "danger"?: string;
+        "editMode"?: boolean;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "enableReturn"?: boolean;
+        "filteredItemList"?: Array<any>;
+        "lastQuestion"?: boolean;
+        "locale"?: string;
+        /**
+          * Counts down the Question-Number
+         */
+        "onBack"?: (event: CustomEvent<any>) => void;
+        /**
+          * Relays the Event from the question-components to the top-component
+         */
+        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Counts up the Question-Number
+         */
+        "onFinished"?: (event: CustomEvent<any>) => void;
+        "onSummery"?: (event: CustomEvent<any>) => void;
+        /**
+          * Primary color
+         */
+        "primary"?: string;
+        "questionnaire": any;
+        "questionnaireResponse"?: Object;
+        "requiredQuestionList"?: Array<any>;
+        /**
+          * Secondary color
+         */
+        "secondary"?: string;
+        "spinner"?: any;
+        "startCount"?: number;
+        "valueSets"?: Array<any>;
+    }
+    interface StringQuestion {
+        /**
+          * Color used to symbolise danger
+         */
+        "danger"?: string;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "locale"?: string;
+        "mode"?: string;
+        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Handles KeyPresses by adding Eventlisteners
+         */
+        "onEmitNext"?: (event: CustomEvent<any>) => void;
+        /**
+          * Primary color
+         */
+        "primary"?: string;
+        "question"?: any;
+        "questionnaireResponse"?: Object;
+        /**
+          * Secondary color
+         */
+        "secondary"?: string;
+    }
+    interface TestUi {
+    }
+    interface TextQuestion {
+        /**
+          * Color used to symbolise danger
+         */
+        "danger"?: string;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "locale"?: string;
+        "mode"?: string;
+        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Handles KeyPresses by adding Eventlisteners
+         */
+        "onEmitNext"?: (event: CustomEvent<any>) => void;
+        /**
+          * Primary color
+         */
+        "primary"?: string;
+        "question"?: any;
+        "questionnaireResponse"?: Object;
+        /**
+          * Secondary color
+         */
+        "secondary"?: string;
     }
     interface TimeQuestion {
         /**
@@ -582,11 +1000,38 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         /**
-          * Language property of the component. </br> Currently suported: [de, en]
+          * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale"?: string;
         "mode"?: string;
         "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Primary color
+         */
+        "primary"?: string;
+        "question"?: any;
+        "questionnaireResponse"?: Object;
+        /**
+          * Secondary color
+         */
+        "secondary"?: string;
+    }
+    interface UrlQuestion {
+        /**
+          * Color used to symbolise danger
+         */
+        "danger"?: string;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "locale"?: string;
+        "mode"?: string;
+        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Handles KeyPresses by adding Eventlisteners
+         */
+        "onEmitNext"?: (event: CustomEvent<any>) => void;
+        "onEmitRemoveRequiredAnswer"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -618,9 +1063,14 @@ declare namespace LocalJSX {
         "group-question": GroupQuestion;
         "groups-questionnaire": GroupsQuestionnaire;
         "integer-question": IntegerQuestion;
+        "questionnaire-renderer": QuestionnaireRenderer;
         "simple-spinner": SimpleSpinner;
         "stepper-questionnaire": StepperQuestionnaire;
+        "string-question": StringQuestion;
+        "test-ui": TestUi;
+        "text-question": TextQuestion;
         "time-question": TimeQuestion;
+        "url-question": UrlQuestion;
         "vas-question": VasQuestion;
     }
 }
@@ -638,9 +1088,14 @@ declare module "@stencil/core" {
             "group-question": LocalJSX.GroupQuestion & JSXBase.HTMLAttributes<HTMLGroupQuestionElement>;
             "groups-questionnaire": LocalJSX.GroupsQuestionnaire & JSXBase.HTMLAttributes<HTMLGroupsQuestionnaireElement>;
             "integer-question": LocalJSX.IntegerQuestion & JSXBase.HTMLAttributes<HTMLIntegerQuestionElement>;
+            "questionnaire-renderer": LocalJSX.QuestionnaireRenderer & JSXBase.HTMLAttributes<HTMLQuestionnaireRendererElement>;
             "simple-spinner": LocalJSX.SimpleSpinner & JSXBase.HTMLAttributes<HTMLSimpleSpinnerElement>;
             "stepper-questionnaire": LocalJSX.StepperQuestionnaire & JSXBase.HTMLAttributes<HTMLStepperQuestionnaireElement>;
+            "string-question": LocalJSX.StringQuestion & JSXBase.HTMLAttributes<HTMLStringQuestionElement>;
+            "test-ui": LocalJSX.TestUi & JSXBase.HTMLAttributes<HTMLTestUiElement>;
+            "text-question": LocalJSX.TextQuestion & JSXBase.HTMLAttributes<HTMLTextQuestionElement>;
             "time-question": LocalJSX.TimeQuestion & JSXBase.HTMLAttributes<HTMLTimeQuestionElement>;
+            "url-question": LocalJSX.UrlQuestion & JSXBase.HTMLAttributes<HTMLUrlQuestionElement>;
             "vas-question": LocalJSX.VasQuestion & JSXBase.HTMLAttributes<HTMLVasQuestionElement>;
         }
     }

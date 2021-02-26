@@ -19,14 +19,18 @@ export class QuestionnaireRenderer {
    */
   @State() strings: any;
   @State() currentQuestionnaireResponse: any = null;
-  @Event() emitUpdated: EventEmitter;
+  @Event() updated: EventEmitter;
   @Watch('currentQuestionnaireResponse')
   async watchCurrentQuestionnaireResponse() {
     //TODO Make sure deep changes are noticed
     await this.filterItemList();
     this.handleAnsweredQuestionsList();
-    this.emitUpdated.emit(this.currentQuestionnaireResponse);
+    this.updated.emit(this.currentQuestionnaireResponse);
   }
+  @State() spinner: Object = {
+    loading: true,
+    message: '',
+  };
 
   /**
    * FHIR-Resource Questionnaire
@@ -119,10 +123,6 @@ export class QuestionnaireRenderer {
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
-  spinner: Object = {
-    loading: true,
-    message: '',
-  };
   filteredItemList: Array<any> = [];
   answeredRequiredQuestionsList: Array<any> = [];
   currentMode: string = null;
@@ -360,9 +360,6 @@ export class QuestionnaireRenderer {
     }
   }
 
-  /**
-   *
-   */
   handleStartQuestion(question) {
     if (question && this.filteredItemList) {
       if (this.mode === 'GroupedQuestionnaire') {
@@ -420,9 +417,6 @@ export class QuestionnaireRenderer {
     return parentQuestion;
   }
 
-  /**
-   *
-   */
   async filterItemList() {
     let newList = [];
     if (this.currentQuestionnaireResponse && this.questionnaire) {
@@ -451,20 +445,21 @@ export class QuestionnaireRenderer {
 
   async componentWillLoad(): Promise<void> {
     try {
+      console.log(this.questionnaire);
       this.strings = await getLocaleComponentStrings(this.element, this.locale);
-      this.spinner.loading = true;
-      this.spinner.message = this.strings.loading.questionnaire;
+      this.spinner = {...this.spinner, loading: true};
+      this.spinner = {...this.spinner, message: this.strings.loading.questionnaire};
       await this.handleQuestionnaire();
-      this.spinner.message = this.strings.loading.valueset;
+      this.spinner = {...this.spinner, message: this.strings.loading.valueset};
       await this.handleValueSets();
-      this.spinner.message = this.strings.loading.data;
+      this.spinner = {...this.spinner, message: this.strings.loading.data};
       await this.handleQuestionnaireResponse();
       await this.filterItemList();
       this.handleAnsweredQuestionsList();
       this.currentMode = this.mode;
       this.handleStartQuestion(this.startQuestion);
       setTimeout(() => {
-        this.spinner.loading = false;
+        this.spinner = {...this.spinner, loading: false};
       }, 250);
     } catch (e) {
       console.error(e);

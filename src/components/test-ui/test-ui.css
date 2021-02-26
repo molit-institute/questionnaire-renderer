@@ -1,0 +1,36 @@
+:host {
+  display: block;
+}
+.item {
+  font-size: 1rem;
+  width: 40px;
+  min-width: 55px;
+  height: 40px;
+  display: flex;
+  margin: 2px 0 0 8px;
+  padding: 5px 0 0 0;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #ced4da;
+}
+.item-selected {
+  font-size: 1rem;
+  width: 40px;
+  min-width: 55px;
+  height: 40px;
+  display: flex;
+  margin: 2px 0 0 8px;
+  padding: 5px 0 0 0;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #495057;
+  border-bottom: 3px solid #495057;
+}
+.navbar {
+  margin-bottom: 2rem;
+}
+.flex {
+  display: flex;
+}
