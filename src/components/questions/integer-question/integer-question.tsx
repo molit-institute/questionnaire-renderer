@@ -215,7 +215,7 @@ export class IntegerQuestion {
           <vas-question min={this.minVas()} max={this.maxVas()} step={this.stepVas()} selected={this.selected} labelLower={this.labelLowerVas()} labelUpper={this.labelUpperVas()} />
         ) : (
           <div class="class option-card">
-            <div v-else class="form-row">
+            <div class="form-row">
               <div id={'integer' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
                 <label class="" htmlFor="integerInput">
                   {this.strings.integer.text}:
