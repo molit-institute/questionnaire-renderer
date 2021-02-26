@@ -1,0 +1,13 @@
+:host {
+    display: block;
+}
+.hidden {
+    visibility: hidden;
+}
+.card {
+    border-radius: 20px;
+    border: 0;
+}
+.option-card {
+    margin-top: 6px;
+}
