@@ -1,7 +1,7 @@
 /**
  * This Component adds a single Url-Question and reacts to the users input
  */
-import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '@stencil/core';
+import { Component, h, Prop, Watch, State, Element, Event, EventEmitter, Listen } from '@stencil/core';
 import questionnaireResponseController from "../../../utils/questionnaireResponseController";
 import { getLocaleComponentStrings } from '../../../utils/locale';
 
@@ -52,7 +52,7 @@ export class UrlQuestion {
     @Prop() locale: string = 'en';
     @Watch('locale')
     async watchLocale(newValue: string) {
-        console.log(newValue);
+        
         this.strings = await getLocaleComponentStrings(this.element, newValue);
     }
 
@@ -119,15 +119,12 @@ export class UrlQuestion {
      *  Handles KeyPresses by adding Eventlisteners
      */
     @Event() emitNext: EventEmitter;
-    handleKeyPress() {
-        let input = document.getElementById('url' + this.question.linkId);
-        let object = this;
-        input.addEventListener('keyup', function (event) {
-            event.preventDefault();
-            if (event.keyCode === 13) {
-                object.emitNext.emit('next');
-            }
-        });
+    @Listen('keyup')
+    handleKeyPress(ev: KeyboardEvent) {
+      if (ev.keyCode === 13) {
+        ev.preventDefault();
+        this.emitNext.emit('next');
+      }
     }
 
     /* Lifecycle Methods */

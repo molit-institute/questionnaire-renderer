@@ -6,10 +6,11 @@ import enableQuestionnaire from '../../assets/fhir/resources/questionnaire-lang-
 @Component({
   tag: 'test-ui',
   styleUrl: 'test-ui.css',
-  shadow: true,
+  shadow: false,
+  scoped: true
 })
 export class TestUi {
-  @State() questionnaireMode: string = 'StepperQuestionnaire';
+  @State() questionnaireMode: string = 'stepper-questionnaire';
   questionnaireResponse: Object = null;
   @State() show_questionnaire_list: boolean = true;
   @State() show_renderer: boolean = false;
@@ -82,13 +83,13 @@ export class TestUi {
         <div class="container-fluid">
           {/* QUESTIONNAIRE RENDERER */}
           <span class="flex">
-            <div onClick={() => this.setQuestionnaireMode('StepperQuestionnaire')} class={this.questionnaireMode === 'StepperQuestionnaire' ? 'item item-selected' : 'item'}>
+            <div onClick={() => this.setQuestionnaireMode('stepper-questionnaire')} class={this.questionnaireMode === 'stepper-questionnaire' ? 'item item-selected' : 'item'}>
               Stepper
             </div>
-            <div onClick={() => this.setQuestionnaireMode('GroupedQuestionnaire')} class={this.questionnaireMode === 'GroupedQuestionnaire' ? 'item item-selected' : 'item'}>
+            <div onClick={() => this.setQuestionnaireMode('grouped-questionnaire')} class={this.questionnaireMode === 'grouped-questionnaire' ? 'item item-selected' : 'item'}>
               Grouped
             </div>
-            <div onClick={() => this.setQuestionnaireMode('FullQuestionnaire')} class={this.questionnaireMode === 'FullQuestionnaire' ? 'item item-selected' : 'item'}>
+            <div onClick={() => this.setQuestionnaireMode('full-questionnaire')} class={this.questionnaireMode === 'full-questionnaire' ? 'item item-selected' : 'item'}>
               Full
             </div>
           </span>

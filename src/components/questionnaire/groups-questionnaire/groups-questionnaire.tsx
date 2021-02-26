@@ -84,7 +84,7 @@ export class GroupsQuestionnaire {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    console.log(newValue);
+    
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
@@ -123,7 +123,7 @@ export class GroupsQuestionnaire {
   }
 
   getQuestionType() {
-    return this.getQuestionFromItemList().type + 'Question';
+    return this.getQuestionFromItemList().type + '-question';
   }
 
   getQuestion() {
@@ -165,14 +165,6 @@ export class GroupsQuestionnaire {
   @Event() summery: EventEmitter;
   goToSummary() {
     this.summery.emit('summary');
-  }
-
-  /**
-   * Relays the Event from the question-components to the top-component
-   */
-  @Event() emitAnswer: EventEmitter;
-  relayAnswer(object) {
-    this.emitAnswer.emit(object);
   }
 
   /**
@@ -314,6 +306,7 @@ export class GroupsQuestionnaire {
   }
 
   render() {
+    const Tag = this.getQuestionType();
     return this.questionnaire ? (
       <div class="card">
         {/* SPINNER */}
@@ -326,10 +319,9 @@ export class GroupsQuestionnaire {
         ) : (
           <div>
             {/* if Questiontype is Group */}
-            {this.getQuestionType() === 'groupQuestion' ? (
+            {this.getQuestionType() === 'group-question' ? (
               <div class="component-container container">
-                <component
-                  is={this.getQuestionType()}
+                <Tag
                   question={this.getQuestion()}
                   mode="GROUPS"
                   filteredItemList={this.filteredItemList}
@@ -341,14 +333,12 @@ export class GroupsQuestionnaire {
                   secondary={this.secondary}
                   danger={this.danger}
                   locale={this.locale}
-                  onEmitAnswer={ev => this.relayAnswer(ev)}
-                ></component>
+                ></Tag>
               </div>
             ) : (
               <div class="container">
                 <div class="column card card-body">
-                  <component
-                    is={this.getQuestionType()}
+                  <Tag
                     question={this.getQuestion()}
                     mode="GROUPS"
                     questionnaireResponse={this.questionnaireResponse}
@@ -359,8 +349,7 @@ export class GroupsQuestionnaire {
                     secondary={this.secondary}
                     danger={this.danger}
                     locale={this.locale}
-                    onEmitAnswer={ev => this.relayAnswer(ev)}
-                  ></component>
+                  ></Tag>
                 </div>
               </div>
             )}

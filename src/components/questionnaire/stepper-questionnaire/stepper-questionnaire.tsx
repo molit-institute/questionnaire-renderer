@@ -24,7 +24,7 @@ export class StepperQuestionnaire {
   }
 
   @Prop() filteredItemList: Array<any>;
-  @Watch('filteredList')
+  @Watch('filteredItemList')
   watchFilteredList() {
     //TODO Make sure deep changes are noticed
     if (this.filteredItemList[this.count].type !== 'group' && this.count === 0) {
@@ -87,7 +87,6 @@ export class StepperQuestionnaire {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    console.log(newValue);
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
@@ -112,7 +111,7 @@ export class StepperQuestionnaire {
   getQuestionType() {
     let type = null;
     if (this.getQuestionFromItemList()) {
-      type = this.getQuestionFromItemList().type + 'Question';
+      type = this.getQuestionFromItemList().type + '-question';
     }
     return type;
   }
@@ -176,14 +175,6 @@ export class StepperQuestionnaire {
   @Event() summery: EventEmitter;
   goToSummary() {
     this.summery.emit('summary');
-  }
-
-  /**
-   * Relays the Event from the question-components to the top-component
-   */
-  @Event() emitAnswer: EventEmitter;
-  relayAnswer(object) {
-    this.emitAnswer.emit(object);
   }
 
   /**
@@ -306,6 +297,7 @@ export class StepperQuestionnaire {
   }
 
   render() {
+    const Tag = this.getQuestionType();
     return (
       <div class="card">
         <div class="column card-body">
@@ -328,7 +320,7 @@ export class StepperQuestionnaire {
                     {this.strings.question} {this.questionCount}
                   </span>
                   <span class="color-grey">
-                    {this.strings.of} {this.numberOfQuestions}
+                    {this.strings.of} {this.numberOfQuestions()}
                   </span>
                 </div>
               ) : null}
@@ -338,9 +330,8 @@ export class StepperQuestionnaire {
           <br />
           {!this.spinner.loading && this.count !== null && this.filteredItemList ? (
             <div>
-              <component
+              <Tag
                 key={this.getQuestion().id}
-                is={this.getQuestionType()}
                 question={this.getQuestion()}
                 mode="STEPPER"
                 questionnaireResponse={this.questionnaireResponse}
@@ -351,9 +342,8 @@ export class StepperQuestionnaire {
                 secondary={this.secondary}
                 danger={this.danger}
                 locale={this.locale}
-                onEmitAnswer={ev => this.relayAnswer(ev)}
-                onEmitNext={() => this.countUp}
-              ></component>
+                onEmitNext={() => this.countUp()}
+              ></Tag>
             </div>
           ) : null}
           {!this.spinner.loading ? <div class="spacer"></div> : null}
@@ -361,7 +351,7 @@ export class StepperQuestionnaire {
             <div class="button-container">
               {/* Button Back */}
               {(!this.editMode && this.count !== 0) || (!this.editMode && this.enableReturn && this.count === 0) ? (
-                <button type="button" class="btn button btn-outline-primary btn-lg" onClick={() => this.countDown}>
+                <button type="button" class="btn button btn-outline-primary btn-lg" onClick={() => this.countDown()}>
                   {this.strings.back}
                 </button>
               ) : null}
@@ -374,7 +364,7 @@ export class StepperQuestionnaire {
               {/* Button Next */}
               <span>
                 {this.count <= this.filteredItemList.length - 1 && !this.disabled && !this.editMode ? (
-                  <button id="next-button" type="button" class="button btn-primary btn-lg" onClick={() => this.countUp}>
+                  <button id="next-button" type="button" class="button btn-primary btn-lg" onClick={() => this.countUp()}>
                     {this.strings.next}
                   </button>
                 ) : null}

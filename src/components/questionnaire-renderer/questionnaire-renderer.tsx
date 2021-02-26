@@ -22,7 +22,6 @@ export class QuestionnaireRenderer {
   @Event() updated: EventEmitter;
   @Watch('currentQuestionnaireResponse')
   async watchCurrentQuestionnaireResponse() {
-    //TODO Make sure deep changes are noticed
     await this.filterItemList();
     this.handleAnsweredQuestionsList();
     this.updated.emit(this.currentQuestionnaireResponse);
@@ -31,6 +30,7 @@ export class QuestionnaireRenderer {
     loading: true,
     message: '',
   };
+  @State() filteredItemList: Array<any> = [];
 
   /**
    * FHIR-Resource Questionnaire
@@ -62,7 +62,7 @@ export class QuestionnaireRenderer {
   @Prop() baseUrl: string;
   /**
    * Current type of Questionnaire-Style to display
-   * Available: StepperQuestionnaire, GroupedQuestionnaire, FullQuestionnaire
+   * Available: stepper-questionnaire, grouped-questionnaire, full-questionnaire
    */
   @Prop() mode: string = 'StepperQuestionnaire';
   @Watch('mode')
@@ -119,11 +119,10 @@ export class QuestionnaireRenderer {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    console.log(newValue);
+    
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
-  filteredItemList: Array<any> = [];
   answeredRequiredQuestionsList: Array<any> = [];
   currentMode: string = null;
   currentQuestionnaire: any = null;
@@ -159,8 +158,9 @@ export class QuestionnaireRenderer {
    * Takes the given object, adds new answers to the curren QuestionnaireRespons and saves the question as the last answered Question
    */
   async handleQuestionnaireResponseEvent(object) {
-    this.lastAnsweredQuestion = object.question;
-    this.currentQuestionnaireResponse = await questionnaireResponseController.addAnswersToQuestionnaireResponse(this.currentQuestionnaireResponse, object.question.linkId, object.value, object.type);
+    this.lastAnsweredQuestion = object.detail.question;
+    let qrc = await questionnaireResponseController.addAnswersToQuestionnaireResponse(this.currentQuestionnaireResponse, object.detail.question.linkId, object.detail.value, object.detail.type)
+    this.currentQuestionnaireResponse = {...this.currentQuestionnaireResponse, qrc};
     this.handleAnsweredQuestionsList();
   }
 
@@ -445,36 +445,35 @@ export class QuestionnaireRenderer {
 
   async componentWillLoad(): Promise<void> {
     try {
-      console.log(this.questionnaire);
       this.strings = await getLocaleComponentStrings(this.element, this.locale);
-      this.spinner = {...this.spinner, loading: true};
-      this.spinner = {...this.spinner, message: this.strings.loading.questionnaire};
+      this.spinner = { ...this.spinner, loading: true };
+      this.spinner = { ...this.spinner, message: this.strings.loading.questionnaire };
       await this.handleQuestionnaire();
-      this.spinner = {...this.spinner, message: this.strings.loading.valueset};
+      this.spinner = { ...this.spinner, message: this.strings.loading.valueset };
       await this.handleValueSets();
-      this.spinner = {...this.spinner, message: this.strings.loading.data};
+      this.spinner = { ...this.spinner, message: this.strings.loading.data };
       await this.handleQuestionnaireResponse();
       await this.filterItemList();
       this.handleAnsweredQuestionsList();
       this.currentMode = this.mode;
       this.handleStartQuestion(this.startQuestion);
       setTimeout(() => {
-        this.spinner = {...this.spinner, loading: false};
+        this.spinner = { ...this.spinner, loading: false };
       }, 250);
     } catch (e) {
       console.error(e);
     }
   }
   render() {
+    const Tag = this.mode;
     return (
       <div>
         {!this.modal ? (
-          <component
+          <Tag
             filteredItemList={this.filteredItemList}
             questionnaireResponse={this.currentQuestionnaireResponse}
             questionnaire={this.currentQuestionnaire}
             requiredQuestionList={this.answeredRequiredQuestionsList}
-            is={this.mode}
             valueSets={this.currentValueSets}
             lastQuestion={this.lastQuestion}
             startCount={this.currentStartCount}
@@ -490,7 +489,7 @@ export class QuestionnaireRenderer {
             onFinished={() => this.finishQuestionnaire()}
             onReturn={() => this.leaveQuestionnaireRenderer()}
             onEmitAnswer={ev => this.handleQuestionnaireResponseEvent(ev)}
-          ></component>
+          ></Tag>
         ) : (
           // TODO does calc work like this?
           <div class="align-vertical" style={{ height: 'calc(100vh - 200px)' }}>

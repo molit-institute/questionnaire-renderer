@@ -1,7 +1,7 @@
 /**
  * This Component adds a single Decimal-Question and reacts to the users input
  */
-import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '@stencil/core';
+import { Component, h, Prop, Watch, State, Element, Event, EventEmitter, Listen } from '@stencil/core';
 import questionnaireResponseController from '../../../utils/questionnaireResponseController';
 import { getLocaleComponentStrings } from '../../../utils/locale';
 
@@ -86,7 +86,7 @@ export class DecimalQuestion {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    console.log(newValue);
+    
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
@@ -103,17 +103,13 @@ export class DecimalQuestion {
    */
 
   @Event() emitNext: EventEmitter;
-  handleKeyPress() {
-    let input = document.getElementById('decimal' + this.question.linkId);
-    let object = this;
-    input.addEventListener('keyup', function (event) {
-      event.preventDefault();
-      if (event.keyCode === 13) {
-        object.emitNext.emit('next'); //TODO passt das?
-      }
-    });
+  @Listen('keyup')
+  handleKeyPress(ev: KeyboardEvent) {
+    if (ev.keyCode === 13) {
+      ev.preventDefault();
+      this.emitNext.emit('next');
+    }
   }
-
   /**
    *
    */
@@ -139,9 +135,6 @@ export class DecimalQuestion {
     } catch (e) {
       console.error(e);
     }
-  }
-  componentWillRender() {
-    this.handleKeyPress();
   }
 
   render() {

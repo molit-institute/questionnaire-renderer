@@ -16,7 +16,7 @@ export class FullQuestionnaire {
   @State() strings: any;
 
   @Prop() filteredItemList: Array<any>;
-  @Prop() questionnaire: any;
+  @Prop() questionnaire!: any;
   @Watch('questionnaire')
   validateQuestionnaire() {
     if (this.questionnaire == null) {
@@ -48,7 +48,7 @@ export class FullQuestionnaire {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    console.log(newValue);
+    
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
@@ -95,14 +95,6 @@ export class FullQuestionnaire {
     this.summery.emit('summary');
   }
 
-  /**
-   * Relays the Event from the question-components to the top-component
-   */
-  @Event() emitAnswer: EventEmitter;
-  relayAnswer(object) {
-    this.emitAnswer.emit(object);
-  }
-
   @Event() back: EventEmitter;
   backToQuestionnaireList() {
     this.back.emit('return');
@@ -145,35 +137,36 @@ export class FullQuestionnaire {
         ) : (
           <div>
             <transition-group name="list-complete" tag="p">
-              {this.filteredItemList.map((question, index) => (
-                <span class="list-complete-item">
-                  <div id={index.toString()} class="card card-basic-margins">
-                    {this.strings ? (
-                      <div class="card-body">
-                        {question.type !== 'group' ? (
-                          <div>
-                            {this.strings.question} {this.getQuestionIndex(question) + 1} {this.strings.of} {this.questionsList().length}
-                          </div>
-                        ) : null}
-                        {question.groupId && !question.item ? <div class="question-group-text">{this.getGroupText(question)}</div> : null}
-                        <component
-                          is={question.type + 'Question'}
-                          question={question}
-                          questionnaireResponse={this.questionnaireResponse}
-                          questionnaire={this.questionnaire}
-                          valueSets={this.valueSets}
-                          baseUrl={this.baseUrl}
-                          primary={this.primary}
-                          secondary={this.secondary}
-                          danger={this.danger}
-                          locale={this.locale}
-                          onEmitAnswer={ev => this.relayAnswer(ev)}
-                        ></component>
-                      </div>
-                    ) : null}
-                  </div>
-                </span>
-              ))}
+              {this.filteredItemList.map((question, index) => {
+                const Tag = question.type + '-question';
+                return (
+                  <span class="list-complete-item">
+                    <div id={index.toString()} class="card card-basic-margins">
+                      {this.strings ? (
+                        <div class="card-body">
+                          {question.type !== 'group' ? (
+                            <div>
+                              {this.strings.question} {this.getQuestionIndex(question) + 1} {this.strings.of} {this.questionsList().length}
+                            </div>
+                          ) : null}
+                          {question.groupId && !question.item ? <div class="question-group-text">{this.getGroupText(question)}</div> : null}
+                          <Tag
+                            question={question}
+                            questionnaireResponse={this.questionnaireResponse}
+                            questionnaire={this.questionnaire}
+                            valueSets={this.valueSets}
+                            baseUrl={this.baseUrl}
+                            primary={this.primary}
+                            secondary={this.secondary}
+                            danger={this.danger}
+                            locale={this.locale}
+                          ></Tag>
+                        </div>
+                      ) : null}
+                    </div>
+                  </span>
+                );
+              })}
             </transition-group>
             {/* BUTTONS */}
             <div class="card-margin-bottom">

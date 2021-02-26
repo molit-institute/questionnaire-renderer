@@ -85,7 +85,7 @@ const enableQuestionnaire = {
     {
       linkId: '3',
       prefix: '2',
-      text: 'Persönliche Angaben',
+      text: 'Wir sind zu weit',
       type: 'decimal',
     },
     {

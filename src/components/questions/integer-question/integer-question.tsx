@@ -86,7 +86,7 @@ export class IntegerQuestion {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    console.log(newValue);
+    
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
@@ -164,15 +164,12 @@ export class IntegerQuestion {
    *  Handles KeyPresses by adding Eventlisteners
    */
   @Event() emitNext: EventEmitter;
-  handleKeyPress() {
-    let input = document.getElementById('integer' + this.question.linkId);
-    let object = this;
-    input.addEventListener('keyup', function (event) {
-      event.preventDefault();
-      if (event.keyCode === 13) {
-        object.emitNext.emit('next'); //TODO passt das?
-      }
-    });
+  @Listen('keyup')
+  handleKeyPress(ev: KeyboardEvent) {
+    if (ev.keyCode === 13) {
+      ev.preventDefault();
+      this.emitNext.emit('next');
+    }
   }
   setSelected() {
     this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'integer');
@@ -195,9 +192,9 @@ export class IntegerQuestion {
       console.error(e);
     }
   }
-  componentWillRender() {
-    this.handleKeyPress();
-  }
+  // componentWillRender() {
+  //   this.handleKeyPress();
+  // }
 
   render() {
     return (

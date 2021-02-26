@@ -255,7 +255,7 @@ export namespace Components {
          */
         "locale": string;
         /**
-          * Current type of Questionnaire-Style to display Available: StepperQuestionnaire, GroupedQuestionnaire, FullQuestionnaire
+          * Current type of Questionnaire-Style to display Available: stepper-questionnaire, grouped-questionnaire, full-questionnaire
          */
         "mode": string;
         /**
@@ -693,16 +693,12 @@ declare namespace LocalJSX {
         "filteredItemList"?: Array<any>;
         "locale"?: string;
         "onBack"?: (event: CustomEvent<any>) => void;
-        /**
-          * Relays the Event from the question-components to the top-component
-         */
-        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
         "onSummery"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
         "primary"?: string;
-        "questionnaire"?: any;
+        "questionnaire": any;
         "questionnaireResponse"?: Object;
         "requiredQuestionList"?: Array<any>;
         /**
@@ -777,10 +773,6 @@ declare namespace LocalJSX {
          */
         "onBack"?: (event: CustomEvent<any>) => void;
         /**
-          * Relays the Event from the question-components to the top-component
-         */
-        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
-        /**
           * Counts up the Question-Number
          */
         "onFinished"?: (event: CustomEvent<any>) => void;
@@ -852,7 +844,7 @@ declare namespace LocalJSX {
          */
         "locale"?: string;
         /**
-          * Current type of Questionnaire-Style to display Available: StepperQuestionnaire, GroupedQuestionnaire, FullQuestionnaire
+          * Current type of Questionnaire-Style to display Available: stepper-questionnaire, grouped-questionnaire, full-questionnaire
          */
         "mode"?: string;
         /**
@@ -916,10 +908,6 @@ declare namespace LocalJSX {
           * Counts down the Question-Number
          */
         "onBack"?: (event: CustomEvent<any>) => void;
-        /**
-          * Relays the Event from the question-components to the top-component
-         */
-        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
         /**
           * Counts up the Question-Number
          */
