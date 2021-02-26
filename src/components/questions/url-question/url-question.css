@@ -14,6 +14,12 @@
     font-size: 80%;
     color: #dc3545;
   }
+.my-valid-feedback {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #198754;
+}
 .option-card {
     margin-top: 3px;
 }

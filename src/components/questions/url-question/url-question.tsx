@@ -11,7 +11,7 @@ import { getLocaleComponentStrings } from '../../../utils/locale';
     shadow: false,
     scoped: true
 })
-export class StringQuestion {
+export class UrlQuestion {
 
     @Element() element: HTMLElement;
     /**
@@ -125,16 +125,17 @@ export class StringQuestion {
         input.addEventListener('keyup', function (event) {
             event.preventDefault();
             if (event.keyCode === 13) {
-                object.emitNext.emit('next'); //TODO passt das?
+                object.emitNext.emit('next');
             }
         });
     }
-    /* Lifecycle Methods */
 
+    /* Lifecycle Methods */
+    @Event() emitRemoveRequiredAnswer: EventEmitter;
     async componentWillLoad(): Promise<void> {
         try {
             this.strings = await getLocaleComponentStrings(this.element, this.locale);
-            this.emitAnswer.emit(this.question); //TODO woher weiß der questionnaire renderer welches event das ist?
+            this.emitRemoveRequiredAnswer.emit(this.question);
             await this.setSelected();
             this.allow_events = true;
         } catch (e) {
@@ -162,17 +163,16 @@ export class StringQuestion {
                                 {this.strings.url.text}:
                             </label>
                             <input value="selected" type="text" v-model="selected" class="form-control" id="url-text" pattern="\S*" />
-                            {/* TODO */}
                             {this.strings ? (
                                 <div style={{ color: this.danger }} class={this.naUrl === false ? 'hidden my-invalid-feedback' : this.naUrl === null ? 'hidden my-invalid-feedback' : 'visible my-invalid-feedback'}>
                                     {this.strings.url.invalid}
                                 </div>
                             ) : null}
-                            {/* {this.strings ? (
-                                <div style={{ color: this.danger }} class={this.naUrl === false ? 'hidden my-invalid-feedback' : this.naUrl === null ? 'hidden my-invalid-feedback' : 'visible my-invalid-feedback'}>
+                            {this.strings ? (
+                                <div class={this.naUrl !== false ? 'hidden my-valid-feedback' : this.naUrl !== null ? 'hidden my-valid-feedback' : 'visible my-valid-feedback'}>
                                     {this.strings.url.valid}
                                 </div>
-                            ) : null}  */}
+                            ) : null} 
                         </div>
                     </div>
                 </div>
