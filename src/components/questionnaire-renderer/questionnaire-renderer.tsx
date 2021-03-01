@@ -149,9 +149,9 @@ export class QuestionnaireRenderer {
 
   /* methods */
   @Event() finished: EventEmitter;
-  backToSummary() {
+  backToSummary(questionnaireResponse) {
     this.modal = false;
-    this.finished.emit(this.currentQuestionnaireResponse);
+    this.finished.emit(questionnaireResponse);
   }
 
   /**
@@ -160,7 +160,7 @@ export class QuestionnaireRenderer {
   async handleQuestionnaireResponseEvent(object) {
     this.lastAnsweredQuestion = object.detail.question;
     let qrc = await questionnaireResponseController.addAnswersToQuestionnaireResponse(this.currentQuestionnaireResponse, object.detail.question.linkId, object.detail.value, object.detail.type)
-    this.currentQuestionnaireResponse = {...this.currentQuestionnaireResponse, qrc};
+    this.currentQuestionnaireResponse = qrc;
     this.handleAnsweredQuestionsList();
   }
 
@@ -429,8 +429,8 @@ export class QuestionnaireRenderer {
   /**
    * Emits an Event wich includes the finished Questionnaire Response
    */
-  finishQuestionnaire() {
-    this.finished.emit(this.currentQuestionnaireResponse);
+  finishQuestionnaire(questionnaireResponse) {
+    this.finished.emit(questionnaireResponse);
   }
 
   /**
@@ -485,8 +485,8 @@ export class QuestionnaireRenderer {
             enableReturn={this.enableReturn}
             locale={this.locale}
             spinner={this.spinner}
-            onSummary={() => this.backToSummary()}
-            onFinished={() => this.finishQuestionnaire()}
+            onSummary={() => this.backToSummary(this.currentQuestionnaireResponse)}
+            onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
             onReturn={() => this.leaveQuestionnaireRenderer()}
             onEmitAnswer={ev => this.handleQuestionnaireResponseEvent(ev)}
           ></Tag>
@@ -497,7 +497,7 @@ export class QuestionnaireRenderer {
               <div>
                 <div>{this.strings.questionDeactivated}</div>
                 <div class="button-container">
-                  <button class="btn btn-primary" onClick={() => this.backToSummary()}>
+                  <button class="btn btn-primary" onClick={() => this.backToSummary(this.currentQuestionnaireResponse)}>
                     {this.strings.backtoSummary}
                   </button>
                 </div>

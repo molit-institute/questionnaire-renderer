@@ -204,7 +204,7 @@ export class StepperQuestionnaire {
   /**
    * Counts up the Question-Number
    */
-  @Event() finished: EventEmitter;
+  @Event() finish: EventEmitter;
   countUp() {
     if (this.count < this.filteredItemList.length - 1 && !this.disabled && !this.editMode) {
       //next button
@@ -214,9 +214,9 @@ export class StepperQuestionnaire {
       }
       this.scrollToTop();
     } else if (this.count === this.filteredItemList.length - 1 && !this.disabled && !this.editMode) {
-      this.finished.emit('finished');
+      this.finish.emit('finish');
     } else if (this.startCount !== null && this.editMode) {
-      this.finished.emit('finished');
+      this.finish.emit('finish');
     }
   }
 

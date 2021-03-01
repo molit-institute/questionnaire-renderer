@@ -7,11 +7,11 @@ import enableQuestionnaire from '../../assets/fhir/resources/questionnaire-lang-
   tag: 'test-ui',
   styleUrl: 'test-ui.css',
   shadow: false,
-  scoped: true
+  scoped: true,
 })
 export class TestUi {
   @State() questionnaireMode: string = 'stepper-questionnaire';
-  questionnaireResponse: Object = null;
+  questionnaireResponse: any = null;
   @State() show_questionnaire_list: boolean = true;
   @State() show_renderer: boolean = false;
   @State() show_summary: boolean = false;
@@ -29,7 +29,7 @@ export class TestUi {
 
   /* methods */
   setQuestionnaireMode(selectedMode) {
-    console.log(selectedMode)
+    // console.log(selectedMode)
     this.questionnaireMode = selectedMode;
   }
   setQuestionnaireResponse(response) {
@@ -42,6 +42,7 @@ export class TestUi {
     this.show_summary = false;
   }
   getItemList(object) {
+    console.log(object);
     return questionnaireResponseController.createItemList(object);
   }
   updateQR(newqr) {
@@ -61,7 +62,7 @@ export class TestUi {
     this.lastQuestion = false;
   }
   toSummary(newQr) {
-    this.questionnaireResponse = newQr;
+    this.questionnaireResponse = newQr.detail;
     this.show_renderer = false;
     this.edit = false;
     // this.index = null;
@@ -120,12 +121,12 @@ export class TestUi {
             <div class="row">
               <div class="col-sm-4" style={{ backgroundColor: 'lightgrey', cursor: 'pointer' }}>
                 <div onClick={() => this.backToRenderer()}>
-                  <pre>{this.questionnaireResponse}</pre>
+                  <pre>{`${JSON.stringify(this.questionnaireResponse, null, 2)}`}</pre>
                 </div>
               </div>
               <div class="col-sm-4" style={{ backgroundColor: 'lightgrey', cursor: 'pointer' }}>
                 <div onClick={() => this.backToRenderer()}>
-                  <pre>{this.questionnaire}</pre>
+                  <pre>{`${JSON.stringify(this.questionnaire, null, 2)}`}</pre>
                 </div>
               </div>
               <div class="col-sm-4">
@@ -136,7 +137,7 @@ export class TestUi {
                       <div>
                         {this.getItemList(this.questionnaireResponse)[index] && this.getItemList(this.questionnaire)[index].type !== 'group'}
                         <pre style={{ cursor: 'pointer' }} onClick={() => this.editQuestion(item)}>
-                          {this.getItemList(this.questionnaireResponse)[index].answer}
+                          {`${JSON.stringify(this.getItemList(this.questionnaireResponse)[index].answer, null, 2)}`}
                         </pre>
                       </div>
                       <hr />

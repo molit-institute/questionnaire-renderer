@@ -775,7 +775,7 @@ declare namespace LocalJSX {
         /**
           * Counts up the Question-Number
          */
-        "onFinished"?: (event: CustomEvent<any>) => void;
+        "onFinish"?: (event: CustomEvent<any>) => void;
         "onSummery"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
@@ -911,7 +911,7 @@ declare namespace LocalJSX {
         /**
           * Counts up the Question-Number
          */
-        "onFinished"?: (event: CustomEvent<any>) => void;
+        "onFinish"?: (event: CustomEvent<any>) => void;
         "onSummery"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color

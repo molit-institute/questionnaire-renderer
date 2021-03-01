@@ -211,16 +211,16 @@ export class GroupsQuestionnaire {
   /**
    * Counts up the Question-Number
    */
-  @Event() finished: EventEmitter;
+  @Event() finish: EventEmitter;
   countUp() {
     if (this.count < this.filteredList.length - 1 && !this.disabled && !this.editMode) {
       this.count++;
       this.questionCount = this.getQuestionPositionNumber();
       this.scrollToTop();
     } else if (this.count === this.filteredList.length - 1 && !this.disabled && !this.editMode) {
-      this.finished.emit('finished');
+      this.finish.emit('finish');
     } else if (this.startCount !== null && this.editMode) {
-      this.finished.emit('finished');
+      this.finish.emit('finish');
     }
   }
 
