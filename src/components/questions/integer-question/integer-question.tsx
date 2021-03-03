@@ -41,7 +41,7 @@ export class IntegerQuestion {
           question: this.question,
           value: [],
         };
-      }
+      }      
       this.emitAnswer.emit(object);
     }
   }
@@ -81,12 +81,12 @@ export class IntegerQuestion {
   @Prop() danger: string;
   /**
    * Language property of the component. </br>
-   * Currently suported: [de, en]
+   * Currently suported: [de, en, es]
    */
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    console.log(newValue);
+    
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
@@ -153,7 +153,8 @@ export class IntegerQuestion {
   /* methods */
   @Listen('emitSelected')
   handleInputVas(value) {
-    this.selected = parseInt(value.detail, 10);
+    // this.selected = parseInt(value.detail, 10);
+    this.selected = value.detail;
   }
 
   handleChange(event) {
@@ -164,15 +165,12 @@ export class IntegerQuestion {
    *  Handles KeyPresses by adding Eventlisteners
    */
   @Event() emitNext: EventEmitter;
-  handleKeyPress() {
-    let input = document.getElementById('integer' + this.question.linkId);
-    let object = this;
-    input.addEventListener('keyup', function (event) {
-      event.preventDefault();
-      if (event.keyCode === 13) {
-        object.emitNext.emit('next'); //TODO passt das?
-      }
-    });
+  @Listen('keyup')
+  handleKeyPress(ev: KeyboardEvent) {
+    if (ev.keyCode === 13) {
+      ev.preventDefault();
+      this.emitNext.emit('next');
+    }
   }
   setSelected() {
     this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'integer');
@@ -195,9 +193,6 @@ export class IntegerQuestion {
       console.error(e);
     }
   }
-  componentWillRender() {
-    this.handleKeyPress();
-  }
 
   render() {
     return (
@@ -215,7 +210,7 @@ export class IntegerQuestion {
           <vas-question min={this.minVas()} max={this.maxVas()} step={this.stepVas()} selected={this.selected} labelLower={this.labelLowerVas()} labelUpper={this.labelUpperVas()} />
         ) : (
           <div class="class option-card">
-            <div v-else class="form-row">
+            <div class="form-row">
               <div id={'integer' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
                 <label class="" htmlFor="integerInput">
                   {this.strings.integer.text}:

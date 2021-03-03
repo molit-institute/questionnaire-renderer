@@ -1,0 +1,25 @@
+:host {
+  display: block;
+}
+#loading {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(165, 165, 165, 0.3);
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+  -webkit-animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
+}
+
+.spinner-text {
+  margin-top: 6px;
+  font-size: 32px;
+  text-align: center;
+}

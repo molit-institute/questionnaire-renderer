@@ -1,7 +1,7 @@
-import { QuestionnaireResponse, Item, Answer } from "./questionnaireResponse";
-import dateTimeController from "./dateTimeController";
-import { valueTypes } from "./valueTypes";
-import * as fhirApi from "@molit/fhir-util";
+import { QuestionnaireResponse, Item, Answer } from './questionnaireResponse';
+import dateTimeController from './dateTimeController';
+import { valueTypes } from './valueTypes';
+import * as fhirApi from '@molit/fhir-util';
 
 //#region CREATE QUESTIONNAIRE RESPONSE
 
@@ -16,19 +16,19 @@ export function createQuestionnaireResponse(questionnaire, subject) {
   if (questionnaire) {
     const questResp = QuestionnaireResponse.create();
     //QUESTIONNAIRE
-    questResp.questionnaire = "Questionnaire/" + questionnaire.id;
+    questResp.questionnaire = 'Questionnaire/' + questionnaire.id;
     //STATUS
-    questResp.status = "in-progress";
+    questResp.status = 'in-progress';
     //SOURCE
     if (subject) {
       questResp.source = {
-        reference: subject.resourceType + "/" + subject.id,
-        display: fhirApi.getStringFromHumanName(subject.name)
+        reference: subject.resourceType + '/' + subject.id,
+        display: fhirApi.getStringFromHumanName(subject.name),
       };
       //SUBJECT
       questResp.subject = {
-        reference: subject.resourceType + "/" + subject.id,
-        display: fhirApi.getStringFromHumanName(subject.name)
+        reference: subject.resourceType + '/' + subject.id,
+        display: fhirApi.getStringFromHumanName(subject.name),
       };
     }
 
@@ -40,7 +40,7 @@ export function createQuestionnaireResponse(questionnaire, subject) {
     }
     return questResp;
   } else {
-    throw new Error("Creating a Questionnaire Response failed because the given Questionnaire or Patient was null or undefined");
+    throw new Error('Creating a Questionnaire Response failed because the given Questionnaire or Patient was null or undefined');
   }
 }
 
@@ -114,9 +114,9 @@ export function createAnswer(data, type) {
   if (data && type) {
     switch (type) {
       case valueTypes.BOOLEAN:
-        if (data === "yes") {
+        if (data === 'yes') {
           data = true;
-        } else if (data === "no") {
+        } else if (data === 'no') {
           data = false;
         }
         value = Object.assign({ valueBoolean: data });
@@ -129,10 +129,10 @@ export function createAnswer(data, type) {
         value = Object.assign({ valueCoding: coding });
         break;
       case valueTypes.INTEGER:
-        value = Object.assign({ valueInteger: "" + data });
+        value = Object.assign({ valueInteger: '' + data });
         break;
       case valueTypes.DECIMAL:
-        value = Object.assign({ valueDecimal: "" + data });
+        value = Object.assign({ valueDecimal: '' + data });
         break;
       case valueTypes.DATE:
         value = Object.assign({ valueDate: data });
@@ -188,14 +188,14 @@ export function addAnswersToQuestionnaireResponse(questionnaireResponse, linkId,
   let questResp = questionnaireResponse;
   try {
     if (questResp && linkId && type && array !== null) {
-      questResp.item = addAnswersToQuestion(questResp.item, linkId, array, type);
-      if (!questResp.item) {
-        throw new Error("Adding Answers to Question did not work, the QuestionnaireResponse items were null or undefined");
+      questResp = { ...questResp, item: addAnswersToQuestion(questResp.item, linkId, array, type) };
+      if (!questionnaireResponse.item) {
+        throw new Error('Adding Answers to Question did not work, the QuestionnaireResponse items were null or undefined');
       }
     }
     return questResp;
   } catch (error) {
-    throw new Error("Adding Answers to questionnaireResponse failed, because the given parameters were null or undefined");
+    throw new Error('Adding Answers to questionnaireResponse failed, because the given parameters were null or undefined');
   }
 }
 
@@ -246,14 +246,21 @@ export function getAnswersFromQuestionnaireResponse(questionnaireResponse, linkI
             case valueTypes.STRING:
               answerValue = itemList[i].answer[0].valueString;
               break;
-            case valueTypes.CODING:
+            case valueTypes.CODING:              
               for (let a = 0; a < itemList[i].answer.length; a++) {
-                codingValue.push(
-                  Object.assign({
+                // codingValue.push(
+                //   Object.assign({
+                //     display: itemList[i].answer[a].valueCoding.display,
+                //     code: itemList[i].answer[a].valueCoding.code
+                //   })
+                // );
+                codingValue = [
+                  ...codingValue,
+                  {
                     display: itemList[i].answer[a].valueCoding.display,
-                    code: itemList[i].answer[a].valueCoding.code
-                  })
-                );
+                    code: itemList[i].answer[a].valueCoding.code,
+                  },
+                ];
               }
               break;
             case valueTypes.INTEGER:
@@ -282,7 +289,7 @@ export function getAnswersFromQuestionnaireResponse(questionnaireResponse, linkI
         }
       }
     } else {
-      throw new Error("The given questionnaireResponse, linkId or type was null,undefined,0 or false");
+      throw new Error('The given questionnaireResponse, linkId or type was null, undefined, 0 or false');
     }
   } catch (error) {
     answerValue = null;
@@ -306,7 +313,7 @@ export function createItemList(object) {
     getGroupsAndItems(object, itemList);
     return itemList;
   } else {
-    throw new Error("Creating an ItemList failed, because the given object was null or undefined");
+    throw new Error('Creating an ItemList failed, because the given object was null or undefined');
   }
 }
 /**
@@ -323,7 +330,7 @@ function getGroupsAndItems(varitem, itemList) {
       }
     }
   } else {
-    throw new Error("Getting Groups and Items for the ItemList failed, because the given parameters were null or undefined");
+    throw new Error('Getting Groups and Items for the ItemList failed, because the given parameters were null or undefined');
   }
 }
 
@@ -361,10 +368,10 @@ export function getAnswerType(answers) {
     } else if (answers[0].valueQuantity) {
       return valueTypes.QUANTITY;
     } else {
-      return "notype";
+      return 'notype';
     }
   } else {
-    throw new Error("Getting the AnswerType failed because the given answer object was null or undefined");
+    throw new Error('Getting the AnswerType failed because the given answer object was null or undefined');
   }
 }
 
@@ -375,5 +382,5 @@ export default {
   addAnswersToQuestionnaireResponse,
   getAnswersFromQuestionnaireResponse,
   createItemList,
-  getAnswerType
+  getAnswerType,
 };

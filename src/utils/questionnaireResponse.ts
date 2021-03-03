@@ -29,7 +29,8 @@ export class Item {
       definition: null,
       text: null,
       answer: [],
-      item: []
+      item: [],
+      type: ''
     };
   }
 }

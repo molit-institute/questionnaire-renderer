@@ -17,12 +17,12 @@ export class DisplayQuestion {
 
   /**
    * Language property of the component. </br>
-   * Currently suported: [de, en]
+   * Currently suported: [de, en, es]
    */
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    console.log(newValue);
+    
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 

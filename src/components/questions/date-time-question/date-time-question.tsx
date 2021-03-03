@@ -25,7 +25,7 @@ export class DateTimeQuestion {
   @State() date: any = '';
   @Watch('date')
   watchDate() {
-    this.dateTime = moment(this.date + 'T' + this.time + ':00').format();
+    this.dateTime = moment(this.date + 'T00:00:00-00:00').format();
   }
   /**
    * Variable to store the time of the input
@@ -71,7 +71,7 @@ export class DateTimeQuestion {
   @Watch('questionnaireResponse')
   async watchQuestionnaireResponse() {
     this.allow_events = false;
-    await this.getDateAndTime();
+    this.getDateAndTime();
     this.allow_events = true;
   }
   /**
@@ -88,12 +88,11 @@ export class DateTimeQuestion {
   @Prop() danger: string;
   /**
    * Language property of the component. </br>
-   * Currently suported: [de, en]
+   * Currently suported: [de, en, es]
    */
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    console.log(newValue);
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
@@ -122,17 +121,14 @@ export class DateTimeQuestion {
       let datetime = this.getAnswer();
       this.date = moment(datetime).format('YYYY-MM-DD');
       this.time = moment(datetime).format('HH:mm');
-    } else {
-      this.date = '';
-      this.time = '';
     }
   }
   handleChange(event, type) {
-    switch(type) {
-      case "date":
+    switch (type) {
+      case 'date':
         this.date = event.target.value;
         break;
-      case "time":
+      case 'time':
         this.time = event.target.value;
         break;
     }
@@ -143,7 +139,7 @@ export class DateTimeQuestion {
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale);
       this.allow_events = false;
-      await this.getDateAndTime();
+      this.getDateAndTime();
       this.allow_events = true;
     } catch (e) {
       console.error(e);
@@ -174,7 +170,7 @@ export class DateTimeQuestion {
                   </label>
                 ) : null}
                 {/* sm="6" */}
-                <input required={this.question.required} id="date" class="form-control" type="date" value={this.date} onInput={e => this.handleChange(e, 'date')}/>
+                <input required={this.question.required} id="date" class="form-control" type="date" value={this.date} onInput={e => this.handleChange(e, 'date')} />
               </div>
               <div class="col-sm-6">
                 {this.strings ? (
