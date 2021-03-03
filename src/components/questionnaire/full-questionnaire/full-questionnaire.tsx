@@ -48,7 +48,6 @@ export class FullQuestionnaire {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
@@ -170,14 +169,16 @@ export class FullQuestionnaire {
             </transition-group>
             {/* BUTTONS */}
             <div class="card-margin-bottom">
-              <div class="summary-button" v-if="language">
-                <button type="button" class="btn button btn-outline-primary btn-lg" onClick={() => this.backToQuestionnaireList()}>
-                  {this.strings.back}
-                </button>
-                <button type="button" class="btn button btn-primary btn-lg" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
-                  {this.strings.next}
-                </button>
-              </div>
+              {this.strings ? (
+                <div class="summary-button">
+                  <button type="button" class="btn button btn-outline-primary btn-lg" onClick={() => this.backToQuestionnaireList()}>
+                    {this.strings.back}
+                  </button>
+                  <button type="button" class="btn button btn-primary btn-lg" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
+                    {this.strings.next}
+                  </button>
+                </div>
+              ) : null}
             </div>
           </div>
         )}

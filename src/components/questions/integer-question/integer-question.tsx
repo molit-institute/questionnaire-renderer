@@ -41,7 +41,7 @@ export class IntegerQuestion {
           question: this.question,
           value: [],
         };
-      }
+      }      
       this.emitAnswer.emit(object);
     }
   }
@@ -153,7 +153,8 @@ export class IntegerQuestion {
   /* methods */
   @Listen('emitSelected')
   handleInputVas(value) {
-    this.selected = parseInt(value.detail, 10);
+    // this.selected = parseInt(value.detail, 10);
+    this.selected = value.detail;
   }
 
   handleChange(event) {
@@ -192,9 +193,6 @@ export class IntegerQuestion {
       console.error(e);
     }
   }
-  // componentWillRender() {
-  //   this.handleKeyPress();
-  // }
 
   render() {
     return (

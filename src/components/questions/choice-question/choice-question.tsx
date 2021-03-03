@@ -22,7 +22,7 @@ export class ChoiceQuestion {
   /**
    * Variable to store the value of the input
    */
-  @State() selected: any = null;
+  @State() selected: any = [];
   @Event() emitAnswer: EventEmitter;
   @Watch('selected')
   watchSelected() {
@@ -59,6 +59,7 @@ export class ChoiceQuestion {
   @Prop() question: any;
   @Watch('question')
   async watchQuestion() {
+    //TODO get correct response when questions updates
     try {
       this.optionsList = await this.getChoiceOptions();
     } catch (error) {
@@ -83,7 +84,7 @@ export class ChoiceQuestion {
   @Watch('questionnaireResponse')
   async watchQuestionnaireResponse() {
     this.allow_events = false;
-    await this.setSelected();
+    await this.setSelected(); //TODO Hier ist der Übeltäter
     this.allow_events = true;
   }
   /**
@@ -105,7 +106,6 @@ export class ChoiceQuestion {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
@@ -131,40 +131,27 @@ export class ChoiceQuestion {
     return false;
   }
 
-  /**
-   *
-   */
   validateCheckBox() {
     return this.selected && this.selected.length === 0 && this.question.required;
   }
 
-  /**
-   *
-   */
   onBoxClickedSingleChoice(display, code) {
     this.selected = this.formatAnswer(display, code);
   }
 
-  /**
-   *
-   */
-  onBoxClickedMultipleChoice(display, code, event) {
-    if (event.srcElement.type && event.srcElement.type === 'checkbox') {
-      return false;
-    } else {
-      let currentSelected = this.selected;
-      let selectedAnswer = this.formatAnswer(display, code);
-      let deletedAnswer = false;
-      //if selected Answer is not in the selected-Array, add it, else delete it
-      for (let i = 0; i < currentSelected.length; i++) {
-        if (currentSelected[i].code === selectedAnswer.code) {
-          currentSelected.splice(i, 1);
-          deletedAnswer = true;
-        }
+  onBoxClickedMultipleChoice(display, code) {
+    let currentSelected = this.selected;
+    let selectedAnswer = this.formatAnswer(display, code);
+    let deletedAnswer = false;
+    //if selected Answer is not in the selected-Array, add it, else delete it
+    for (let i = 0; i < currentSelected.length; i++) {
+      if (currentSelected[i].code === selectedAnswer.code) {
+        this.selected = currentSelected.slice(0, i).concat(currentSelected.slice(i + 1, currentSelected.length));
+        deletedAnswer = true;
       }
-      if (!deletedAnswer) {
-        this.selected.push(selectedAnswer);
-      }
+    }
+    if (!deletedAnswer) {
+      this.selected = [...this.selected, selectedAnswer];
     }
   }
 
@@ -188,6 +175,7 @@ export class ChoiceQuestion {
    */
   setSelected() {
     let data = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'coding');
+
     if (this.question.repeats) {
       this.selected = data;
     } else {
@@ -236,14 +224,12 @@ export class ChoiceQuestion {
             {/* <!-- SINGLE CHOICE --> */}
             {this.optionsList.map(answer => (
               <div id={answer.code} class="card radio-button-card" style={{ background: this.selected && this.selected.code === answer.code ? '#e8f4fd' : 'white' }} onClick={() => this.onBoxClickedSingleChoice(answer.display, answer.code)}>
-                {!this.repeats ? (
-                  <div class="form-check">
-                    <input class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} id={answer.code} onClick={() => this.onBoxClickedSingleChoice(answer.display, answer.code)} />
-                    <label class="form-check-label title" htmlFor={answer.code} onClick={() => this.onBoxClickedSingleChoice(answer.display, answer.code)}>
-                      {answer.display}
-                    </label>
-                  </div>
-                ) : null}
+                <div class="form-check">
+                  <input class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} id={answer.code} defaultChecked={this.selected && this.selected.code === answer.code} />
+                  <label class="form-check-label title" htmlFor={answer.code}>
+                    {answer.display}
+                  </label>
+                </div>
               </div>
             ))}
           </div>
@@ -252,9 +238,15 @@ export class ChoiceQuestion {
             {/* <!-- MULTIPLE CHOICE --> */}
             {this.optionsList.map(answer => (
               <div id={answer.code} class="card radio-button-card" style={{ background: this.checkIfSelected(answer) ? '#e8f4fd' : 'white' }}>
-                <div class="form-check">
-                  <input class="form-check-input radio-button" type="checkbox" name={'Checkbox' + this.question.linkId} id={answer.code} onClick={event => this.onBoxClickedMultipleChoice(answer.display, answer.code, event)} />
-                  <label class="form-check-label title" htmlFor={answer.code} onClick={event => this.onBoxClickedMultipleChoice(answer.display, answer.code, event)}>
+                <div class="form-check" onClick={() => this.onBoxClickedMultipleChoice(answer.display, answer.code)}>
+                  <input
+                    class="form-check-input radio-button"
+                    type="checkbox"
+                    name={'Checkbox' + this.question.linkId}
+                    id={answer.code}
+                    defaultChecked={this.checkIfSelected(answer)}
+                  />
+                  <label class="form-check-label title" htmlFor={answer.code}>
                     {answer.display}
                   </label>
                 </div>

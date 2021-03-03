@@ -111,7 +111,7 @@ export class StepperQuestionnaire {
   getQuestionType() {
     let type = null;
     if (this.getQuestionFromItemList()) {
-      type = this.getQuestionFromItemList().type + '-question';
+      type = this.getQuestionFromItemList().type.split(/(?=[A-Z])/).join("-").toLowerCase() + '-question';
     }
     return type;
   }

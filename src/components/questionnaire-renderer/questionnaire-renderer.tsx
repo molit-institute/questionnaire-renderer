@@ -159,8 +159,7 @@ export class QuestionnaireRenderer {
    */
   async handleQuestionnaireResponseEvent(object) {
     this.lastAnsweredQuestion = object.detail.question;
-    let qrc = await questionnaireResponseController.addAnswersToQuestionnaireResponse(this.currentQuestionnaireResponse, object.detail.question.linkId, object.detail.value, object.detail.type)
-    this.currentQuestionnaireResponse = qrc;
+    this.currentQuestionnaireResponse = await questionnaireResponseController.addAnswersToQuestionnaireResponse(this.currentQuestionnaireResponse, object.detail.question.linkId, object.detail.value, object.detail.type);
     this.handleAnsweredQuestionsList();
   }
 
@@ -355,7 +354,7 @@ export class QuestionnaireRenderer {
         this.currentValueSets = await valueSetController.getNewValueSets([this.currentQuestionnaire], this.baseUrl);
         // }
       } catch (error) {
-        // console.log(error);
+        // console.error(error);
       }
     }
   }

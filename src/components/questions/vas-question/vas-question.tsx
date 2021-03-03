@@ -25,7 +25,7 @@ export class VasQuestion {
 
   @Event() emitSelected: EventEmitter;
   emitHandler(event) {
-    let value = event.target.value;
+    let value = event.target.value;    
     this.emitSelected.emit(value);
   }
 

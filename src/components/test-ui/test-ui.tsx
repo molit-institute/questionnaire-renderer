@@ -2,6 +2,8 @@ import { Component, h, State } from '@stencil/core';
 import questionnaireResponseController from '../../utils/questionnaireResponseController';
 import * as examplePatient from '../../assets/fhir/resources/patient-example.js';
 import enableQuestionnaire from '../../assets/fhir/resources/questionnaire-lang-enable.js';
+import everyTypeQuestionnaire from '../../assets/fhir/resources/questionnaire-every-type.js';
+import repeatedQuestionnaire from '../../assets/fhir/resources/questionnaire-repeat.js';
 
 @Component({
   tag: 'test-ui',
@@ -20,7 +22,7 @@ export class TestUi {
   indexQuestion: Object = null;
   baseUrl: string = 'https://fhir.molit.eu/fhir/';
   questionnaire: any = null;
-  questionnaires: Array<any> = [enableQuestionnaire];
+  questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire]; //
 
   /* computed */
   examplePatient() {
@@ -29,7 +31,6 @@ export class TestUi {
 
   /* methods */
   setQuestionnaireMode(selectedMode) {
-    // console.log(selectedMode)
     this.questionnaireMode = selectedMode;
   }
   setQuestionnaireResponse(response) {
@@ -42,7 +43,6 @@ export class TestUi {
     this.show_summary = false;
   }
   getItemList(object) {
-    console.log(object);
     return questionnaireResponseController.createItemList(object);
   }
   updateQR(newqr) {
@@ -98,7 +98,7 @@ export class TestUi {
           {this.show_questionnaire_list
             ? this.questionnaires.map(questionnaire => (
                 <div onClick={() => this.openSelectedQuestionnaire(questionnaire)}>
-                  <div>{questionnaire.title}</div>
+                  <div class="padding">{questionnaire.title}</div>
                 </div>
               ))
             : null}

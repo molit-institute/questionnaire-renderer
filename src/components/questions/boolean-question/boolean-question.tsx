@@ -128,10 +128,9 @@ export class BooleanQuestion {
           <div>
             { this.question ? (
               <div class="form-group" id={'radio-boolean-' + this.question.linkId}>
-                {/* <b-form-radio-group v-model="selected"> */}
                 <div class={ this.selected && 'yes' === this.selected ? 'card radio-button-card card-selected' : 'card radio-button-card'} >
                   <div class="form-check">
-                    <input id={'radioYes' + this.question.linkId} class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} onClick={() => this.onCardClick('yes')} value="yes" />
+                    <input id={'radioYes' + this.question.linkId} class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} defaultChecked={this.selected && this.selected === 'yes'} onClick={() => this.onCardClick('yes')} value="yes" />
                     { this.strings ? 
                       <label class="form-check-label title" htmlFor={'radioYes' + this.question.linkId} onClick={() => this.onCardClick('yes')} >
                         { this.strings.yes }
@@ -141,7 +140,7 @@ export class BooleanQuestion {
                 </div>
                 <div class={ this.selected && 'no' === this.selected ? 'card radio-button-card card-selected' : 'card radio-button-card'}>
                   <div class="form-check">
-                    <input id={'radioNo' + this.question.linkId} class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} onClick={() => this.onCardClick('no')} value="no" />
+                    <input id={'radioNo' + this.question.linkId} class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} defaultChecked={this.selected && this.selected === 'no'} onClick={() => this.onCardClick('no')} value="no" />
                     { this.strings ? 
                       <label class="form-check-label title" htmlFor={'radioNo' + this.question.linkId} onClick={() => this.onCardClick('no')}>
                         { this.strings.no }
