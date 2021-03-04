@@ -65,7 +65,7 @@ export class ChoiceQuestion {
     } catch (error) {
       alert(error);
     }
-    this.setSelected();
+    this.setSelected('watch question');
     this.repeats = this.question.repeats;
   }
   @Prop() answers: any;
@@ -84,7 +84,7 @@ export class ChoiceQuestion {
   @Watch('questionnaireResponse')
   async watchQuestionnaireResponse() {
     this.allow_events = false;
-    await this.setSelected(); //TODO Hier ist der Übeltäter
+    await this.setSelected('watch questionnaireResponse'); //TODO Hier ist der Übeltäter
     this.allow_events = true;
   }
   /**
@@ -173,8 +173,15 @@ export class ChoiceQuestion {
   /**
    * Sets the value of the variable selected.
    */
-  setSelected() {
+  setSelected(where) {
+    console.log(where);
+    console.log(this.question.linkId);
     let data = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'coding');
+    //TODO for some reason this runs twice. When navigation between 2 choice questions.
+    //First response is correct, second is false. (second response: single: empty array; multiple: array containing one undefined entry )
+    // console.log(this.questionnaireResponse);
+    // console.log("data");
+    // console.log(data);
 
     if (this.question.repeats) {
       this.selected = data;
@@ -191,7 +198,7 @@ export class ChoiceQuestion {
     } catch (e) {
       console.error(e);
     }
-    await this.setSelected();
+    await this.setSelected('componentWillLoad');
     this.repeats = this.question.repeats;
     // this.removeQuestionFromRequiredAnsweredQuestionsList(this.question);
     this.emitRemoveRequiredAnswer.emit(this.question); //TODO passt das?
@@ -239,13 +246,7 @@ export class ChoiceQuestion {
             {this.optionsList.map(answer => (
               <div id={answer.code} class="card radio-button-card" style={{ background: this.checkIfSelected(answer) ? '#e8f4fd' : 'white' }}>
                 <div class="form-check" onClick={() => this.onBoxClickedMultipleChoice(answer.display, answer.code)}>
-                  <input
-                    class="form-check-input radio-button"
-                    type="checkbox"
-                    name={'Checkbox' + this.question.linkId}
-                    id={answer.code}
-                    defaultChecked={this.checkIfSelected(answer)}
-                  />
+                  <input class="form-check-input radio-button" type="checkbox" name={'Checkbox' + this.question.linkId} id={answer.code} defaultChecked={this.checkIfSelected(answer)} />
                   <label class="form-check-label title" htmlFor={answer.code}>
                     {answer.display}
                   </label>
