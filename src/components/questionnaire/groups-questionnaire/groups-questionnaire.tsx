@@ -162,9 +162,9 @@ export class GroupsQuestionnaire {
   }
 
   /* methods */
-  @Event() summery: EventEmitter;
+  @Event() summary: EventEmitter;
   goToSummary() {
-    this.summery.emit('summary');
+    this.summary.emit('summary');
   }
 
   /**
