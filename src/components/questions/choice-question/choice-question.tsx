@@ -59,13 +59,14 @@ export class ChoiceQuestion {
   @Prop() question: any;
   @Watch('question')
   async watchQuestion() {
-    //TODO get correct response when questions updates
     try {
       this.optionsList = await this.getChoiceOptions();
     } catch (error) {
       alert(error);
     }
+    this.allow_events = false;
     this.setSelected();
+    this.allow_events = true;
     this.repeats = this.question.repeats;
   }
   @Prop() answers: any;
@@ -84,7 +85,7 @@ export class ChoiceQuestion {
   @Watch('questionnaireResponse')
   async watchQuestionnaireResponse() {
     this.allow_events = false;
-    await this.setSelected(); //TODO Hier ist der Übeltäter
+    await this.setSelected();
     this.allow_events = true;
   }
   /**
@@ -175,7 +176,6 @@ export class ChoiceQuestion {
    */
   setSelected() {
     let data = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'coding');
-
     if (this.question.repeats) {
       this.selected = data;
     } else {
@@ -239,13 +239,7 @@ export class ChoiceQuestion {
             {this.optionsList.map(answer => (
               <div id={answer.code} class="card radio-button-card" style={{ background: this.checkIfSelected(answer) ? '#e8f4fd' : 'white' }}>
                 <div class="form-check" onClick={() => this.onBoxClickedMultipleChoice(answer.display, answer.code)}>
-                  <input
-                    class="form-check-input radio-button"
-                    type="checkbox"
-                    name={'Checkbox' + this.question.linkId}
-                    id={answer.code}
-                    defaultChecked={this.checkIfSelected(answer)}
-                  />
+                  <input class="form-check-input radio-button" type="checkbox" name={'Checkbox' + this.question.linkId} id={answer.code} defaultChecked={this.checkIfSelected(answer)} />
                   <label class="form-check-label title" htmlFor={answer.code}>
                     {answer.display}
                   </label>

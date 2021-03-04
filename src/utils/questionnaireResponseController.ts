@@ -246,7 +246,7 @@ export function getAnswersFromQuestionnaireResponse(questionnaireResponse, linkI
             case valueTypes.STRING:
               answerValue = itemList[i].answer[0].valueString;
               break;
-            case valueTypes.CODING:              
+            case valueTypes.CODING:
               for (let a = 0; a < itemList[i].answer.length; a++) {
                 // codingValue.push(
                 //   Object.assign({
