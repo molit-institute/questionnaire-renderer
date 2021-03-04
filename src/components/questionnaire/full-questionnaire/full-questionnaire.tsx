@@ -94,9 +94,9 @@ export class FullQuestionnaire {
     this.summary.emit('summary');
   }
 
-  @Event() back: EventEmitter;
+  @Event() return: EventEmitter;
   backToQuestionnaireList() {
-    this.back.emit('return');
+    this.return.emit('return');
   }
 
   /**

@@ -227,7 +227,7 @@ export class GroupsQuestionnaire {
   /**
    * Counts down the Question-Number
    */
-  @Event() back: EventEmitter;
+  @Event() return: EventEmitter;
   countDown() {
     //If count bigger than 0 and startCount is null
     if (this.count > 0 && !this.editMode) {
@@ -237,7 +237,7 @@ export class GroupsQuestionnaire {
       this.scrollToTop();
       //if count = 0 go back to Metadata
     } else if (this.count === 0) {
-      this.back.emit('return');
+      this.return.emit('return');
     }
   }
 

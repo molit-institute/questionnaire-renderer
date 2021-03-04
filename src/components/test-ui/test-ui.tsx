@@ -46,7 +46,7 @@ export class TestUi {
     return questionnaireResponseController.createItemList(object);
   }
   updateQR(newqr) {
-    this.questionnaireResponse = newqr;
+    this.questionnaireResponse = newqr.detail;
   }
   editQuestion(question) {
     this.show_summary = false;
