@@ -693,7 +693,7 @@ declare namespace LocalJSX {
         "filteredItemList"?: Array<any>;
         "locale"?: string;
         "onBack"?: (event: CustomEvent<any>) => void;
-        "onSummery"?: (event: CustomEvent<any>) => void;
+        "onSummary"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -776,7 +776,7 @@ declare namespace LocalJSX {
           * Counts up the Question-Number
          */
         "onFinish"?: (event: CustomEvent<any>) => void;
-        "onSummery"?: (event: CustomEvent<any>) => void;
+        "onSummary"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -912,7 +912,7 @@ declare namespace LocalJSX {
           * Counts up the Question-Number
          */
         "onFinish"?: (event: CustomEvent<any>) => void;
-        "onSummery"?: (event: CustomEvent<any>) => void;
+        "onSummary"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */

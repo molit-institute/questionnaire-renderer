@@ -89,9 +89,9 @@ export class FullQuestionnaire {
     }
   }
 
-  @Event() summery: EventEmitter;
+  @Event() summary: EventEmitter;
   goToSummary() {
-    this.summery.emit('summary');
+    this.summary.emit('summary');
   }
 
   @Event() back: EventEmitter;
