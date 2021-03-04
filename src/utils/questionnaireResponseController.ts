@@ -233,13 +233,9 @@ function addAnswersToQuestion(varitem, linkId, array, type) {
 export function getAnswersFromQuestionnaireResponse(questionnaireResponse, linkId, type) {
   let answerValue = null;
   let codingValue = [];
-  console.log('questionnaireResponse -  Before try');
-  console.log(questionnaireResponse);
   try {
     if (questionnaireResponse && linkId && type) {
       let itemList = this.createItemList(questionnaireResponse);
-      // console.log("itemList -  Before coding");
-      // console.log(itemList);
       //Iterating through all items in the list checking types
       for (let i = 0; i < itemList.length; i++) {
         if (itemList[i].linkId === linkId && itemList[i].answer[0]) {
@@ -266,9 +262,6 @@ export function getAnswersFromQuestionnaireResponse(questionnaireResponse, linkI
                   },
                 ];
               }
-              console.log('codingValue');
-              console.log(itemList);
-              console.log(codingValue);
               break;
             case valueTypes.INTEGER:
               answerValue = itemList[i].answer[0].valueInteger;
