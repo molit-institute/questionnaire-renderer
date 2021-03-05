@@ -134,31 +134,22 @@ export class BooleanQuestion {
         <div>
           {this.question ? (
             <div class="form-group" id={'radio-boolean-' + this.question.linkId}>
-              {options.map(answer =>
-                this.selected === answer.code ? (
-                  <div class={this.selected && answer.code === this.selected ? 'card radio-button-card card-selected' : 'card radio-button-card'} onClick={() => this.onCardClick(answer.code)}>
-                    <div class="form-check">
+              {options.map(answer => (
+                <div class={this.selected && answer.code === this.selected ? 'card radio-button-card card-selected' : 'card radio-button-card'} onClick={() => this.onCardClick(answer.code)}>
+                  <div class="form-check">
+                    {this.selected === answer.code ? (
                       <input id={'radio-' + answer.code + '-' + this.question.linkId} class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} checked />
-                      {this.strings ? (
-                        <label class="form-check-label title" htmlFor={'radio-' + answer.code + this.question.linkId}>
-                          {answer.display}
-                        </label>
-                      ) : null}
-                    </div>
-                  </div>
-                ) : (
-                  <div class={this.selected && answer.code === this.selected ? 'card radio-button-card card-selected' : 'card radio-button-card'} onClick={() => this.onCardClick(answer.code)}>
-                    <div class="form-check">
+                    ) : (
                       <input id={'radio-' + answer.code + '-' + this.question.linkId} class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} />
-                      {this.strings ? (
-                        <label class="form-check-label title" htmlFor={'radio-' + answer.code + this.question.linkId}>
-                          {answer.display}
-                        </label>
-                      ) : null}
-                    </div>
+                    )}
+                    {this.strings ? (
+                      <label class="form-check-label title" htmlFor={'radio-' + answer.code + this.question.linkId}>
+                        {answer.display}
+                      </label>
+                    ) : null}
                   </div>
-                ),
-              )}
+                </div>
+              ))}
             </div>
           ) : null}
         </div>
