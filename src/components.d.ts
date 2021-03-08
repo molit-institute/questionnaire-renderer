@@ -179,7 +179,7 @@ export namespace Components {
         "startCount": Number;
         "valueSets": Array<any>;
     }
-    interface GroupsQuestionnaire {
+    interface GroupedQuestionnaire {
         "baseUrl": string;
         /**
           * Color used to symbolise danger
@@ -468,11 +468,11 @@ declare global {
         prototype: HTMLGroupQuestionElement;
         new (): HTMLGroupQuestionElement;
     };
-    interface HTMLGroupsQuestionnaireElement extends Components.GroupsQuestionnaire, HTMLStencilElement {
+    interface HTMLGroupedQuestionnaireElement extends Components.GroupedQuestionnaire, HTMLStencilElement {
     }
-    var HTMLGroupsQuestionnaireElement: {
-        prototype: HTMLGroupsQuestionnaireElement;
-        new (): HTMLGroupsQuestionnaireElement;
+    var HTMLGroupedQuestionnaireElement: {
+        prototype: HTMLGroupedQuestionnaireElement;
+        new (): HTMLGroupedQuestionnaireElement;
     };
     interface HTMLIntegerQuestionElement extends Components.IntegerQuestion, HTMLStencilElement {
     }
@@ -543,7 +543,7 @@ declare global {
         "display-question": HTMLDisplayQuestionElement;
         "full-questionnaire": HTMLFullQuestionnaireElement;
         "group-question": HTMLGroupQuestionElement;
-        "groups-questionnaire": HTMLGroupsQuestionnaireElement;
+        "grouped-questionnaire": HTMLGroupedQuestionnaireElement;
         "integer-question": HTMLIntegerQuestionElement;
         "questionnaire-renderer": HTMLQuestionnaireRendererElement;
         "simple-spinner": HTMLSimpleSpinnerElement;
@@ -732,10 +732,6 @@ declare namespace LocalJSX {
          */
         "onAddRequiredAnswer"?: (event: CustomEvent<any>) => void;
         /**
-          * Relays the Event from the question-components to the top-component
-         */
-        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
-        /**
           * Emits new Event to give the required Question to Parent-Component to be removed from the List of answered Questions
          */
         "onEmitRemoveRequiredAnswer"?: (event: CustomEvent<any>) => void;
@@ -754,7 +750,7 @@ declare namespace LocalJSX {
         "startCount"?: Number;
         "valueSets"?: Array<any>;
     }
-    interface GroupsQuestionnaire {
+    interface GroupedQuestionnaire {
         "baseUrl"?: string;
         /**
           * Color used to symbolise danger
@@ -1049,7 +1045,7 @@ declare namespace LocalJSX {
         "display-question": DisplayQuestion;
         "full-questionnaire": FullQuestionnaire;
         "group-question": GroupQuestion;
-        "groups-questionnaire": GroupsQuestionnaire;
+        "grouped-questionnaire": GroupedQuestionnaire;
         "integer-question": IntegerQuestion;
         "questionnaire-renderer": QuestionnaireRenderer;
         "simple-spinner": SimpleSpinner;
@@ -1074,7 +1070,7 @@ declare module "@stencil/core" {
             "display-question": LocalJSX.DisplayQuestion & JSXBase.HTMLAttributes<HTMLDisplayQuestionElement>;
             "full-questionnaire": LocalJSX.FullQuestionnaire & JSXBase.HTMLAttributes<HTMLFullQuestionnaireElement>;
             "group-question": LocalJSX.GroupQuestion & JSXBase.HTMLAttributes<HTMLGroupQuestionElement>;
-            "groups-questionnaire": LocalJSX.GroupsQuestionnaire & JSXBase.HTMLAttributes<HTMLGroupsQuestionnaireElement>;
+            "grouped-questionnaire": LocalJSX.GroupedQuestionnaire & JSXBase.HTMLAttributes<HTMLGroupedQuestionnaireElement>;
             "integer-question": LocalJSX.IntegerQuestion & JSXBase.HTMLAttributes<HTMLIntegerQuestionElement>;
             "questionnaire-renderer": LocalJSX.QuestionnaireRenderer & JSXBase.HTMLAttributes<HTMLQuestionnaireRendererElement>;
             "simple-spinner": LocalJSX.SimpleSpinner & JSXBase.HTMLAttributes<HTMLSimpleSpinnerElement>;

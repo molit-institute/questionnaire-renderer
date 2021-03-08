@@ -32,7 +32,6 @@
 | Event                      | Description                                                                                                         | Type               |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------ |
 | `addRequiredAnswer`        | Emits new Event to give the required Question to Parent-Component to be added to the List of answered Questions     | `CustomEvent<any>` |
-| `emitAnswer`               | Relays the Event from the question-components to the top-component                                                  | `CustomEvent<any>` |
 | `emitRemoveRequiredAnswer` | Emits new Event to give the required Question to Parent-Component to be removed from the List of answered Questions | `CustomEvent<any>` |
 
 

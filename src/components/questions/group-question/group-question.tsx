@@ -55,7 +55,6 @@ export class GroupQuestion {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
@@ -71,13 +70,6 @@ export class GroupQuestion {
 
   getQuestionType(question) {
     return question.type + '-question';
-  }
-  /**
-   * Relays the Event from the question-components to the top-component
-   */
-  @Event() emitAnswer: EventEmitter;
-  relayAnswer(object) {
-    this.emitAnswer.emit(object);
   }
 
   /**
@@ -173,7 +165,6 @@ export class GroupQuestion {
                             secondary={this.secondary}
                             danger={this.danger}
                             locale={this.locale}
-                            onEmitAnswer={ev => this.relayAnswer(ev)}
                           ></Tag>
                         </div>
                       </div>

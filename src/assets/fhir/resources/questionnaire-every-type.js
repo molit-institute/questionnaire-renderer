@@ -18,100 +18,94 @@ const everyTypeQuestionnaire = {
   publisher: 'MOLIT Institut',
   description: 'Dieser Fragebogen wurde zu Testzwecken erstellt und sollte nicht außerhalb der Testumgebung genutzt werden.',
   item: [
-    // {
-    //   linkId: '1',
-    //   text: 'Wählen sie den Testfokus aus. Es sind mehrere Antworten möglich',
-    //   type: 'choice',
-    //   repeats: true,
-    //   answerOption: [
-    //     {
-    //       valueString: 'Pflichtfragen',
-    //     },
-    //     {
-    //       valueString: 'Nope',
-    //     },
-    //   ],
-    // },
-    // {
-    //   linkId: '3',
-    //   text: 'Pflichfragen',
-    //   type: 'group',
-    //   enableWhen: [
-    //     {
-    //       question: '1',
-    //       operator: '=',
-    //       answerString: 'Pflichtfragen',
-    //     },
-    //   ],
-    //   item: [
-        // {
-        //   linkId: '3.1',
-        //   prefix: '3.1',
-        //   text: 'Url Required',
-        //   type: 'url',
-        //   required: true,
-        // },
-        // {
-        //   linkId: '3.2',
-        //   prefix: '3.2',
-        //   text: 'Text Required',
-        //   type: 'text',
-        //   required: true,
-        // },
-        // {
-        //   linkId: '3.3',
-        //   prefix: '3.3',
-        //   text: 'String Required',
-        //   type: 'string',
-        //   required: true,
-        // },
-        // {
-        //   linkId: '3.4',
-        //   prefix: '3.4',
-        //   text: 'Decimal Required',
-        //   type: 'decimal',
-        //   required: true,
-        // },
-        // {
-        //   linkId: '3.5',
-        //   prefix: '3.5',
-        //   text: 'Integer Required',
-        //   type: 'integer',
-        //   required: true,
-        // },
-        // {
-        //   linkId: '3.6',
-        //   prefix: '3.6',
-        //   text: 'Date Required',
-        //   type: 'date',
-        //   required: true,
-        // },
-        // {
-        //   linkId: '3.7',
-        //   prefix: '3.7',
-        //   text: 'Time Required',
-        //   type: 'time',
-        //   required: true,
-        // },
-        // {
-        //   linkId: '3.8',
-        //   prefix: '3.8',
-        //   text: 'DateTime Required',
-        //   type: 'dateTime',
-        //   required: true,
-        // },
-        // {
-        //   linkId: '3.9',
-        //   prefix: '3.9',
-        //   text: 'Boolean Required',
-        //   type: 'boolean',
-        //   required: true,
-        // },
+    {
+      linkId: '1',
+      text: 'Wählen sie den Testfokus aus. Es sind mehrere Antworten möglich',
+      type: 'choice',
+      repeats: true,
+      answerOption: [
+        {
+          valueString: 'Pflichtfragen',
+        },
+        {
+          valueString: 'Nope',
+        },
+      ],
+    },
+    {
+      linkId: '3',
+      text: 'Pflichfragen',
+      type: 'group',
+      enableWhen: [
+        {
+          question: '1',
+          operator: '=',
+          answerString: 'Pflichtfragen',
+        },
+      ],
+      item: [
+        {
+          linkId: '3.1',
+          prefix: '3.1',
+          text: 'Url Required',
+          type: 'url',
+          required: true,
+        },
+        {
+          linkId: '3.2',
+          prefix: '3.2',
+          text: 'Text Required',
+          type: 'text',
+          required: true,
+        },
+        {
+          linkId: '3.3',
+          prefix: '3.3',
+          text: 'String Required',
+          type: 'string',
+          required: true,
+        },
+        {
+          linkId: '3.4',
+          prefix: '3.4',
+          text: 'Decimal Required',
+          type: 'decimal',
+          required: true,
+        },
+        {
+          linkId: '3.5',
+          prefix: '3.5',
+          text: 'Integer Required',
+          type: 'integer',
+          required: true,
+        },
+        {
+          linkId: '3.6',
+          prefix: '3.6',
+          text: 'Date Required',
+          type: 'date',
+          required: true,
+        },
+        {
+          linkId: '3.7',
+          prefix: '3.7',
+          text: 'Time Required',
+          type: 'time',
+          required: true,
+        },
+        {
+          linkId: '3.8',
+          prefix: '3.8',
+          text: 'DateTime Required',
+          type: 'dateTime',
+          required: true,
+        },
         {
           linkId: '3.9',
           prefix: '3.9',
-          text: 'first buffer question',
-          type: 'string',
+          text: 'Boolean Required',
+          type: 'boolean',
+          required: true,
         },
         {
           linkId: '3.11',
@@ -130,14 +124,8 @@ const everyTypeQuestionnaire = {
           required: true,
           answerValueSet: 'http://molit.eu/fhir/ValueSet/SLK_QLQC30_answers4',
         },
-        {
-          linkId: '3.12',
-          prefix: '3.12',
-          text: 'second buffer question',
-          type: 'string',
-        },
-      // ],
-    // },
+      ],
+    },
     // {
     //   linkId: '6',
     //   text: 'Visual Analog Scale',

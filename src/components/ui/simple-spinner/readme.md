@@ -18,14 +18,14 @@
 ### Used by
 
  - [full-questionnaire](../../questionnaire/full-questionnaire)
- - [groups-questionnaire](../../questionnaire/groups-questionnaire)
+ - [grouped-questionnaire](../../questionnaire/grouped-questionnaire)
  - [stepper-questionnaire](../../questionnaire/stepper-questionnaire)
 
 ### Graph
 ```mermaid
 graph TD;
   full-questionnaire --> simple-spinner
-  groups-questionnaire --> simple-spinner
+  grouped-questionnaire --> simple-spinner
   stepper-questionnaire --> simple-spinner
   style simple-spinner fill:#f9f,stroke:#333,stroke-width:4px
 ```
