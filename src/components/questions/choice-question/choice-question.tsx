@@ -225,7 +225,11 @@ export class ChoiceQuestion {
             {this.optionsList.map(answer => (
               <div id={answer.code} class="card radio-button-card" style={{ background: this.selected && this.selected.code === answer.code ? '#e8f4fd' : 'white' }} onClick={() => this.onBoxClickedSingleChoice(answer.display, answer.code)}>
                 <div class="form-check">
-                  <input class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} id={answer.code} defaultChecked={this.selected && this.selected.code === answer.code} />
+                  {this.selected && this.selected.code === answer.code ? (
+                    <input class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} id={answer.code} checked />
+                  ) : (
+                    <input class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} id={answer.code} />
+                  )}
                   <label class="form-check-label title" htmlFor={answer.code}>
                     {answer.display}
                   </label>
