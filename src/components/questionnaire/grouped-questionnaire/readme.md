@@ -1,4 +1,4 @@
-# groups-questionnaire
+# grouped-questionnaire
 
 
 
@@ -44,8 +44,8 @@
 ### Graph
 ```mermaid
 graph TD;
-  groups-questionnaire --> simple-spinner
-  style groups-questionnaire fill:#f9f,stroke:#333,stroke-width:4px
+  grouped-questionnaire --> simple-spinner
+  style grouped-questionnaire fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

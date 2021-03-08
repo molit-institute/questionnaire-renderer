@@ -1,24 +1,24 @@
 // import { newSpecPage } from '@stencil/core/testing';
-// import { GroupsQuestionnaire } from '../groups-questionnaire';
+// import { GroupedQuestionnaire } from '../grouped-questionnaire';
 
-describe('groups-questionnaire', () => {
+describe('grouped-questionnaire', () => {
   it("is true", () => {
     expect(true)
   })
 });
 
-// describe('groups-questionnaire', () => {
+// describe('grouped-questionnaire', () => {
 //   it('renders', async () => {
 //     const page = await newSpecPage({
-//       components: [GroupsQuestionnaire],
-//       html: `<groups-questionnaire></groups-questionnaire>`,
+//       components: [GroupedQuestionnaire],
+//       html: `<grouped-questionnaire></grouped-questionnaire>`,
 //     });
 //     expect(page.root).toEqualHtml(`
-//       <groups-questionnaire>
+//       <grouped-questionnaire>
 //         <mock:shadow-root>
 //           <slot></slot>
 //         </mock:shadow-root>
-//       </groups-questionnaire>
+//       </grouped-questionnaire>
 //     `);
 //   });
 // });

@@ -4,12 +4,12 @@ import { getLocaleComponentStrings } from '../../../utils/locale';
 import { Item } from '../../../utils/questionnaireResponse';
 
 @Component({
-  tag: 'groups-questionnaire',
-  styleUrl: 'groups-questionnaire.css',
+  tag: 'grouped-questionnaire',
+  styleUrl: 'grouped-questionnaire.css',
   shadow: false,
   scoped: true,
 })
-export class GroupsQuestionnaire {
+export class GroupedQuestionnaire {
   @Element() element: HTMLElement;
 
   /**
@@ -30,6 +30,11 @@ export class GroupsQuestionnaire {
   }
 
   @Prop() filteredItemList: Array<any>;
+  @Watch('filteredItemList')
+  watchFilteredItemList() {    
+    this.filteredList = this.getFilteredList();
+  }
+
 
   @Prop() questionnaire!: any;
   @Watch('questionnaire')
@@ -123,7 +128,7 @@ export class GroupsQuestionnaire {
   }
 
   getQuestionType() {
-    return this.getQuestionFromItemList().type + '-question';
+    return this.getQuestionFromItemList().type.split(/(?=[A-Z])/).join("-").toLowerCase() + '-question';
   }
 
   getQuestion() {
@@ -297,6 +302,7 @@ export class GroupsQuestionnaire {
     } catch (e) {
       console.error(e);
     }
+    this.filteredList = this.getFilteredList();
     if (this.startCount && this.filteredList && this.filteredList.length > 0) {
       this.count = this.startCount;
       this.questionCount = this.getQuestionPositionNumber();
