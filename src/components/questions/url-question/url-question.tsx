@@ -17,11 +17,40 @@ export class UrlQuestion {
    *  String containing the translations for the current locale
    */
   @State() strings: any;
+  /**
+   * Variable to store the value of the input
+   */
+  @State() selected: any = null;
+  @Event() emitAnswer: EventEmitter;
+  @Watch('selected')
+  watchSelected() {
+    if (this.allow_events) {
+      let object = null;
+      this.validateUrl();
+      if (this.selected != null) {
+        this.selected = this.selected.trimLeft();
+        object = {
+          type: 'url',
+          question: this.question,
+          value: [this.selected],
+        };
+      } else {
+        object = {
+          type: 'url',
+          question: this.question,
+          value: [],
+        };
+      }
+      this.emitAnswer.emit(object);
+    }
+  }
 
   @Prop() question: any;
   @Watch('question')
   watchQuestion() {
+    this.allow_events = false;
     this.setSelected();
+    this.allow_events = true;
   }
 
   @Prop() mode: string;
@@ -55,33 +84,6 @@ export class UrlQuestion {
   }
 
   /**
-   * Variable to store the value of the input
-   */
-  @State() selected: any = null;
-  @Event() emitAnswer: EventEmitter;
-  @Watch('selected')
-  watchSelected() {
-    if (this.allow_events) {
-      let object = null;
-      this.validateUrl();
-      if (this.selected) {
-        this.selected = this.selected.trimLeft();
-        object = {
-          type: 'url',
-          question: this.question,
-          value: [this.selected],
-        };
-      } else {
-        object = {
-          type: 'url',
-          question: this.question,
-          value: [],
-        };
-      }
-      this.emitAnswer.emit(object);
-    }
-  }
-  /**
    * Allows events to be emitted if true
    */
   allow_events: boolean = false;
@@ -94,7 +96,7 @@ export class UrlQuestion {
 
   /* methods */
   validateUrl() {
-    if (this.selected === '') {
+    if (this.selected === '' || this.selected === null) {
       this.naUrl = null;
     } else {
       let regex = new RegExp('^\\S*$');
