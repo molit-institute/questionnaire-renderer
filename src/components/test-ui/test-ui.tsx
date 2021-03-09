@@ -22,7 +22,7 @@ export class TestUi {
   indexQuestion: Object = null;
   baseUrl: string = 'https://fhir.molit.eu/fhir/';
   questionnaire: any = null;
-  questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire]; //
+  questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire];
 
   /* computed */
   examplePatient() {
@@ -131,18 +131,22 @@ export class TestUi {
               </div>
               <div class="col-sm-4">
                 <div>
-                  {this.getItemList(this.questionnaire).map((item, index) => (
-                    <div>
-                      {item.text}
+                  {console.log(this.getItemList(this.questionnaire))}
+                  {this.getItemList(this.questionnaire).map((item, index) =>
+                    item.hasOwnProperty('extension') && item.type === 'display' ? null : (
                       <div>
-                        {this.getItemList(this.questionnaireResponse)[index] && this.getItemList(this.questionnaire)[index].type !== 'group'}
-                        <pre style={{ cursor: 'pointer' }} onClick={() => this.editQuestion(item)}>
-                          {`${JSON.stringify(this.getItemList(this.questionnaireResponse)[index].answer, null, 2)}`}
-                        </pre>
+                        {item.text}
+                        <div>
+                          {this.getItemList(this.questionnaireResponse)[index] && this.getItemList(this.questionnaire)[index].type !== 'group' ? (
+                            <pre style={{ cursor: 'pointer' }} onClick={() => this.editQuestion(item)}>
+                              {`${JSON.stringify(this.getItemList(this.questionnaireResponse)[index].answer, null, 2)}`}
+                            </pre>
+                          ) : null}
+                        </div>
+                        <hr />
                       </div>
-                      <hr />
-                    </div>
-                  ))}
+                    ),
+                  )}
                 </div>
               </div>
             </div>
