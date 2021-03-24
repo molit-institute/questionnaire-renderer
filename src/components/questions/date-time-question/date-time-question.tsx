@@ -170,7 +170,7 @@ export class DateTimeQuestion {
                   </label>
                 ) : null}
                 {/* sm="6" */}
-                <input required={this.question.required} id="date" class="form-control" type="date" value={this.date} onInput={e => this.handleChange(e, 'date')} />
+                <input required={this.question.required} id="date" class="form-control" type="date" max="9999-12-31" value={this.date} onInput={e => this.handleChange(e, 'date')} />
               </div>
               <div class="col-sm-6">
                 {this.strings ? (

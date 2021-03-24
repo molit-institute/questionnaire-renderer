@@ -91,6 +91,7 @@ export class DateQuestion {
   /* computed */
   validate() {
     let regex = new RegExp(this.dateRegex);
+    console.log("validate", regex.test(this.selected))
     return (this.selected || this.selected === []) && regex.test(this.selected);
   }
 
@@ -133,7 +134,7 @@ export class DateQuestion {
               {this.strings.date.text}:
             </label>
           ) : null}
-          <input id="date" type="date" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
+          <input id="date" type="date" class="form-control" max="9999-12-31" value={this.selected} onInput={e => this.handleChange(e)} />
         </div>
         <br />
       </div>
