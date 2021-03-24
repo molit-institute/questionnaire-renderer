@@ -91,7 +91,6 @@ export class DateQuestion {
   /* computed */
   validate() {
     let regex = new RegExp(this.dateRegex);
-    console.log("validate", regex.test(this.selected))
     return (this.selected || this.selected === []) && regex.test(this.selected);
   }
 
