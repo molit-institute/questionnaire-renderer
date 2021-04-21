@@ -1,24 +1,24 @@
 // import { newSpecPage } from '@stencil/core/testing';
-// import { UrlQuestion } from '../url-question';
+// import { GroupedQuestionnaire } from '../grouped-questionnaire';
 
-describe('url-question', () => {
+describe('grouped-questionnaire', () => {
   it("is true", () => {
     expect(true)
   })
 });
 
-// describe('url-question', () => {
+// describe('grouped-questionnaire', () => {
 //   it('renders', async () => {
 //     const page = await newSpecPage({
-//       components: [UrlQuestion],
-//       html: `<url-question></url-question>`,
+//       components: [GroupedQuestionnaire],
+//       html: `<grouped-questionnaire></grouped-questionnaire>`,
 //     });
 //     expect(page.root).toEqualHtml(`
-//       <url-question>
+//       <grouped-questionnaire>
 //         <mock:shadow-root>
 //           <slot></slot>
 //         </mock:shadow-root>
-//       </url-question>
+//       </grouped-questionnaire>
 //     `);
 //   });
 // });
