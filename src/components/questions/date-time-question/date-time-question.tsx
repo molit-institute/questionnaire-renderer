@@ -57,7 +57,9 @@ export class DateTimeQuestion {
           value: [],
         };
       }
-      this.emitAnswer.emit(object);
+      if(this.date !== '' && this.time !== ''){
+        this.emitAnswer.emit(object);
+      }
     }
   }
 
@@ -121,6 +123,9 @@ export class DateTimeQuestion {
       let datetime = this.getAnswer();
       this.date = moment(datetime).format('YYYY-MM-DD');
       this.time = moment(datetime).format('HH:mm');
+    }else{
+      this.date = '',
+      this.time = ''
     }
   }
   handleChange(event, type) {
@@ -175,7 +180,7 @@ export class DateTimeQuestion {
               <div class="col-sm-6">
                 {this.strings ? (
                   <label class="" htmlFor="time">
-                    {this.strings.date.text}:
+                    {this.strings.time.text}:
                   </label>
                 ) : null}
                 {/* sm="6"  */}
