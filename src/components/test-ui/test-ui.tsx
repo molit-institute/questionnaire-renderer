@@ -131,17 +131,17 @@ export class TestUi {
               </div>
               <div class="col-sm-4">
                 <div>
-                  {console.log(this.getItemList(this.questionnaire))}
-                  {this.getItemList(this.questionnaire).map((item, index) =>
+                  {console.log(this.getItemList(this.questionnaireResponse))}
+                  {this.getItemList(this.questionnaireResponse).map((item) =>
                     item.hasOwnProperty('extension') && item.type === 'display' ? null : (
                       <div>
                         {item.text}
                         <div>
-                          {this.getItemList(this.questionnaireResponse)[index] && this.getItemList(this.questionnaire)[index].type !== 'group' ? (
+                          {item && !item.item ? (
                             <pre style={{ cursor: 'pointer' }} onClick={() => this.editQuestion(item)}>
-                              {`${JSON.stringify(this.getItemList(this.questionnaireResponse)[index].answer, null, 2)}`}
+                              {`${JSON.stringify(item.answer, null, 2)}`}
                             </pre>
-                          ) : null}
+                           ) : null}
                         </div>
                         <hr />
                       </div>

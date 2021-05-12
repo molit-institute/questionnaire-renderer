@@ -151,25 +151,21 @@ export class QuestionnaireRenderer {
   filterQuestionnaireResponse() {
     let filteredQuestionnaireResponse = cloneDeep(this.currentQuestionnaireResponse);
     this.filterQuestionnaireResponseItems(this.filteredItemList, filteredQuestionnaireResponse.item);
-    console.log("filteredQuestionnaireResponse:",filteredQuestionnaireResponse);
     return filteredQuestionnaireResponse;
   }
 
   //TODO fix group in group still there
   filterQuestionnaireResponseItems(filteredList, itemList) {
     let clonedItemList = cloneDeep(itemList);
-    console.log("ClonedItemList", clonedItemList);
     clonedItemList.forEach((element, index) => {
-      console.log(element.linkId);
       let result = filteredList.find(item => item.linkId === element.linkId);
-      console.log(result);
       if (result === undefined) {
-        console.log("splice", index)
         itemList.splice(index, 1);
       } else {
         if (element.item && element.item.length > 0) {
-          console.log("group")
           this.filterQuestionnaireResponseItems(filteredList, element.item);
+        }else if(element.answer && element.answer.length === 0){
+          itemList.splice(index, 1);
         }
       }
     });
