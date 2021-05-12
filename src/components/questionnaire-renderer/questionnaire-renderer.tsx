@@ -164,8 +164,6 @@ export class QuestionnaireRenderer {
       } else {
         if (element.item && element.item.length > 0) {
           this.filterQuestionnaireResponseItems(filteredList, element.item);
-        }else if(element.answer && element.answer.length === 0){
-          itemList.splice(index, 1);
         }
       }
     });
