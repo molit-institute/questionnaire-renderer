@@ -243,6 +243,10 @@ export namespace Components {
          */
         "editMode": boolean;
         /**
+          * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
+         */
+        "enableFullQuestionnaireResponse": boolean;
+        /**
           * Enable the return-button to exit the render-view
          */
         "enableReturn": boolean;
@@ -827,6 +831,10 @@ declare namespace LocalJSX {
           * If true the render will show the button to exit the renderer
          */
         "editMode"?: boolean;
+        /**
+          * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
+         */
+        "enableFullQuestionnaireResponse"?: boolean;
         /**
           * Enable the return-button to exit the render-view
          */

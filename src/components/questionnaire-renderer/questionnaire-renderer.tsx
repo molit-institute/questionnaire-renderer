@@ -74,6 +74,10 @@ export class QuestionnaireRenderer {
     this.currentMode = this.mode;
   }
   /**
+     * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
+     */
+  @Prop() enableFullQuestionnaireResponse: boolean = false;
+  /**
    * The Url to fetch the Questionnaire from
    */
   @Prop() questionnaireUrl: string = null;
@@ -171,17 +175,24 @@ export class QuestionnaireRenderer {
   
   @Event() finished: EventEmitter;
   backToSummary(questionnaireResponse) {
-    this.modal = false;
-    // this.finished.emit(questionnaireResponse);
-    this.finished.emit(this.filterQuestionnaireResponse())
+    if(this.enableFullQuestionnaireResponse){
+      this.modal = false;
+      this.finished.emit(questionnaireResponse);
+    }else{
+      this.modal = false;
+      this.finished.emit(this.filterQuestionnaireResponse())
+    }
   }
   
   /**
    * Emits an Event wich includes the finished Questionnaire Response
    */
   finishQuestionnaire(questionnaireResponse) {
-    // this.finished.emit(questionnaireResponse);
-    this.finished.emit(this.filterQuestionnaireResponse())
+    if(this.enableFullQuestionnaireResponse){
+      this.finished.emit(questionnaireResponse);
+    }else{
+      this.finished.emit(this.filterQuestionnaireResponse())
+    }
   }
 
   /**
@@ -490,7 +501,7 @@ export class QuestionnaireRenderer {
   render() {
     const Tag = this.mode;
     return (
-      <div>
+      <div class="">
         {!this.modal ? (
           <Tag
             filteredItemList={this.filteredItemList}

@@ -115,6 +115,7 @@ export class TestUi {
               mode={this.questionnaireMode}
               editMode={this.edit}
               startQuestion={this.indexQuestion}
+              enableFullQuestionnaireResponse={false}
             ></questionnaire-renderer>
           ) : null}
           {this.show_summary ? (
