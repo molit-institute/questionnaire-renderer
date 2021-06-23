@@ -4,7 +4,7 @@ import { getLocaleComponentStrings } from '../../utils/locale';
 import questionnaireController from '../../utils/questionnaireController';
 import questionnaireResponseController from '../../utils/questionnaireResponseController';
 import valueSetController from '../../utils/valueSetController';
-import { cloneDeep } from "lodash";
+import { cloneDeep, defaults, defaultsDeep } from "lodash";
 
 @Component({
   tag: 'questionnaire-renderer',
@@ -159,38 +159,42 @@ export class QuestionnaireRenderer {
   }
 
   //TODO fix group in group still there
+  /**
+   * 
+   * @param filteredList 
+   * @param itemList 
+   */
   filterQuestionnaireResponseItems(filteredList, itemList) {
     let clonedItemList = cloneDeep(itemList);
     clonedItemList.forEach((element, index) => {
       let result = filteredList.find(item => item.linkId === element.linkId);
       if (result === undefined) {
         itemList.splice(index, 1);
-      } else {
-        if (element.item && element.item.length > 0) {
-          this.filterQuestionnaireResponseItems(filteredList, element.item);
-        }
+      }
+      if (element.item && element.item.length > 0) {
+        this.filterQuestionnaireResponseItems(filteredList, element.item);
       }
     });
   }
-  
+
   @Event() finished: EventEmitter;
   backToSummary(questionnaireResponse) {
-    if(this.enableFullQuestionnaireResponse){
+    if (this.enableFullQuestionnaireResponse) {
       this.modal = false;
       this.finished.emit(questionnaireResponse);
-    }else{
+    } else {
       this.modal = false;
       this.finished.emit(this.filterQuestionnaireResponse())
     }
   }
-  
+
   /**
    * Emits an Event wich includes the finished Questionnaire Response
    */
   finishQuestionnaire(questionnaireResponse) {
-    if(this.enableFullQuestionnaireResponse){
+    if (this.enableFullQuestionnaireResponse) {
       this.finished.emit(questionnaireResponse);
-    }else{
+    } else {
       this.finished.emit(this.filterQuestionnaireResponse())
     }
   }
@@ -346,16 +350,37 @@ export class QuestionnaireRenderer {
    */
   handleQuestionnaireResponse() {
     if (this.questionnaireResponse) {
+      //ID-CHECK
       let split = this.questionnaireResponse.questionnaire.split('/');
       let id = split[1];
       if (id === this.questionnaire.id) {
-        this.currentQuestionnaireResponse = this.questionnaireResponse;
+        this.createQuestionnaireResponse();
+        let questionaireResponseItems = questionnaireResponseController.createItemList(this.questionnaireResponse)
+        this.transferQuestionnaireResponseAnswers(this.currentQuestionnaireResponse, questionaireResponseItems)
       } else {
         this.createQuestionnaireResponse();
       }
     } else {
       this.createQuestionnaireResponse();
     }
+  }
+
+  /**
+   * 
+   * @param {Array} baseList empty QuestionnaireResult to be filled
+   * @param propertyList filled QuestionnaireResponse
+   */
+  transferQuestionnaireResponseAnswers(baseList, propertyList) {
+    baseList.item.forEach((element, index) => {
+      let result = propertyList.find(item => item.linkId === element.linkId);
+      if (result) {
+        baseList.item[index].answer = result.answer;
+      }
+      if (element.item && element.item.length > 0) {
+        this.transferQuestionnaireResponseAnswers(element, propertyList);
+      }
+
+    });
   }
 
   /**
