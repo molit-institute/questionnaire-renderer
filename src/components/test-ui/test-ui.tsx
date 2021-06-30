@@ -132,7 +132,6 @@ export class TestUi {
               </div>
               <div class="col-sm-4">
                 <div>
-                  {console.log(this.getItemList(this.questionnaireResponse))}
                   {this.getItemList(this.questionnaireResponse).map((item) =>
                     item.hasOwnProperty('extension') && item.type === 'display' ? null : (
                       <div>

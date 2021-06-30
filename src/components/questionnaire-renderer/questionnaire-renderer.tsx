@@ -4,7 +4,7 @@ import { getLocaleComponentStrings } from '../../utils/locale';
 import questionnaireController from '../../utils/questionnaireController';
 import questionnaireResponseController from '../../utils/questionnaireResponseController';
 import valueSetController from '../../utils/valueSetController';
-import { cloneDeep, defaults, defaultsDeep } from 'lodash';
+import { cloneDeep } from 'lodash';
 
 @Component({
   tag: 'questionnaire-renderer',
