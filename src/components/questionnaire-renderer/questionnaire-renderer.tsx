@@ -4,6 +4,7 @@ import { getLocaleComponentStrings } from '../../utils/locale';
 import questionnaireController from '../../utils/questionnaireController';
 import questionnaireResponseController from '../../utils/questionnaireResponseController';
 import valueSetController from '../../utils/valueSetController';
+import { cloneDeep } from 'lodash';
 
 @Component({
   tag: 'questionnaire-renderer',
@@ -73,6 +74,10 @@ export class QuestionnaireRenderer {
     this.currentMode = this.mode;
   }
   /**
+   * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
+   */
+  @Prop() enableFullQuestionnaireResponse: boolean = false;
+  /**
    * The Url to fetch the Questionnaire from
    */
   @Prop() questionnaireUrl: string = null;
@@ -119,7 +124,6 @@ export class QuestionnaireRenderer {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
@@ -148,10 +152,49 @@ export class QuestionnaireRenderer {
   }
 
   /* methods */
+  filterQuestionnaireResponse() {
+    let filteredQuestionnaireResponse = cloneDeep(this.currentQuestionnaireResponse);
+    this.filterQuestionnaireResponseItems(this.filteredItemList, filteredQuestionnaireResponse.item);
+    return filteredQuestionnaireResponse;
+  }
+
+  /**
+   *
+   * @param filteredList
+   * @param itemList
+   */
+  filterQuestionnaireResponseItems(filteredList, itemList) {
+    itemList.forEach((element, index) => {
+      let result = filteredList.find(item => item.linkId === element.linkId);
+      if (result === undefined) {
+        itemList.splice(index, 1);
+      }
+      if (element.item && element.item.length > 0) {
+        this.filterQuestionnaireResponseItems(filteredList, element.item);
+      }
+    });
+  }
+
   @Event() finished: EventEmitter;
   backToSummary(questionnaireResponse) {
-    this.modal = false;
-    this.finished.emit(questionnaireResponse);
+    if (this.enableFullQuestionnaireResponse) {
+      this.modal = false;
+      this.finished.emit(questionnaireResponse);
+    } else {
+      this.modal = false;
+      this.finished.emit(this.filterQuestionnaireResponse());
+    }
+  }
+
+  /**
+   * Emits an Event wich includes the finished Questionnaire Response
+   */
+  finishQuestionnaire(questionnaireResponse) {
+    if (this.enableFullQuestionnaireResponse) {
+      this.finished.emit(questionnaireResponse);
+    } else {
+      this.finished.emit(this.filterQuestionnaireResponse());
+    }
   }
 
   /**
@@ -308,13 +351,32 @@ export class QuestionnaireRenderer {
       let split = this.questionnaireResponse.questionnaire.split('/');
       let id = split[1];
       if (id === this.questionnaire.id) {
-        this.currentQuestionnaireResponse = this.questionnaireResponse;
+        this.createQuestionnaireResponse();
+        let questionaireResponseItems = questionnaireResponseController.createItemList(this.questionnaireResponse);
+        this.transferQuestionnaireResponseAnswers(this.currentQuestionnaireResponse, questionaireResponseItems);
       } else {
         this.createQuestionnaireResponse();
       }
     } else {
       this.createQuestionnaireResponse();
     }
+  }
+
+  /**
+   * Compares the answers in the given answeredItemList and baseList. tranfers the answers of the answeredItemList into the baseList
+   * @param {Array} baseList Items of an empty QuestionnaireResponse to be filled
+   * @param {Array} answeredItemList List containing answers
+   */
+  transferQuestionnaireResponseAnswers(baseList, answeredItemList) {
+    baseList.item.forEach((element, index) => {
+      let result = answeredItemList.find(item => item.linkId === element.linkId);
+      if (result) {
+        baseList.item[index].answer = result.answer;
+      }
+      if (element.item && element.item.length > 0) {
+        this.transferQuestionnaireResponseAnswers(element, answeredItemList);
+      }
+    });
   }
 
   /**
@@ -426,13 +488,6 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   * Emits an Event wich includes the finished Questionnaire Response
-   */
-  finishQuestionnaire(questionnaireResponse) {
-    this.finished.emit(questionnaireResponse);
-  }
-
-  /**
    * Emits an Event to exit the Renderer
    */
   @Event() exit: EventEmitter;
@@ -466,7 +521,7 @@ export class QuestionnaireRenderer {
   render() {
     const Tag = this.mode;
     return (
-      <div>
+      <div class="">
         {!this.modal ? (
           <Tag
             filteredItemList={this.filteredItemList}
