@@ -4,7 +4,7 @@ import { getLocaleComponentStrings } from '../../utils/locale';
 import questionnaireController from '../../utils/questionnaireController';
 import questionnaireResponseController from '../../utils/questionnaireResponseController';
 import valueSetController from '../../utils/valueSetController';
-import { cloneDeep, defaults, defaultsDeep } from "lodash";
+import { cloneDeep, defaults, defaultsDeep } from 'lodash';
 
 @Component({
   tag: 'questionnaire-renderer',
@@ -74,8 +74,8 @@ export class QuestionnaireRenderer {
     this.currentMode = this.mode;
   }
   /**
-     * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
-     */
+   * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
+   */
   @Prop() enableFullQuestionnaireResponse: boolean = false;
   /**
    * The Url to fetch the Questionnaire from
@@ -158,15 +158,13 @@ export class QuestionnaireRenderer {
     return filteredQuestionnaireResponse;
   }
 
-  //TODO fix group in group still there
   /**
-   * 
-   * @param filteredList 
-   * @param itemList 
+   *
+   * @param filteredList
+   * @param itemList
    */
   filterQuestionnaireResponseItems(filteredList, itemList) {
-    let clonedItemList = cloneDeep(itemList);
-    clonedItemList.forEach((element, index) => {
+    itemList.forEach((element, index) => {
       let result = filteredList.find(item => item.linkId === element.linkId);
       if (result === undefined) {
         itemList.splice(index, 1);
@@ -184,7 +182,7 @@ export class QuestionnaireRenderer {
       this.finished.emit(questionnaireResponse);
     } else {
       this.modal = false;
-      this.finished.emit(this.filterQuestionnaireResponse())
+      this.finished.emit(this.filterQuestionnaireResponse());
     }
   }
 
@@ -195,7 +193,7 @@ export class QuestionnaireRenderer {
     if (this.enableFullQuestionnaireResponse) {
       this.finished.emit(questionnaireResponse);
     } else {
-      this.finished.emit(this.filterQuestionnaireResponse())
+      this.finished.emit(this.filterQuestionnaireResponse());
     }
   }
 
@@ -350,13 +348,12 @@ export class QuestionnaireRenderer {
    */
   handleQuestionnaireResponse() {
     if (this.questionnaireResponse) {
-      //ID-CHECK
       let split = this.questionnaireResponse.questionnaire.split('/');
       let id = split[1];
       if (id === this.questionnaire.id) {
         this.createQuestionnaireResponse();
-        let questionaireResponseItems = questionnaireResponseController.createItemList(this.questionnaireResponse)
-        this.transferQuestionnaireResponseAnswers(this.currentQuestionnaireResponse, questionaireResponseItems)
+        let questionaireResponseItems = questionnaireResponseController.createItemList(this.questionnaireResponse);
+        this.transferQuestionnaireResponseAnswers(this.currentQuestionnaireResponse, questionaireResponseItems);
       } else {
         this.createQuestionnaireResponse();
       }
@@ -366,20 +363,19 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   * 
-   * @param {Array} baseList empty QuestionnaireResult to be filled
-   * @param propertyList filled QuestionnaireResponse
+   * Compares the answers in the given answeredItemList and baseList. tranfers the answers of the answeredItemList into the baseList
+   * @param {Array} baseList Items of an empty QuestionnaireResponse to be filled
+   * @param {Array} answeredItemList List containing answers
    */
-  transferQuestionnaireResponseAnswers(baseList, propertyList) {
+  transferQuestionnaireResponseAnswers(baseList, answeredItemList) {
     baseList.item.forEach((element, index) => {
-      let result = propertyList.find(item => item.linkId === element.linkId);
+      let result = answeredItemList.find(item => item.linkId === element.linkId);
       if (result) {
         baseList.item[index].answer = result.answer;
       }
       if (element.item && element.item.length > 0) {
-        this.transferQuestionnaireResponseAnswers(element, propertyList);
+        this.transferQuestionnaireResponseAnswers(element, answeredItemList);
       }
-
     });
   }
 
@@ -490,7 +486,6 @@ export class QuestionnaireRenderer {
     }
     this.filteredItemList = newList;
   }
-
 
   /**
    * Emits an Event to exit the Renderer
