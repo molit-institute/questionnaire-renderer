@@ -251,6 +251,10 @@ export namespace Components {
          */
         "enableReturn": boolean;
         /**
+          * Enable the summary. The summary will be shown if enableSummary is true
+         */
+        "enableSummary": boolean;
+        /**
           * If true, the Renderer will show the last question
          */
         "lastQuestion": boolean;
@@ -294,6 +298,23 @@ export namespace Components {
           * List of ValueSets that are needed to display the given questionnaire
          */
         "valueSets": Array<any>;
+    }
+    interface QuestionnaireSummary {
+        "FHIR_URL": string;
+        "demoMode": Boolean;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "locale": string;
+        "mode": string;
+        "question": any;
+        "questionnaire": Object;
+        "questionnaireResponse": Object;
+        /**
+          * FHIR Patient-Resource
+         */
+        "subject": Object;
+        "task": Object;
     }
     interface SimpleSpinner {
         "borderTopColor": string;
@@ -490,6 +511,12 @@ declare global {
         prototype: HTMLQuestionnaireRendererElement;
         new (): HTMLQuestionnaireRendererElement;
     };
+    interface HTMLQuestionnaireSummaryElement extends Components.QuestionnaireSummary, HTMLStencilElement {
+    }
+    var HTMLQuestionnaireSummaryElement: {
+        prototype: HTMLQuestionnaireSummaryElement;
+        new (): HTMLQuestionnaireSummaryElement;
+    };
     interface HTMLSimpleSpinnerElement extends Components.SimpleSpinner, HTMLStencilElement {
     }
     var HTMLSimpleSpinnerElement: {
@@ -550,6 +577,7 @@ declare global {
         "grouped-questionnaire": HTMLGroupedQuestionnaireElement;
         "integer-question": HTMLIntegerQuestionElement;
         "questionnaire-renderer": HTMLQuestionnaireRendererElement;
+        "questionnaire-summary": HTMLQuestionnaireSummaryElement;
         "simple-spinner": HTMLSimpleSpinnerElement;
         "stepper-questionnaire": HTMLStepperQuestionnaireElement;
         "string-question": HTMLStringQuestionElement;
@@ -840,6 +868,10 @@ declare namespace LocalJSX {
          */
         "enableReturn"?: boolean;
         /**
+          * Enable the summary. The summary will be shown if enableSummary is true
+         */
+        "enableSummary"?: boolean;
+        /**
           * If true, the Renderer will show the last question
          */
         "lastQuestion"?: boolean;
@@ -889,6 +921,25 @@ declare namespace LocalJSX {
           * List of ValueSets that are needed to display the given questionnaire
          */
         "valueSets"?: Array<any>;
+    }
+    interface QuestionnaireSummary {
+        "FHIR_URL"?: string;
+        "demoMode"?: Boolean;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "locale"?: string;
+        "mode"?: string;
+        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        "onReturn"?: (event: CustomEvent<any>) => void;
+        "question"?: any;
+        "questionnaire"?: Object;
+        "questionnaireResponse"?: Object;
+        /**
+          * FHIR Patient-Resource
+         */
+        "subject"?: Object;
+        "task"?: Object;
     }
     interface SimpleSpinner {
         "borderTopColor"?: string;
@@ -1056,6 +1107,7 @@ declare namespace LocalJSX {
         "grouped-questionnaire": GroupedQuestionnaire;
         "integer-question": IntegerQuestion;
         "questionnaire-renderer": QuestionnaireRenderer;
+        "questionnaire-summary": QuestionnaireSummary;
         "simple-spinner": SimpleSpinner;
         "stepper-questionnaire": StepperQuestionnaire;
         "string-question": StringQuestion;
@@ -1081,6 +1133,7 @@ declare module "@stencil/core" {
             "grouped-questionnaire": LocalJSX.GroupedQuestionnaire & JSXBase.HTMLAttributes<HTMLGroupedQuestionnaireElement>;
             "integer-question": LocalJSX.IntegerQuestion & JSXBase.HTMLAttributes<HTMLIntegerQuestionElement>;
             "questionnaire-renderer": LocalJSX.QuestionnaireRenderer & JSXBase.HTMLAttributes<HTMLQuestionnaireRendererElement>;
+            "questionnaire-summary": LocalJSX.QuestionnaireSummary & JSXBase.HTMLAttributes<HTMLQuestionnaireSummaryElement>;
             "simple-spinner": LocalJSX.SimpleSpinner & JSXBase.HTMLAttributes<HTMLSimpleSpinnerElement>;
             "stepper-questionnaire": LocalJSX.StepperQuestionnaire & JSXBase.HTMLAttributes<HTMLStepperQuestionnaireElement>;
             "string-question": LocalJSX.StringQuestion & JSXBase.HTMLAttributes<HTMLStringQuestionElement>;

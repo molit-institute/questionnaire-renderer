@@ -78,6 +78,10 @@ export class QuestionnaireRenderer {
    */
   @Prop() enableFullQuestionnaireResponse: boolean = false;
   /**
+   * Enable the summary. The summary will be shown if enableSummary is true
+   */
+  @Prop() enableSummary: boolean = false;
+  /**
    * The Url to fetch the Questionnaire from
    */
   @Prop() questionnaireUrl: string = null;
