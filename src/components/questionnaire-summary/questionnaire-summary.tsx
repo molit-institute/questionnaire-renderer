@@ -3,8 +3,8 @@
  */
 import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '@stencil/core';
 import { getLocaleComponentStrings } from '../../utils/locale';
-import questionnaireResponseController from "../../utils/questionnaireResponseController";
-import * as fhirApi from "@molit/fhir-api";
+import questionnaireResponseController from '../../utils/questionnaireResponseController';
+import * as fhirApi from '@molit/fhir-api';
 
 @Component({
   tag: 'questionnaire-summary',
@@ -21,33 +21,12 @@ export class QuestionnaireSummary {
   /**
    * Variable to store the value of the input
    */
-  @State() selected: any = null;
-  @Event() emitAnswer: EventEmitter;
-  @Watch('selected')
-  watchSelected() {
-    if (this.allow_events) {
-      if (this.selected !== null) {
-        let object = {
-          type: 'boolean',
-          question: this.question,
-          value: [this.selected],
-        };
-        this.emitAnswer.emit(object);
-      }
-    }
-  }
 
-  @Prop() question: any;
-  @Watch('question')
-  async watchQuestion() {
-    this.allow_events = false;
-    this.allow_events = true;
-  }
   /**
    * FHIR Patient-Resource
    */
   @Prop() subject: Object;
-  @Prop() FHIR_URL: string;
+  @Prop() baseUrl: string;
   @Prop() demoMode: Boolean;
   @Prop() task: Object;
   @Prop() mode: string;
@@ -59,8 +38,6 @@ export class QuestionnaireSummary {
   //   this.allow_events = true;
   // }
 
-  
-
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -71,47 +48,43 @@ export class QuestionnaireSummary {
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
-  /**
-   * Allows events to be emitted if true
-   */
-  allow_events: boolean = false;
-
   /* computed */
-  validate() {
-    return this.selected || this.selected === [];
-    // return false;
-  }
 
   /* methods */
-  onCardClick(selectedValue) {
-    this.selected = selectedValue;
-  }
   /**
-     *
-     */
-   @Event() return: EventEmitter;
-   returnToQuestionnaire() {
-    this.return.emit("returnToQuestionnaire");
+   *
+   */
+  @Event() toQuestionnaireRenderer: EventEmitter;
+  returnToQuestionnaire() {
+    this.toQuestionnaireRenderer.emit('returnToQuestionnaire');
   }
+
+  /**
+   *
+   */
+   @Event() editQuestion: EventEmitter;
+   editSelectedQuestion(question) {
+     this.editQuestion.emit(question);
+   }
 
   /**
    *
    * @param {Object} answersList
    */
   formatChoice(answersList) {
-    let answer = "";
+    let answer = '';
     answer = answersList[0].valueCoding.display;
     for (let i = 1; i < answersList.length; i++) {
-      answer = answer + ", " + answersList[i].valueCoding.display;
+      answer = answer + ', ' + answersList[i].valueCoding.display;
     }
     return answer;
   }
-/**
-     *
-     */
-    getType(question) {
-      return questionnaireResponseController.getAnswerType(question.answer);
-    }
+  /**
+   *
+   */
+  getType(question) {
+    return questionnaireResponseController.getAnswerType(question.answer);
+  }
   /**
    *
    */
@@ -123,46 +96,46 @@ export class QuestionnaireSummary {
   checkIfDisplay(linkId) {
     let questionnaireItemList = questionnaireResponseController.createItemList(this.questionnaire);
     for (let i = 0; i < questionnaireItemList.length; i++) {
-      if (linkId === questionnaireItemList[i].linkId && questionnaireItemList[i].type === "display") {
+      if (linkId === questionnaireItemList[i].linkId && questionnaireItemList[i].type === 'display') {
         return true;
       }
     }
     return false;
   }
   /**
-     *
-     */
-   getPrefix(linkId) {
+   *
+   */
+  getPrefix(linkId) {
     let questionnaireItemList = questionnaireResponseController.createItemList(this.questionnaire);
     for (let i = 0; i < questionnaireItemList.length; i++) {
       if (linkId === questionnaireItemList[i].linkId) {
         return questionnaireItemList[i].prefix;
       }
     }
-    return "";
+    return '';
   }
 
   /**
-     * Returns true if there is more than one patient with multiple tasks left.
-     */
-   async checkDemoMode() {
+   * Returns true if there is more than one patient with multiple tasks left.
+   */
+  async checkDemoMode() {
     if (this.demoMode) {
       let params = {
-        "_has:Task:patient:status": "ready",
-        "_has:Task:patient:code": "eQuestionnaire"
+        '_has:Task:patient:status': 'ready',
+        '_has:Task:patient:code': 'eQuestionnaire',
       };
       let patients = [];
       try {
-        let response = await fhirApi.fetchResources(this.FHIR_URL, "Patient", params);
+        let response = await fhirApi.fetchResources(this.baseUrl, 'Patient', params);
         patients = response.data.entry;
 
         if (patients.length === 1) {
           let taskParams = {
             subject: patients[0].resource.id,
-            status: "ready"
+            status: 'ready',
           };
 
-          let tasks = await fhirApi.fetchResources(this.FHIR_URL, "Task", taskParams);
+          let tasks = await fhirApi.fetchResources(this.baseUrl, 'Task', taskParams);
 
           return tasks.data.entry.length !== 1 ? true : false;
         } else {
@@ -259,7 +232,7 @@ export class QuestionnaireSummary {
   render() {
     return (
       <div>
-        <div class="card">Summary</div>
+        <div class="card" onClick={() => this.returnToQuestionnaire()}>Summary</div>
       </div>
     );
   }

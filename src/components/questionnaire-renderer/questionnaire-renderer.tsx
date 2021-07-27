@@ -50,9 +50,17 @@ export class QuestionnaireRenderer {
     await this.handleQuestionnaireResponse();
   }
   /**
+   * If the demoMode is true, questionnaires wont be set to complete, so they can be used indefinetly
+   */
+  @Prop() demoMode: Boolean=false;
+  /**
    * FHIR-Resource Patient
    */
   @Prop() subject: any = null;
+  /**
+   * FHIR-Resource Task
+   */
+  @Prop() task: any = null;
   /**
    * List of ValueSets that are needed to display the given questionnaire
    */
@@ -121,6 +129,8 @@ export class QuestionnaireRenderer {
    * Text for next-button
    */
   next: string;
+  edit: boolean = false;
+  indexQuestion: Object = null;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -137,7 +147,8 @@ export class QuestionnaireRenderer {
   currentValueSets: Array<any> = [];
   currentStartCount: number = null;
   lastAnsweredQuestion: any = null;
-  modal: boolean = false;
+  @State() show_questionnaire: boolean = true;
+  @State() show_summary: boolean=false;
 
   /* computed */
   /**
@@ -182,12 +193,23 @@ export class QuestionnaireRenderer {
   @Event() finished: EventEmitter;
   backToSummary(questionnaireResponse) {
     if (this.enableFullQuestionnaireResponse) {
-      this.modal = false;
+      if(this.enableSummary){
+        this.show_questionnaire = false;
+        this.show_summary = true;
+      }
       this.finished.emit(questionnaireResponse);
     } else {
-      this.modal = false;
+      if(this.enableSummary){
+        this.show_questionnaire = false;
+        this.show_summary = true;
+      }
       this.finished.emit(this.filterQuestionnaireResponse());
     }
+  }
+
+  toQuestionnaire(){
+    this.show_questionnaire = true;
+    this.show_summary = false;
   }
 
   /**
@@ -195,8 +217,16 @@ export class QuestionnaireRenderer {
    */
   finishQuestionnaire(questionnaireResponse) {
     if (this.enableFullQuestionnaireResponse) {
+      if(this.enableSummary){
+        this.show_questionnaire = false;
+        this.show_summary = true;
+      }
       this.finished.emit(questionnaireResponse);
     } else {
+      if(this.enableSummary){
+        this.show_questionnaire = false;
+        this.show_summary = true;
+      }
       this.finished.emit(this.filterQuestionnaireResponse());
     }
   }
@@ -457,7 +487,7 @@ export class QuestionnaireRenderer {
     }
 
     if (this.currentStartCount < 0) {
-      this.modal = true;
+      this.show_questionnaire = true;
       this.currentStartCount = 0;
     }
   }
@@ -526,7 +556,7 @@ export class QuestionnaireRenderer {
     const Tag = this.mode;
     return (
       <div class="">
-        {!this.modal ? (
+        {this.show_questionnaire ? (
           <Tag
             filteredItemList={this.filteredItemList}
             questionnaireResponse={this.currentQuestionnaireResponse}
@@ -548,7 +578,8 @@ export class QuestionnaireRenderer {
             onReturn={() => this.leaveQuestionnaireRenderer()}
             onEmitAnswer={ev => this.handleQuestionnaireResponseEvent(ev)}
           ></Tag>
-        ) : (
+        ) : null}
+        {this.show_questionnaire && this.show_summary ?(
           // TODO does calc work like this?
           <div class="align-vertical" style={{ height: 'calc(100vh - 200px)' }}>
             <div class="note-modal">
@@ -562,7 +593,21 @@ export class QuestionnaireRenderer {
               </div>
             </div>
           </div>
-        )}
+        ): null}
+        {this.show_summary ? (
+          <questionnaire-summary
+            subject={this.subject}
+            baseUrl={this.baseUrl}
+            demoMode={this.demoMode}
+            task={this.task}
+            questionnaire={this.questionnaire}
+            questionnaireResponse={this.questionnaireResponse}
+            onToQuestionnaireRenderer={()=>this.toQuestionnaire()}
+            // onBackToQuestionnaireRenderer={()=> this.toQuestionnaireRender()}
+            // onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
+          >
+          </questionnaire-summary>
+        ) : null}
       </div>
     );
   }

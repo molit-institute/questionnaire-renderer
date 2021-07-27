@@ -239,6 +239,10 @@ export namespace Components {
          */
         "danger": string;
         /**
+          * If the demoMode is true, questionnaires wont be set to complete, so they can be used indefinetly
+         */
+        "demoMode": Boolean;
+        /**
           * If true the render will show the button to exit the renderer
          */
         "editMode": boolean;
@@ -295,19 +299,22 @@ export namespace Components {
          */
         "subject": any;
         /**
+          * FHIR-Resource Task
+         */
+        "task": any;
+        /**
           * List of ValueSets that are needed to display the given questionnaire
          */
         "valueSets": Array<any>;
     }
     interface QuestionnaireSummary {
-        "FHIR_URL": string;
+        "baseUrl": string;
         "demoMode": Boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale": string;
         "mode": string;
-        "question": any;
         "questionnaire": Object;
         "questionnaireResponse": Object;
         /**
@@ -856,6 +863,10 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         /**
+          * If the demoMode is true, questionnaires wont be set to complete, so they can be used indefinetly
+         */
+        "demoMode"?: Boolean;
+        /**
           * If true the render will show the button to exit the renderer
          */
         "editMode"?: boolean;
@@ -918,21 +929,24 @@ declare namespace LocalJSX {
          */
         "subject"?: any;
         /**
+          * FHIR-Resource Task
+         */
+        "task"?: any;
+        /**
           * List of ValueSets that are needed to display the given questionnaire
          */
         "valueSets"?: Array<any>;
     }
     interface QuestionnaireSummary {
-        "FHIR_URL"?: string;
+        "baseUrl"?: string;
         "demoMode"?: Boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale"?: string;
         "mode"?: string;
-        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
-        "onReturn"?: (event: CustomEvent<any>) => void;
-        "question"?: any;
+        "onEditQuestion"?: (event: CustomEvent<any>) => void;
+        "onToQuestionnaireRenderer"?: (event: CustomEvent<any>) => void;
         "questionnaire"?: Object;
         "questionnaireResponse"?: Object;
         /**
