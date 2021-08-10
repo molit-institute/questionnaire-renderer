@@ -5,7 +5,7 @@ import { getLocaleComponentStrings } from '../../../utils/locale';
   tag: 'stepper-questionnaire',
   styleUrl: 'stepper-questionnaire.css',
   shadow: false,
-  scoped: true,
+  scoped: true
 })
 export class StepperQuestionnaire {
   @Element() element: HTMLElement;
@@ -278,6 +278,7 @@ export class StepperQuestionnaire {
   }
 
   async componentWillLoad(): Promise<void> {
+    this.lastquestion = this.lastQuestion;
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale);
     } catch (e) {
@@ -292,7 +293,6 @@ export class StepperQuestionnaire {
       this.lastquestion = false;
       this.questionCount = this.getQuestionPositionNumber();
     }
-    this.lastquestion = this.lastQuestion;
     this.setDisabled();
   }
 

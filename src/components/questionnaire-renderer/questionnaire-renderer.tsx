@@ -52,7 +52,7 @@ export class QuestionnaireRenderer {
   /**
    * If the demoMode is true, questionnaires wont be set to complete, so they can be used indefinetly
    */
-  @Prop() demoMode: Boolean=false;
+  @Prop() demoMode: Boolean = false;
   /**
    * FHIR-Resource Patient
    */
@@ -97,10 +97,22 @@ export class QuestionnaireRenderer {
    * ID of the question in the ItemList where in the list of questions the renderer should start
    */
   @Prop() startQuestion: Object = null;
+  @Watch('startQuestion')
+  watchStartQuestion() {
+    if (!this.enableSummary) {
+      this.start_question = this.startQuestion;
+    }
+  }
   /**
    * If true the render will show the button to exit the renderer
    */
   @Prop() editMode: boolean = false;
+  @Watch('editMode')
+  watchEditMode() {
+    if (!this.enableSummary) {
+      this.edit_mode = this.editMode;
+    }
+  }
   /**
    * Enable the return-button to exit the render-view
    */
@@ -109,6 +121,14 @@ export class QuestionnaireRenderer {
    * If true, the Renderer will show the last question
    */
   @Prop() lastQuestion: boolean = false;
+  @Watch('lastQuestion')
+  watchLastQuestion() {
+    if (!this.enableSummary) {
+      this.last_question = this.lastQuestion;
+    }
+  }
+
+  @Prop() summaryText: string = null;
   /**
    * Primary color
    */
@@ -129,8 +149,8 @@ export class QuestionnaireRenderer {
    * Text for next-button
    */
   next: string;
-  edit: boolean = false;
-  indexQuestion: Object = null;
+  edit_mode: boolean = false;
+  start_question: Object=null;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -148,7 +168,8 @@ export class QuestionnaireRenderer {
   currentStartCount: number = null;
   lastAnsweredQuestion: any = null;
   @State() show_questionnaire: boolean = true;
-  @State() show_summary: boolean=false;
+  @State() show_summary: boolean = false;
+  @State() last_question: boolean = false;
 
   /* computed */
   /**
@@ -174,7 +195,7 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   *
+   * Compares and removes all Items from a given ItemList, that are not in the filteredList
    * @param filteredList
    * @param itemList
    */
@@ -193,23 +214,48 @@ export class QuestionnaireRenderer {
   @Event() finished: EventEmitter;
   backToSummary(questionnaireResponse) {
     if (this.enableFullQuestionnaireResponse) {
-      if(this.enableSummary){
+      if (this.enableSummary) {
         this.show_questionnaire = false;
         this.show_summary = true;
+        this.last_question = false;
+        this.edit_mode = false;
+        this.start_question = null;
       }
       this.finished.emit(questionnaireResponse);
     } else {
-      if(this.enableSummary){
+      if (this.enableSummary) {
         this.show_questionnaire = false;
         this.show_summary = true;
+        this.last_question = false;
+        this.edit_mode = false;
+        this.start_question = null;
       }
       this.finished.emit(this.filterQuestionnaireResponse());
     }
   }
 
-  toQuestionnaire(){
-    this.show_questionnaire = true;
+  /**
+   * 
+   */
+  toQuestionnaire() {
+    this.edit_mode = false;
+    this.last_question = true;
     this.show_summary = false;
+    this.show_questionnaire = true;
+    this.start_question = null;
+  }
+
+  /**
+   * 
+   * @param question 
+   */
+  async editQuestion(question) {
+    this.edit_mode = true;
+    this.start_question = question.detail;
+    await this.handleStartQuestion(this.start_question)
+    this.show_summary = false;
+    this.last_question = false;
+    this.show_questionnaire = true;
   }
 
   /**
@@ -217,15 +263,19 @@ export class QuestionnaireRenderer {
    */
   finishQuestionnaire(questionnaireResponse) {
     if (this.enableFullQuestionnaireResponse) {
-      if(this.enableSummary){
+      if (this.enableSummary) {
+        this.edit_mode = false;
         this.show_questionnaire = false;
         this.show_summary = true;
+        this.start_question = null;
       }
       this.finished.emit(questionnaireResponse);
     } else {
-      if(this.enableSummary){
+      if (this.enableSummary) {
+        this.edit_mode = false;
         this.show_questionnaire = false;
         this.show_summary = true;
+        this.start_question = null;
       }
       this.finished.emit(this.filterQuestionnaireResponse());
     }
@@ -543,8 +593,13 @@ export class QuestionnaireRenderer {
       await this.handleQuestionnaireResponse();
       await this.filterItemList();
       this.handleAnsweredQuestionsList();
+      if (!this.enableSummary) {
+        this.start_question = this.startQuestion;
+        this.last_question = this.lastQuestion;
+        this.edit_mode = this.editMode;
+      }
       this.currentMode = this.mode;
-      this.handleStartQuestion(this.startQuestion);
+      await this.handleStartQuestion(this.start_question);
       setTimeout(() => {
         this.spinner = { ...this.spinner, loading: false };
       }, 250);
@@ -563,10 +618,10 @@ export class QuestionnaireRenderer {
             questionnaire={this.currentQuestionnaire}
             requiredQuestionList={this.answeredRequiredQuestionsList}
             valueSets={this.currentValueSets}
-            lastQuestion={this.lastQuestion}
+            lastQuestion={this.last_question}
             startCount={this.currentStartCount}
             baseUrl={this.baseUrl}
-            editMode={this.editMode}
+            editMode={this.edit_mode}
             primary={this.primary}
             secondary={this.secondary}
             danger={this.danger}
@@ -579,7 +634,7 @@ export class QuestionnaireRenderer {
             onEmitAnswer={ev => this.handleQuestionnaireResponseEvent(ev)}
           ></Tag>
         ) : null}
-        {this.show_questionnaire && this.show_summary ?(
+        {this.show_questionnaire && this.show_summary ? (
           // TODO does calc work like this?
           <div class="align-vertical" style={{ height: 'calc(100vh - 200px)' }}>
             <div class="note-modal">
@@ -593,20 +648,21 @@ export class QuestionnaireRenderer {
               </div>
             </div>
           </div>
-        ): null}
+        ) : null}
         {this.show_summary ? (
           <questionnaire-summary
             subject={this.subject}
             baseUrl={this.baseUrl}
             demoMode={this.demoMode}
+            locale={this.locale}
             task={this.task}
+            summary_text= {this.summaryText}
             questionnaire={this.questionnaire}
-            questionnaireResponse={this.questionnaireResponse}
-            onToQuestionnaireRenderer={()=>this.toQuestionnaire()}
-            // onBackToQuestionnaireRenderer={()=> this.toQuestionnaireRender()}
-            // onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
-          >
-          </questionnaire-summary>
+            questionnaireResponse={this.enableFullQuestionnaireResponse?this.currentQuestionnaireResponse:this.filterQuestionnaireResponse()}
+            onToQuestionnaireRenderer={() => this.toQuestionnaire()}
+            onEditQuestion={question => this.editQuestion(question)}
+            onFinishQuestionnaire={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
+          ></questionnaire-summary>
         ) : null}
       </div>
     );

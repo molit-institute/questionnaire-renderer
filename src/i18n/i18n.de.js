@@ -13,6 +13,9 @@ export default {
   next: "Weiter",
   yes: "Ja",
   no: "Nein",
+  yourAnswer: "Ihre Antwort",
+  noAnswer: "Keine Antwort",
+  group: "Gruppe",
 
   loading: {
     data: "Lade Daten",

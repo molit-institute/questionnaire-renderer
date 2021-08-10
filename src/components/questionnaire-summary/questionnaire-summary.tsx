@@ -1,7 +1,7 @@
 /**
  * This Component adds a Summary and reacts to the users input
  */
-import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '@stencil/core';
+import { Component, h, Prop, Watch, State, Element, Event, EventEmitter, getAssetPath } from '@stencil/core';
 import { getLocaleComponentStrings } from '../../utils/locale';
 import questionnaireResponseController from '../../utils/questionnaireResponseController';
 import * as fhirApi from '@molit/fhir-api';
@@ -11,6 +11,7 @@ import * as fhirApi from '@molit/fhir-api';
   styleUrl: 'questionnaire-summary.css',
   shadow: false,
   scoped: true,
+  assetsDirs: ['assets'],
 })
 export class QuestionnaireSummary {
   @Element() element: HTMLElement;
@@ -18,6 +19,10 @@ export class QuestionnaireSummary {
    *  String containing the translations for the current locale
    */
   @State() strings: any;
+  @State() spinner: any = {
+    loading: false,
+    message: '',
+  };
   /**
    * Variable to store the value of the input
    */
@@ -28,10 +33,11 @@ export class QuestionnaireSummary {
   @Prop() subject: Object;
   @Prop() baseUrl: string;
   @Prop() demoMode: Boolean;
-  @Prop() task: Object;
+  @Prop() task: any;
   @Prop() mode: string;
   @Prop() questionnaire: Object = null;
-  @Prop() questionnaireResponse: Object = null;
+  @Prop() questionnaireResponse: any = null;
+  @Prop() summary_text: string;
   // @Watch('questionnaireResponse')
   // async watchQuestionnaireResponse() {
   //   this.allow_events = false;
@@ -62,10 +68,10 @@ export class QuestionnaireSummary {
   /**
    *
    */
-   @Event() editQuestion: EventEmitter;
-   editSelectedQuestion(question) {
-     this.editQuestion.emit(question);
-   }
+  @Event() editQuestion: EventEmitter;
+  editSelectedQuestion(question) {
+    this.editQuestion.emit(question);
+  }
 
   /**
    *
@@ -115,109 +121,123 @@ export class QuestionnaireSummary {
     return '';
   }
 
-  /**
-   * Returns true if there is more than one patient with multiple tasks left.
-   */
-  async checkDemoMode() {
-    if (this.demoMode) {
-      let params = {
-        '_has:Task:patient:status': 'ready',
-        '_has:Task:patient:code': 'eQuestionnaire',
-      };
-      let patients = [];
-      try {
-        let response = await fhirApi.fetchResources(this.baseUrl, 'Patient', params);
-        patients = response.data.entry;
+  getItemList(object) {
+    return questionnaireResponseController.createItemList(object);
+  }
 
-        if (patients.length === 1) {
-          let taskParams = {
-            subject: patients[0].resource.id,
-            status: 'ready',
-          };
-
-          let tasks = await fhirApi.fetchResources(this.baseUrl, 'Task', taskParams);
-
-          return tasks.data.entry.length !== 1 ? true : false;
-        } else {
-          return true;
-        }
-      } catch (error) {
-        //
-      }
+  getAnswer(question) {
+    let answer = null;
+    if (!this.checkIfDisplay(question.linkId) && question.answer.length === 0 && !question.item && !question.answer[0]) {
+      answer = this.strings.noAnswer;
+      return answer;
     } else {
-      return true;
+      switch (this.getType(question)) {
+        case 'boolean':
+          if (question.answer[0].valueBoolean === true) {
+            answer = this.strings.yes;
+          } else if (question.answer[0].valueBoolean === false) {
+            answer = this.strings.no;
+          }
+          break;
+        case 'decimal':
+          answer = question.answer[0].valueDecimal;
+          break;
+        case 'integer':
+          answer = question.answer[0].valueInteger;
+          break;
+        case 'date':
+          answer = question.answer[0].valueDate;
+          break;
+        case 'dateTime':
+          answer = question.answer[0].valueDateTime;
+          break;
+        case 'time':
+          answer = question.answer[0].valueTime;
+          break;
+        case 'string':
+          answer = question.answer[0].valueString;
+          break;
+        case 'url':
+          if (question.answer[0].valueUri !== '') {
+            answer = question.answer[0].valueUri;
+          } else {
+            answer = this.strings.noAnswer;
+          }
+          break;
+        case 'attachment':
+          answer = question.answer[0].valueAttachment;
+          break;
+        case 'coding':
+          answer = this.formatChoice(question.answer);
+          break;
+        case 'quantity':
+          answer = question.answer[0].valueQuantity;
+          break;
+
+        default:
+          break;
+      }
+      return answer;
     }
   }
 
-  // async completeQuestionnaireResponse() {
-  //   if (this.questionnaireResponse) {
-  //     let demo = await this.checkDemoMode();
-  //     let questResp = this.questionnaireResponse;
-  //     let task = this.task;
-  //     this.loading = true;
-  //     let wrapper = {
-  //       taskId: task.id,
-  //       response: questResp
-  //     };
-  //     task.executionPeriod.end = new Date().toISOString();
-  //     questResp.status = "completed";
-  //     this.$refs.successPopover.show();
-  //     try {
-  //       if (this.connectionStatus) {
-  //         // ONLINE
-  //         let output = await fhirApi.submitResource(this.FHIR_URL, questResp);
-  //         if (config.SHOW_QUESTIONAIRE_RESPONSE_URL) {
-  //           // eslint-disable-next-line no-console
-  //           console.info("Questionnaire Response ID: " + output.data.id, "Url: " + output.config.url + "/" + output.data.id);
-  //         }
+  /**
+   * Counts all Questions from ItemList excluding Groups
+   */
+   numberOfQuestions() {
+    let itemList = questionnaireResponseController.createItemList(this.questionnaireResponse);
+    let number = 0;
+    for (let i = 0; i < itemList.length; i++) {
+      if (itemList[i].type !== 'group' && !itemList[i].item) {
+        number++;
+      }
+    }
+    return number;
+  }
 
-  //         if (demo) {
-  //           task.status = "completed";
-  //           await fhirApi.updateResource(this.FHIR_URL, task);
-  //         }
-  //         setTimeout(() => {
-  //           this.loading = false;
-  //         }, 250);
-  //         if (!demo) {
-  //           this.modalMessage.title = this.$t("thank-you-text");
-  //           this.modalMessage.text = this.$t("demo");
-  //         } else {
-  //           this.modalMessage.title = this.$t("thank-you-text");
-  //           this.modalMessage.text = this.$t("finish-text");
-  //         }
-  //       } else {
-  //         //OFFLINE
-  //         this.$emit("saveQuestionnaireResponse", wrapper);
+  countAnsweredQuestions(){
+    let itemList = questionnaireResponseController.createItemList(this.questionnaireResponse);
+    let number = 0;
+    for (let i = 0; i< itemList.length; i++){
+      if (itemList[i].type !== 'group') {
+        if(itemList[i].answer && itemList[i].answer.length !== 0){
+          number++;
+        }
+      }
+    }
+    return number;
+  }
 
-  //         setTimeout(() => {
-  //           this.loading = false;
-  //         }, 250);
-  //         if (!demo) {
-  //           this.modalMessage.title = this.$t("thank-you-text");
-  //           this.modalMessage.text = this.$t("demo");
-  //         } else {
-  //           this.modalMessage.title = this.$t("thank-you-text");
-  //           this.modalMessage.text = this.$t("offline");
-  //           this.modalMessage.subtext = this.$t("contactStaff");
-  //         }
-  //       }
-  //     } catch (error) {
-  //       // eslint-disable-next-line no-console
-  //       console.error(error);
-  //       this.$emit("saveQuestionnaireResponse", wrapper);
+  @Event() finishQuestionnaire: EventEmitter;
+  @Event() finishTask: EventEmitter;
+  async completeQuestionnaireResponse() {
+    if (this.questionnaireResponse) {
+      this.spinner.loading =true;
+      let questResp = this.questionnaireResponse;
+      let task = this.task;
 
-  //       setTimeout(() => {
-  //         this.loading = false;
-  //       }, 250);
-  //       this.modalMessage.title = this.$t("thank-you-text");
-  //       this.modalMessage.text = this.$t("offline");
-  //       this.modalMessage.subtext = this.$t("contactStaff");
-  //     }
-  //   }
-  // }
-  // goToSelectedQuestion(question) {
-  //   this.$emit("toSelectedQuestion", question);
-  // }
+      questResp.status = 'completed';
+      // Handle QuestionnaireResponse
+      if (this.baseUrl) {
+        try {
+          // let output = await fhirApi.submitResource(this.baseUrl, questResp);
+        } catch (error) {}
+      }
+      // Handle Task
+      if (this.task) {
+        task.executionPeriod.end = new Date().toISOString();
+        task.status = 'completed';
+        this.finishTask.emit(task);
+        if (this.baseUrl) {
+          try {
+            // await fhirApi.updateResource(this.baseUrl, task);
+          } catch (error) {}
+        }
+      }
+      this.spinner.loading = false;
+      this.finishQuestionnaire.emit('finishQuestionnaire');
+    }
+  }
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
@@ -232,7 +252,46 @@ export class QuestionnaireSummary {
   render() {
     return (
       <div>
-        <div class="card" onClick={() => this.returnToQuestionnaire()}>Summary</div>
+        <div></div>
+        <div>{this.strings.summary}</div>
+        <div>{this.countAnsweredQuestions()} von {this.numberOfQuestions()}</div>
+        <div>{this.summary_text}</div>
+        {this.spinner.loading ? (
+          <div class="card card-basic-margins">
+            <div class="card-body">
+              <simple-spinner message={this.spinner.message}></simple-spinner>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <div>
+              {this.getItemList(this.questionnaireResponse).map(item =>
+                item.hasOwnProperty('extension') && item.type === 'display' ? null : (
+                  <div>
+                    <div>
+                      {!item.item ? this.strings.question : this.strings.group} {this.getPrefix(item.linkId)}{' '}
+                    </div>
+                    <div>{item.text}</div>
+                    <div>
+                      {item && !item.item ? (
+                        <div>
+                          {this.strings.yourAnswer}:&nbsp;
+                          {this.getAnswer(item)} &nbsp;
+                          <span style={{ cursor: 'pointer' }} onClick={() => this.editSelectedQuestion(item)}>
+                            <img src={getAssetPath('./../assets/icons/pencil.svg')} />
+                          </span>
+                        </div>
+                      ) : null}
+                    </div>
+                    <hr />
+                  </div>
+                ),
+              )}
+            </div>
+            <button onClick={() => this.returnToQuestionnaire()}>{this.strings.back}</button>
+            <button onClick={() => this.completeQuestionnaireResponse()}>Fragebogen speichern</button>
+          </div>
+        )}
       </div>
     );
   }

@@ -298,6 +298,7 @@ export namespace Components {
           * FHIR-Resource Patient
          */
         "subject": any;
+        "summaryText": string;
         /**
           * FHIR-Resource Task
          */
@@ -316,12 +317,13 @@ export namespace Components {
         "locale": string;
         "mode": string;
         "questionnaire": Object;
-        "questionnaireResponse": Object;
+        "questionnaireResponse": any;
         /**
           * FHIR Patient-Resource
          */
         "subject": Object;
-        "task": Object;
+        "summary_text": string;
+        "task": any;
     }
     interface SimpleSpinner {
         "borderTopColor": string;
@@ -928,6 +930,7 @@ declare namespace LocalJSX {
           * FHIR-Resource Patient
          */
         "subject"?: any;
+        "summaryText"?: string;
         /**
           * FHIR-Resource Task
          */
@@ -946,14 +949,17 @@ declare namespace LocalJSX {
         "locale"?: string;
         "mode"?: string;
         "onEditQuestion"?: (event: CustomEvent<any>) => void;
+        "onFinishQuestionnaire"?: (event: CustomEvent<any>) => void;
+        "onFinishTask"?: (event: CustomEvent<any>) => void;
         "onToQuestionnaireRenderer"?: (event: CustomEvent<any>) => void;
         "questionnaire"?: Object;
-        "questionnaireResponse"?: Object;
+        "questionnaireResponse"?: any;
         /**
           * FHIR Patient-Resource
          */
         "subject"?: Object;
-        "task"?: Object;
+        "summary_text"?: string;
+        "task"?: any;
     }
     interface SimpleSpinner {
         "borderTopColor"?: string;
