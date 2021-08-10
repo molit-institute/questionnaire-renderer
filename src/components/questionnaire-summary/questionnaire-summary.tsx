@@ -128,7 +128,7 @@ export class QuestionnaireSummary {
   getAnswer(question) {
     let answer = null;
     if (!this.checkIfDisplay(question.linkId) && question.answer.length === 0 && !question.item && !question.answer[0]) {
-      answer = this.strings.noAnswer;
+      answer = this.strings.summary.noAnswer;
       return answer;
     } else {
       switch (this.getType(question)) {
@@ -161,7 +161,7 @@ export class QuestionnaireSummary {
           if (question.answer[0].valueUri !== '') {
             answer = question.answer[0].valueUri;
           } else {
-            answer = this.strings.noAnswer;
+            answer = this.strings.summary.noAnswer;
           }
           break;
         case 'attachment':
@@ -184,7 +184,7 @@ export class QuestionnaireSummary {
   /**
    * Counts all Questions from ItemList excluding Groups
    */
-   numberOfQuestions() {
+  numberOfQuestions() {
     let itemList = questionnaireResponseController.createItemList(this.questionnaireResponse);
     let number = 0;
     for (let i = 0; i < itemList.length; i++) {
@@ -195,12 +195,12 @@ export class QuestionnaireSummary {
     return number;
   }
 
-  countAnsweredQuestions(){
+  countAnsweredQuestions() {
     let itemList = questionnaireResponseController.createItemList(this.questionnaireResponse);
     let number = 0;
-    for (let i = 0; i< itemList.length; i++){
+    for (let i = 0; i < itemList.length; i++) {
       if (itemList[i].type !== 'group') {
-        if(itemList[i].answer && itemList[i].answer.length !== 0){
+        if (itemList[i].answer && itemList[i].answer.length !== 0) {
           number++;
         }
       }
@@ -210,9 +210,10 @@ export class QuestionnaireSummary {
 
   @Event() finishQuestionnaire: EventEmitter;
   @Event() finishTask: EventEmitter;
+  @Event() error: EventEmitter;
   async completeQuestionnaireResponse() {
     if (this.questionnaireResponse) {
-      this.spinner.loading =true;
+      this.spinner.loading = true;
       let questResp = this.questionnaireResponse;
       let task = this.task;
 
@@ -220,8 +221,11 @@ export class QuestionnaireSummary {
       // Handle QuestionnaireResponse
       if (this.baseUrl) {
         try {
-          // let output = await fhirApi.submitResource(this.baseUrl, questResp);
-        } catch (error) {}
+          let output = await fhirApi.submitResource(this.baseUrl, questResp);
+          console.info("Questionnaire Response ID: " + output.data.id, "Url: " + output.config.url + "/" + output.data.id);
+        } catch (e) {
+          this.error.emit(e);
+        }
       }
       // Handle Task
       if (this.task) {
@@ -230,8 +234,10 @@ export class QuestionnaireSummary {
         this.finishTask.emit(task);
         if (this.baseUrl) {
           try {
-            // await fhirApi.updateResource(this.baseUrl, task);
-          } catch (error) {}
+            await fhirApi.updateResource(this.baseUrl, task);
+          } catch (e) {
+            this.error.emit(e);
+          }
         }
       }
       this.spinner.loading = false;
@@ -253,8 +259,10 @@ export class QuestionnaireSummary {
     return (
       <div>
         <div></div>
-        <div>{this.strings.summary}</div>
-        <div>{this.countAnsweredQuestions()} von {this.numberOfQuestions()}</div>
+        <div>{this.strings.summary.title}</div>
+        <div>
+          {this.strings.summary.youHave} {this.countAnsweredQuestions()} {this.strings.of} {this.numberOfQuestions()} {this.strings.summary.questionsAnswered}
+        </div>
         <div>{this.summary_text}</div>
         {this.spinner.loading ? (
           <div class="card card-basic-margins">
@@ -275,7 +283,7 @@ export class QuestionnaireSummary {
                     <div>
                       {item && !item.item ? (
                         <div>
-                          {this.strings.yourAnswer}:&nbsp;
+                          {this.strings.summary.yourAnswer}:&nbsp;
                           {this.getAnswer(item)} &nbsp;
                           <span style={{ cursor: 'pointer' }} onClick={() => this.editSelectedQuestion(item)}>
                             <img src={getAssetPath('./../assets/icons/pencil.svg')} />

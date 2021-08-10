@@ -239,10 +239,6 @@ export namespace Components {
          */
         "danger": string;
         /**
-          * If the demoMode is true, questionnaires wont be set to complete, so they can be used indefinetly
-         */
-        "demoMode": Boolean;
-        /**
           * If true the render will show the button to exit the renderer
          */
         "editMode": boolean;
@@ -865,10 +861,6 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         /**
-          * If the demoMode is true, questionnaires wont be set to complete, so they can be used indefinetly
-         */
-        "demoMode"?: Boolean;
-        /**
           * If true the render will show the button to exit the renderer
          */
         "editMode"?: boolean;
@@ -896,6 +888,7 @@ declare namespace LocalJSX {
           * Current type of Questionnaire-Style to display Available: stepper-questionnaire, grouped-questionnaire, full-questionnaire
          */
         "mode"?: string;
+        "onError"?: (event: CustomEvent<any>) => void;
         /**
           * Emits an Event to exit the Renderer
          */
@@ -949,6 +942,7 @@ declare namespace LocalJSX {
         "locale"?: string;
         "mode"?: string;
         "onEditQuestion"?: (event: CustomEvent<any>) => void;
+        "onError"?: (event: CustomEvent<any>) => void;
         "onFinishQuestionnaire"?: (event: CustomEvent<any>) => void;
         "onFinishTask"?: (event: CustomEvent<any>) => void;
         "onToQuestionnaireRenderer"?: (event: CustomEvent<any>) => void;

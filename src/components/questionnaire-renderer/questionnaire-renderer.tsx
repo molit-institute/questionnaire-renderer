@@ -49,10 +49,7 @@ export class QuestionnaireRenderer {
   async watchQuestionnaireResponse() {
     await this.handleQuestionnaireResponse();
   }
-  /**
-   * If the demoMode is true, questionnaires wont be set to complete, so they can be used indefinetly
-   */
-  @Prop() demoMode: Boolean = false;
+
   /**
    * FHIR-Resource Patient
    */
@@ -150,7 +147,7 @@ export class QuestionnaireRenderer {
    */
   next: string;
   edit_mode: boolean = false;
-  start_question: Object=null;
+  start_question: Object = null;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -235,7 +232,7 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   * 
+   *
    */
   toQuestionnaire() {
     this.edit_mode = false;
@@ -246,13 +243,13 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   * 
-   * @param question 
+   *
+   * @param question
    */
   async editQuestion(question) {
     this.edit_mode = true;
     this.start_question = question.detail;
-    await this.handleStartQuestion(this.start_question)
+    await this.handleStartQuestion(this.start_question);
     this.show_summary = false;
     this.last_question = false;
     this.show_questionnaire = true;
@@ -579,6 +576,11 @@ export class QuestionnaireRenderer {
     this.exit.emit(this.currentQuestionnaireResponse);
   }
 
+  @Event() error: EventEmitter;
+  emitError(error) {
+    this.error.emit(error);
+  }
+
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
@@ -653,15 +655,15 @@ export class QuestionnaireRenderer {
           <questionnaire-summary
             subject={this.subject}
             baseUrl={this.baseUrl}
-            demoMode={this.demoMode}
             locale={this.locale}
             task={this.task}
-            summary_text= {this.summaryText}
+            summary_text={this.summaryText}
             questionnaire={this.questionnaire}
-            questionnaireResponse={this.enableFullQuestionnaireResponse?this.currentQuestionnaireResponse:this.filterQuestionnaireResponse()}
+            questionnaireResponse={this.enableFullQuestionnaireResponse ? this.currentQuestionnaireResponse : this.filterQuestionnaireResponse()}
             onToQuestionnaireRenderer={() => this.toQuestionnaire()}
             onEditQuestion={question => this.editQuestion(question)}
             onFinishQuestionnaire={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
+            onError={error => this.emitError(error)}
           ></questionnaire-summary>
         ) : null}
       </div>

@@ -13,9 +13,16 @@ export default {
   next: "Weiter",
   yes: "Ja",
   no: "Nein",
-  yourAnswer: "Ihre Antwort",
-  noAnswer: "Keine Antwort",
   group: "Gruppe",
+
+  summary: {
+    title: "Zusammenfassung",
+    yourAnswer: "Ihre Antwort",
+    noAnswer: "Keine Antwort",
+    youHave: "Sie haben",
+    questionsAnswered: "Fragen beantwortet",
+    saveQuestionnaire: "Fragebogen speichern"
+  },
 
   loading: {
     data: "Lade Daten",
