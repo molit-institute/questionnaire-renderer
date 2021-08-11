@@ -286,9 +286,11 @@ export class StepperQuestionnaire {
     }
     //sets count if startcount was given from the summarypage through the questionnaire.view
     if (this.startCount && this.filteredItemList && this.filteredItemList.length > 0) {
+      console.log("startCount")
       this.count = this.startCount;
       this.questionCount = this.getQuestionPositionNumber();
     } else if (this.lastquestion === true && this.filteredItemList && this.filteredItemList.length > 0) {
+      console.log("lastQuestion")
       this.count = this.filteredItemList.length - 1;
       this.lastquestion = false;
       this.questionCount = this.getQuestionPositionNumber();

@@ -240,7 +240,9 @@ export class QuestionnaireSummary {
           }
         }
       }
-      this.spinner.loading = false;
+      setTimeout(() => {
+        this.spinner.loading = false;
+      }, 250);
       this.finishQuestionnaire.emit('finishQuestionnaire');
     }
   }

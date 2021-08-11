@@ -235,11 +235,14 @@ export class QuestionnaireRenderer {
    *
    */
   toQuestionnaire() {
+    this.lastAnsweredQuestion = null;
+    this.currentStartCount = null;
+    this.start_question = null;
     this.edit_mode = false;
     this.last_question = true;
     this.show_summary = false;
     this.show_questionnaire = true;
-    this.start_question = null;
+    console.log()
   }
 
   /**
@@ -279,7 +282,7 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   * Takes the given object, adds new answers to the curren QuestionnaireRespons and saves the question as the last answered Question
+   * Takes the given object, adds new answers to the current QuestionnaireRespons and saves the question as the last answered Question
    */
   async handleQuestionnaireResponseEvent(object) {
     this.lastAnsweredQuestion = object.detail.question;
