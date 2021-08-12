@@ -49,10 +49,15 @@ export class QuestionnaireRenderer {
   async watchQuestionnaireResponse() {
     await this.handleQuestionnaireResponse();
   }
+
   /**
    * FHIR-Resource Patient
    */
   @Prop() subject: any = null;
+  /**
+   * FHIR-Resource Task
+   */
+  @Prop() task: any = null;
   /**
    * List of ValueSets that are needed to display the given questionnaire
    */
@@ -78,6 +83,10 @@ export class QuestionnaireRenderer {
    */
   @Prop() enableFullQuestionnaireResponse: boolean = false;
   /**
+   * Enable the summary. The summary will be shown if enableSummary is true
+   */
+  @Prop() enableSummary: boolean = false;
+  /**
    * The Url to fetch the Questionnaire from
    */
   @Prop() questionnaireUrl: string = null;
@@ -85,10 +94,22 @@ export class QuestionnaireRenderer {
    * ID of the question in the ItemList where in the list of questions the renderer should start
    */
   @Prop() startQuestion: Object = null;
+  @Watch('startQuestion')
+  watchStartQuestion() {
+    if (!this.enableSummary) {
+      this.start_question = this.startQuestion;
+    }
+  }
   /**
    * If true the render will show the button to exit the renderer
    */
   @Prop() editMode: boolean = false;
+  @Watch('editMode')
+  watchEditMode() {
+    if (!this.enableSummary) {
+      this.edit_mode = this.editMode;
+    }
+  }
   /**
    * Enable the return-button to exit the render-view
    */
@@ -97,6 +118,14 @@ export class QuestionnaireRenderer {
    * If true, the Renderer will show the last question
    */
   @Prop() lastQuestion: boolean = false;
+  @Watch('lastQuestion')
+  watchLastQuestion() {
+    if (!this.enableSummary) {
+      this.last_question = this.lastQuestion;
+    }
+  }
+
+  @Prop() summaryText: string = null;
   /**
    * Primary color
    */
@@ -117,6 +146,8 @@ export class QuestionnaireRenderer {
    * Text for next-button
    */
   next: string;
+  edit_mode: boolean = false;
+  start_question: Object = null;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -133,7 +164,9 @@ export class QuestionnaireRenderer {
   currentValueSets: Array<any> = [];
   currentStartCount: number = null;
   lastAnsweredQuestion: any = null;
-  modal: boolean = false;
+  @State() show_questionnaire: boolean = true;
+  @State() show_summary: boolean = false;
+  @State() last_question: boolean = false;
 
   /* computed */
   /**
@@ -159,7 +192,7 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   *
+   * Compares and removes all Items from a given ItemList, that are not in the filteredList
    * @param filteredList
    * @param itemList
    */
@@ -178,12 +211,51 @@ export class QuestionnaireRenderer {
   @Event() finished: EventEmitter;
   backToSummary(questionnaireResponse) {
     if (this.enableFullQuestionnaireResponse) {
-      this.modal = false;
+      if (this.enableSummary) {
+        this.show_questionnaire = false;
+        this.show_summary = true;
+        this.last_question = false;
+        this.edit_mode = false;
+        this.start_question = null;
+      }
       this.finished.emit(questionnaireResponse);
     } else {
-      this.modal = false;
+      if (this.enableSummary) {
+        this.show_questionnaire = false;
+        this.show_summary = true;
+        this.last_question = false;
+        this.edit_mode = false;
+        this.start_question = null;
+      }
       this.finished.emit(this.filterQuestionnaireResponse());
     }
+  }
+
+  /**
+   *
+   */
+  toQuestionnaire() {
+    this.lastAnsweredQuestion = null;
+    this.currentStartCount = null;
+    this.start_question = null;
+    this.edit_mode = false;
+    this.last_question = true;
+    this.show_summary = false;
+    this.show_questionnaire = true;
+    console.log()
+  }
+
+  /**
+   *
+   * @param question
+   */
+  async editQuestion(question) {
+    this.edit_mode = true;
+    this.start_question = question.detail;
+    await this.handleStartQuestion(this.start_question);
+    this.show_summary = false;
+    this.last_question = false;
+    this.show_questionnaire = true;
   }
 
   /**
@@ -191,14 +263,26 @@ export class QuestionnaireRenderer {
    */
   finishQuestionnaire(questionnaireResponse) {
     if (this.enableFullQuestionnaireResponse) {
+      if (this.enableSummary) {
+        this.edit_mode = false;
+        this.show_questionnaire = false;
+        this.show_summary = true;
+        this.start_question = null;
+      }
       this.finished.emit(questionnaireResponse);
     } else {
+      if (this.enableSummary) {
+        this.edit_mode = false;
+        this.show_questionnaire = false;
+        this.show_summary = true;
+        this.start_question = null;
+      }
       this.finished.emit(this.filterQuestionnaireResponse());
     }
   }
 
   /**
-   * Takes the given object, adds new answers to the curren QuestionnaireRespons and saves the question as the last answered Question
+   * Takes the given object, adds new answers to the current QuestionnaireRespons and saves the question as the last answered Question
    */
   async handleQuestionnaireResponseEvent(object) {
     this.lastAnsweredQuestion = object.detail.question;
@@ -453,7 +537,7 @@ export class QuestionnaireRenderer {
     }
 
     if (this.currentStartCount < 0) {
-      this.modal = true;
+      this.show_questionnaire = true;
       this.currentStartCount = 0;
     }
   }
@@ -495,6 +579,11 @@ export class QuestionnaireRenderer {
     this.exit.emit(this.currentQuestionnaireResponse);
   }
 
+  @Event() error: EventEmitter;
+  emitError(error) {
+    this.error.emit(error);
+  }
+
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
@@ -509,8 +598,13 @@ export class QuestionnaireRenderer {
       await this.handleQuestionnaireResponse();
       await this.filterItemList();
       this.handleAnsweredQuestionsList();
+      if (!this.enableSummary) {
+        this.start_question = this.startQuestion;
+        this.last_question = this.lastQuestion;
+        this.edit_mode = this.editMode;
+      }
       this.currentMode = this.mode;
-      this.handleStartQuestion(this.startQuestion);
+      await this.handleStartQuestion(this.start_question);
       setTimeout(() => {
         this.spinner = { ...this.spinner, loading: false };
       }, 250);
@@ -522,17 +616,17 @@ export class QuestionnaireRenderer {
     const Tag = this.mode;
     return (
       <div class="">
-        {!this.modal ? (
+        {this.show_questionnaire ? (
           <Tag
             filteredItemList={this.filteredItemList}
             questionnaireResponse={this.currentQuestionnaireResponse}
             questionnaire={this.currentQuestionnaire}
             requiredQuestionList={this.answeredRequiredQuestionsList}
             valueSets={this.currentValueSets}
-            lastQuestion={this.lastQuestion}
+            lastQuestion={this.last_question}
             startCount={this.currentStartCount}
             baseUrl={this.baseUrl}
-            editMode={this.editMode}
+            editMode={this.edit_mode}
             primary={this.primary}
             secondary={this.secondary}
             danger={this.danger}
@@ -544,7 +638,8 @@ export class QuestionnaireRenderer {
             onReturn={() => this.leaveQuestionnaireRenderer()}
             onEmitAnswer={ev => this.handleQuestionnaireResponseEvent(ev)}
           ></Tag>
-        ) : (
+        ) : null}
+        {this.show_questionnaire && this.show_summary ? (
           // TODO does calc work like this?
           <div class="align-vertical" style={{ height: 'calc(100vh - 200px)' }}>
             <div class="note-modal">
@@ -558,7 +653,22 @@ export class QuestionnaireRenderer {
               </div>
             </div>
           </div>
-        )}
+        ) : null}
+        {this.show_summary ? (
+          <questionnaire-summary
+            subject={this.subject}
+            baseUrl={this.baseUrl}
+            locale={this.locale}
+            task={this.task}
+            summary_text={this.summaryText}
+            questionnaire={this.questionnaire}
+            questionnaireResponse={this.enableFullQuestionnaireResponse ? this.currentQuestionnaireResponse : this.filterQuestionnaireResponse()}
+            onToQuestionnaireRenderer={() => this.toQuestionnaire()}
+            onEditQuestion={question => this.editQuestion(question)}
+            onFinishQuestionnaire={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
+            onError={error => this.emitError(error)}
+          ></questionnaire-summary>
+        ) : null}
       </div>
     );
   }

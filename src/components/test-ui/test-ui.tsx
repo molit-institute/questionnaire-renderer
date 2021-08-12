@@ -104,9 +104,9 @@ export class TestUi {
             : null}
           {this.show_renderer ? (
             <questionnaire-renderer
-              onFinished={event => this.toSummary(event)}
-              onUpdated={event => this.updateQR(event)}
-              onExit={() => this.toQuestionnaireList()}
+              // onFinished={event => this.toSummary(event)}
+              // onUpdated={event => this.updateQR(event)}
+              // onExit={() => this.toQuestionnaireList()}
               questionnaireResponse={this.questionnaireResponse}
               questionnaire={this.questionnaire}
               baseUrl={this.baseUrl}
@@ -116,6 +116,8 @@ export class TestUi {
               editMode={this.edit}
               startQuestion={this.indexQuestion}
               enableFullQuestionnaireResponse={false}
+              enableSummary={true}
+              summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
             ></questionnaire-renderer>
           ) : null}
           {this.show_summary ? (

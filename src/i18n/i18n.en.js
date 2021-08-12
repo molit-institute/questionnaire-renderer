@@ -12,6 +12,16 @@ export default {
   next: "Next",
   yes: "yes",
   no: "no",
+  group: "Group",
+
+  summary: {
+    title: "Summary",
+    yourAnswer: "Your answer",
+    noAnswer: "No answer",
+    youHave: "You have",
+    questionsAnswered: "questions answered",
+    saveQuestionnaire: "Save questionnaire"
+  },
 
   loading: {
     data: "Loading Data",
