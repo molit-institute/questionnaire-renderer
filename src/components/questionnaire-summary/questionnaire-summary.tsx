@@ -19,13 +19,10 @@ export class QuestionnaireSummary {
    *  String containing the translations for the current locale
    */
   @State() strings: any;
-  @State() spinner: any = {
+  @State() spinner: {[k:string]:any} = {
     loading: false,
     message: '',
   };
-  /**
-   * Variable to store the value of the input
-   */
 
   /**
    * FHIR Patient-Resource
@@ -38,11 +35,6 @@ export class QuestionnaireSummary {
   @Prop() questionnaire: Object = null;
   @Prop() questionnaireResponse: any = null;
   @Prop() summary_text: string;
-  // @Watch('questionnaireResponse')
-  // async watchQuestionnaireResponse() {
-  //   this.allow_events = false;
-  //   this.allow_events = true;
-  // }
 
   /**
    * Language property of the component. </br>
@@ -213,7 +205,8 @@ export class QuestionnaireSummary {
   @Event() error: EventEmitter;
   async completeQuestionnaireResponse() {
     if (this.questionnaireResponse) {
-      this.spinner.loading = true;
+      this.spinner = { ...this.spinner, loading: true };
+      this.spinner = { ...this.spinner, message: this.strings.summary.saveQuestionnaire };
       let questResp = this.questionnaireResponse;
       let task = this.task;
 
@@ -241,7 +234,7 @@ export class QuestionnaireSummary {
         }
       }
       setTimeout(() => {
-        this.spinner.loading = false;
+        this.spinner = { ...this.spinner, loading: false };
       }, 250);
       this.finishQuestionnaire.emit('finishQuestionnaire');
     }
@@ -249,6 +242,7 @@ export class QuestionnaireSummary {
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
+    console.log(this.questionnaireResponse);
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale);
       // this.itemList = questionnaireResponseController.createItemList(this.questionnaireResponse);
