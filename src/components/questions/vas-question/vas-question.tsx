@@ -7,6 +7,7 @@ import { Component, h, Prop, Event, EventEmitter } from '@stencil/core';
   scoped: true,
 })
 export class VasQuestion {
+  @Prop() variant: any = null;
   @Prop() selected: number = 0;
   @Prop() min: number = 0;
   @Prop() max: number = 100;

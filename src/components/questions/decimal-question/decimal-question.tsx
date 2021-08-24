@@ -14,7 +14,7 @@ import { getLocaleComponentStrings } from '../../../utils/locale';
 export class DecimalQuestion {
   @Element() element: HTMLElement;
   decimalInput!: HTMLInputElement;
-
+  @Prop() variant: any = null;
   /**
    *  String containing the translations for the current locale
    */

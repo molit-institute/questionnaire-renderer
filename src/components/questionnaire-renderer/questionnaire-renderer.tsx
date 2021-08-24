@@ -50,6 +50,14 @@ export class QuestionnaireRenderer {
     await this.handleQuestionnaireResponse();
   }
 
+  @Prop() variant: any= null;
+  @Watch('variant')
+  watchVariant(){
+    if(this.mode){
+      //TODO irgendwie muss der default-mode an die variante angepasst werden
+      //     und dabei auch der eingegebene mode berücksichtigt werden
+    }
+  }
   /**
    * FHIR-Resource Patient
    */
@@ -618,6 +626,7 @@ export class QuestionnaireRenderer {
       <div class="">
         {this.show_questionnaire ? (
           <Tag
+            variant={this.variant}
             filteredItemList={this.filteredItemList}
             questionnaireResponse={this.currentQuestionnaireResponse}
             questionnaire={this.currentQuestionnaire}

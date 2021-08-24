@@ -14,7 +14,7 @@ import moment from 'moment';
 })
 export class DateTimeQuestion {
   @Element() element: HTMLElement;
-
+  @Prop() variant: any = null;
   /**
    *  String containing the translations for the current locale
    */

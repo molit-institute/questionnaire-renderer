@@ -14,7 +14,7 @@ export class FullQuestionnaire {
    *  String containing the translations for the current locale
    */
   @State() strings: any;
-
+  @Prop() variant: any = null;
   @Prop() filteredItemList: Array<any>;
   @Prop() questionnaire!: any;
   @Watch('questionnaire')
@@ -159,6 +159,7 @@ export class FullQuestionnaire {
                             secondary={this.secondary}
                             danger={this.danger}
                             locale={this.locale}
+                            variant={this.variant}
                           ></Tag>
                         </div>
                       ) : null}
