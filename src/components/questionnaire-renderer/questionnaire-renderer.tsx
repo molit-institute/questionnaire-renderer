@@ -54,8 +54,16 @@ export class QuestionnaireRenderer {
   @Watch('variant')
   watchVariant(){
     if(this.mode){
-      //TODO irgendwie muss der default-mode an die variante angepasst werden
-      //     und dabei auch der eingegebene mode berücksichtigt werden
+      if(this.variant.toLowerCase() === "form"){
+        if(this.currentMode=== "StepperQuestionnaire" || this.mode === "StepperQuestionnaire"){
+          this.currentMode = "FullQuestionnaire";
+        }
+      }
+      if(this.variant.toLowerCase() === "compact"){
+        if(this.currentMode=== "StepperQuestionnaire" || this.mode === "StepperQuestionnaire"){
+          this.currentMode = "FullQuestionnaire";
+        }
+      }
     }
   }
   /**
@@ -75,7 +83,7 @@ export class QuestionnaireRenderer {
    */
   @Prop() baseUrl: string;
   /**
-   * Current type of Questionnaire-Style to display
+  //  * Current type of Questionnaire-Style to display
    * Available: stepper-questionnaire, grouped-questionnaire, full-questionnaire
    */
   @Prop() mode: string = 'StepperQuestionnaire';

@@ -121,40 +121,50 @@ export class BooleanQuestion {
     ];
     return (
       <div>
-        <div class="card">
-          <h2>
-            {this.question.prefix} {this.question.text}
-          </h2>
-          {this.strings ? (
-            <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
-              {this.strings.mandatory_question}
-            </div>
-          ) : null}
-        </div>
-        <hr />
-        <div>
-          {this.question ? (
-            <div class="form-group" id={'radio-boolean-' + this.question.linkId}>
-              {options.map(answer => (
-                <div class={this.selected && answer.code === this.selected ? 'card radio-button-card card-selected' : 'card radio-button-card'} onClick={() => this.onCardClick(answer.code)}>
-                  <div class="form-check">
-                    {this.selected === answer.code ? (
-                      <input id={'radio-' + answer.code + '-' + this.question.linkId} class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} checked />
-                    ) : (
-                      <input id={'radio-' + answer.code + '-' + this.question.linkId} class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} />
-                    )}
-                    {this.strings ? (
-                      <label class="form-check-label title" htmlFor={'radio-' + answer.code + this.question.linkId}>
-                        {answer.display}
-                      </label>
-                    ) : null}
-                  </div>
+        {this.variant === 'touch' ? (
+          <div>
+            <div class="card">
+              <h2>
+                {this.question.prefix} {this.question.text}
+              </h2>
+              {this.strings ? (
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
+                  {this.strings.mandatory_question}
                 </div>
-              ))}
+              ) : null}
             </div>
-          ) : null}
-        </div>
-        <br />
+            <hr />
+            <div>
+              {this.question ? (
+                <div class="form-group" id={'radio-boolean-' + this.question.linkId}>
+                  {options.map(answer => (
+                    <div class={this.selected && answer.code === this.selected ? 'card radio-button-card card-selected' : 'card radio-button-card'} onClick={() => this.onCardClick(answer.code)}>
+                      <div class="form-check">
+                        {this.selected === answer.code ? (
+                          <input id={'radio-' + answer.code + '-' + this.question.linkId} class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} checked />
+                        ) : (
+                          <input id={'radio-' + answer.code + '-' + this.question.linkId} class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} />
+                        )}
+                        {this.strings ? (
+                          <label class="form-check-label title" htmlFor={'radio-' + answer.code + this.question.linkId}>
+                            {answer.display}
+                          </label>
+                        ) : null}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+            <br />
+          </div>
+        ) : null}
+        {this.variant === "form" ? (
+          <div></div>
+        ):null}
+        {this.variant === "compact" ? (
+          <div></div>
+        ):null}
       </div>
     );
   }
