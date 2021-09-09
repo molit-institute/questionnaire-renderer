@@ -41,7 +41,7 @@ export class IntegerQuestion {
           question: this.question,
           value: [],
         };
-      }      
+      }
       this.emitAnswer.emit(object);
     }
   }
@@ -86,7 +86,6 @@ export class IntegerQuestion {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
@@ -197,49 +196,88 @@ export class IntegerQuestion {
   render() {
     return (
       <div>
-        <h2>
-          {this.question.prefix} {this.question.text}
-        </h2>
-        {this.strings ? (
-          <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
-            {this.strings.mandatory_question}
+        {this.variant.toLowerCase() === 'touch' ? (
+          <div>
+            <h2>
+              {this.question.prefix} {this.question.text}
+            </h2>
+            {this.strings ? (
+              <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
+                {this.strings.mandatory_question}
+              </div>
+            ) : null}
+            <hr />
+            {this.isVasQuestion() === true ? (
+              <vas-question min={this.minVas()} max={this.maxVas()} step={this.stepVas()} selected={this.selected} labelLower={this.labelLowerVas()} labelUpper={this.labelUpperVas()} />
+            ) : (
+              <div class="class option-card">
+                <div class="form-row">
+                  <div id={'integer' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
+                    <label class="" htmlFor="integerInput">
+                      {this.strings.integer.text}:
+                    </label>
+                    <input
+                      ref={el => (this.integerInput = el as HTMLInputElement)}
+                      type="number"
+                      step="1"
+                      onKeyPress={e => {
+                        if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].indexOf(e.key) === -1) {
+                          e.preventDefault();
+                        }
+                      }}
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      value={this.selected}
+                      onInput={e => this.handleChange(e)}
+                      class="form-control"
+                    />
+                    {this.strings ? (
+                      <div style={{ color: this.danger }} class={this.validate() !== false ? 'hidden my-invalid-feedback' : this.selected === null ? 'hidden my-invalid-feedback' : 'visible my-invalid-feedback'}>
+                        {this.strings.integer.invalid}
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+                <br />
+              </div>
+            )}
           </div>
         ) : null}
-        <hr />
-        {this.isVasQuestion() === true ? (
-          <vas-question min={this.minVas()} max={this.maxVas()} step={this.stepVas()} selected={this.selected} labelLower={this.labelLowerVas()} labelUpper={this.labelUpperVas()} />
-        ) : (
+        {this.variant.toLowerCase() === 'form' ? (
+        <div>
           <div class="class option-card">
-            <div class="form-row">
-              <div id={'integer' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
-                <label class="" htmlFor="integerInput">
-                  {this.strings.integer.text}:
-                </label>
-                <input
-                  ref={el => (this.integerInput = el as HTMLInputElement)}
-                  type="number"
-                  step="1"
-                  onKeyPress={e => {
-                    if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].indexOf(e.key) === -1) {
-                      e.preventDefault();
-                    }
-                  }}
-                  inputMode="numeric"
-                  pattern="[0-9]*"
-                  value={this.selected}
-                  onInput={e => this.handleChange(e)}
-                  class="form-control"
-                />
-                {this.strings ? (
-                  <div style={{ color: this.danger }} class={this.validate() !== false ? 'hidden my-invalid-feedback' : this.selected === null ? 'hidden my-invalid-feedback' : 'visible my-invalid-feedback'}>
-                    {this.strings.integer.invalid}
+                <div class="form-row">
+                  <div id={'integer' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
+                    <label class="" htmlFor="integerInput">
+                      {this.strings.integer.text}:
+                    </label>
+                    <input
+                      ref={el => (this.integerInput = el as HTMLInputElement)}
+                      type="number"
+                      step="1"
+                      onKeyPress={e => {
+                        if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].indexOf(e.key) === -1) {
+                          e.preventDefault();
+                        }
+                      }}
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      value={this.selected}
+                      onInput={e => this.handleChange(e)}
+                      class="form-control"
+                    />
+                    {this.strings ? (
+                      <div style={{ color: this.danger }} class={this.validate() !== false ? 'hidden my-invalid-feedback' : this.selected === null ? 'hidden my-invalid-feedback' : 'visible my-invalid-feedback'}>
+                        {this.strings.integer.invalid}
+                      </div>
+                    ) : null}
                   </div>
-                ) : null}
+                </div>
+                <br />
               </div>
-            </div>
-            <br />
-          </div>
-        )}
+        </div>
+        ) : null}
+        {this.variant.toLowerCase() === 'compact' ? <div></div> : null}
       </div>
     );
   }

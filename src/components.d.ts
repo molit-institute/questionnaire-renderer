@@ -26,6 +26,7 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
+        "variant": any;
     }
     interface ChoiceQuestion {
         "answers": any;
@@ -51,6 +52,7 @@ export namespace Components {
          */
         "secondary": string;
         "valueSets": Array<any>;
+        "variant": any;
     }
     interface DateQuestion {
         /**
@@ -72,6 +74,7 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
+        "variant": any;
     }
     interface DateTimeQuestion {
         /**
@@ -93,6 +96,7 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
+        "variant": any;
     }
     interface DecimalQuestion {
         /**
@@ -114,6 +118,7 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
+        "variant": any;
     }
     interface DisplayQuestion {
         /**
@@ -122,6 +127,7 @@ export namespace Components {
         "locale": string;
         "mode": string;
         "question": any;
+        "variant": any;
     }
     interface FullQuestionnaire {
         "baseUrl": string;
@@ -148,6 +154,7 @@ export namespace Components {
         "spinner": any;
         "startCount": number;
         "valueSets": Array<any>;
+        "variant": any;
     }
     interface GroupQuestion {
         "baseUrl": string;
@@ -178,6 +185,7 @@ export namespace Components {
         "secondary": string;
         "startCount": Number;
         "valueSets": Array<any>;
+        "variant": any;
     }
     interface GroupedQuestionnaire {
         "baseUrl": string;
@@ -207,6 +215,7 @@ export namespace Components {
         "spinner": any;
         "startCount": number;
         "valueSets": Array<any>;
+        "variant": any;
     }
     interface IntegerQuestion {
         /**
@@ -228,6 +237,7 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
+        "variant": any;
     }
     interface QuestionnaireRenderer {
         /**
@@ -303,6 +313,7 @@ export namespace Components {
           * List of ValueSets that are needed to display the given questionnaire
          */
         "valueSets": Array<any>;
+        "variant": any;
     }
     interface QuestionnaireSummary {
         "baseUrl": string;
@@ -353,6 +364,7 @@ export namespace Components {
         "spinner": any;
         "startCount": number;
         "valueSets": Array<any>;
+        "variant": any;
     }
     interface StringQuestion {
         /**
@@ -374,6 +386,7 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
+        "variant": any;
     }
     interface TestUi {
     }
@@ -397,6 +410,7 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
+        "variant": any;
     }
     interface TimeQuestion {
         /**
@@ -418,6 +432,7 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
+        "variant": any;
     }
     interface UrlQuestion {
         /**
@@ -439,6 +454,7 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
+        "variant": any;
     }
     interface VasQuestion {
         "labelLower": String;
@@ -447,6 +463,7 @@ export namespace Components {
         "min": number;
         "selected": number;
         "step": number;
+        "variant": any;
     }
 }
 declare global {
@@ -615,6 +632,7 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
+        "variant"?: any;
     }
     interface ChoiceQuestion {
         "answers"?: any;
@@ -642,6 +660,7 @@ declare namespace LocalJSX {
          */
         "secondary"?: string;
         "valueSets"?: Array<any>;
+        "variant"?: any;
     }
     interface DateQuestion {
         /**
@@ -664,6 +683,7 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
+        "variant"?: any;
     }
     interface DateTimeQuestion {
         /**
@@ -686,6 +706,7 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
+        "variant"?: any;
     }
     interface DecimalQuestion {
         /**
@@ -712,6 +733,7 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
+        "variant"?: any;
     }
     interface DisplayQuestion {
         /**
@@ -720,6 +742,7 @@ declare namespace LocalJSX {
         "locale"?: string;
         "mode"?: string;
         "question"?: any;
+        "variant"?: any;
     }
     interface FullQuestionnaire {
         "baseUrl"?: string;
@@ -748,6 +771,7 @@ declare namespace LocalJSX {
         "spinner"?: any;
         "startCount"?: number;
         "valueSets"?: Array<any>;
+        "variant"?: any;
     }
     interface GroupQuestion {
         "baseUrl"?: string;
@@ -786,6 +810,7 @@ declare namespace LocalJSX {
         "secondary"?: string;
         "startCount"?: Number;
         "valueSets"?: Array<any>;
+        "variant"?: any;
     }
     interface GroupedQuestionnaire {
         "baseUrl"?: string;
@@ -824,6 +849,7 @@ declare namespace LocalJSX {
         "spinner"?: any;
         "startCount"?: number;
         "valueSets"?: Array<any>;
+        "variant"?: any;
     }
     interface IntegerQuestion {
         /**
@@ -850,6 +876,7 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
+        "variant"?: any;
     }
     interface QuestionnaireRenderer {
         /**
@@ -932,6 +959,7 @@ declare namespace LocalJSX {
           * List of ValueSets that are needed to display the given questionnaire
          */
         "valueSets"?: Array<any>;
+        "variant"?: any;
     }
     interface QuestionnaireSummary {
         "baseUrl"?: string;
@@ -996,6 +1024,7 @@ declare namespace LocalJSX {
         "spinner"?: any;
         "startCount"?: number;
         "valueSets"?: Array<any>;
+        "variant"?: any;
     }
     interface StringQuestion {
         /**
@@ -1022,6 +1051,7 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
+        "variant"?: any;
     }
     interface TestUi {
     }
@@ -1050,6 +1080,7 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
+        "variant"?: any;
     }
     interface TimeQuestion {
         /**
@@ -1072,6 +1103,7 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
+        "variant"?: any;
     }
     interface UrlQuestion {
         /**
@@ -1099,6 +1131,7 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
+        "variant"?: any;
     }
     interface VasQuestion {
         "labelLower"?: String;
@@ -1108,6 +1141,7 @@ declare namespace LocalJSX {
         "onEmitSelected"?: (event: CustomEvent<any>) => void;
         "selected"?: number;
         "step"?: number;
+        "variant"?: any;
     }
     interface IntrinsicElements {
         "boolean-question": BooleanQuestion;

@@ -49,22 +49,24 @@ export class QuestionnaireRenderer {
   async watchQuestionnaireResponse() {
     await this.handleQuestionnaireResponse();
   }
-
-  @Prop() variant: any= null;
-  @Watch('variant')
-  watchVariant(){
-    if(this.mode){
-      if(this.variant.toLowerCase() === "form"){
-        if(this.currentMode=== "StepperQuestionnaire" || this.mode === "StepperQuestionnaire"){
-          this.currentMode = "FullQuestionnaire";
-        }
-      }
-      if(this.variant.toLowerCase() === "compact"){
-        if(this.currentMode=== "StepperQuestionnaire" || this.mode === "StepperQuestionnaire"){
-          this.currentMode = "FullQuestionnaire";
-        }
-      }
+  /**
+   * Current type of Questionnaire-Style to display
+   * Available: stepper-questionnaire, grouped-questionnaire, full-questionnaire
+   */
+  @Prop() mode: string = 'stepper-questionnaire';
+  @Watch('mode')
+  watchMode() {
+    if (this.currentMode && this.mode !== this.currentMode) {
+      this.handleStartQuestion(this.lastAnsweredQuestion);
     }
+    this.currentMode = this.mode;
+    this.handleVariants();
+  }
+  
+  @Prop() variant: any = "Touch";
+  @Watch('variant')
+  watchVariant() {
+   this.handleVariants()
   }
   /**
    * FHIR-Resource Patient
@@ -82,18 +84,6 @@ export class QuestionnaireRenderer {
    * FHIR-Base Url
    */
   @Prop() baseUrl: string;
-  /**
-  //  * Current type of Questionnaire-Style to display
-   * Available: stepper-questionnaire, grouped-questionnaire, full-questionnaire
-   */
-  @Prop() mode: string = 'StepperQuestionnaire';
-  @Watch('mode')
-  watchMode() {
-    if (this.currentMode && this.mode !== this.currentMode) {
-      this.handleStartQuestion(this.lastAnsweredQuestion);
-    }
-    this.currentMode = this.mode;
-  }
   /**
    * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
    */
@@ -175,7 +165,7 @@ export class QuestionnaireRenderer {
   }
 
   answeredRequiredQuestionsList: Array<any> = [];
-  currentMode: string = null;
+  @State() currentMode: string = null;
   currentQuestionnaire: any = null;
   currentValueSets: Array<any> = [];
   currentStartCount: number = null;
@@ -258,7 +248,7 @@ export class QuestionnaireRenderer {
     this.last_question = true;
     this.show_summary = false;
     this.show_questionnaire = true;
-    console.log()
+    console.log();
   }
 
   /**
@@ -415,6 +405,19 @@ export class QuestionnaireRenderer {
     }
   }
 
+  handleVariants(){
+    console.log(this.variant.toLowerCase(),this.currentMode)
+    if (this.variant.toLowerCase() === 'form') {
+      if (this.currentMode === 'stepper-questionnaire' || this.mode === 'stepper-questionnaire') {
+        this.currentMode = 'full-questionnaire';
+      }
+    }
+    if (this.variant.toLowerCase() === 'compact') {
+      if (this.currentMode === 'stepper-questionnaire' || this.mode === 'stepper-questionnaire') {
+        this.currentMode = 'full-questionnaire';
+      }
+    }
+  }
   /**
    * Adds and Removes Questions from the requiredAnswersList
    */
@@ -523,7 +526,7 @@ export class QuestionnaireRenderer {
 
   handleStartQuestion(question) {
     if (question && this.filteredItemList) {
-      if (this.mode === 'GroupedQuestionnaire') {
+      if (this.mode === 'grouped-questionnaire') {
         let questionItem = null;
         for (let i = 0; i < this.filteredItemList.length; i++) {
           if (question.linkId === this.filteredItemList[i].linkId) {
@@ -546,7 +549,7 @@ export class QuestionnaireRenderer {
    * finds the index of the given question in the filtered ItemList and sets the startCount
    */
   handleCurrentStartCount(question) {
-    if (this.mode === 'GroupedQuestionnaire') {
+    if (this.mode === 'grouped-questionnaire') {
       this.currentStartCount = this.questionnaire.item.findIndex(object => object.linkId === question.linkId);
     } else {
       this.currentStartCount = this.filteredItemList.findIndex(object => object.linkId === question.linkId);
@@ -620,6 +623,7 @@ export class QuestionnaireRenderer {
         this.edit_mode = this.editMode;
       }
       this.currentMode = this.mode;
+      this.handleVariants();
       await this.handleStartQuestion(this.start_question);
       setTimeout(() => {
         this.spinner = { ...this.spinner, loading: false };
@@ -629,7 +633,7 @@ export class QuestionnaireRenderer {
     }
   }
   render() {
-    const Tag = this.mode;
+    const Tag = this.currentMode;
     return (
       <div class="">
         {this.show_questionnaire ? (
