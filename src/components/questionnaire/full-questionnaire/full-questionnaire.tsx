@@ -51,6 +51,8 @@ export class FullQuestionnaire {
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
+  @Prop() enableReturn: boolean = true;
+  @Prop() enableNext: boolean = true;
   disabled: boolean = true;
   scrollToQuestion: boolean = true;
 
@@ -143,7 +145,7 @@ export class FullQuestionnaire {
                     <div id={index.toString()} class="card card-basic-margins">
                       {this.strings ? (
                         <div class="card-body">
-                          {question.type !== 'group' ? (
+                          {question.type !== 'group' && this.variant !== "form" && this.variant !== "compact" ? (
                             <div>
                               {this.strings.question} {this.getQuestionIndex(question) + 1} {this.strings.of} {this.questionsList().length}
                             </div>
@@ -172,12 +174,16 @@ export class FullQuestionnaire {
             <div class="card-margin-bottom">
               {this.strings ? (
                 <div class="summary-button">
-                  <button type="button" class="btn button btn-outline-primary btn-lg" onClick={() => this.backToQuestionnaireList()}>
-                    {this.strings.back}
-                  </button>
-                  <button type="button" class="btn button btn-primary btn-lg" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
-                    {this.strings.next}
-                  </button>
+                  {this.enableReturn ? (
+                    <button type="button" class="btn button btn-outline-primary btn-lg" onClick={() => this.backToQuestionnaireList()}>
+                      {this.strings.back}
+                    </button>
+                  ) : null}
+                  {this.enableNext ? (
+                    <button type="button" class="btn button btn-primary btn-lg" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
+                      {this.strings.next}
+                    </button>
+                  ) : null}
                 </div>
               ) : null}
             </div>

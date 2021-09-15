@@ -83,6 +83,7 @@ export class StepperQuestionnaire {
    * Currently suported: [de, en, es]
    */
   @Prop() enableReturn: boolean = true;
+  @Prop() enableNext: boolean = true;
   @Prop() spinner: any;
   @Prop() locale: string = 'en';
   @Watch('locale')

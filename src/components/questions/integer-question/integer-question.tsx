@@ -196,7 +196,7 @@ export class IntegerQuestion {
   render() {
     return (
       <div>
-        {this.variant.toLowerCase() === 'touch' ? (
+        {this.variant === 'touch' ? (
           <div>
             <h2>
               {this.question.prefix} {this.question.text}
@@ -243,7 +243,7 @@ export class IntegerQuestion {
             )}
           </div>
         ) : null}
-        {this.variant.toLowerCase() === 'form' ? (
+        {this.variant === 'form' ? (
         <div>
           <div class="class option-card">
                 <div class="form-row">
@@ -273,11 +273,14 @@ export class IntegerQuestion {
                     ) : null}
                   </div>
                 </div>
-                <br />
               </div>
         </div>
         ) : null}
-        {this.variant.toLowerCase() === 'compact' ? <div></div> : null}
+        {this.variant === 'compact' ? (
+        <div>
+
+        </div>
+        ) : null}
       </div>
     );
   }

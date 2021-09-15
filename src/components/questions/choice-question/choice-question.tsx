@@ -200,62 +200,72 @@ export class ChoiceQuestion {
   render() {
     return (
       <div>
-        <div class="card">
-          <h2>
-            {this.question.prefix} {this.question.text}
-          </h2>
-          {this.strings ? (
-            !this.repeats ? (
-              <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
-                {this.strings.mandatory_question}
+        {this.variant === 'touch' ? (
+          <div>
+            {' '}
+            <div class="card">
+              <h2>
+                {this.question.prefix} {this.question.text}
+              </h2>
+              {this.strings ? (
+                !this.repeats ? (
+                  <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
+                    {this.strings.mandatory_question}
+                  </div>
+                ) : (
+                  <div style={{ color: this.danger }} class={!this.validateCheckBox() ? 'hidden' : ''}>
+                    {this.strings.mandatory_question}
+                  </div>
+                )
+              ) : null}
+            </div>
+            <hr />
+            {!this.repeats ? (
+              <div class="form-group">
+                {/* <!-- SINGLE CHOICE --> */}
+                {this.optionsList.map(answer => (
+                  <div
+                    id={answer.code}
+                    class="card radio-button-card"
+                    style={{ background: this.selected && this.selected.code === answer.code ? '#e8f4fd' : 'white' }}
+                    onClick={() => this.onBoxClickedSingleChoice(answer.display, answer.code)}
+                  >
+                    <div class="form-check">
+                      {this.selected && this.selected.code === answer.code ? (
+                        <input class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} id={answer.code} checked />
+                      ) : (
+                        <input class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} id={answer.code} />
+                      )}
+                      <label class="form-check-label title" htmlFor={answer.code}>
+                        {answer.display}
+                      </label>
+                    </div>
+                  </div>
+                ))}
               </div>
             ) : (
-              <div style={{ color: this.danger }} class={!this.validateCheckBox() ? 'hidden' : ''}>
-                {this.strings.mandatory_question}
+              <div class="form-group">
+                {/* <!-- MULTIPLE CHOICE --> */}
+                {this.optionsList.map(answer => (
+                  <div id={answer.code} class="card radio-button-card" style={{ background: this.checkIfSelected(answer) ? '#e8f4fd' : 'white' }}>
+                    <div class="form-check" onClick={() => this.onBoxClickedMultipleChoice(answer.display, answer.code)}>
+                      {this.checkIfSelected(answer) ? (
+                        <input class="form-check-input radio-button" type="checkbox" name={'Checkbox' + this.question.linkId} id={answer.code} checked />
+                      ) : (
+                        <input class="form-check-input radio-button" type="checkbox" name={'Checkbox' + this.question.linkId} id={answer.code} />
+                      )}
+                      <label class="form-check-label title" htmlFor={answer.code}>
+                        {answer.display}
+                      </label>
+                    </div>
+                  </div>
+                ))}
               </div>
-            )
-          ) : null}
-        </div>
-
-        <hr />
-
-        {!this.repeats ? (
-          <div class="form-group">
-            {/* <!-- SINGLE CHOICE --> */}
-            {this.optionsList.map(answer => (
-              <div id={answer.code} class="card radio-button-card" style={{ background: this.selected && this.selected.code === answer.code ? '#e8f4fd' : 'white' }} onClick={() => this.onBoxClickedSingleChoice(answer.display, answer.code)}>
-                <div class="form-check">
-                  {this.selected && this.selected.code === answer.code ? (
-                    <input class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} id={answer.code} checked />
-                  ) : (
-                    <input class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} id={answer.code} />
-                  )}
-                  <label class="form-check-label title" htmlFor={answer.code}>
-                    {answer.display}
-                  </label>
-                </div>
-              </div>
-            ))}
+            )}
           </div>
-        ) : (
-          <div class="form-group">
-            {/* <!-- MULTIPLE CHOICE --> */}
-            {this.optionsList.map(answer => (
-              <div id={answer.code} class="card radio-button-card" style={{ background: this.checkIfSelected(answer) ? '#e8f4fd' : 'white' }}>
-                <div class="form-check" onClick={() => this.onBoxClickedMultipleChoice(answer.display, answer.code)}>
-                  {this.checkIfSelected(answer) ? (
-                    <input class="form-check-input radio-button" type="checkbox" name={'Checkbox' + this.question.linkId} id={answer.code} checked />
-                  ) : (
-                    <input class="form-check-input radio-button" type="checkbox" name={'Checkbox' + this.question.linkId} id={answer.code} />
-                  )}
-                  <label class="form-check-label title" htmlFor={answer.code}>
-                    {answer.display}
-                  </label>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        ) : null}
+        {this.variant === 'form' ? <div>choice form</div> : null}
+        {this.variant === 'compact' ? <div></div> : null}
       </div>
     );
   }

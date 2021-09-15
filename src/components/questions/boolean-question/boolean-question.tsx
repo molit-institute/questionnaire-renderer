@@ -121,7 +121,7 @@ export class BooleanQuestion {
     ];
     return (
       <div>
-        {this.variant.toLowerCase() === 'touch' ? (
+        {this.variant === 'touch' ? (
           <div>
             <div class="card">
               <h2>
@@ -159,10 +159,10 @@ export class BooleanQuestion {
             <br />
           </div>
         ) : null}
-        {this.variant.toLowerCase() === "form" ? (
+        {this.variant === "form" ? (
           <div>Boolean</div>
         ):null}
-        {this.variant.toLowerCase() === "compact" ? (
+        {this.variant === "compact" ? (
           <div></div>
         ):null}
       </div>

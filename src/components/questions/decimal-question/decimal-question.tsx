@@ -86,7 +86,6 @@ export class DecimalQuestion {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
@@ -140,32 +139,38 @@ export class DecimalQuestion {
   render() {
     return (
       <div>
-        <div class="card">
-          <h2>
-            {this.question.prefix} {this.question.text}
-          </h2>
-          {this.strings ? (
-            <div style={{ color: this.danger }} class={this.selected || !this.question.required ? 'hidden' : ''}>
-              {this.strings.mandatory_question}
-            </div>
-          ) : null}
-        </div>
-        <hr />
-        <div class="card option-card">
-          <div class="form-row">
-            <div id={'decimal' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
-              <label class="" htmlFor="decimalInput">
-                {this.strings.decimal.text}:
-              </label>
-              <input ref={el => (this.decimalInput = el as HTMLInputElement)} class="form-control" id="decimal" step="any" type="number" value={this.selected} onInput={e => this.handleChange(e)} />
+        {this.variant === 'touch' ? (
+          <div>
+            <div class="card">
+              <h2>
+                {this.question.prefix} {this.question.text}
+              </h2>
               {this.strings ? (
-                <div style={{ color: this.danger }} class={this.naN === false ? 'hidden my-invalid-feedback' : this.naN === null ? 'hidden my-invalid-feedback' : 'visible my-invalid-feedback'}>
-                  {this.strings.decimal.invalid}
+                <div style={{ color: this.danger }} class={this.selected || !this.question.required ? 'hidden' : ''}>
+                  {this.strings.mandatory_question}
                 </div>
               ) : null}
             </div>
+            <hr />
+            <div class="card option-card">
+              <div class="form-row">
+                <div id={'decimal' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
+                  <label class="" htmlFor="decimalInput">
+                    {this.strings.decimal.text}:
+                  </label>
+                  <input ref={el => (this.decimalInput = el as HTMLInputElement)} class="form-control" id="decimal" step="any" type="number" value={this.selected} onInput={e => this.handleChange(e)} />
+                  {this.strings ? (
+                    <div style={{ color: this.danger }} class={this.naN === false ? 'hidden my-invalid-feedback' : this.naN === null ? 'hidden my-invalid-feedback' : 'visible my-invalid-feedback'}>
+                      {this.strings.decimal.invalid}
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        ) : null}
+        {this.variant === 'form' ? <div>Decimal form</div> : null}
+        {this.variant === 'compact' ? <div></div> : null}
       </div>
     );
   }

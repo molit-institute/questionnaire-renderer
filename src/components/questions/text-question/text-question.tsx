@@ -126,27 +126,33 @@ export class TextQuestion {
   render() {
     return (
       <div>
-        <div class="">
-          <h2>
-            {this.question.prefix} {this.question.text}
-          </h2>
-          {this.strings ? (
-            <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
-              {this.strings.mandatory_question}
+        {this.variant === 'touch' ? (
+          <div>
+            <div class="">
+              <h2>
+                {this.question.prefix} {this.question.text}
+              </h2>
+              {this.strings ? (
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
+                  {this.strings.mandatory_question}
+                </div>
+              ) : null}
             </div>
-          ) : null}
-        </div>
-        <hr />
+            <hr />
 
-        <div id={'text' + this.question.linkId} class="option-card">
-          {this.strings ? (
-            <label class="" htmlFor="textarea">
-              {this.strings.text.text}:
-            </label>
-          ) : null}
-          <textarea id="textarea" class="form-control" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
-        </div>
-        <br />
+            <div id={'text' + this.question.linkId} class="option-card">
+              {this.strings ? (
+                <label class="" htmlFor="textarea">
+                  {this.strings.text.text}:
+                </label>
+              ) : null}
+              <textarea id="textarea" class="form-control" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
+            </div>
+            <br />
+          </div>
+        ) : null}
+        {this.variant === 'form' ? <div>text form</div> : null}
+        {this.variant === 'compact' ? <div></div> : null}
       </div>
     );
   }

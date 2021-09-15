@@ -26,25 +26,31 @@ export class VasQuestion {
 
   @Event() emitSelected: EventEmitter;
   emitHandler(event) {
-    let value = event.target.value;    
+    let value = event.target.value;
     this.emitSelected.emit(value);
   }
 
   render() {
     return (
       <div>
-        <div class="class option-card">
-          <div class="labels">
-            <p>{this.labelLower}</p>
-            <p>{this.labelUpper}</p>
+        {this.variant === 'touch' ? (
+          <div>
+            <div class="class option-card">
+              <div class="labels">
+                <p>{this.labelLower}</p>
+                <p>{this.labelUpper}</p>
+              </div>
+              <input name="vas" type="range" min={this.min} max={this.max} step={this.step} class="range" onInput={ev => this.emitHandler(ev)} />
+              <div class="sliderticks">
+                {this.range().map(n => (
+                  <p>{n}</p>
+                ))}
+              </div>
+            </div>
           </div>
-          <input name="vas" type="range" min={this.min} max={this.max} step={this.step} class="range" onInput={ev => this.emitHandler(ev)} />
-          <div class="sliderticks">
-            {this.range().map(n => (
-              <p>{n}</p>
-            ))}
-          </div>
-        </div>
+        ) : null}
+        {this.variant === 'form' ? <div>Boolean</div> : null}
+        {this.variant === 'compact' ? <div></div> : null}
       </div>
     );
   }

@@ -25,6 +25,7 @@ export class QuestionnaireRenderer {
   async watchCurrentQuestionnaireResponse() {
     await this.filterItemList();
     this.handleAnsweredQuestionsList();
+    console.log(this.currentQuestionnaireResponse)
     this.updated.emit(this.currentQuestionnaireResponse);
   }
   @State() spinner: Object = {
@@ -120,6 +121,12 @@ export class QuestionnaireRenderer {
    * Enable the return-button to exit the render-view
    */
   @Prop() enableReturn: boolean = true;
+  
+  /**
+   * Enable the button that can be used to show the summary or end the questionnaire
+   */
+  @Prop() enableNext: boolean = true;
+
   /**
    * If true, the Renderer will show the last question
    */
@@ -214,6 +221,9 @@ export class QuestionnaireRenderer {
     });
   }
 
+  /**
+   * 
+   */
   @Event() finished: EventEmitter;
   backToSummary(questionnaireResponse) {
     if (this.enableFullQuestionnaireResponse) {
@@ -415,6 +425,17 @@ export class QuestionnaireRenderer {
     if (this.variant.toLowerCase() === 'compact') {
       if (this.currentMode === 'stepper-questionnaire' || this.mode === 'stepper-questionnaire') {
         this.currentMode = 'full-questionnaire';
+      }
+    }
+    if (this.variant.toLowerCase() === 'touch') {
+      if (this.currentMode === 'stepper-questionnaire' || this.mode === 'stepper-questionnaire') {
+        this.currentMode = 'stepper-questionnaire';
+      }
+      if (this.currentMode === 'full-questionnaire' || this.mode === 'full-questionnaire') {
+        this.currentMode = 'full-questionnaire';
+      }
+      if (this.currentMode === 'grouped-questionnaire' || this.mode === 'grouped-questionnaire') {
+        this.currentMode = 'grouped-questionnaire';
       }
     }
   }
@@ -638,7 +659,7 @@ export class QuestionnaireRenderer {
       <div class="">
         {this.show_questionnaire ? (
           <Tag
-            variant={this.variant}
+            variant={this.variant.toLowerCase()}
             filteredItemList={this.filteredItemList}
             questionnaireResponse={this.currentQuestionnaireResponse}
             questionnaire={this.currentQuestionnaire}
@@ -652,6 +673,7 @@ export class QuestionnaireRenderer {
             secondary={this.secondary}
             danger={this.danger}
             enableReturn={this.enableReturn}
+            enableNext={this.enableNext}
             locale={this.locale}
             spinner={this.spinner}
             onSummary={() => this.backToSummary(this.currentQuestionnaireResponse)}

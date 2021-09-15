@@ -57,7 +57,7 @@ export class DateTimeQuestion {
           value: [],
         };
       }
-      if(this.date !== '' && this.time !== ''){
+      if (this.date !== '' && this.time !== '') {
         this.emitAnswer.emit(object);
       }
     }
@@ -123,9 +123,8 @@ export class DateTimeQuestion {
       let datetime = this.getAnswer();
       this.date = moment(datetime).format('YYYY-MM-DD');
       this.time = moment(datetime).format('HH:mm');
-    }else{
-      this.date = '',
-      this.time = ''
+    } else {
+      (this.date = ''), (this.time = '');
     }
   }
   handleChange(event, type) {
@@ -154,42 +153,48 @@ export class DateTimeQuestion {
   render() {
     return (
       <div>
-        <div class="card">
-          <h2>
-            {this.question.prefix} {this.question.text}
-          </h2>
-          {this.strings ? (
-            <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
-              {this.strings.mandatory_question}
+        {this.variant === 'touch' ? (
+          <div>
+            <div class="card">
+              <h2>
+                {this.question.prefix} {this.question.text}
+              </h2>
+              {this.strings ? (
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
+                  {this.strings.mandatory_question}
+                </div>
+              ) : null}
             </div>
-          ) : null}
-        </div>
-        <hr />
-        <div class="card option-card">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-sm-6">
-                {this.strings ? (
-                  <label class="" htmlFor="date">
-                    {this.strings.date.text}:
-                  </label>
-                ) : null}
-                {/* sm="6" */}
-                <input required={this.question.required} id="date" class="form-control" type="date" max="9999-12-31" value={this.date} onInput={e => this.handleChange(e, 'date')} />
-              </div>
-              <div class="col-sm-6">
-                {this.strings ? (
-                  <label class="" htmlFor="time">
-                    {this.strings.time.text}:
-                  </label>
-                ) : null}
-                {/* sm="6"  */}
-                <input required={this.question.required} id="time" type="time" class="form-control" value={this.time} onInput={e => this.handleChange(e, 'time')} />
+            <hr />
+            <div class="card option-card">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-6">
+                    {this.strings ? (
+                      <label class="" htmlFor="date">
+                        {this.strings.date.text}:
+                      </label>
+                    ) : null}
+                    {/* sm="6" */}
+                    <input required={this.question.required} id="date" class="form-control" type="date" max="9999-12-31" value={this.date} onInput={e => this.handleChange(e, 'date')} />
+                  </div>
+                  <div class="col-sm-6">
+                    {this.strings ? (
+                      <label class="" htmlFor="time">
+                        {this.strings.time.text}:
+                      </label>
+                    ) : null}
+                    {/* sm="6"  */}
+                    <input required={this.question.required} id="time" type="time" class="form-control" value={this.time} onInput={e => this.handleChange(e, 'time')} />
+                  </div>
+                </div>
               </div>
             </div>
+            <br />
           </div>
-        </div>
-        <br />
+        ) : null}
+        {this.variant === 'form' ? <div>dateTime form</div> : null}
+        {this.variant === 'compact' ? <div></div> : null}
       </div>
     );
   }

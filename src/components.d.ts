@@ -135,6 +135,8 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableNext": boolean;
+        "enableReturn": boolean;
         "filteredItemList": Array<any>;
         "locale": string;
         /**
@@ -257,6 +259,10 @@ export namespace Components {
          */
         "enableFullQuestionnaireResponse": boolean;
         /**
+          * Enable the button that can be used to show the summary or end the questionnaire
+         */
+        "enableNext": boolean;
+        /**
           * Enable the return-button to exit the render-view
          */
         "enableReturn": boolean;
@@ -343,6 +349,7 @@ export namespace Components {
          */
         "danger": string;
         "editMode": boolean;
+        "enableNext": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -750,6 +757,8 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableNext"?: boolean;
+        "enableReturn"?: boolean;
         "filteredItemList"?: Array<any>;
         "locale"?: string;
         "onReturn"?: (event: CustomEvent<any>) => void;
@@ -896,6 +905,10 @@ declare namespace LocalJSX {
          */
         "enableFullQuestionnaireResponse"?: boolean;
         /**
+          * Enable the button that can be used to show the summary or end the questionnaire
+         */
+        "enableNext"?: boolean;
+        /**
           * Enable the return-button to exit the render-view
          */
         "enableReturn"?: boolean;
@@ -994,6 +1007,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         "editMode"?: boolean;
+        "enableNext"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */

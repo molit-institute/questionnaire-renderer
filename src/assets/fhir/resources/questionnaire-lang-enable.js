@@ -23,6 +23,12 @@ const enableQuestionnaire = {
       prefix: '1',
       text: 'Geben sie bitte ihre Lieblingszahl ein',
       type: 'integer',
+    },
+    {
+      linkId: '1.1',
+      prefix: '1.1',
+      text: 'Geben sie die Zahl 2 ein',
+      type: 'integer',
     },{
       linkId: '1.2',
       prefix: '1.2',

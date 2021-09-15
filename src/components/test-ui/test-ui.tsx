@@ -132,6 +132,8 @@ export class TestUi {
               startQuestion={this.indexQuestion}
               enableFullQuestionnaireResponse={false}
               enableSummary={true}
+              enableReturn = {false}
+              enableNext = {false}
               variant={this.questionnaireVariant}
               summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
             ></questionnaire-renderer>
