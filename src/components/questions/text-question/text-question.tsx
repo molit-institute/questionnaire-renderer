@@ -151,8 +151,30 @@ export class TextQuestion {
             <br />
           </div>
         ) : null}
-        {this.variant === 'form' ? <div>text form</div> : null}
-        {this.variant === 'compact' ? <div></div> : null}
+        {this.variant === 'form' ? (
+        <div>
+           <div id={'text' + this.question.linkId} class="option-card">
+              {this.strings ? (
+                <label class="" htmlFor="textarea">
+                  {this.strings.text.text}:
+                </label>
+              ) : null}
+              <textarea id="textarea" class="form-control" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
+            </div>
+        </div>
+        ) : null}
+        {this.variant === 'compact' ? (
+        <div>
+           <div id={'text' + this.question.linkId} class="option-card">
+              {this.strings ? (
+                <label class="" htmlFor="textarea">
+                  {this.strings.text.text}:
+                </label>
+              ) : null}
+              <textarea id="textarea" class="form-control" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
+            </div>
+        </div>
+        ) : null}
       </div>
     );
   }

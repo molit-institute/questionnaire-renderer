@@ -25,8 +25,32 @@ const enableQuestionnaire = {
       type: 'integer',
     },
     {
-      linkId: '1.1',
-      prefix: '1.1',
+      linkId: '1.3',
+      prefix: '1.3',
+      text: 'dateTime',
+      type: 'dateTime',
+    },
+    {
+      linkId: '1.4',
+      prefix: '1.4',
+      text: 'time',
+      type: 'time',
+    },
+    {
+      linkId: '1.5',
+      prefix: '1.5',
+      text: 'string',
+      type: 'string',
+    },
+    {
+      linkId: '1.6',
+      prefix: '1.6',
+      text: 'text',
+      type: 'text',
+    },
+    {
+      linkId: '1.7',
+      prefix: '1.7',
       text: 'Geben sie die Zahl 2 ein',
       type: 'integer',
     },{
