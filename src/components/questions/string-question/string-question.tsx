@@ -151,8 +151,25 @@ export class StringQuestion {
             <br />
           </div>
         ) : null}
-        {this.variant === 'form' ? <div>string form</div> : null}
-        {this.variant === 'compact' ? <div></div> : null}
+        {this.variant === 'form' ? <div><div id={'string' + this.question.linkId} class="option-card">
+          {this.strings ? (
+            <label class="" htmlFor="string">
+              {this.strings.text.text}:
+            </label>
+          ) : null}
+          <input id="string" type="text" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
+        </div></div> : null}
+        {this.variant === 'compact' ?
+          <div>
+            <div id={'string' + this.question.linkId} class="option-card">
+              {this.strings ? (
+                <label class="" htmlFor="string">
+                  {this.strings.text.text}:
+                </label>
+              ) : null}
+              <input id="string" type="text" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
+            </div>
+          </div> : null}
       </div>
     );
   }

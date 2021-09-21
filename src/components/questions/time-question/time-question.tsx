@@ -138,8 +138,31 @@ export class TimeQuestion {
             <br />
           </div>
         ) : null}
-        {this.variant === 'form' ? <div>Boolean</div> : null}
-        {this.variant === 'compact' ? <div></div> : null}
+        {this.variant === 'form' ? (
+          <div> <div class="card option-card">
+            <div>
+              {this.strings ? (
+                <label class="" htmlFor="time">
+                  {this.strings.time.text}:
+                </label>
+              ) : null}
+              <input id="time" type="time" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
+            </div>
+          </div></div>
+        ) : null}
+        {this.variant === 'compact' ?
+          <div>
+            <div class="card option-card">
+              <div>
+                {this.strings ? (
+                  <label class="" htmlFor="time">
+                    {this.strings.time.text}:
+                  </label>
+                ) : null}
+                <input id="time" type="time" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
+              </div>
+            </div>
+          </div> : null}
       </div>
     );
   }

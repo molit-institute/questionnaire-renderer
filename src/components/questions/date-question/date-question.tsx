@@ -138,8 +138,29 @@ export class DateQuestion {
             <br />
           </div>
         ) : null}
-        {this.variant === 'form' ? <div>date-form</div> : null}
-        {this.variant === 'compact' ? <div></div> : null}
+        {this.variant === 'form' ?
+          <div>
+            <div class="option-card">
+              {this.strings ? (
+                <label class="" htmlFor="date">
+                  {this.strings.date.text}:
+                </label>
+              ) : null}
+              <input id="date" type="date" class="form-control" max="9999-12-31" value={this.selected} onInput={e => this.handleChange(e)} />
+            </div>
+          </div> : null}
+        {this.variant === 'compact' ?
+          <div>
+            <div class="option-card">
+              {this.strings ? (
+                <label class="" htmlFor="date">
+                  {this.strings.date.text}:
+                </label>
+              ) : null}
+              <input id="date" type="date" class="form-control" max="9999-12-31" value={this.selected} onInput={e => this.handleChange(e)} />
+            </div>
+          </div>
+          : null}
       </div>
     );
   }

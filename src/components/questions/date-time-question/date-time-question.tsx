@@ -153,7 +153,6 @@ export class DateTimeQuestion {
   render() {
     return (
       <div>
-        huhu
         {this.variant === 'touch' ? (
           <div>
             <div class="card">
