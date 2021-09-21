@@ -183,6 +183,19 @@ export class ChoiceQuestion {
     }
   }
 
+  compareOption(){
+    let flatList = questionnaireResponseController.createItemList(this.questionnaire);
+    flatList.forEach((question,index) => {
+    if(question.id === this.question.id){
+      //TODO abchecken wegen anderen optionsschreibweisen und ggf anpassen
+    if(flatList[index-1].type === "choice" && flatList[index-1].answerValueSet === this.question.answerValueSet){
+          return true
+        }
+      }
+    });
+    return false;
+  }
+
   /* Lifecycle Methods */
   @Event() emitRemoveRequiredAnswer: EventEmitter;
   async componentWillLoad(): Promise<void> {

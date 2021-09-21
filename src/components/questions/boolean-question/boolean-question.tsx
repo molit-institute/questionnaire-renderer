@@ -37,6 +37,7 @@ export class BooleanQuestion {
     }
   }
 
+  @Prop() questionnaire: Object= null;
   @Prop() question: any;
   @Watch('question')
   async watchQuestion() {
@@ -91,6 +92,17 @@ export class BooleanQuestion {
     this.selected = selectedValue;
   }
 
+  checkForBooleanQuestions(){
+    let flatList = questionnaireResponseController.createItemList(this.questionnaire);
+    flatList.forEach((question,index) => {
+      if(question.id === this.question.id){
+        if(flatList[index-1].type === "boolean"){
+          return true
+        }
+      }
+    });
+    return false;
+  }
   setSelected() {
     let value = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'boolean');
     if (value === true) {
