@@ -143,7 +143,7 @@ export class DateQuestion {
             <div class="option-card">
               {this.strings ? (
                 <label class="" htmlFor="date">
-                  {this.strings.date.text}:
+                  {this.question.text}:
                 </label>
               ) : null}
               <input id="date" type="date" class="form-control" max="9999-12-31" value={this.selected} onInput={e => this.handleChange(e)} />
@@ -154,7 +154,7 @@ export class DateQuestion {
             <div class="option-card">
               {this.strings ? (
                 <label class="" htmlFor="date">
-                  {this.strings.date.text}:
+                  {this.question.text}:
                 </label>
               ) : null}
               <input id="date" type="date" class="form-control" max="9999-12-31" value={this.selected} onInput={e => this.handleChange(e)} />

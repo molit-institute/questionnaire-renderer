@@ -183,16 +183,17 @@ export class ChoiceQuestion {
     }
   }
 
-  compareOption(){
+  compareOption() {
     let flatList = questionnaireResponseController.createItemList(this.questionnaire);
-    flatList.forEach((question,index) => {
-    if(question.id === this.question.id){
-      //TODO abchecken wegen anderen optionsschreibweisen und ggf anpassen
-    if(flatList[index-1].type === "choice" && flatList[index-1].answerValueSet === this.question.answerValueSet){
-          return true
+    for (let i = 0; i < flatList.length; i++) {
+      const question = flatList[i];
+      if (question.linkId === this.question.linkId) {
+        //TODO abchecken wegen anderen optionsschreibweisen und ggf anpassen
+        if (flatList[i - 1].type === 'choice' && flatList[i - 1].answerValueSet === this.question.answerValueSet) {
+          return true;
         }
       }
-    });
+    }
     return false;
   }
 
@@ -277,7 +278,10 @@ export class ChoiceQuestion {
             )}
           </div>
         ) : null}
-        {this.variant === 'form' ? <div>choice form</div> : null}
+        {this.variant === 'form' ? 
+        <div>
+          {!this.compareOption() ? <div>erste</div> : <div>andere</div>}
+        </div> : null}
         {this.variant === 'compact' ? <div></div> : null}
       </div>
     );

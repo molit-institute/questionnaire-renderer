@@ -39,13 +39,13 @@ const enableQuestionnaire = {
     {
       linkId: '1.5',
       prefix: '1.5',
-      text: 'string',
+      text: 'Hier bitte einen String eingeben',
       type: 'string',
     },
     {
       linkId: '1.6',
       prefix: '1.6',
-      text: 'text',
+      text: 'Hier bitte einen Text eingeben',
       type: 'text',
     },
     {
@@ -58,6 +58,39 @@ const enableQuestionnaire = {
       prefix: '1.2',
       text: 'Funktioniert die Variante?',
       type: 'boolean',
+    },
+    {
+      linkId: '1.21',
+      prefix: '1.21',
+      text: 'Ist der Himmel blau?',
+      type: 'boolean',
+    },
+    {
+      linkId: '1.22',
+      prefix: '1.22',
+      text: 'Ist html toll?',
+      type: 'boolean',
+    },
+    {
+      linkId: '5.2.19',
+      prefix: '5.2.19.',
+      text: 'Single-Choice Frage 1',
+      type: 'choice',
+      answerValueSet: 'http://molit.eu/fhir/ValueSet/SLK_QLQC30_answers4',
+    },
+    {
+      linkId: '5.2.20',
+      prefix: '5.2.20.',
+      text: 'Single-Choice Frage 1',
+      type: 'choice',
+      answerValueSet: 'http://molit.eu/fhir/ValueSet/SLK_QLQC30_answers4',
+    },
+    {
+      linkId: '5.2.20',
+      prefix: '5.2.20.',
+      text: 'Single-Choice Frage 1',
+      type: 'choice',
+      answerValueSet: 'http://molit.eu/fhir/ValueSet/SLK_QLQC30_answers4',
     },
     {
       linkId: '2',

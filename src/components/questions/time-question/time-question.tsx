@@ -143,7 +143,7 @@ export class TimeQuestion {
             <div>
               {this.strings ? (
                 <label class="" htmlFor="time">
-                  {this.strings.time.text}:
+                  {this.question.text}:
                 </label>
               ) : null}
               <input id="time" type="time" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
@@ -156,7 +156,7 @@ export class TimeQuestion {
               <div>
                 {this.strings ? (
                   <label class="" htmlFor="time">
-                    {this.strings.time.text}:
+                   {this.question.text}:
                   </label>
                 ) : null}
                 <input id="time" type="time" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />

@@ -37,7 +37,7 @@ export class BooleanQuestion {
     }
   }
 
-  @Prop() questionnaire: Object= null;
+  @Prop() questionnaire: Object = null;
   @Prop() question: any;
   @Watch('question')
   async watchQuestion() {
@@ -92,15 +92,20 @@ export class BooleanQuestion {
     this.selected = selectedValue;
   }
 
-  checkForBooleanQuestions(){
+  /**
+   * Checks if the question before this question has the type boolean 
+   * @returns true if the question before has the type boolean
+   */
+  checkForBooleanQuestions() {
     let flatList = questionnaireResponseController.createItemList(this.questionnaire);
-    flatList.forEach((question,index) => {
-      if(question.id === this.question.id){
-        if(flatList[index-1].type === "boolean"){
-          return true
+    for (let i = 0; i < flatList.length; i++) {
+      let question = flatList[i];
+       if (question.linkId === this.question.linkId) {
+        if (flatList[i - 1].type === 'boolean') {
+          return true;
         }
       }
-    });
+    }
     return false;
   }
   setSelected() {
@@ -171,12 +176,34 @@ export class BooleanQuestion {
             <br />
           </div>
         ) : null}
-        {this.variant === "form" ? (
-          <div>Boolean</div>
-        ):null}
-        {this.variant === "compact" ? (
-          <div></div>
-        ):null}
+        {this.variant === 'form' ? (
+          <div>
+            {/* Fragetext */}
+            <span>{this.question.text}</span>
+            {/*  */}
+            {this.question ? (
+              <span class="form-group" id={'radio-boolean-' + this.question.linkId}>
+                {options.map(answer => (
+                  <div class={this.selected && answer.code === this.selected ? 'card radio-button-card card-selected' : 'card radio-button-card'} onClick={() => this.onCardClick(answer.code)}>
+                    <div class="form-check">
+                      {this.selected === answer.code ? (
+                        <input id={'radio-' + answer.code + '-' + this.question.linkId} class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} checked />
+                      ) : (
+                        <input id={'radio-' + answer.code + '-' + this.question.linkId} class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} />
+                      )}
+                      {this.strings && !this.checkForBooleanQuestions() ? (
+                        <label class="form-check-label title" htmlFor={'radio-' + answer.code + this.question.linkId}>
+                          {answer.display}
+                        </label>
+                      ) : null}
+                    </div>
+                  </div>
+                ))}
+              </span>
+            ) : null}
+          </div>
+        ) : null}
+        {this.variant === 'compact' ? <div></div> : null}
       </div>
     );
   }

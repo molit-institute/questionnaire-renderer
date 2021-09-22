@@ -183,7 +183,7 @@ export class UrlQuestion {
             <div class="form-row">
               <div id={'url' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
                 <label class="" htmlFor="url-text">
-                  {this.strings.url.text}:
+                {this.question.text}:
                 </label>
                 <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control" id="url-text" pattern="\S*" />
                 {this.strings ? (
@@ -204,7 +204,7 @@ export class UrlQuestion {
             <div class="form-row">
               <div id={'url' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
                 <label class="" htmlFor="url-text">
-                  {this.strings.url.text}:
+                {this.question.text}:
                 </label>
                 <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control" id="url-text" pattern="\S*" />
                 {this.strings ? (

@@ -174,7 +174,7 @@ export class DecimalQuestion {
            <div class="form-row">
                 <div id={'decimal' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
                   <label class="" htmlFor="decimalInput">
-                    {this.strings.decimal.text}:
+                  {this.question.text}:
                   </label>
                   <input ref={el => (this.decimalInput = el as HTMLInputElement)} class="form-control" id="decimal" step="any" type="number" value={this.selected} onInput={e => this.handleChange(e)} />
                   {this.strings ? (
@@ -191,7 +191,7 @@ export class DecimalQuestion {
            <div class="form-row">
                 <div id={'decimal' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
                   <label class="" htmlFor="decimalInput">
-                    {this.strings.decimal.text}:
+                  {this.question.text}:
                   </label>
                   <input ref={el => (this.decimalInput = el as HTMLInputElement)} class="form-control" id="decimal" step="any" type="number" value={this.selected} onInput={e => this.handleChange(e)} />
                   {this.strings ? (

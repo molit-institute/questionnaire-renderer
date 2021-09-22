@@ -21,6 +21,7 @@ export namespace Components {
          */
         "primary": string;
         "question": any;
+        "questionnaire": Object;
         "questionnaireResponse": Object;
         /**
           * Secondary color
@@ -634,6 +635,7 @@ declare namespace LocalJSX {
          */
         "primary"?: string;
         "question"?: any;
+        "questionnaire"?: Object;
         "questionnaireResponse"?: Object;
         /**
           * Secondary color

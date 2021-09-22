@@ -156,7 +156,7 @@ export class TextQuestion {
            <div id={'text' + this.question.linkId} class="option-card">
               {this.strings ? (
                 <label class="" htmlFor="textarea">
-                  {this.strings.text.text}:
+                  {this.question.text}
                 </label>
               ) : null}
               <textarea id="textarea" class="form-control" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
@@ -168,7 +168,7 @@ export class TextQuestion {
            <div id={'text' + this.question.linkId} class="option-card">
               {this.strings ? (
                 <label class="" htmlFor="textarea">
-                  {this.strings.text.text}:
+                  {this.question.text}
                 </label>
               ) : null}
               <textarea id="textarea" class="form-control" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />

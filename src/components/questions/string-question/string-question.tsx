@@ -126,6 +126,7 @@ export class StringQuestion {
   render() {
     return (
       <div>
+        {/* TOUCH */}
         {this.variant === 'touch' ? (
           <div>
             <div class="">
@@ -151,20 +152,22 @@ export class StringQuestion {
             <br />
           </div>
         ) : null}
+        {/* FORM */}
         {this.variant === 'form' ? <div><div id={'string' + this.question.linkId} class="option-card">
           {this.strings ? (
             <label class="" htmlFor="string">
-              {this.strings.text.text}:
+              {this.question.text}:
             </label>
           ) : null}
           <input id="string" type="text" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
         </div></div> : null}
+        {/* COMPACT */}
         {this.variant === 'compact' ?
           <div>
             <div id={'string' + this.question.linkId} class="option-card">
               {this.strings ? (
                 <label class="" htmlFor="string">
-                  {this.strings.text.text}:
+                  {this.question.text}:
                 </label>
               ) : null}
               <input id="string" type="text" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
