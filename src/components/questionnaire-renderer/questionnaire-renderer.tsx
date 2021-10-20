@@ -25,7 +25,6 @@ export class QuestionnaireRenderer {
   async watchCurrentQuestionnaireResponse() {
     await this.filterItemList();
     this.handleAnsweredQuestionsList();
-    console.log(this.currentQuestionnaireResponse)
     this.updated.emit(this.currentQuestionnaireResponse);
   }
   @State() spinner: Object = {
@@ -258,7 +257,6 @@ export class QuestionnaireRenderer {
     this.last_question = true;
     this.show_summary = false;
     this.show_questionnaire = true;
-    console.log();
   }
 
   /**
@@ -416,17 +414,16 @@ export class QuestionnaireRenderer {
   }
 
   handleVariants(){
-    console.log(this.variant.toLowerCase(),this.currentMode)
-    if (this.variant.toLowerCase() === 'form') {
-      if (this.currentMode === 'stepper-questionnaire' || this.mode === 'stepper-questionnaire') {
-        this.currentMode = 'full-questionnaire';
-      }
-    }
-    if (this.variant.toLowerCase() === 'compact') {
-      if (this.currentMode === 'stepper-questionnaire' || this.mode === 'stepper-questionnaire') {
-        this.currentMode = 'full-questionnaire';
-      }
-    }
+    // if (this.variant.toLowerCase() === 'form') {
+    //   if (this.currentMode === 'stepper-questionnaire' || this.mode === 'stepper-questionnaire') {
+    //     this.currentMode = 'full-questionnaire';
+    //   }
+    // }
+    // if (this.variant.toLowerCase() === 'compact') {
+    //   if (this.currentMode === 'stepper-questionnaire' || this.mode === 'stepper-questionnaire') {
+    //     this.currentMode = 'full-questionnaire';
+    //   }
+    // }
     if (this.variant.toLowerCase() === 'touch') {
       if (this.currentMode === 'stepper-questionnaire' || this.mode === 'stepper-questionnaire') {
         this.currentMode = 'stepper-questionnaire';
@@ -659,7 +656,8 @@ export class QuestionnaireRenderer {
       <div class="">
         {this.show_questionnaire ? (
           <Tag
-            variant={this.variant.toLowerCase()}
+            // variant={this.variant.toLowerCase()}
+            variant="touch"
             filteredItemList={this.filteredItemList}
             questionnaireResponse={this.currentQuestionnaireResponse}
             questionnaire={this.currentQuestionnaire}
