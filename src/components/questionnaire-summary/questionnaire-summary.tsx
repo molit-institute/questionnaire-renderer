@@ -50,7 +50,7 @@ export class QuestionnaireSummary {
 
   /* methods */
   /**
-   *
+   * Emits an event to return to the questionnaire renderer
    */
   @Event() toQuestionnaireRenderer: EventEmitter;
   returnToQuestionnaire() {
@@ -58,7 +58,7 @@ export class QuestionnaireSummary {
   }
 
   /**
-   *
+   * Emits an event to return to the questionnaire renderer to edit a question
    */
   @Event() editQuestion: EventEmitter;
   editSelectedQuestion(question) {
@@ -77,12 +77,14 @@ export class QuestionnaireSummary {
     }
     return answer;
   }
+
   /**
    *
    */
   getType(question) {
     return questionnaireResponseController.getAnswerType(question.answer);
   }
+
   /**
    *
    */
@@ -91,6 +93,12 @@ export class QuestionnaireSummary {
       // return this.$d(new Date(dateTime), "long");
     }
   }
+
+  /**
+   * 
+   * @param linkId 
+   * @returns 
+   */
   checkIfDisplay(linkId) {
     let questionnaireItemList = questionnaireResponseController.createItemList(this.questionnaire);
     for (let i = 0; i < questionnaireItemList.length; i++) {
@@ -100,6 +108,7 @@ export class QuestionnaireSummary {
     }
     return false;
   }
+
   /**
    *
    */
@@ -113,10 +122,20 @@ export class QuestionnaireSummary {
     return '';
   }
 
+  /**
+   * 
+   * @param object 
+   * @returns 
+   */
   getItemList(object) {
     return questionnaireResponseController.createItemList(object);
   }
 
+  /**
+   * 
+   * @param question 
+   * @returns 
+   */
   getAnswer(question) {
     let answer = null;
     if (!this.checkIfDisplay(question.linkId) && question.answer.length === 0 && !question.item && !question.answer[0]) {
@@ -187,6 +206,10 @@ export class QuestionnaireSummary {
     return number;
   }
 
+  /**
+   * 
+   * @returns 
+   */
   countAnsweredQuestions() {
     let itemList = questionnaireResponseController.createItemList(this.questionnaireResponse);
     let number = 0;

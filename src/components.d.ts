@@ -930,6 +930,9 @@ declare namespace LocalJSX {
           * Current type of Questionnaire-Style to display Available: stepper-questionnaire, grouped-questionnaire, full-questionnaire
          */
         "mode"?: string;
+        /**
+          * Emits an error-event
+         */
         "onError"?: (event: CustomEvent<any>) => void;
         /**
           * Emits an Event to exit the Renderer
@@ -984,10 +987,16 @@ declare namespace LocalJSX {
          */
         "locale"?: string;
         "mode"?: string;
+        /**
+          * Emits an event to return to the questionnaire renderer to edit a question
+         */
         "onEditQuestion"?: (event: CustomEvent<any>) => void;
         "onError"?: (event: CustomEvent<any>) => void;
         "onFinishQuestionnaire"?: (event: CustomEvent<any>) => void;
         "onFinishTask"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an event to return to the questionnaire renderer
+         */
         "onToQuestionnaireRenderer"?: (event: CustomEvent<any>) => void;
         "questionnaire"?: Object;
         "questionnaireResponse"?: any;

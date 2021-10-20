@@ -366,7 +366,7 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   *
+   * Resets the List of already answered Questions
    */
   resetAnsweredQuestionsList() {
     this.answeredRequiredQuestionsList = [];
@@ -436,6 +436,7 @@ export class QuestionnaireRenderer {
       }
     }
   }
+
   /**
    * Adds and Removes Questions from the requiredAnswersList
    */
@@ -542,6 +543,11 @@ export class QuestionnaireRenderer {
     }
   }
 
+  /**
+   * Uses the given question to find the index in the questionnaire itemlist and checks if it is a group. 
+   * It will set the startCount to the index of the question
+   * @param question 
+   */
   handleStartQuestion(question) {
     if (question && this.filteredItemList) {
       if (this.mode === 'grouped-questionnaire') {
@@ -599,10 +605,12 @@ export class QuestionnaireRenderer {
     return parentQuestion;
   }
 
+  /**
+   * Filters the itemlist of the current questionnaire. Removes questions that are not active
+   */
   async filterItemList() {
     let newList = [];
     if (this.currentQuestionnaireResponse && this.questionnaire) {
-      // newList = await questionnaireResponseController.createItemList(this.currentQuestionnaire);
       newList = await questionnaireController.handleEnableWhen(this.currentQuestionnaireResponse, this.currentQuestionnaire.item);
     }
     this.filteredItemList = newList;
@@ -616,6 +624,9 @@ export class QuestionnaireRenderer {
     this.exit.emit(this.currentQuestionnaireResponse);
   }
 
+  /**
+   * Emits an error-event
+   */
   @Event() error: EventEmitter;
   emitError(error) {
     this.error.emit(error);
