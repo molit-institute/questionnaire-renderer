@@ -242,7 +242,6 @@ export class QuestionnaireSummary {
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
-    console.log(this.questionnaireResponse);
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale);
       // this.itemList = questionnaireResponseController.createItemList(this.questionnaireResponse);
