@@ -110,7 +110,7 @@ export class QuestionnaireSummary {
   }
 
   /**
-   *
+   * Returns the Prefix using the given linkId
    */
   getPrefix(linkId) {
     let questionnaireItemList = questionnaireResponseController.createItemList(this.questionnaire);
@@ -123,7 +123,7 @@ export class QuestionnaireSummary {
   }
 
   /**
-   * 
+   * Returns a flat itemList of the given object. This object can either be a questionnaire or a questionnaireResponse
    * @param object 
    * @returns 
    */
@@ -132,7 +132,7 @@ export class QuestionnaireSummary {
   }
 
   /**
-   * 
+   * Returns the answer of of the given question if it contains any. If question.asnwer contains no answers
    * @param question 
    * @returns 
    */
@@ -207,7 +207,7 @@ export class QuestionnaireSummary {
   }
 
   /**
-   * 
+   * Returns the count of all questions that contain answers
    * @returns 
    */
   countAnsweredQuestions() {
