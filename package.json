@@ -1,7 +1,8 @@
 {
-  "name": "questionnaire-renderer",
+  "name": "@molit/questionnaire-renderer",
   "version": "0.0.1",
-  "description": "Stencil Component Starter",
+  "private": false,
+  "description": "Stencil Component for questionnaire-renderer",
   "main": "dist/index.cjs.js",
   "module": "dist/custom-elements/index.js",
   "es2015": "dist/esm/index.mjs",
@@ -28,12 +29,19 @@
     "@stencil/core": "^2.8.1",
     "moment": "^2.29.1"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "@types/puppeteer": "^5.4.4",
     "jest": "^26.6.3",
     "jest-cli": "^26.6.3",
     "puppeteer": "^5.5.0"
-  }
+  },
+  "keywords": [
+    "FHIR",
+    "Components",
+    "Stencil"
+  ],
+  "repository": "github:molitinstitute/questionnaire-renderer",
+  "author": "MOLIT Insitut gGmbH"
 }
