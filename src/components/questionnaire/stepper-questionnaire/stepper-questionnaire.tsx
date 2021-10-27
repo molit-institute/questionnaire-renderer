@@ -5,7 +5,7 @@ import { getLocaleComponentStrings } from '../../../utils/locale';
   tag: 'stepper-questionnaire',
   styleUrl: 'stepper-questionnaire.css',
   shadow: false,
-  scoped: true
+  scoped: true,
 })
 export class StepperQuestionnaire {
   @Element() element: HTMLElement;
@@ -22,7 +22,7 @@ export class StepperQuestionnaire {
   watchCount() {
     this.setDisabled();
   }
-
+  @Prop() variant: any = null;
   @Prop() filteredItemList: Array<any>;
   @Watch('filteredItemList')
   watchFilteredList() {
@@ -83,6 +83,7 @@ export class StepperQuestionnaire {
    * Currently suported: [de, en, es]
    */
   @Prop() enableReturn: boolean = true;
+  @Prop() enableNext: boolean = true;
   @Prop() spinner: any;
   @Prop() locale: string = 'en';
   @Watch('locale')
@@ -111,7 +112,11 @@ export class StepperQuestionnaire {
   getQuestionType() {
     let type = null;
     if (this.getQuestionFromItemList()) {
-      type = this.getQuestionFromItemList().type.split(/(?=[A-Z])/).join("-").toLowerCase() + '-question';
+      type =
+        this.getQuestionFromItemList()
+          .type.split(/(?=[A-Z])/)
+          .join('-')
+          .toLowerCase() + '-question';
     }
     return type;
   }
@@ -286,11 +291,9 @@ export class StepperQuestionnaire {
     }
     //sets count if startcount was given from the summarypage through the questionnaire.view
     if (this.startCount && this.filteredItemList && this.filteredItemList.length > 0) {
-      console.log("startCount")
       this.count = this.startCount;
       this.questionCount = this.getQuestionPositionNumber();
     } else if (this.lastquestion === true && this.filteredItemList && this.filteredItemList.length > 0) {
-      console.log("lastQuestion")
       this.count = this.filteredItemList.length - 1;
       this.lastquestion = false;
       this.questionCount = this.getQuestionPositionNumber();
@@ -345,6 +348,7 @@ export class StepperQuestionnaire {
                 danger={this.danger}
                 locale={this.locale}
                 onEmitNext={() => this.countUp()}
+                variant={this.variant}
               ></Tag>
             </div>
           ) : null}

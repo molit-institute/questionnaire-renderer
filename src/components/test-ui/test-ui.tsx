@@ -13,6 +13,7 @@ import repeatedQuestionnaire from '../../assets/fhir/resources/questionnaire-rep
 })
 export class TestUi {
   @State() questionnaireMode: string = 'stepper-questionnaire';
+  @State() questionnaireVariant: string = 'Touch';
   questionnaireResponse: any = null;
   @State() show_questionnaire_list: boolean = true;
   @State() show_renderer: boolean = false;
@@ -32,6 +33,9 @@ export class TestUi {
   /* methods */
   setQuestionnaireMode(selectedMode) {
     this.questionnaireMode = selectedMode;
+  }
+  setQuestionnaireVariant(selectedVariant) {
+    this.questionnaireVariant = selectedVariant;
   }
   setQuestionnaireResponse(response) {
     this.questionnaireResponse = response;
@@ -83,7 +87,7 @@ export class TestUi {
       <div>
         <div class="container-fluid">
           {/* QUESTIONNAIRE RENDERER */}
-          <span class="flex">
+          <div class="flex">
             <div onClick={() => this.setQuestionnaireMode('stepper-questionnaire')} class={this.questionnaireMode === 'stepper-questionnaire' ? 'item item-selected' : 'item'}>
               Stepper
             </div>
@@ -93,7 +97,18 @@ export class TestUi {
             <div onClick={() => this.setQuestionnaireMode('full-questionnaire')} class={this.questionnaireMode === 'full-questionnaire' ? 'item item-selected' : 'item'}>
               Full
             </div>
-          </span>
+          </div>
+          <div class="flex">
+            <div onClick={() => this.setQuestionnaireVariant('Form')} class={this.questionnaireVariant === 'Form' ? 'item item-selected' : 'item'}>
+              Form
+            </div>
+            <div onClick={() => this.setQuestionnaireVariant('Compact')} class={this.questionnaireVariant === 'Compact' ? 'item item-selected' : 'item'}>
+              Compact
+            </div>
+            <div onClick={() => this.setQuestionnaireVariant('Touch')} class={this.questionnaireVariant === 'Touch' ? 'item item-selected' : 'item'}>
+              Touch
+            </div>
+          </div>
 
           {this.show_questionnaire_list
             ? this.questionnaires.map(questionnaire => (
@@ -117,6 +132,9 @@ export class TestUi {
               startQuestion={this.indexQuestion}
               enableFullQuestionnaireResponse={false}
               enableSummary={true}
+              enableReturn = {false}
+              enableNext = {false}
+              variant={this.questionnaireVariant}
               summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
             ></questionnaire-renderer>
           ) : null}

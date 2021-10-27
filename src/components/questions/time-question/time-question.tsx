@@ -13,7 +13,7 @@ import { getLocaleComponentStrings } from '../../../utils/locale';
 })
 export class TimeQuestion {
   @Element() element: HTMLElement;
-
+  @Prop() variant: any = null;
   /**
    *  String containing the translations for the current locale
    */
@@ -77,7 +77,6 @@ export class TimeQuestion {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
@@ -113,28 +112,57 @@ export class TimeQuestion {
   render() {
     return (
       <div>
-        <div class="card">
-          <h2>
-            {this.question.prefix} {this.question.text}
-          </h2>
-          {this.strings ? (
-            <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
-              {this.strings.mandatory_question}
-            </div>
-          ) : null}
-        </div>
-        <hr />
-        <div class="card option-card">
+        {this.variant === 'touch' ? (
           <div>
-            {this.strings ? (
-              <label class="" htmlFor="time">
-                {this.strings.time.text}:
-              </label>
-            ) : null}
-            <input id="time" type="time" class="form-control" value={this.selected} onInput={e => this.handleChange(e)}/>
+            <div class="card">
+              <h2>
+                {this.question.prefix} {this.question.text}
+              </h2>
+              {this.strings ? (
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
+                  {this.strings.mandatory_question}
+                </div>
+              ) : null}
+            </div>
+            <hr />
+            <div class="card option-card">
+              <div>
+                {this.strings ? (
+                  <label class="" htmlFor="time">
+                    {this.strings.time.text}:
+                  </label>
+                ) : null}
+                <input id="time" type="time" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
+              </div>
+            </div>
+            <br />
           </div>
-        </div>
-        <br />
+        ) : null}
+        {this.variant === 'form' ? (
+          <div> <div class="card option-card">
+            <div>
+              {this.strings ? (
+                <label class="" htmlFor="time">
+                  {this.question.text}:
+                </label>
+              ) : null}
+              <input id="time" type="time" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
+            </div>
+          </div></div>
+        ) : null}
+        {this.variant === 'compact' ?
+          <div>
+            <div class="card option-card">
+              <div>
+                {this.strings ? (
+                  <label class="" htmlFor="time">
+                   {this.question.text}:
+                  </label>
+                ) : null}
+                <input id="time" type="time" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
+              </div>
+            </div>
+          </div> : null}
       </div>
     );
   }

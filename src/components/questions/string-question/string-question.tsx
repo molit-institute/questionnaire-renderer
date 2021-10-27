@@ -13,6 +13,7 @@ import { getLocaleComponentStrings } from '../../../utils/locale';
 })
 export class StringQuestion {
   @Element() element: HTMLElement;
+  @Prop() variant: any = null;
   /**
    *  String containing the translations for the current locale
    */
@@ -125,27 +126,53 @@ export class StringQuestion {
   render() {
     return (
       <div>
-        <div class="">
-          <h2>
-            {this.question.prefix} {this.question.text}
-          </h2>
-          {this.strings ? (
-            <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
-              {this.strings.mandatory_question}
+        {/* TOUCH */}
+        {this.variant === 'touch' ? (
+          <div>
+            <div class="">
+              <h2>
+                {this.question.prefix} {this.question.text}
+              </h2>
+              {this.strings ? (
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
+                  {this.strings.mandatory_question}
+                </div>
+              ) : null}
             </div>
-          ) : null}
-        </div>
-        <hr />
+            <hr />
 
-        <div id={'string' + this.question.linkId} class="option-card">
+            <div id={'string' + this.question.linkId} class="option-card">
+              {this.strings ? (
+                <label class="" htmlFor="string">
+                  {this.strings.text.text}:
+                </label>
+              ) : null}
+              <input id="string" type="text" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
+            </div>
+            <br />
+          </div>
+        ) : null}
+        {/* FORM */}
+        {this.variant === 'form' ? <div><div id={'string' + this.question.linkId} class="option-card">
           {this.strings ? (
             <label class="" htmlFor="string">
-              {this.strings.text.text}:
+              {this.question.text}:
             </label>
           ) : null}
           <input id="string" type="text" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
-        </div>
-        <br />
+        </div></div> : null}
+        {/* COMPACT */}
+        {this.variant === 'compact' ?
+          <div>
+            <div id={'string' + this.question.linkId} class="option-card">
+              {this.strings ? (
+                <label class="" htmlFor="string">
+                  {this.question.text}:
+                </label>
+              ) : null}
+              <input id="string" type="text" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
+            </div>
+          </div> : null}
       </div>
     );
   }

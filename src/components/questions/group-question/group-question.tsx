@@ -12,7 +12,7 @@ import { getLocaleComponentStrings } from '../../../utils/locale';
 })
 export class GroupQuestion {
   @Element() element: HTMLElement;
-
+  @Prop() variant: any = null;
   /**
    *  String containing the translations for the current locale
    */

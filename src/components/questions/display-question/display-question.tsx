@@ -11,7 +11,7 @@ import { getLocaleComponentStrings } from '../../../utils/locale';
 export class DisplayQuestion {
   @Element() element: HTMLElement;
   @State() strings: any;
-
+  @Prop() variant: any = null;
   @Prop() question: any;
   @Prop() mode: string;
 

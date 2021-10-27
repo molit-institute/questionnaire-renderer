@@ -13,6 +13,7 @@ import { getLocaleComponentStrings } from '../../../utils/locale';
 })
 export class UrlQuestion {
   @Element() element: HTMLElement;
+  @Prop() variant: any = null;
   /**
    *  String containing the translations for the current locale
    */
@@ -141,38 +142,84 @@ export class UrlQuestion {
   render() {
     return (
       <div>
-        <div class="card">
-          <h2>
-            {this.question.prefix} {this.question.text}
-          </h2>
-          {this.strings ? (
-            <div id="url-mandatory" style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
-              {this.strings.mandatory_question}
-            </div>
-          ) : null}
-        </div>
-        <hr />
-
-        <div class="option-card">
-          <div class="form-row">
-            <div id={'url' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
-              <label class="" htmlFor="url-text">
-                {this.strings.url.text}:
-              </label>
-              <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control" id="url-text" pattern="\S*" />
+        {this.variant === 'touch' ? (
+          <div>
+            <div class="card">
+              <h2>
+                {this.question.prefix} {this.question.text}
+              </h2>
               {this.strings ? (
-                this.naUrl ? (
-                  <div class={this.naUrl === null ? 'hidden my-valid-feedback' : 'visible my-valid-feedback'}>{this.strings.url.valid}</div>
-                ) : (
-                  <div style={{ color: this.danger }} class={this.naUrl === false ? 'visible my-invalid-feedback' : this.naUrl === null ? 'hidden my-invalid-feedback' : 'hidden my-invalid-feedback'}>
-                    {this.strings.url.invalid}
-                  </div>
-                )
+                <div id="url-mandatory" style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
+                  {this.strings.mandatory_question}
+                </div>
               ) : null}
             </div>
+            <hr />
+
+            <div class="option-card">
+              <div class="form-row">
+                <div id={'url' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
+                  <label class="" htmlFor="url-text">
+                    {this.strings.url.text}:
+                  </label>
+                  <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control" id="url-text" pattern="\S*" />
+                  {this.strings ? (
+                    this.naUrl ? (
+                      <div class={this.naUrl === null ? 'hidden my-valid-feedback' : 'visible my-valid-feedback'}>{this.strings.url.valid}</div>
+                    ) : (
+                      <div style={{ color: this.danger }} class={this.naUrl === false ? 'visible my-invalid-feedback' : this.naUrl === null ? 'hidden my-invalid-feedback' : 'hidden my-invalid-feedback'}>
+                        {this.strings.url.invalid}
+                      </div>
+                    )
+                  ) : null}
+                </div>
+              </div>
+            </div>
+            <br />
           </div>
-        </div>
-        <br />
+        ) : null}
+        {this.variant === 'form' ? <div>
+          <div class="option-card">
+            <div class="form-row">
+              <div id={'url' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
+                <label class="" htmlFor="url-text">
+                {this.question.text}:
+                </label>
+                <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control" id="url-text" pattern="\S*" />
+                {this.strings ? (
+                  this.naUrl ? (
+                    <div class={this.naUrl === null ? 'hidden my-valid-feedback' : 'visible my-valid-feedback'}>{this.strings.url.valid}</div>
+                  ) : (
+                    <div style={{ color: this.danger }} class={this.naUrl === false ? 'visible my-invalid-feedback' : this.naUrl === null ? 'hidden my-invalid-feedback' : 'hidden my-invalid-feedback'}>
+                      {this.strings.url.invalid}
+                    </div>
+                  )
+                ) : null}
+              </div>
+            </div>
+          </div>
+        </div> : null}
+        {this.variant === 'compact' ? <div>
+          <div class="option-card">
+            <div class="form-row">
+              <div id={'url' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
+                <label class="" htmlFor="url-text">
+                {this.question.text}:
+                </label>
+                <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control" id="url-text" pattern="\S*" />
+                {this.strings ? (
+                  this.naUrl ? (
+                    <div class={this.naUrl === null ? 'hidden my-valid-feedback' : 'visible my-valid-feedback'}>{this.strings.url.valid}</div>
+                  ) : (
+                    <div style={{ color: this.danger }} class={this.naUrl === false ? 'visible my-invalid-feedback' : this.naUrl === null ? 'hidden my-invalid-feedback' : 'hidden my-invalid-feedback'}>
+                      {this.strings.url.invalid}
+                    </div>
+                  )
+                ) : null}
+              </div>
+            </div>
+          </div>
+        </div> : null}
       </div>
     );
   }

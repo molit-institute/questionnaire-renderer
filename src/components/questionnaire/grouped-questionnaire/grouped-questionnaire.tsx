@@ -28,13 +28,12 @@ export class GroupedQuestionnaire {
     //TODO Make sure deep changes are noticed
     this.setDisabled();
   }
-
+  @Prop() variant: any = null;
   @Prop() filteredItemList: Array<any>;
   @Watch('filteredItemList')
-  watchFilteredItemList() {    
+  watchFilteredItemList() {
     this.filteredList = this.getFilteredList();
   }
-
 
   @Prop() questionnaire!: any;
   @Watch('questionnaire')
@@ -89,7 +88,6 @@ export class GroupedQuestionnaire {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
@@ -128,7 +126,12 @@ export class GroupedQuestionnaire {
   }
 
   getQuestionType() {
-    return this.getQuestionFromItemList().type.split(/(?=[A-Z])/).join("-").toLowerCase() + '-question';
+    return (
+      this.getQuestionFromItemList()
+        .type.split(/(?=[A-Z])/)
+        .join('-')
+        .toLowerCase() + '-question'
+    );
   }
 
   getQuestion() {
@@ -355,6 +358,7 @@ export class GroupedQuestionnaire {
                     secondary={this.secondary}
                     danger={this.danger}
                     locale={this.locale}
+                    variant={this.variant}
                   ></Tag>
                 </div>
               </div>

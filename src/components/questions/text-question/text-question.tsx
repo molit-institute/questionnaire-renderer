@@ -13,6 +13,7 @@ import { getLocaleComponentStrings } from '../../../utils/locale';
 })
 export class TextQuestion {
   @Element() element: HTMLElement;
+  @Prop() variant: any = null;
   /**
    *  String containing the translations for the current locale
    */
@@ -125,27 +126,55 @@ export class TextQuestion {
   render() {
     return (
       <div>
-        <div class="">
-          <h2>
-            {this.question.prefix} {this.question.text}
-          </h2>
-          {this.strings ? (
-            <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
-              {this.strings.mandatory_question}
+        {this.variant === 'touch' ? (
+          <div>
+            <div class="">
+              <h2>
+                {this.question.prefix} {this.question.text}
+              </h2>
+              {this.strings ? (
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
+                  {this.strings.mandatory_question}
+                </div>
+              ) : null}
             </div>
-          ) : null}
-        </div>
-        <hr />
+            <hr />
 
-        <div id={'text' + this.question.linkId} class="option-card">
-          {this.strings ? (
-            <label class="" htmlFor="textarea">
-              {this.strings.text.text}:
-            </label>
-          ) : null}
-          <textarea id="textarea" class="form-control" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
+            <div id={'text' + this.question.linkId} class="option-card">
+              {this.strings ? (
+                <label class="" htmlFor="textarea">
+                  {this.strings.text.text}:
+                </label>
+              ) : null}
+              <textarea id="textarea" class="form-control" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
+            </div>
+            <br />
+          </div>
+        ) : null}
+        {this.variant === 'form' ? (
+        <div>
+           <div id={'text' + this.question.linkId} class="option-card">
+              {this.strings ? (
+                <label class="" htmlFor="textarea">
+                  {this.question.text}
+                </label>
+              ) : null}
+              <textarea id="textarea" class="form-control" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
+            </div>
         </div>
-        <br />
+        ) : null}
+        {this.variant === 'compact' ? (
+        <div>
+           <div id={'text' + this.question.linkId} class="option-card">
+              {this.strings ? (
+                <label class="" htmlFor="textarea">
+                  {this.question.text}
+                </label>
+              ) : null}
+              <textarea id="textarea" class="form-control" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
+            </div>
+        </div>
+        ) : null}
       </div>
     );
   }

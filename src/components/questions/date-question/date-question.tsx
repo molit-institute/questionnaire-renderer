@@ -13,7 +13,7 @@ import { getLocaleComponentStrings } from '../../../utils/locale';
 })
 export class DateQuestion {
   @Element() element: HTMLElement;
-
+  @Prop() variant: any = null;
   /**
    *  String containing the translations for the current locale
    */
@@ -47,7 +47,6 @@ export class DateQuestion {
   watchQuestion() {
     this.setSelected();
   }
-
   @Prop() mode: string;
   @Prop() questionnaireResponse: Object = null;
   @Watch('questionnaireResponse')
@@ -75,7 +74,6 @@ export class DateQuestion {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
@@ -116,26 +114,53 @@ export class DateQuestion {
   render() {
     return (
       <div>
-        <div class="card">
-          <h2>
-            {this.question.prefix} {this.question.text}
-          </h2>
-          {this.strings ? (
-            <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
-              {this.strings.mandatory_question}
+        {this.variant === 'touch' ? (
+          <div>
+            <div class="card">
+              <h2>
+                {this.question.prefix} {this.question.text}
+              </h2>
+              {this.strings ? (
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
+                  {this.strings.mandatory_question}
+                </div>
+              ) : null}
             </div>
-          ) : null}
-        </div>
-        <hr />
-        <div class="option-card">
-          {this.strings ? (
-            <label class="" htmlFor="date">
-              {this.strings.date.text}:
-            </label>
-          ) : null}
-          <input id="date" type="date" class="form-control" max="9999-12-31" value={this.selected} onInput={e => this.handleChange(e)} />
-        </div>
-        <br />
+            <hr />
+            <div class="option-card">
+              {this.strings ? (
+                <label class="" htmlFor="date">
+                  {this.strings.date.text}:
+                </label>
+              ) : null}
+              <input id="date" type="date" class="form-control" max="9999-12-31" value={this.selected} onInput={e => this.handleChange(e)} />
+            </div>
+            <br />
+          </div>
+        ) : null}
+        {this.variant === 'form' ?
+          <div>
+            <div class="option-card">
+              {this.strings ? (
+                <label class="" htmlFor="date">
+                  {this.question.text}:
+                </label>
+              ) : null}
+              <input id="date" type="date" class="form-control" max="9999-12-31" value={this.selected} onInput={e => this.handleChange(e)} />
+            </div>
+          </div> : null}
+        {this.variant === 'compact' ?
+          <div>
+            <div class="option-card">
+              {this.strings ? (
+                <label class="" htmlFor="date">
+                  {this.question.text}:
+                </label>
+              ) : null}
+              <input id="date" type="date" class="form-control" max="9999-12-31" value={this.selected} onInput={e => this.handleChange(e)} />
+            </div>
+          </div>
+          : null}
       </div>
     );
   }
