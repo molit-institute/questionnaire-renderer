@@ -19,7 +19,7 @@ export class QuestionnaireSummary {
    *  String containing the translations for the current locale
    */
   @State() strings: any;
-  @State() spinner: {[k:string]:any} = {
+  @State() spinner: { [k: string]: any } = {
     loading: false,
     message: '',
   };
@@ -35,6 +35,8 @@ export class QuestionnaireSummary {
   @Prop() questionnaire: Object = null;
   @Prop() questionnaireResponse: any = null;
   @Prop() summary_text: string;
+  @Prop() token: string;
+  @Prop() basicAuth: boolean;
 
   /**
    * Language property of the component. </br>
@@ -95,9 +97,9 @@ export class QuestionnaireSummary {
   }
 
   /**
-   * 
-   * @param linkId 
-   * @returns 
+   *
+   * @param linkId
+   * @returns
    */
   checkIfDisplay(linkId) {
     let questionnaireItemList = questionnaireResponseController.createItemList(this.questionnaire);
@@ -124,8 +126,8 @@ export class QuestionnaireSummary {
 
   /**
    * Returns a flat itemList of the given object. This object can either be a questionnaire or a questionnaireResponse
-   * @param object 
-   * @returns 
+   * @param object
+   * @returns
    */
   getItemList(object) {
     return questionnaireResponseController.createItemList(object);
@@ -133,8 +135,8 @@ export class QuestionnaireSummary {
 
   /**
    * Returns the answer of of the given question if it contains any. If question.asnwer contains no answers
-   * @param question 
-   * @returns 
+   * @param question
+   * @returns
    */
   getAnswer(question) {
     let answer = null;
@@ -208,7 +210,7 @@ export class QuestionnaireSummary {
 
   /**
    * Returns the count of all questions that contain answers
-   * @returns 
+   * @returns
    */
   countAnsweredQuestions() {
     let itemList = questionnaireResponseController.createItemList(this.questionnaireResponse);
@@ -237,8 +239,8 @@ export class QuestionnaireSummary {
       // Handle QuestionnaireResponse
       if (this.baseUrl) {
         try {
-          let output = await fhirApi.submitResource(this.baseUrl, questResp);
-          console.info("Questionnaire Response ID: " + output.data.id, "Url: " + output.config.url + "/" + output.data.id);
+          let output = await fhirApi.submitResource(this.baseUrl, questResp, this.token, this.basicAuth);
+          console.info('Questionnaire Response ID: ' + output.data.id, 'Url: ' + output.config.url + '/' + output.data.id);
         } catch (e) {
           this.error.emit(e);
         }
@@ -250,7 +252,7 @@ export class QuestionnaireSummary {
         this.finishTask.emit(task);
         if (this.baseUrl) {
           try {
-            await fhirApi.updateResource(this.baseUrl, task);
+            await fhirApi.updateResource(this.baseUrl, task, this.token, this.basicAuth);
           } catch (e) {
             this.error.emit(e);
           }

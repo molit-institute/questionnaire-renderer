@@ -21,15 +21,23 @@ export function createQuestionnaireResponse(questionnaire, subject) {
     questResp.status = 'in-progress';
     //SOURCE
     if (subject) {
-      questResp.source = {
-        reference: subject.resourceType + '/' + subject.id,
-        display: fhirApi.getStringFromHumanName(subject.name),
-      };
-      //SUBJECT
-      questResp.subject = {
-        reference: subject.resourceType + '/' + subject.id,
-        display: fhirApi.getStringFromHumanName(subject.name),
-      };
+      if (subject.name) {
+        questResp.source = {
+          reference: subject.resourceType + '/' + subject.id,
+          display: fhirApi.getStringFromHumanName(subject.name),
+        };
+        questResp.subject = {
+          reference: subject.resourceType + '/' + subject.id,
+          display: fhirApi.getStringFromHumanName(subject.name),
+        };
+      } else {
+        questResp.source = {
+          reference: subject.resourceType + '/' + subject.id,
+        };
+        questResp.subject = {
+          reference: subject.resourceType + '/' + subject.id,
+        };
+      }
     }
 
     //AUTHORED date when response created
