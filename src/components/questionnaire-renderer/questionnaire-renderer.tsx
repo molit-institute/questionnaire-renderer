@@ -734,6 +734,7 @@ export class QuestionnaireRenderer {
             onError={error => this.emitError(error)}
             token={this.token}
             basicAuth={this.basicAuth}
+            editable={!this.showOnlySummary}
           ></questionnaire-summary>
         ) : null}
       </div>

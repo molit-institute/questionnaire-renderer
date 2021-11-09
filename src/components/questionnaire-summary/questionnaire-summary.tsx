@@ -37,6 +37,7 @@ export class QuestionnaireSummary {
   @Prop() summary_text: string;
   @Prop() token: string;
   @Prop() basicAuth: boolean;
+  @Prop() editable: boolean;
 
   /**
    * Language property of the component. </br>
@@ -305,9 +306,11 @@ export class QuestionnaireSummary {
                         <div>
                           {this.strings.summary.yourAnswer}:&nbsp;
                           {this.getAnswer(item)} &nbsp;
-                          <span style={{ cursor: 'pointer' }} onClick={() => this.editSelectedQuestion(item)}>
-                            <img src={getAssetPath('./../assets/icons/pencil.svg')} />
-                          </span>
+                          {this.editable ? (
+                            <span style={{ cursor: 'pointer' }} onClick={() => this.editSelectedQuestion(item)}>
+                              <img src={getAssetPath('./../assets/icons/pencil.svg')} />
+                            </span>
+                          ) : null}
                         </div>
                       ) : null}
                     </div>

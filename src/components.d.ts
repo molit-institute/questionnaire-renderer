@@ -338,6 +338,7 @@ export namespace Components {
         "baseUrl": string;
         "basicAuth": boolean;
         "demoMode": Boolean;
+        "editable": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -1009,6 +1010,7 @@ declare namespace LocalJSX {
         "baseUrl"?: string;
         "basicAuth"?: boolean;
         "demoMode"?: Boolean;
+        "editable"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
