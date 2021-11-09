@@ -62,11 +62,11 @@ export class QuestionnaireRenderer {
     this.currentMode = this.mode;
     this.handleVariants();
   }
-  
-  @Prop() variant: any = "Touch";
+
+  @Prop() variant: any = 'Touch';
   @Watch('variant')
   watchVariant() {
-   this.handleVariants()
+    this.handleVariants();
   }
   /**
    * FHIR-Resource Patient
@@ -120,7 +120,7 @@ export class QuestionnaireRenderer {
    * Enable the return-button to exit the render-view
    */
   @Prop() enableReturn: boolean = true;
-  
+
   /**
    * Enable the button that can be used to show the summary or end the questionnaire
    */
@@ -150,6 +150,19 @@ export class QuestionnaireRenderer {
    * Color used to symbolise danger
    */
   @Prop() danger: string;
+
+  /**
+   * If showOnlySummary is true, the questionnaire-renderer will only show the summary
+   */
+  @Prop() showOnlySummary: boolean = false;
+  /**
+   * A token that can be send with server-requests
+   */
+  @Prop() token: string;
+  /**
+   * If basicAuth is true, the authorization header in server requests will be set to "Basic "
+   */
+  @Prop() basicAuth: boolean = false;
   /**
    * Text for back-button
    */
@@ -221,7 +234,7 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   * 
+   *
    */
   @Event() finished: EventEmitter;
   backToSummary(questionnaireResponse) {
@@ -386,7 +399,7 @@ export class QuestionnaireRenderer {
       }
     } else if (this.questionnaireUrl) {
       try {
-        this.currentQuestionnaire = await fhirApi.fetchByUrl(this.questionnaireUrl);
+        this.currentQuestionnaire = await fhirApi.fetchByUrl(this.questionnaireUrl, this.token, this.basicAuth);
         // Add Group-Ids to Questions in Groups
         for (let i = 0; i < this.currentQuestionnaire.item.length; i++) {
           if (this.currentQuestionnaire.item[i].type === 'group') {
@@ -413,7 +426,7 @@ export class QuestionnaireRenderer {
     }
   }
 
-  handleVariants(){
+  handleVariants() {
     // if (this.variant.toLowerCase() === 'form') {
     //   if (this.currentMode === 'stepper-questionnaire' || this.mode === 'stepper-questionnaire') {
     //     this.currentMode = 'full-questionnaire';
@@ -529,13 +542,13 @@ export class QuestionnaireRenderer {
       this.currentValueSets.push(this.valueSets);
       if (missingReferences.length !== 0) {
         if (this.baseUrl) {
-          this.currentValueSets.concat(await valueSetController.getValueSetsWithReferences(this.baseUrl, missingReferences));
+          this.currentValueSets.concat(await valueSetController.getValueSetsWithReferences(this.baseUrl, missingReferences, this.token, this.basicAuth));
         }
       }
     } else {
       try {
         // if (this.currentQuestionnaire && this.baseUrl) {
-        this.currentValueSets = await valueSetController.getNewValueSets([this.currentQuestionnaire], this.baseUrl);
+        this.currentValueSets = await valueSetController.getNewValueSets([this.currentQuestionnaire], this.baseUrl, this.token, this.basicAuth);
         // }
       } catch (error) {
         // console.error(error);
@@ -544,9 +557,9 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   * Uses the given question to find the index in the questionnaire itemlist and checks if it is a group. 
+   * Uses the given question to find the index in the questionnaire itemlist and checks if it is a group.
    * It will set the startCount to the index of the question
-   * @param question 
+   * @param question
    */
   handleStartQuestion(question) {
     if (question && this.filteredItemList) {
@@ -665,7 +678,7 @@ export class QuestionnaireRenderer {
     const Tag = this.currentMode;
     return (
       <div class="">
-        {this.show_questionnaire ? (
+        {this.show_questionnaire && !this.showOnlySummary ? (
           <Tag
             // variant={this.variant.toLowerCase()}
             variant="touch"
@@ -691,7 +704,7 @@ export class QuestionnaireRenderer {
             onEmitAnswer={ev => this.handleQuestionnaireResponseEvent(ev)}
           ></Tag>
         ) : null}
-        {this.show_questionnaire && this.show_summary ? (
+        {this.show_questionnaire && this.show_summary && !this.showOnlySummary ? (
           // TODO does calc work like this?
           <div class="align-vertical" style={{ height: 'calc(100vh - 200px)' }}>
             <div class="note-modal">
@@ -706,7 +719,7 @@ export class QuestionnaireRenderer {
             </div>
           </div>
         ) : null}
-        {this.show_summary ? (
+        {this.show_summary || this.showOnlySummary ? (
           <questionnaire-summary
             subject={this.subject}
             baseUrl={this.baseUrl}
@@ -719,6 +732,9 @@ export class QuestionnaireRenderer {
             onEditQuestion={question => this.editQuestion(question)}
             onFinishQuestionnaire={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
             onError={error => this.emitError(error)}
+            token={this.token}
+            basicAuth={this.basicAuth}
+            editable={!this.showOnlySummary}
           ></questionnaire-summary>
         ) : null}
       </div>

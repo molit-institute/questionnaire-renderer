@@ -248,6 +248,10 @@ export namespace Components {
          */
         "baseUrl": string;
         /**
+          * If basicAuth is true, the authorization header in server requests will be set to "Basic "
+         */
+        "basicAuth": boolean;
+        /**
           * Color used to symbolise danger
          */
         "danger": string;
@@ -304,6 +308,10 @@ export namespace Components {
          */
         "secondary": string;
         /**
+          * If showOnlySummary is true, the questionnaire-renderer will only show the summary
+         */
+        "showOnlySummary": boolean;
+        /**
           * ID of the question in the ItemList where in the list of questions the renderer should start
          */
         "startQuestion": Object;
@@ -317,6 +325,10 @@ export namespace Components {
          */
         "task": any;
         /**
+          * A token that can be send with server-requests
+         */
+        "token": string;
+        /**
           * List of ValueSets that are needed to display the given questionnaire
          */
         "valueSets": Array<any>;
@@ -324,7 +336,9 @@ export namespace Components {
     }
     interface QuestionnaireSummary {
         "baseUrl": string;
+        "basicAuth": boolean;
         "demoMode": Boolean;
+        "editable": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -338,6 +352,7 @@ export namespace Components {
         "subject": Object;
         "summary_text": string;
         "task": any;
+        "token": string;
     }
     interface SimpleSpinner {
         "borderTopColor": string;
@@ -895,6 +910,10 @@ declare namespace LocalJSX {
          */
         "baseUrl"?: string;
         /**
+          * If basicAuth is true, the authorization header in server requests will be set to "Basic "
+         */
+        "basicAuth"?: boolean;
+        /**
           * Color used to symbolise danger
          */
         "danger"?: string;
@@ -961,6 +980,10 @@ declare namespace LocalJSX {
          */
         "secondary"?: string;
         /**
+          * If showOnlySummary is true, the questionnaire-renderer will only show the summary
+         */
+        "showOnlySummary"?: boolean;
+        /**
           * ID of the question in the ItemList where in the list of questions the renderer should start
          */
         "startQuestion"?: Object;
@@ -974,6 +997,10 @@ declare namespace LocalJSX {
          */
         "task"?: any;
         /**
+          * A token that can be send with server-requests
+         */
+        "token"?: string;
+        /**
           * List of ValueSets that are needed to display the given questionnaire
          */
         "valueSets"?: Array<any>;
@@ -981,7 +1008,9 @@ declare namespace LocalJSX {
     }
     interface QuestionnaireSummary {
         "baseUrl"?: string;
+        "basicAuth"?: boolean;
         "demoMode"?: Boolean;
+        "editable"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -1006,6 +1035,7 @@ declare namespace LocalJSX {
         "subject"?: Object;
         "summary_text"?: string;
         "task"?: any;
+        "token"?: string;
     }
     interface SimpleSpinner {
         "borderTopColor"?: string;

@@ -7,7 +7,7 @@ import questionnaireResponseController from "./questionnaireResponseController";
  * @param {Array} questionnaireList
  * @param {*} FHIR_URL
  */
-async function getNewValueSets(questionnaireList, FHIR_URL) {
+async function getNewValueSets(questionnaireList, FHIR_URL, token, basicAuth) {
   if (questionnaireList) {
     let questionsValueSetList = [];
     let fullQuestionsList = [];
@@ -25,7 +25,7 @@ async function getNewValueSets(questionnaireList, FHIR_URL) {
 
     //load all ValueSets and return the List
     if (FHIR_URL) {
-      return await getValueSetsWithReferences(FHIR_URL, referenceList);
+      return await getValueSetsWithReferences(FHIR_URL, referenceList, token, basicAuth);
     } else {
       throw new Error("The given FHIR_URL was null or undefined");
     }
@@ -81,11 +81,11 @@ function getReferencesFromValueSets(questionsValueSetList) {
  * @param {*} FHIR_URL baseUrl
  * @param {*} referenceList List of valueSet-references
  */
-async function getValueSetsWithReferences(FHIR_URL, referenceList) {
+async function getValueSetsWithReferences(FHIR_URL, referenceList, token, basicAuth) {
   let list = [];
   try {
     for (let o = 0; o < referenceList.length; o++) {
-      const valueSetBundle = await fhirApi.fetchByUrl(FHIR_URL + "/ValueSet?url=" + referenceList[o]);
+      const valueSetBundle = await fhirApi.fetchByUrl(FHIR_URL + "/ValueSet?url=" + referenceList[o], token, basicAuth);
       if (valueSetBundle.data.entry) {
         let valueSet = valueSetBundle.data.entry[0].resource;
         list.push(valueSet);
