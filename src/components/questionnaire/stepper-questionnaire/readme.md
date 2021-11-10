@@ -12,6 +12,7 @@
 | `baseUrl`                    | `base-url`      |                                                                            | `string`  | `undefined` |
 | `danger`                     | `danger`        | Color used to symbolise danger                                             | `string`  | `undefined` |
 | `editMode`                   | `edit-mode`     |                                                                            | `boolean` | `false`     |
+| `enableNext`                 | `enable-next`   |                                                                            | `boolean` | `true`      |
 | `enableReturn`               | `enable-return` | Language property of the component. </br> Currently suported: [de, en, es] | `boolean` | `true`      |
 | `filteredItemList`           | --              |                                                                            | `any[]`   | `undefined` |
 | `lastQuestion`               | `last-question` |                                                                            | `boolean` | `false`     |
@@ -24,6 +25,7 @@
 | `spinner`                    | `spinner`       |                                                                            | `any`     | `undefined` |
 | `startCount`                 | `start-count`   |                                                                            | `number`  | `undefined` |
 | `valueSets`                  | --              |                                                                            | `any[]`   | `undefined` |
+| `variant`                    | `variant`       |                                                                            | `any`     | `null`      |
 
 
 ## Events
