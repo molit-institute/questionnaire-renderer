@@ -278,10 +278,7 @@ export class ChoiceQuestion {
             )}
           </div>
         ) : null}
-        {this.variant === 'form' ? 
-        <div>
-          {!this.compareOption() ? <div>erste</div> : <div>andere</div>}
-        </div> : null}
+        {this.variant === 'form' ? <div>{!this.compareOption() ? <div>erste</div> : <div>andere</div>}</div> : null}
         {this.variant === 'compact' ? <div></div> : null}
       </div>
     );

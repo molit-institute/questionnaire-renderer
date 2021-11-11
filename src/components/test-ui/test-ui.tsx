@@ -22,7 +22,7 @@ export class TestUi {
   lastQuestion: boolean = false;
   edit: boolean = false;
   indexQuestion: Object = null;
-  baseUrl: string = 'https://fhir.molit.eu/fhir/';
+  baseUrl: string = null;
   questionnaire: any = null;
   questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30];
 

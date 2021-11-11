@@ -240,6 +240,7 @@ export class QuestionnaireSummary {
       // Handle QuestionnaireResponse
       if (this.baseUrl) {
         try {
+          console.log('SummaryPage', this.baseUrl, questResp, this.token, this.basicAuth);
           let output = await fhirApi.submitResource(this.baseUrl, questResp, this.token, this.basicAuth);
           console.info('Questionnaire Response ID: ' + output.data.id, 'Url: ' + output.config.url + '/' + output.data.id);
         } catch (e) {
@@ -278,8 +279,7 @@ export class QuestionnaireSummary {
 
   render() {
     return (
-      <div>
-        <div></div>
+      <div class="card">
         <div>{this.strings.summary.title}</div>
         <div>
           {this.strings.summary.youHave} {this.countAnsweredQuestions()} {this.strings.of} {this.numberOfQuestions()} {this.strings.summary.questionsAnswered}
@@ -319,8 +319,14 @@ export class QuestionnaireSummary {
                 ),
               )}
             </div>
-            <button onClick={() => this.returnToQuestionnaire()}>{this.strings.back}</button>
-            <button onClick={() => this.completeQuestionnaireResponse()}>Fragebogen speichern</button>
+            <div class="button-container">
+              <button type="button" class="btn button btn-secondary btn-lg" onClick={() => this.returnToQuestionnaire()}>
+                {this.strings.back}
+              </button>
+              <button type="button" class="btn button btn-primary btn-lg" onClick={() => this.completeQuestionnaireResponse()}>
+                {this.strings.saveQuestionnaire}
+              </button>
+            </div>
           </div>
         )}
       </div>

@@ -304,8 +304,8 @@ export class StepperQuestionnaire {
   render() {
     const Tag = this.getQuestionType();
     return (
-      <div class="card">
-        <div class="column card-body">
+      <div class="">
+        {/* // <div class="column card-body"> */}
           {/* SPINNER */}
           {this.spinner.loading && this.filteredItemList && this.count !== null ? (
             <div class="center-vertical">
@@ -322,7 +322,7 @@ export class StepperQuestionnaire {
               {this.strings ? (
                 <div class="progress-counter title">
                   <span style={{ color: this.primary }}>
-                    {this.strings.question} {this.questionCount}
+                    {this.strings.question} {this.questionCount} &nbsp;
                   </span>
                   <span class="color-grey">
                     {this.strings.of} {this.numberOfQuestions()}
@@ -387,7 +387,7 @@ export class StepperQuestionnaire {
               </span>
             </div>
           ) : null}
-        </div>
+        {/* // </div> */}
       </div>
     );
   }

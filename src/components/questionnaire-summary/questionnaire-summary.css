@@ -37,3 +37,8 @@
   border-color: #1680d1;
   background-color: #e8f4fd;
 }
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+}
