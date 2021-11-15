@@ -279,35 +279,36 @@ export class QuestionnaireSummary {
 
   render() {
     return (
-      <div class="card">
-        <div>{this.strings.summary.title}</div>
-        <div>
+      <div class="qr-summary-card">
+        <div class="qr-summary-title">{this.strings.summary.title}</div>
+        <div class="qr-summary-answeredQuestions">
           {this.strings.summary.youHave} {this.countAnsweredQuestions()} {this.strings.of} {this.numberOfQuestions()} {this.strings.summary.questionsAnswered}
         </div>
-        <div>{this.summary_text}</div>
+        <div class="qr-summary-">{this.summary_text}</div>
         {this.spinner.loading ? (
-          <div class="card card-basic-margins">
+          <div class="card card-basic-margins qr-summary-card">
             <div class="card-body">
               <simple-spinner message={this.spinner.message}></simple-spinner>
             </div>
           </div>
         ) : (
           <div>
-            <div>
+            <div class="qr-summary-items">
               {this.getItemList(this.questionnaireResponse).map(item =>
                 item.hasOwnProperty('extension') && item.type === 'display' ? null : (
-                  <div>
-                    <div>
+                  <div class="qr-summary-item">
+                    <div class="qr-summary-item-prefix">
                       {!item.item ? this.strings.question : this.strings.group} {this.getPrefix(item.linkId)}{' '}
                     </div>
-                    <div>{item.text}</div>
+                    <div class="qr-summary-item-text">{item.text}</div>
                     <div>
                       {item && !item.item ? (
                         <div>
-                          {this.strings.summary.yourAnswer}:&nbsp;
-                          {this.getAnswer(item)} &nbsp;
+                          <span class="qr-summary-item-yourAnswer">{this.strings.summary.yourAnswer}:&nbsp;</span>
+                          <span class="qr-summary-item-answer">{this.getAnswer(item)} &nbsp;</span>
+                          
                           {this.editable ? (
-                            <span style={{ cursor: 'pointer' }} onClick={() => this.editSelectedQuestion(item)}>
+                            <span style={{ cursor: 'pointer' }} class="qr-summary-item-editIcon" onClick={() => this.editSelectedQuestion(item)}>
                               <img src={getAssetPath('./../assets/icons/pencil.svg')} />
                             </span>
                           ) : null}
@@ -319,11 +320,11 @@ export class QuestionnaireSummary {
                 ),
               )}
             </div>
-            <div class="button-container">
-              <button type="button" class="btn button btn-secondary btn-lg" onClick={() => this.returnToQuestionnaire()}>
+            <div class="qr-summary-buttonContainer">
+              <button type="button" class="btn button btn-secondary btn-lg qr-button-secondary" onClick={() => this.returnToQuestionnaire()}>
                 {this.strings.back}
               </button>
-              <button type="button" class="btn button btn-primary btn-lg" onClick={() => this.completeQuestionnaireResponse()}>
+              <button type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.completeQuestionnaireResponse()}>
                 {this.strings.saveQuestionnaire}
               </button>
             </div>

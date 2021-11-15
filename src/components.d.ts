@@ -366,10 +366,11 @@ export namespace Components {
         "danger": string;
         "editMode": boolean;
         "enableNext": boolean;
+        "enableReturn": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
-        "enableReturn": boolean;
+        "enableSummary": boolean;
         "filteredItemList": Array<any>;
         "lastQuestion": boolean;
         "locale": string;
@@ -1049,20 +1050,15 @@ declare namespace LocalJSX {
         "danger"?: string;
         "editMode"?: boolean;
         "enableNext"?: boolean;
+        "enableReturn"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
-        "enableReturn"?: boolean;
+        "enableSummary"?: boolean;
         "filteredItemList"?: Array<any>;
         "lastQuestion"?: boolean;
         "locale"?: string;
-        /**
-          * Counts up the Question-Number
-         */
         "onFinish"?: (event: CustomEvent<any>) => void;
-        /**
-          * Counts down the Question-Number
-         */
         "onReturn"?: (event: CustomEvent<any>) => void;
         "onSummary"?: (event: CustomEvent<any>) => void;
         /**

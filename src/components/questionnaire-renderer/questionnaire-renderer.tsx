@@ -237,7 +237,8 @@ export class QuestionnaireRenderer {
    *
    */
   @Event() finished: EventEmitter;
-  backToSummary(questionnaireResponse) {
+  // backToSummary(questionnaireResponse) {
+    backToSummary() {
     if (this.enableFullQuestionnaireResponse) {
       if (this.enableSummary) {
         this.show_questionnaire = false;
@@ -246,7 +247,7 @@ export class QuestionnaireRenderer {
         this.edit_mode = false;
         this.start_question = null;
       }
-      this.finished.emit(questionnaireResponse);
+      // this.finished.emit(questionnaireResponse);
     } else {
       if (this.enableSummary) {
         this.show_questionnaire = false;
@@ -255,7 +256,7 @@ export class QuestionnaireRenderer {
         this.edit_mode = false;
         this.start_question = null;
       }
-      this.finished.emit(this.filterQuestionnaireResponse());
+      // this.finished.emit(this.filterQuestionnaireResponse());
     }
   }
 
@@ -706,7 +707,8 @@ export class QuestionnaireRenderer {
             enableNext={this.enableNext}
             locale={this.locale}
             spinner={this.spinner}
-            onSummary={() => this.backToSummary(this.currentQuestionnaireResponse)}
+            enableSummary={this.enableSummary}
+            onSummary={() => this.backToSummary()}
             onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
             onReturn={() => this.leaveQuestionnaireRenderer()}
             onEmitAnswer={ev => this.handleQuestionnaireResponseEvent(ev)}
@@ -719,7 +721,7 @@ export class QuestionnaireRenderer {
               <div>
                 <div>{this.strings.questionDeactivated}</div>
                 <div class="button-container">
-                  <button class="btn btn-primary" onClick={() => this.backToSummary(this.currentQuestionnaireResponse)}>
+                  <button class="btn btn-primary" onClick={() => this.backToSummary()}>
                     {this.strings.backtoSummary}
                   </button>
                 </div>

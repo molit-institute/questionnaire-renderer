@@ -1,10 +1,10 @@
 :host {
   display: block;
 }
-.hidden {
+.qr-question-hidden {
   visibility: hidden;
 }
-.visible {
+.qr-question-visible {
   visibility: visible;
 }
 .my-invalid-feedback {
@@ -17,7 +17,7 @@
   border-radius: 20px;
   border: 0;
 }
-.option-card {
+.qr-question-optionCard {
   margin-top: 3px;
 }
 .size {
@@ -28,4 +28,10 @@
 }
 .column {
   flex: 50%;
+}
+.qr-question-title{
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
 }
