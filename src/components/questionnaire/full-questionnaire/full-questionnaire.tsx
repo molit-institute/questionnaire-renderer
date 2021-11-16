@@ -127,10 +127,10 @@ export class FullQuestionnaire {
 
   render() {
     return this.questionnaire ? (
-      <div>
+      <div class="qr-fullQuestionnaire-container">
         {/* SPINNER */}
         {this.spinner.loading ? (
-          <div class="card card-basic-margins">
+          <div class="card card-basic-margins qr-fullQuestionnaire-spinner">
             <div class="card-body">
               <simple-spinner message={this.spinner.message}></simple-spinner>
             </div>
@@ -171,16 +171,16 @@ export class FullQuestionnaire {
               })}
             </transition-group>
             {/* BUTTONS */}
-            <div class="card-margin-bottom">
+            <div class="card-margin-bottom qr-fullQuestionnaire-buttonContainer">
               {this.strings ? (
                 <div class="summary-button">
                   {this.enableReturn ? (
-                    <button type="button" class="btn button btn-outline-primary btn-lg" onClick={() => this.backToQuestionnaireList()}>
+                    <button type="button" class="btn button btn-outline-primary btn-lg qr-button-outline-primary" onClick={() => this.backToQuestionnaireList()}>
                       {this.strings.back}
                     </button>
                   ) : null}
                   {this.enableNext ? (
-                    <button type="button" class="btn button btn-primary btn-lg" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
+                    <button type="button" class="btn button btn-primary btn-lg qr-button-primary" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
                       {this.strings.next}
                     </button>
                   ) : null}

@@ -22,7 +22,7 @@ export class DisplayQuestion {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    
+
     this.strings = await getLocaleComponentStrings(this.element, newValue);
   }
 
@@ -39,8 +39,9 @@ export class DisplayQuestion {
   render() {
     return (
       <div class="display">
-      <h5 class="">{ this.question.prefix } { this.question.text }</h5>
-    </div>
+        <h5 class=""><span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
+          <span class="qr-question-text">{this.question.text}</span></h5>
+      </div>
     );
   }
 }

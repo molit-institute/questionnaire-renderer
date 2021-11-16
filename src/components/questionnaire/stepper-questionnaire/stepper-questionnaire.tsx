@@ -315,23 +315,23 @@ export class StepperQuestionnaire {
   render() {
     const Tag = this.getQuestionType();
     return (
-      <div class="">
+      <div class="qr-stepperQuestionnaire-container">
         {/* // <div class="column card-body"> */}
         {/* SPINNER */}
         {this.spinner.loading && this.filteredItemList && this.count !== null ? (
-          <div class="center-vertical">
+          <div class="qr-stepperQuestionnaire-spinner center-vertical">
             <simple-spinner message={this.spinner.message}></simple-spinner>
           </div>
         ) : null}
         {!this.spinner.loading ? (
           <div>
             {/* PROGRESS */}
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" aria-valuenow={this.questionCount} aria-valuemin="1" aria-valuemax={this.numberOfQuestions()} style={{ width: (this.questionCount / this.numberOfQuestions()) * 100 + '%' }}></div>
+            <div class="progress qr-stepperQuestionnaire-progress-container">
+              <div class="progress-bar qr-stepperQuestionnaire-progress-progressBar" role="progressbar" aria-valuenow={this.questionCount} aria-valuemin="1" aria-valuemax={this.numberOfQuestions()} style={{ width: (this.questionCount / this.numberOfQuestions()) * 100 + '%' }}></div>
             </div>
             {/* Progress Counter */}
             {this.strings ? (
-              <div class="progress-counter title">
+              <div class="progress-counter qr-stepperQuestionnaire-title">
                 <span style={{ color: this.primary }}>
                   {this.strings.question} {this.questionCount} &nbsp;
                 </span>
@@ -345,7 +345,7 @@ export class StepperQuestionnaire {
         ) : null}
         <br />
         {!this.spinner.loading && this.count !== null && this.filteredItemList ? (
-          <div>
+          <div class="qr-stepperQuestionnaire-questions">
             <Tag
               key={this.getQuestion().id}
               question={this.getQuestion()}
@@ -363,17 +363,17 @@ export class StepperQuestionnaire {
             ></Tag>
           </div>
         ) : null}
-        {!this.spinner.loading ? <div class="spacer"></div> : null}
+        {!this.spinner.loading ? <div class="qr-stepperQuestionnaire-spacer"></div> : null}
         {!this.spinner.loading && this.strings ? (
-          <div class="button-container">
+          <div class="qr-stepperQuestionnaire-buttonContainer">
             {/* Button Back */}
             {(!this.editMode && this.count !== 0) || (!this.editMode && this.enableReturn && this.count === 0) ? (
-              <button type="button" class="btn button btn-outline-primary btn-lg" onClick={() => this.countDown()}>
+              <button type="button" class="btn button btn-outline-primary btn-lg qr-button-outline-primary" onClick={() => this.countDown()}>
                 {this.strings.back}
               </button>
             ) : null}
             {this.editMode || (this.count === 0 && !this.enableReturn) ? (
-              <button type="button" class="btn button btn-outline-secondary btn-lg" disabled>
+              <button type="button" class="btn button btn-outline-secondary btn-lg qr-button-outline-secondary" disabled>
                 {this.strings.back}
               </button>
             ) : null}
@@ -381,17 +381,17 @@ export class StepperQuestionnaire {
             {/* Button Next */}
             <span>
               {this.count <= this.filteredItemList.length - 1 && !this.disabled && !this.editMode ? (
-                <button id="next-button" type="button" class="button btn-primary btn-lg" onClick={() => this.countUp()}>
+                <button id="next-button" type="button" class="button btn-primary btn-lg qr-button-primary" onClick={() => this.countUp()}>
                   {this.strings.next}
                 </button>
               ) : null}
               {this.count < this.filteredItemList.length && this.disabled ? (
-                <button id="disabled-next-button" type="button" class="button btn-secondary btn-lg" disabled>
+                <button id="disabled-next-button" type="button" class="button btn-secondary btn-lg qr-button-secondary" disabled>
                   {this.strings.next}
                 </button>
               ) : null}
               {this.editMode && !this.disabled ? (
-                <button id="summary-button" type="button" class="button btn-primary btn-lg" onClick={() => this.goToSummary()}>
+                <button id="summary-button" type="button" class="button btn-primary btn-lg qr-button-primary" onClick={() => this.goToSummary()}>
                   {this.strings.accept}
                 </button>
               ) : null}

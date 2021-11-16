@@ -238,7 +238,7 @@ export class QuestionnaireRenderer {
    */
   @Event() finished: EventEmitter;
   // backToSummary(questionnaireResponse) {
-    backToSummary() {
+  backToSummary() {
     if (this.enableFullQuestionnaireResponse) {
       if (this.enableSummary) {
         this.show_questionnaire = false;
@@ -635,7 +635,7 @@ export class QuestionnaireRenderer {
       newList = await questionnaireController.handleEnableWhen(this.currentQuestionnaireResponse, this.currentQuestionnaire.item);
     }
     this.filteredItemList = newList;
-    console.log("filteredItemList",this.filteredItemList)
+    console.log("filteredItemList", this.filteredItemList)
   }
 
   /**
@@ -686,42 +686,45 @@ export class QuestionnaireRenderer {
   render() {
     const Tag = this.currentMode;
     return (
-      <div class="">
+      <div class="qr-questionnaireRenderer-container">
         {this.show_questionnaire && !this.showOnlySummary ? (
-          <Tag
-            // variant={this.variant.toLowerCase()}
-            variant="touch"
-            filteredItemList={this.filteredItemList}
-            questionnaireResponse={this.currentQuestionnaireResponse}
-            questionnaire={this.currentQuestionnaire}
-            requiredQuestionList={this.answeredRequiredQuestionsList}
-            valueSets={this.currentValueSets}
-            lastQuestion={this.last_question}
-            startCount={this.currentStartCount}
-            baseUrl={this.baseUrl}
-            editMode={this.edit_mode}
-            primary={this.primary}
-            secondary={this.secondary}
-            danger={this.danger}
-            enableReturn={this.enableReturn}
-            enableNext={this.enableNext}
-            locale={this.locale}
-            spinner={this.spinner}
-            enableSummary={this.enableSummary}
-            onSummary={() => this.backToSummary()}
-            onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
-            onReturn={() => this.leaveQuestionnaireRenderer()}
-            onEmitAnswer={ev => this.handleQuestionnaireResponseEvent(ev)}
-          ></Tag>
+          <div class="qr-questionnaireRenderer-questions">
+            <Tag
+              // variant={this.variant.toLowerCase()}
+              variant="touch"
+              filteredItemList={this.filteredItemList}
+              questionnaireResponse={this.currentQuestionnaireResponse}
+              questionnaire={this.currentQuestionnaire}
+              requiredQuestionList={this.answeredRequiredQuestionsList}
+              valueSets={this.currentValueSets}
+              lastQuestion={this.last_question}
+              startCount={this.currentStartCount}
+              baseUrl={this.baseUrl}
+              editMode={this.edit_mode}
+              primary={this.primary}
+              secondary={this.secondary}
+              danger={this.danger}
+              enableReturn={this.enableReturn}
+              enableNext={this.enableNext}
+              locale={this.locale}
+              spinner={this.spinner}
+              enableSummary={this.enableSummary}
+              onSummary={() => this.backToSummary()}
+              onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
+              onReturn={() => this.leaveQuestionnaireRenderer()}
+              onEmitAnswer={ev => this.handleQuestionnaireResponseEvent(ev)}
+            ></Tag>
+          </div>
+
         ) : null}
         {this.show_questionnaire && this.show_summary && !this.showOnlySummary ? (
           // TODO does calc work like this?
-          <div class="align-vertical" style={{ height: 'calc(100vh - 200px)' }}>
-            <div class="note-modal">
+          <div class="qr-questionnaireRenderer-questionNotFound" style={{ height: 'calc(100vh - 200px)' }}>
+            <div class="qr-questionnaireRenderer-questionNotFound-noteModal">
               <div>
                 <div>{this.strings.questionDeactivated}</div>
-                <div class="button-container">
-                  <button class="btn btn-primary" onClick={() => this.backToSummary()}>
+                <div class="qr-questionnaireRenderer-questionNotFound-button-container ">
+                  <button class="btn btn-primary qr-questionnaireRenderer-questionNotFound-button" onClick={() => this.backToSummary()}>
                     {this.strings.backtoSummary}
                   </button>
                 </div>
@@ -730,7 +733,8 @@ export class QuestionnaireRenderer {
           </div>
         ) : null}
         {this.show_summary || this.showOnlySummary ? (
-          <questionnaire-summary
+          <div class="qr-questionnaireResponse-questionnaireSummary">
+            <questionnaire-summary
             subject={this.subject}
             baseUrl={this.baseUrl}
             locale={this.locale}
@@ -746,6 +750,8 @@ export class QuestionnaireRenderer {
             basicAuth={this.basicAuth}
             editable={!this.showOnlySummary}
           ></questionnaire-summary>
+          </div>
+
         ) : null}
       </div>
     );

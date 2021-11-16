@@ -138,29 +138,30 @@ export class DecimalQuestion {
 
   render() {
     return (
-      <div>
+      <div class="qr-question-container">
         {this.variant === 'touch' ? (
           <div>
             <div class="card">
-              <h2>
-                {this.question.prefix} {this.question.text}
-              </h2>
+            <div class="qr-question-title">
+              <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp; 
+              <span class="qr-question-text">{this.question.text}</span>
+            </div>
               {this.strings ? (
-                <div style={{ color: this.danger }} class={this.selected || !this.question.required ? 'hidden' : ''}>
+                <div style={{ color: this.danger }} class={this.selected || !this.question.required ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
                   {this.strings.mandatory_question}
                 </div>
               ) : null}
             </div>
             <hr />
-            <div class="card option-card">
+            <div class="card qr-question-optionCard">
               <div class="form-row">
                 <div id={'decimal' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
-                  <label class="" htmlFor="decimalInput">
+                  <label class="qr-question-inputLabel qr-decimalQuestion-inputLabel" htmlFor="decimalInput">
                     {this.strings.decimal.text}:
                   </label>
-                  <input ref={el => (this.decimalInput = el as HTMLInputElement)} class="form-control" id="decimal" step="any" type="number" value={this.selected} onInput={e => this.handleChange(e)} />
+                  <input ref={el => (this.decimalInput = el as HTMLInputElement)} class="form-control qr-question-input qr-decimalQuestion-input" id="decimal" step="any" type="number" value={this.selected} onInput={e => this.handleChange(e)} />
                   {this.strings ? (
-                    <div style={{ color: this.danger }} class={this.naN === false ? 'hidden my-invalid-feedback' : this.naN === null ? 'hidden my-invalid-feedback' : 'visible my-invalid-feedback'}>
+                    <div style={{ color: this.danger }} class={this.naN === false ? 'qr-question-hidden my-invalid-feedback' : this.naN === null ? 'qr-question-hidden my-invalid-feedback' : 'qr-question-visible my-invalid-feedback'}>
                       {this.strings.decimal.invalid}
                     </div>
                   ) : null}

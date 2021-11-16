@@ -195,15 +195,13 @@ export class IntegerQuestion {
 
   render() {
     return (
-      <div class="">
+      <div class="qr-question-container">
         {this.variant === 'touch' ? (
           <div>
-            {/* <h2> */}
             <div class="qr-question-title">
               <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp; 
               <span class="qr-question-text">{this.question.text}</span>
             </div>
-            {/* </h2> */}
             {this.strings ? (
               <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'} >
                 {this.strings.mandatory_question}
