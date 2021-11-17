@@ -111,28 +111,29 @@ export class TimeQuestion {
 
   render() {
     return (
-      <div>
+      <div class="qr-question-container">
         {this.variant === 'touch' ? (
           <div>
             <div class="card">
-              <h2>
-                {this.question.prefix} {this.question.text}
-              </h2>
+            <div class="qr-question-title">
+              <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp; 
+              <span class="qr-question-text">{this.question.text}</span>
+            </div>
               {this.strings ? (
-                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
                   {this.strings.mandatory_question}
                 </div>
               ) : null}
             </div>
             <hr />
-            <div class="card option-card">
+            <div class="card qr-question-optionCard">
               <div>
                 {this.strings ? (
-                  <label class="" htmlFor="time">
+                  <label class="qr-question-inputLabel qr-timeQuestion-inputLabel" htmlFor="time">
                     {this.strings.time.text}:
                   </label>
                 ) : null}
-                <input id="time" type="time" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
+                <input id="time" type="time" class="form-control qr-question-input qr-timeQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} />
               </div>
             </div>
             <br />

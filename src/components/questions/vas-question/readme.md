@@ -15,6 +15,7 @@
 | `min`        | `min`      |             | `number` | `0`             |
 | `selected`   | `selected` |             | `number` | `0`             |
 | `step`       | `step`     |             | `number` | `1`             |
+| `variant`    | `variant`  |             | `any`    | `null`          |
 
 
 ## Events

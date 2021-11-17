@@ -1,6 +1,14 @@
 :host {
   display: block;
 }
+.qr-summary-title{
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align:center;
+}
+
 .hidden {
   visibility: hidden;
 }
@@ -15,12 +23,7 @@
   height: 1.1em;
   width: 1.1em;
 }
-.card {
-  border-radius: 20px;
-  border: 0;
-  margin: 6px;
-  cursor: pointer;
-}
+
 .title {
   width: 100%;
   padding-left: 2em;
@@ -36,4 +39,9 @@
 .card-selected {
   border-color: #1680d1;
   background-color: #e8f4fd;
+}
+.qr-summary-buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
 }

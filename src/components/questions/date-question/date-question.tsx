@@ -113,27 +113,28 @@ export class DateQuestion {
 
   render() {
     return (
-      <div>
+      <div class="qr-question-container">
         {this.variant === 'touch' ? (
           <div>
             <div class="card">
-              <h2>
-                {this.question.prefix} {this.question.text}
-              </h2>
+            <div class="qr-question-title">
+              <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp; 
+              <span class="qr-question-text">{this.question.text}</span>
+            </div>
               {this.strings ? (
-                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
                   {this.strings.mandatory_question}
                 </div>
               ) : null}
             </div>
             <hr />
-            <div class="option-card">
+            <div class="qr-question-optionCard">
               {this.strings ? (
-                <label class="" htmlFor="date">
+                <label class="qr-question-inputLabel qr-dateQuestion-inputLabel" htmlFor="date">
                   {this.strings.date.text}:
                 </label>
               ) : null}
-              <input id="date" type="date" class="form-control" max="9999-12-31" value={this.selected} onInput={e => this.handleChange(e)} />
+              <input id="date" type="date" class="form-control qr-question-input qr-dateQuestion-input" max="9999-12-31" value={this.selected} onInput={e => this.handleChange(e)} />
             </div>
             <br />
           </div>

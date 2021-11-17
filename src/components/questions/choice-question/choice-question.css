@@ -1,19 +1,25 @@
 :host {
   display: block;
 }
-.hidden {
+.qr-question-hidden {
   visibility: hidden;
 }
-.radio-button-card {
+.qr-choiceQuestion-radioButtonCard {
   min-height: 60px;
   flex: 1;
   display: flex;
   justify-content: center;
 }
-.radio-button {
+.qr-choiceQuestion-radioButton {
   margin: 0.34em;
   height: 1.1em;
   width: 1.1em;
+}
+.qr-question-title{
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
 }
 .card {
   border-radius: 20px;
@@ -21,7 +27,7 @@
   margin: 6px;
   cursor: pointer;
 }
-.title {
+.qr-choiceQuestion-answerDisplay {
   width: 100%;
   padding-left: 2em;
   font-size: 1.22em;
@@ -34,19 +40,13 @@
 .card-choice {
   flex-grow: 1;
 }
-.title {
+.qr-choiceQuestion-answerDisplay {
   font-size: 1.15em;
   font-weight: 700;
 }
 .card-selected {
   border-color: #1680d1;
   background-color: #e8f4fd;
-}
-.margin-left {
-  margin-left: 20px;
-}
-.option-card {
-  margin-top: 3px;
 }
 
 /*TODO This wasn't scoped */

@@ -125,35 +125,36 @@ export class TextQuestion {
 
   render() {
     return (
-      <div>
+      <div class="qr-question-container">
         {this.variant === 'touch' ? (
           <div>
             <div class="">
-              <h2>
-                {this.question.prefix} {this.question.text}
-              </h2>
+              <div class="qr-question-title">
+                <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
+                <span class="qr-question-text">{this.question.text}</span>
+              </div>
               {this.strings ? (
-                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
                   {this.strings.mandatory_question}
                 </div>
               ) : null}
             </div>
             <hr />
 
-            <div id={'text' + this.question.linkId} class="option-card">
+            <div id={'text' + this.question.linkId} class="qr-question-optionCard">
               {this.strings ? (
-                <label class="" htmlFor="textarea">
+                <label class="qr-question-inputLabel qr-textQuestion-inputLabel" htmlFor="textarea">
                   {this.strings.text.text}:
                 </label>
               ) : null}
-              <textarea id="textarea" class="form-control" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
+              <textarea id="textarea" class="form-control qr-question-input qr-textQuestion-input" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
             </div>
             <br />
           </div>
         ) : null}
         {this.variant === 'form' ? (
-        <div>
-           <div id={'text' + this.question.linkId} class="option-card">
+          <div>
+            <div id={'text' + this.question.linkId} class="option-card">
               {this.strings ? (
                 <label class="" htmlFor="textarea">
                   {this.question.text}
@@ -161,11 +162,11 @@ export class TextQuestion {
               ) : null}
               <textarea id="textarea" class="form-control" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
             </div>
-        </div>
+          </div>
         ) : null}
         {this.variant === 'compact' ? (
-        <div>
-           <div id={'text' + this.question.linkId} class="option-card">
+          <div>
+            <div id={'text' + this.question.linkId} class="option-card">
               {this.strings ? (
                 <label class="" htmlFor="textarea">
                   {this.question.text}
@@ -173,7 +174,7 @@ export class TextQuestion {
               ) : null}
               <textarea id="textarea" class="form-control" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
             </div>
-        </div>
+          </div>
         ) : null}
       </div>
     );

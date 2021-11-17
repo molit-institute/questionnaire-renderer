@@ -100,7 +100,7 @@ export class BooleanQuestion {
     let flatList = questionnaireResponseController.createItemList(this.questionnaire);
     for (let i = 0; i < flatList.length; i++) {
       let question = flatList[i];
-       if (question.linkId === this.question.linkId) {
+      if (question.linkId === this.question.linkId) {
         if (flatList[i - 1].type === 'boolean') {
           return true;
         }
@@ -137,33 +137,34 @@ export class BooleanQuestion {
       { code: 'no', display: this.strings.no },
     ];
     return (
-      <div>
+      <div class="qr-question-container">
         {this.variant === 'touch' ? (
           <div>
-            <div class="card">
-              <h2>
-                {this.question.prefix} {this.question.text}
-              </h2>
+            <div class="">
+            <div class="qr-question-title">
+              <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp; 
+              <span class="qr-question-text">{this.question.text}</span>
+            </div>
               {this.strings ? (
-                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
                   {this.strings.mandatory_question}
                 </div>
               ) : null}
             </div>
             <hr />
-            <div>
+            <div class="qr-question-optionCard">
               {this.question ? (
                 <div class="form-group" id={'radio-boolean-' + this.question.linkId}>
                   {options.map(answer => (
-                    <div class={this.selected && answer.code === this.selected ? 'card radio-button-card card-selected' : 'card radio-button-card'} onClick={() => this.onCardClick(answer.code)}>
+                    <div class={this.selected && answer.code === this.selected ? 'qr-booleanQuestion-card qr-booleanQuestion-radio-button-card qr-booleanQuestion-card-selected' : 'qr-booleanQuestion-card qr-booleanQuestion-radio-button-card'} onClick={() => this.onCardClick(answer.code)}>
                       <div class="form-check">
                         {this.selected === answer.code ? (
-                          <input id={'radio-' + answer.code + '-' + this.question.linkId} class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} checked />
+                          <input id={'radio-' + answer.code + '-' + this.question.linkId} class="form-check-input qr-booleanQuestion-radioButton" type="radio" name={'Radio' + this.question.linkId} checked />
                         ) : (
-                          <input id={'radio-' + answer.code + '-' + this.question.linkId} class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} />
+                          <input id={'radio-' + answer.code + '-' + this.question.linkId} class="form-check-input qr-booleanQuestion-radioButton" type="radio" name={'Radio' + this.question.linkId} />
                         )}
                         {this.strings ? (
-                          <label class="form-check-label title" htmlFor={'radio-' + answer.code + this.question.linkId}>
+                          <label class="form-check-label qr-question-inputLabel" htmlFor={'radio-' + answer.code + this.question.linkId}>
                             {answer.display}
                           </label>
                         ) : null}

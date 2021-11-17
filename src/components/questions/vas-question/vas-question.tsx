@@ -32,15 +32,15 @@ export class VasQuestion {
 
   render() {
     return (
-      <div>
+      <div class="qr-vasQuestion-container">
         {this.variant === 'touch' ? (
           <div>
-            <div class="class option-card">
-              <div class="labels">
+            <div class="class qr-question-optionCard">
+              <div class="qr-vasQuestion-labels">
                 <p>{this.labelLower}</p>
                 <p>{this.labelUpper}</p>
               </div>
-              <input name="vas" type="range" min={this.min} max={this.max} step={this.step} class="range" onInput={ev => this.emitHandler(ev)} />
+              <input name="vas" type="range" min={this.min} max={this.max} step={this.step} class="range qr-vasQuestion-input" onInput={ev => this.emitHandler(ev)} />
               <div class="sliderticks">
                 {this.range().map(n => (
                   <p>{n}</p>

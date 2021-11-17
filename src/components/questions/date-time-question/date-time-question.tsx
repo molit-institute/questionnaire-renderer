@@ -152,26 +152,27 @@ export class DateTimeQuestion {
 
   render() {
     return (
-      <div>
+      <div class="qr-question-container">
         {this.variant === 'touch' ? (
           <div>
             <div class="card">
-              <h2>
-                {this.question.prefix} {this.question.text}
-              </h2>
+            <div class="qr-question-title">
+              <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp; 
+              <span class="qr-question-text">{this.question.text}</span>
+            </div>
               {this.strings ? (
-                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
                   {this.strings.mandatory_question}
                 </div>
               ) : null}
             </div>
             <hr />
-            <div class="card option-card">
+            <div class="card qr-question-optionCard">
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-sm-6">
                     {this.strings ? (
-                      <label class="" htmlFor="date">
+                      <label class="qr-question-inputLabel qr-dateTimeQuestion-inputLabel" htmlFor="date">
                         {this.strings.date.text}:
                       </label>
                     ) : null}
@@ -185,7 +186,7 @@ export class DateTimeQuestion {
                       </label>
                     ) : null}
                     {/* sm="6"  */}
-                    <input required={this.question.required} id="time" type="time" class="form-control" value={this.time} onInput={e => this.handleChange(e, 'time')} />
+                    <input required={this.question.required} id="time" type="time" class="form-control qr-question-input qr-dateTimeQuestion-input" value={this.time} onInput={e => this.handleChange(e, 'time')} />
                   </div>
                 </div>
               </div>

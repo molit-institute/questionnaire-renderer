@@ -2,7 +2,7 @@
   border-radius: 20px;
   border: 0;
 }
-.option-card {
+.qr-question-optionCard {
   margin-top: 3px;
 }
 .range {
@@ -83,14 +83,14 @@ input[type="range"]::-moz-range-thumb {
   line-height: 40px;
   margin: 0 0 20px 0;
 }
-.labels {
+.qr-vasQuestion-labels {
   display: flex;
   width: 90%;
   margin-left: 5%;
   justify-content: space-between;
   padding: 0 10px;
 }
-.labels p {
+.qr-vasQuestion-labels p {
   position: relative;
   display: flex;
   justify-content: center;

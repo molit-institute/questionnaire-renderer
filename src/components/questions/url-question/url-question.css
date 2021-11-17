@@ -1,9 +1,21 @@
 :host {
     display: block;
 }
-.hidden {
+.qr-question-hidden {
     visibility: hidden;
-}
+  }
+  .qr-question-visible {
+    visibility: visible;
+  }
+  .qr-question-title{
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .qr-question-optionCard {
+    margin: 3px 15px 0 15px;
+  }
 .card {
     border-radius: 20px;
     border: 0;
@@ -20,9 +32,7 @@
     font-size: 80%;
     color: #198754;
 }
-.option-card {
-    margin-top: 3px;
-}
+
 .align-center {
     display: flex;
     justify-content: center;

@@ -24,6 +24,7 @@
 | `spinner`                    | `spinner`       |                                                                            | `any`     | `undefined` |
 | `startCount`                 | `start-count`   |                                                                            | `number`  | `undefined` |
 | `valueSets`                  | --              |                                                                            | `any[]`   | `undefined` |
+| `variant`                    | `variant`       |                                                                            | `any`     | `null`      |
 
 
 ## Events

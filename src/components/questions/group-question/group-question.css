@@ -1,7 +1,7 @@
 :host {
   display: block;
 }
-.question-group-text {
+.qr-groupQuestion-text {
   font-size: 1.2em;
   font-weight: 600;
   margin: 15px 0px;
@@ -30,11 +30,11 @@
   font-size: 80px;
   margin-bottom: 20px;
 }
-.group-subtitle {
+.qr-groupQuestion--subtitle {
   font-size: 1.2em;
   font-weight: bold;
 }
-.group-title {
+.qr-groupQuestion--title {
   font-size: 1.5em;
   font-weight: bold;
 }

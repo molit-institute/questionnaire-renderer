@@ -93,18 +93,18 @@ export class GroupQuestion {
   /* Lifecycle Methods */
   render() {
     return (
-      <div>
+      <div class="qr-question-container">
         {this.mode !== 'GROUPS' ? (
           <div style={{ color: this.primary }}>
             <svg class="material-design-icon__svg" style={{ width: '80px', height: '80px' }} viewBox="0 0 24 24">
               <path fill="#000000" d="M19,7H9V5H19M15,15H9V13H15M19,11H9V9H19M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M4,6H2V20A2,2 0 0,0 4,22H18V20H4V6Z"></path>
             </svg>
             {this.strings ? (
-              <div class="group-subtitle">
+              <div class="qr-groupQuestion-subtitle">
                 {this.strings.questionGroup} {this.question.prefix}
               </div>
             ) : null}
-            <div class="group-title">
+            <div class="qr-groupQuestion-title">
               {this.question.prefix} {this.question.text}
             </div>
           </div>
@@ -116,11 +116,11 @@ export class GroupQuestion {
                   <path fill="#000000" d="M19,7H9V5H19M15,15H9V13H15M19,11H9V9H19M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M4,6H2V20A2,2 0 0,0 4,22H18V20H4V6Z"></path>
                 </svg>
                 {this.strings ? (
-                  <div class="group-subtitle">
+                  <div class="qr-groupQuestion-subtitle">
                     {this.strings.questionGroup} {this.question.prefix}
                   </div>
                 ) : null}
-                <div class="group-title">
+                <div class="qr-groupQuestion-title">
                   {this.question.prefix} {this.question.text}
                 </div>
               </div>
@@ -138,11 +138,11 @@ export class GroupQuestion {
                             <path fill="#000000" d="M19,7H9V5H19M15,15H9V13H15M19,11H9V9H19M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M4,6H2V20A2,2 0 0,0 4,22H18V20H4V6Z"></path>
                           </svg>
                           {this.strings ? (
-                            <div class="group-subtitle">
+                            <div class="qr-groupQuestion-subtitle">
                               {this.strings.questionGroup} {groupquestion.prefix}
                             </div>
                           ) : null}
-                          <div class="group-title">
+                          <div class="qr-groupQuestion-title">
                             {groupquestion.prefix} {groupquestion.text}
                           </div>
                         </div>
@@ -152,7 +152,7 @@ export class GroupQuestion {
                     {groupquestion.type !== 'group' ? (
                       <div class="card">
                         <div class="card-body">
-                          {groupquestion.groupId && !groupquestion.item ? <div class="question-group-text">{this.getGroupText(groupquestion)}</div> : null}
+                          {groupquestion.groupId && !groupquestion.item ? <div class="qr-groupQuestion--text">{this.getGroupText(groupquestion)}</div> : null}
                           <Tag
                             is={this.getQuestionType(groupquestion)}
                             question={groupquestion}

@@ -237,7 +237,8 @@ export class QuestionnaireRenderer {
    *
    */
   @Event() finished: EventEmitter;
-  backToSummary(questionnaireResponse) {
+  // backToSummary(questionnaireResponse) {
+  backToSummary() {
     if (this.enableFullQuestionnaireResponse) {
       if (this.enableSummary) {
         this.show_questionnaire = false;
@@ -246,7 +247,7 @@ export class QuestionnaireRenderer {
         this.edit_mode = false;
         this.start_question = null;
       }
-      this.finished.emit(questionnaireResponse);
+      // this.finished.emit(questionnaireResponse);
     } else {
       if (this.enableSummary) {
         this.show_questionnaire = false;
@@ -255,7 +256,7 @@ export class QuestionnaireRenderer {
         this.edit_mode = false;
         this.start_question = null;
       }
-      this.finished.emit(this.filterQuestionnaireResponse());
+      // this.finished.emit(this.filterQuestionnaireResponse());
     }
   }
 
@@ -390,7 +391,11 @@ export class QuestionnaireRenderer {
    */
   async handleQuestionnaire() {
     if (this.questionnaire) {
-      this.currentQuestionnaire = this.questionnaire;
+      if (typeof this.questionnaire === 'string') {
+        this.currentQuestionnaire = JSON.parse(this.questionnaire);
+      } else {
+        this.currentQuestionnaire = this.questionnaire;
+      }
       // Add Group-Ids to Questions in Groups
       for (let i = 0; i < this.currentQuestionnaire.item.length; i++) {
         if (this.currentQuestionnaire.item[i].type === 'group') {
@@ -677,41 +682,45 @@ export class QuestionnaireRenderer {
   render() {
     const Tag = this.currentMode;
     return (
-      <div class="">
+      <div class="qr-questionnaireRenderer-container">
         {this.show_questionnaire && !this.showOnlySummary ? (
-          <Tag
-            // variant={this.variant.toLowerCase()}
-            variant="touch"
-            filteredItemList={this.filteredItemList}
-            questionnaireResponse={this.currentQuestionnaireResponse}
-            questionnaire={this.currentQuestionnaire}
-            requiredQuestionList={this.answeredRequiredQuestionsList}
-            valueSets={this.currentValueSets}
-            lastQuestion={this.last_question}
-            startCount={this.currentStartCount}
-            baseUrl={this.baseUrl}
-            editMode={this.edit_mode}
-            primary={this.primary}
-            secondary={this.secondary}
-            danger={this.danger}
-            enableReturn={this.enableReturn}
-            enableNext={this.enableNext}
-            locale={this.locale}
-            spinner={this.spinner}
-            onSummary={() => this.backToSummary(this.currentQuestionnaireResponse)}
-            onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
-            onReturn={() => this.leaveQuestionnaireRenderer()}
-            onEmitAnswer={ev => this.handleQuestionnaireResponseEvent(ev)}
-          ></Tag>
+          <div class="qr-questionnaireRenderer-questions">
+            <Tag
+              // variant={this.variant.toLowerCase()}
+              variant="touch"
+              filteredItemList={this.filteredItemList}
+              questionnaireResponse={this.currentQuestionnaireResponse}
+              questionnaire={this.currentQuestionnaire}
+              requiredQuestionList={this.answeredRequiredQuestionsList}
+              valueSets={this.currentValueSets}
+              lastQuestion={this.last_question}
+              startCount={this.currentStartCount}
+              baseUrl={this.baseUrl}
+              editMode={this.edit_mode}
+              primary={this.primary}
+              secondary={this.secondary}
+              danger={this.danger}
+              enableReturn={this.enableReturn}
+              enableNext={this.enableNext}
+              locale={this.locale}
+              spinner={this.spinner}
+              enableSummary={this.enableSummary}
+              onSummary={() => this.backToSummary()}
+              onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
+              onReturn={() => this.leaveQuestionnaireRenderer()}
+              onEmitAnswer={ev => this.handleQuestionnaireResponseEvent(ev)}
+            ></Tag>
+          </div>
+
         ) : null}
         {this.show_questionnaire && this.show_summary && !this.showOnlySummary ? (
           // TODO does calc work like this?
-          <div class="align-vertical" style={{ height: 'calc(100vh - 200px)' }}>
-            <div class="note-modal">
+          <div class="qr-questionnaireRenderer-questionNotFound" style={{ height: 'calc(100vh - 200px)' }}>
+            <div class="qr-questionnaireRenderer-questionNotFound-noteModal">
               <div>
                 <div>{this.strings.questionDeactivated}</div>
-                <div class="button-container">
-                  <button class="btn btn-primary" onClick={() => this.backToSummary(this.currentQuestionnaireResponse)}>
+                <div class="qr-questionnaireRenderer-questionNotFound-button-container ">
+                  <button class="btn btn-primary qr-questionnaireRenderer-questionNotFound-button" onClick={() => this.backToSummary()}>
                     {this.strings.backtoSummary}
                   </button>
                 </div>
@@ -720,7 +729,8 @@ export class QuestionnaireRenderer {
           </div>
         ) : null}
         {this.show_summary || this.showOnlySummary ? (
-          <questionnaire-summary
+          <div class="qr-questionnaireResponse-questionnaireSummary">
+            <questionnaire-summary
             subject={this.subject}
             baseUrl={this.baseUrl}
             locale={this.locale}
@@ -736,6 +746,8 @@ export class QuestionnaireRenderer {
             basicAuth={this.basicAuth}
             editable={!this.showOnlySummary}
           ></questionnaire-summary>
+          </div>
+
         ) : null}
       </div>
     );

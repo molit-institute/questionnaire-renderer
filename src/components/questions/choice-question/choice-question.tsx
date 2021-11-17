@@ -213,21 +213,21 @@ export class ChoiceQuestion {
   }
   render() {
     return (
-      <div>
+      <div class="qr-question-container">
         {this.variant === 'touch' ? (
           <div>
-            {' '}
             <div class="card">
-              <h2>
-                {this.question.prefix} {this.question.text}
-              </h2>
+              <div class="qr-question-title">
+                <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
+                <span class="qr-question-text">{this.question.text}</span>
+              </div>
               {this.strings ? (
                 !this.repeats ? (
-                  <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
+                  <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
                     {this.strings.mandatory_question}
                   </div>
                 ) : (
-                  <div style={{ color: this.danger }} class={!this.validateCheckBox() ? 'hidden' : ''}>
+                  <div style={{ color: this.danger }} class={!this.validateCheckBox() ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
                     {this.strings.mandatory_question}
                   </div>
                 )
@@ -235,22 +235,22 @@ export class ChoiceQuestion {
             </div>
             <hr />
             {!this.repeats ? (
-              <div class="form-group">
+              <div class="form-group qr-choiceQuestion-singleChoice-container">
                 {/* <!-- SINGLE CHOICE --> */}
                 {this.optionsList.map(answer => (
                   <div
                     id={answer.code}
-                    class="card radio-button-card"
+                    class="card qr-choiceQuestion-radioButtonCard"
                     style={{ background: this.selected && this.selected.code === answer.code ? '#e8f4fd' : 'white' }}
                     onClick={() => this.onBoxClickedSingleChoice(answer.display, answer.code)}
                   >
-                    <div class="form-check">
+                    <div class="form-check qr-choiceQuestion-answer">
                       {this.selected && this.selected.code === answer.code ? (
-                        <input class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} id={answer.code} checked />
+                        <input class="form-check-input qr-choiceQuestion-radioButton" type="radio" name={'Radio' + this.question.linkId} id={answer.code} checked />
                       ) : (
-                        <input class="form-check-input radio-button" type="radio" name={'Radio' + this.question.linkId} id={answer.code} />
+                        <input class="form-check-input qr-choiceQuestion-radioButton" type="radio" name={'Radio' + this.question.linkId} id={answer.code} />
                       )}
-                      <label class="form-check-label title" htmlFor={answer.code}>
+                      <label class="form-check-label qr-choiceQuestion-answerDisplay" htmlFor={answer.code}>
                         {answer.display}
                       </label>
                     </div>
@@ -261,14 +261,14 @@ export class ChoiceQuestion {
               <div class="form-group">
                 {/* <!-- MULTIPLE CHOICE --> */}
                 {this.optionsList.map(answer => (
-                  <div id={answer.code} class="card radio-button-card" style={{ background: this.checkIfSelected(answer) ? '#e8f4fd' : 'white' }}>
+                  <div id={answer.code} class="card qr-choiceQuestion-radioButtonCard" style={{ background: this.checkIfSelected(answer) ? '#e8f4fd' : 'white' }}>
                     <div class="form-check" onClick={() => this.onBoxClickedMultipleChoice(answer.display, answer.code)}>
                       {this.checkIfSelected(answer) ? (
-                        <input class="form-check-input radio-button" type="checkbox" name={'Checkbox' + this.question.linkId} id={answer.code} checked />
+                        <input class="form-check-input qr-choiceQuestion-radioButton" type="checkbox" name={'Checkbox' + this.question.linkId} id={answer.code} checked />
                       ) : (
-                        <input class="form-check-input radio-button" type="checkbox" name={'Checkbox' + this.question.linkId} id={answer.code} />
+                        <input class="form-check-input qr-choiceQuestion-radioButton" type="checkbox" name={'Checkbox' + this.question.linkId} id={answer.code} />
                       )}
-                      <label class="form-check-label title" htmlFor={answer.code}>
+                      <label class="form-check-label qr-choiceQuestion-answerDisplay" htmlFor={answer.code}>
                         {answer.display}
                       </label>
                     </div>
@@ -278,10 +278,7 @@ export class ChoiceQuestion {
             )}
           </div>
         ) : null}
-        {this.variant === 'form' ? 
-        <div>
-          {!this.compareOption() ? <div>erste</div> : <div>andere</div>}
-        </div> : null}
+        {this.variant === 'form' ? <div>{!this.compareOption() ? <div>erste</div> : <div>andere</div>}</div> : null}
         {this.variant === 'compact' ? <div></div> : null}
       </div>
     );

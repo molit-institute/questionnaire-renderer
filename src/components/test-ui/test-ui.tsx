@@ -4,6 +4,7 @@ import * as examplePatient from '../../assets/fhir/resources/patient-example.js'
 import enableQuestionnaire from '../../assets/fhir/resources/questionnaire-lang-enable.js';
 import everyTypeQuestionnaire from '../../assets/fhir/resources/questionnaire-every-type.js';
 import repeatedQuestionnaire from '../../assets/fhir/resources/questionnaire-repeat.js';
+import qlq_c30 from '../../assets/fhir/resources/qlq-c30.js';
 
 @Component({
   tag: 'test-ui',
@@ -21,9 +22,9 @@ export class TestUi {
   lastQuestion: boolean = false;
   edit: boolean = false;
   indexQuestion: Object = null;
-  baseUrl: string = 'https://fhir.molit.eu/fhir/';
+  baseUrl: string = null;
   questionnaire: any = null;
-  questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire];
+  questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30];
 
   /* computed */
   examplePatient() {
@@ -132,8 +133,8 @@ export class TestUi {
               startQuestion={this.indexQuestion}
               enableFullQuestionnaireResponse={false}
               enableSummary={true}
-              enableReturn = {false}
-              enableNext = {false}
+              enableReturn={false}
+              enableNext={false}
               variant={this.questionnaireVariant}
               summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
             ></questionnaire-renderer>
@@ -152,7 +153,7 @@ export class TestUi {
               </div>
               <div class="col-sm-4">
                 <div>
-                  {this.getItemList(this.questionnaireResponse).map((item) =>
+                  {this.getItemList(this.questionnaireResponse).map(item =>
                     item.hasOwnProperty('extension') && item.type === 'display' ? null : (
                       <div>
                         {item.text}
@@ -161,7 +162,7 @@ export class TestUi {
                             <pre style={{ cursor: 'pointer' }} onClick={() => this.editQuestion(item)}>
                               {`${JSON.stringify(item.answer, null, 2)}`}
                             </pre>
-                           ) : null}
+                          ) : null}
                         </div>
                         <hr />
                       </div>

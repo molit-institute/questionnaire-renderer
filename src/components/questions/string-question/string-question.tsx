@@ -125,29 +125,30 @@ export class StringQuestion {
 
   render() {
     return (
-      <div>
+      <div class="qr-question-container">
         {/* TOUCH */}
         {this.variant === 'touch' ? (
           <div>
             <div class="">
-              <h2>
-                {this.question.prefix} {this.question.text}
-              </h2>
+            <div class="qr-question-title">
+              <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp; 
+              <span class="qr-question-text">{this.question.text}</span>
+            </div>
               {this.strings ? (
-                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'hidden' : ''}>
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
                   {this.strings.mandatory_question}
                 </div>
               ) : null}
             </div>
             <hr />
 
-            <div id={'string' + this.question.linkId} class="option-card">
+            <div id={'string' + this.question.linkId} class="qr-question-optionCard">
               {this.strings ? (
-                <label class="" htmlFor="string">
+                <label class="qr-question-inputLabel qr-stringQuestion-inputLabel" htmlFor="string">
                   {this.strings.text.text}:
                 </label>
               ) : null}
-              <input id="string" type="text" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
+              <input id="string" type="text" class="form-control qr-question-input qr-stringQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} />
             </div>
             <br />
           </div>

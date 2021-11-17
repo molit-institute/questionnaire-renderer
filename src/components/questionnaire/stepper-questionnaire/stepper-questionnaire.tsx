@@ -82,6 +82,7 @@ export class StepperQuestionnaire {
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
    */
+  @Prop() enableSummary: boolean = true;
   @Prop() enableReturn: boolean = true;
   @Prop() enableNext: boolean = true;
   @Prop() spinner: any;
@@ -104,6 +105,11 @@ export class StepperQuestionnaire {
    * If true enables the return button
    */
   enablereturn: boolean = true;
+
+  /* Events */
+  @Event() return: EventEmitter;
+  @Event() finish: EventEmitter;
+  @Event() summary: EventEmitter;
 
   /* computed */
   /**
@@ -177,7 +183,6 @@ export class StepperQuestionnaire {
     }
   }
 
-  @Event() summary: EventEmitter;
   goToSummary() {
     this.summary.emit('summary');
   }
@@ -209,7 +214,6 @@ export class StepperQuestionnaire {
   /**
    * Counts up the Question-Number
    */
-  @Event() finish: EventEmitter;
   countUp() {
     if (this.count < this.filteredItemList.length - 1 && !this.disabled && !this.editMode) {
       //next button
@@ -219,16 +223,23 @@ export class StepperQuestionnaire {
       }
       this.scrollToTop();
     } else if (this.count === this.filteredItemList.length - 1 && !this.disabled && !this.editMode) {
-      this.finish.emit('finish');
+      if (!this.enableSummary) {
+        this.finish.emit('finish');
+      }else{
+        this.summary.emit('summary');
+      }
     } else if (this.startCount !== null && this.editMode) {
-      this.finish.emit('finish');
+      if (!this.enableSummary) {
+        this.finish.emit('finish');
+      }else{
+        this.summary.emit('summary');
+      }
     }
   }
 
   /**
    * Counts down the Question-Number
    */
-  @Event() return: EventEmitter;
   countDown() {
     //If count bigger than 0 and startCount is null
     if (this.count > 0 && !this.editMode) {
@@ -304,90 +315,90 @@ export class StepperQuestionnaire {
   render() {
     const Tag = this.getQuestionType();
     return (
-      <div class="card">
-        <div class="column card-body">
-          {/* SPINNER */}
-          {this.spinner.loading && this.filteredItemList && this.count !== null ? (
-            <div class="center-vertical">
-              <simple-spinner message={this.spinner.message}></simple-spinner>
+      <div class="qr-stepperQuestionnaire-container">
+        {/* // <div class="column card-body"> */}
+        {/* SPINNER */}
+        {this.spinner.loading && this.filteredItemList && this.count !== null ? (
+          <div class="qr-stepperQuestionnaire-spinner center-vertical">
+            <simple-spinner message={this.spinner.message}></simple-spinner>
+          </div>
+        ) : null}
+        {!this.spinner.loading ? (
+          <div class="qr-stepperQuestionnaire-progress-container">
+            {/* PROGRESS */}
+            <div class="progress qr-stepperQuestionnaire-progress">
+              <div class="progress-bar qr-stepperQuestionnaire-progress-progressBar" role="progressbar" aria-valuenow={this.questionCount} aria-valuemin="1" aria-valuemax={this.numberOfQuestions()} style={{ width: (this.questionCount / this.numberOfQuestions()) * 100 + '%' }}></div>
             </div>
-          ) : null}
-          {!this.spinner.loading ? (
-            <div>
-              {/* PROGRESS */}
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow={this.questionCount} aria-valuemin="1" aria-valuemax={this.numberOfQuestions()} style={{ width: (this.questionCount / this.numberOfQuestions()) * 100 + '%' }}></div>
+            {/* Progress Counter */}
+            {this.strings ? (
+              <div class="progress-counter qr-stepperQuestionnaire-title">
+                <span style={{ color: this.primary }}>
+                  {this.strings.question} {this.questionCount} &nbsp;
+                </span>
+                <span class="color-grey">
+                  {this.strings.of} {this.numberOfQuestions()}
+                </span>
               </div>
-              {/* Progress Counter */}
-              {this.strings ? (
-                <div class="progress-counter title">
-                  <span style={{ color: this.primary }}>
-                    {this.strings.question} {this.questionCount}
-                  </span>
-                  <span class="color-grey">
-                    {this.strings.of} {this.numberOfQuestions()}
-                  </span>
-                </div>
-              ) : null}
-              {this.getQuestion().groupId && !this.getQuestion().item ? <div class="question-group-text">{this.getGroupText(this.getQuestion())}</div> : null}
-            </div>
-          ) : null}
-          <br />
-          {!this.spinner.loading && this.count !== null && this.filteredItemList ? (
-            <div>
-              <Tag
-                key={this.getQuestion().id}
-                question={this.getQuestion()}
-                mode="STEPPER"
-                questionnaireResponse={this.questionnaireResponse}
-                questionnaire={this.questionnaire}
-                valueSets={this.valueSets}
-                baseUrl={this.baseUrl}
-                primary={this.primary}
-                secondary={this.secondary}
-                danger={this.danger}
-                locale={this.locale}
-                onEmitNext={() => this.countUp()}
-                variant={this.variant}
-              ></Tag>
-            </div>
-          ) : null}
-          {!this.spinner.loading ? <div class="spacer"></div> : null}
-          {!this.spinner.loading && this.strings ? (
-            <div class="button-container">
-              {/* Button Back */}
-              {(!this.editMode && this.count !== 0) || (!this.editMode && this.enableReturn && this.count === 0) ? (
-                <button type="button" class="btn button btn-outline-primary btn-lg" onClick={() => this.countDown()}>
-                  {this.strings.back}
-                </button>
-              ) : null}
-              {this.editMode || (this.count === 0 && !this.enableReturn) ? (
-                <button type="button" class="btn button btn-outline-secondary btn-lg" disabled>
-                  {this.strings.back}
-                </button>
-              ) : null}
+            ) : null}
+          </div>
+        ) : null}
+        <br />
+        {!this.spinner.loading && this.count !== null && this.filteredItemList ? (
+          <div class="qr-stepperQuestionnaire-questions">
+            {this.getQuestion().groupId && !this.getQuestion().item ? <div class="qr-stepperQuestionnaire-group-text">{this.getGroupText(this.getQuestion())}</div> : null}
+            <Tag
+              key={this.getQuestion().id}
+              question={this.getQuestion()}
+              mode="STEPPER"
+              questionnaireResponse={this.questionnaireResponse}
+              questionnaire={this.questionnaire}
+              valueSets={this.valueSets}
+              baseUrl={this.baseUrl}
+              primary={this.primary}
+              secondary={this.secondary}
+              danger={this.danger}
+              locale={this.locale}
+              onEmitNext={() => this.countUp()}
+              variant={this.variant}
+            ></Tag>
+          </div>
+        ) : null}
+        {!this.spinner.loading ? <div class="qr-stepperQuestionnaire-spacer"></div> : null}
+        {!this.spinner.loading && this.strings ? (
+          <div class="qr-stepperQuestionnaire-buttonContainer">
+            {/* Button Back */}
+            {(!this.editMode && this.count !== 0) || (!this.editMode && this.enableReturn && this.count === 0) ? (
+              <button type="button" class="btn button btn-outline-primary btn-lg qr-button-outline-primary" onClick={() => this.countDown()}>
+                {this.strings.back}
+              </button>
+            ) : null}
+            {this.editMode || (this.count === 0 && !this.enableReturn) ? (
+              <button type="button" class="btn button btn-outline-secondary btn-lg qr-button-outline-secondary" disabled>
+                {this.strings.back}
+              </button>
+            ) : null}
 
-              {/* Button Next */}
-              <span>
-                {this.count <= this.filteredItemList.length - 1 && !this.disabled && !this.editMode ? (
-                  <button id="next-button" type="button" class="button btn-primary btn-lg" onClick={() => this.countUp()}>
-                    {this.strings.next}
-                  </button>
-                ) : null}
-                {this.count < this.filteredItemList.length && this.disabled ? (
-                  <button id="disabled-next-button" type="button" class="button btn-secondary btn-lg" disabled>
-                    {this.strings.next}
-                  </button>
-                ) : null}
-                {this.editMode && !this.disabled ? (
-                  <button id="summary-button" type="button" class="button btn-primary btn-lg" onClick={() => this.goToSummary()}>
-                    {this.strings.accept}
-                  </button>
-                ) : null}
-              </span>
-            </div>
-          ) : null}
-        </div>
+            {/* Button Next */}
+            <span>
+              {this.count <= this.filteredItemList.length - 1 && !this.disabled && !this.editMode ? (
+                <button id="next-button" type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.countUp()}>
+                  {this.strings.next}
+                </button>
+              ) : null}
+              {this.count < this.filteredItemList.length && this.disabled ? (
+                <button id="disabled-next-button" type="button" class="btn button btn-secondary btn-lg qr-button-secondary" disabled>
+                  {this.strings.next}
+                </button>
+              ) : null}
+              {this.editMode && !this.disabled ? (
+                <button id="summary-button" type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.goToSummary()}>
+                  {this.strings.accept}
+                </button>
+              ) : null}
+            </span>
+          </div>
+        ) : null}
+        {/* // </div> */}
       </div>
     );
   }

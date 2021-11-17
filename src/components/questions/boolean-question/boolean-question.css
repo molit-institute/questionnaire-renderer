@@ -1,27 +1,36 @@
 :host {
   display: block;
 }
-.hidden {
+.qr-question-hidden {
   visibility: hidden;
 }
-.radio-button-card {
+.qr-booleanQuestion-radio-button-card {
   min-height: 60px;
   flex: 1;
   display: flex;
   justify-content: center;
 }
-.radio-button {
+.qr-question-title{
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.qr-booleanQuestion-radioButton {
   margin: 0.35em;
   height: 1.1em;
   width: 1.1em;
 }
-.card {
+.qr-booleanQuestion-card {
   border-radius: 20px;
   border: 0;
   margin: 6px;
   cursor: pointer;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
-.title {
+.qr-question-inputLabel {
   width: 100%;
   padding-left: 2em;
   font-size: 1.22em;
@@ -30,10 +39,10 @@
 .margin-left {
   margin-left: 20px;
 }
-.option-card {
+.qr-question-optionCard {
   margin-top: 6px;
 }
-.card-selected {
+.qr-booleanQuestion-card-selected {
   border-color: #1680d1;
   background-color: #e8f4fd;
 }

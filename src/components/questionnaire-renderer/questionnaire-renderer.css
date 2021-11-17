@@ -1,17 +1,17 @@
 :host {
   display: block;
 }
-.align-vertical {
+.qr-questionnaireRenderer-questionNotFound {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.button-container {
+.qr-questionnaireRenderer-questionNotFound-button-container {
   display: flex;
   justify-content: center;
   padding: 10px;
 }
-.note-modal {
+.qr-questionnaireRenderer-questionNotFound-noteModal {
   border: white solid 2px;
   background: white;
   border-radius: 0.25rem;

@@ -25,6 +25,7 @@
 | `secondary`                  | `secondary`     | Secondary color                                                            | `string`  | `undefined` |
 | `startCount`                 | --              |                                                                            | `Number`  | `undefined` |
 | `valueSets`                  | --              |                                                                            | `any[]`   | `undefined` |
+| `variant`                    | `variant`       |                                                                            | `any`     | `null`      |
 
 
 ## Events
