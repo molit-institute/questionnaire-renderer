@@ -344,7 +344,7 @@ export namespace Components {
          */
         "locale": string;
         "mode": string;
-        "questionnaire": Object;
+        "questionnaire": any;
         "questionnaireResponse": any;
         /**
           * FHIR Patient-Resource
@@ -1028,7 +1028,7 @@ declare namespace LocalJSX {
           * Emits an event to return to the questionnaire renderer
          */
         "onToQuestionnaireRenderer"?: (event: CustomEvent<any>) => void;
-        "questionnaire"?: Object;
+        "questionnaire"?: any;
         "questionnaireResponse"?: any;
         /**
           * FHIR Patient-Resource

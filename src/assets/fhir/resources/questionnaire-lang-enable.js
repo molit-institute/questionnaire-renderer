@@ -22,6 +22,7 @@ const enableQuestionnaire = {
       linkId: '1',
       prefix: '1',
       text: 'Geben sie bitte ihre Lieblingszahl ein',
+      required: true,
       type: 'integer',
     },
     {
@@ -76,21 +77,21 @@ const enableQuestionnaire = {
       prefix: '5.2.19.',
       text: 'Single-Choice Frage 1',
       type: 'choice',
-      answerValueSet: 'http://molit.eu/fhir/ValueSet/SLK_QLQC30_answers4',
+      answerValueSet: 'http://fhir.molit.eu/fhir/ValueSet/SLK_QLQC30_answers4',
     },
     {
       linkId: '5.2.20',
       prefix: '5.2.20.',
       text: 'Single-Choice Frage 1',
       type: 'choice',
-      answerValueSet: 'http://molit.eu/fhir/ValueSet/SLK_QLQC30_answers4',
+      answerValueSet: 'http://fhir.molit.eu/fhir/ValueSet/SLK_QLQC30_answers4',
     },
     {
       linkId: '5.2.20',
       prefix: '5.2.20.',
       text: 'Single-Choice Frage 1',
       type: 'choice',
-      answerValueSet: 'http://molit.eu/fhir/ValueSet/SLK_QLQC30_answers4',
+      answerValueSet: 'http://fhir.molit.eu/fhir/ValueSet/SLK_QLQC30_answers4',
     },
     {
       linkId: '2',

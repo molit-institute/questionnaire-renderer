@@ -1,7 +1,7 @@
 /**
  * This Component adds a Summary and reacts to the users input
  */
-import { Component, h, Prop, Watch, State, Element, Event, EventEmitter, getAssetPath } from '@stencil/core';
+import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '@stencil/core';
 import { getLocaleComponentStrings } from '../../utils/locale';
 import questionnaireResponseController from '../../utils/questionnaireResponseController';
 import * as fhirApi from '@molit/fhir-api';
@@ -32,13 +32,12 @@ export class QuestionnaireSummary {
   @Prop() demoMode: Boolean;
   @Prop() task: any;
   @Prop() mode: string;
-  @Prop() questionnaire: Object = null;
+  @Prop() questionnaire: any = null;
   @Prop() questionnaireResponse: any = null;
   @Prop() summary_text: string;
   @Prop() token: string;
   @Prop() basicAuth: boolean;
   @Prop() editable: boolean;
-
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -52,6 +51,7 @@ export class QuestionnaireSummary {
   /* computed */
 
   /* methods */
+
   /**
    * Emits an event to return to the questionnaire renderer
    */
@@ -279,57 +279,62 @@ export class QuestionnaireSummary {
 
   render() {
     return (
-      <div class="qr-summary-card">
-        <div class="qr-summary-title">{this.strings.summary.title}</div>
-        <div class="qr-summary-answeredQuestions">
-          {this.strings.summary.youHave} {this.countAnsweredQuestions()} {this.strings.of} {this.numberOfQuestions()} {this.strings.summary.questionsAnswered}
+      <div class="qr-summary-container">
+        <div class="qr-summary-title">{this.editable ? <div>{this.strings.summary.title}</div> : <div>{this.questionnaire.title}</div>}</div>
+
+        <div class="qr-summary-content">
+          <div class="qr-summary-answeredQuestions">
+            {this.strings.summary.youHave} {this.countAnsweredQuestions()} {this.strings.of} {this.numberOfQuestions()} {this.strings.summary.questionsAnswered}
+          </div>
+          <div class="qr-summary-information">{this.summary_text}</div>
+          {this.spinner.loading ? (
+            <div class="card card-basic-margins qr-summary-card">
+              <div class="card-body">
+                <simple-spinner message={this.spinner.message} class="qr-summary-spinner"></simple-spinner>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <div class="qr-summary-items">
+                {this.getItemList(this.questionnaireResponse).map(item =>
+                  item.hasOwnProperty('extension') && item.type === 'display' ? null : (
+                    <div class="qr-summary-item">
+                      <div class="qr-summary-item-prefix">
+                        {!item.item ? this.strings.question : this.strings.group} {this.getPrefix(item.linkId)}{' '}
+                      </div>
+                      <div class="qr-summary-item-text">{item.text}</div>
+                      <div>
+                        {item && !item.item ? (
+                          <div>
+                            <span class="qr-summary-item-yourAnswer">{this.strings.summary.yourAnswer}:&nbsp;</span>
+                            <span class="qr-summary-item-answer">{this.getAnswer(item)} &nbsp;</span>
+
+                            {this.editable ? (
+                              <span style={{ cursor: 'pointer' }} class="qr-summary-item-editIcon" onClick={() => this.editSelectedQuestion(item)}>
+                                <svg class="material-design-icon__svg" style={{ width: '30px', height: '30px' }} viewBox="0 0 24 24">
+                                  <path fill="#000000" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"></path>
+                                </svg>
+                              </span>
+                            ) : null}
+                          </div>
+                        ) : null}
+                      </div>
+                      <hr />
+                    </div>
+                  ),
+                )}
+              </div>
+            </div>
+          )}
         </div>
-        <div class="qr-summary-">{this.summary_text}</div>
-        {this.spinner.loading ? (
-          <div class="card card-basic-margins qr-summary-card">
-            <div class="card-body">
-              <simple-spinner message={this.spinner.message}></simple-spinner>
-            </div>
-          </div>
-        ) : (
-          <div>
-            <div class="qr-summary-items">
-              {this.getItemList(this.questionnaireResponse).map(item =>
-                item.hasOwnProperty('extension') && item.type === 'display' ? null : (
-                  <div class="qr-summary-item">
-                    <div class="qr-summary-item-prefix">
-                      {!item.item ? this.strings.question : this.strings.group} {this.getPrefix(item.linkId)}{' '}
-                    </div>
-                    <div class="qr-summary-item-text">{item.text}</div>
-                    <div>
-                      {item && !item.item ? (
-                        <div>
-                          <span class="qr-summary-item-yourAnswer">{this.strings.summary.yourAnswer}:&nbsp;</span>
-                          <span class="qr-summary-item-answer">{this.getAnswer(item)} &nbsp;</span>
-                          
-                          {this.editable ? (
-                            <span style={{ cursor: 'pointer' }} class="qr-summary-item-editIcon" onClick={() => this.editSelectedQuestion(item)}>
-                              <img src={getAssetPath('./../assets/icons/pencil.svg')} />
-                            </span>
-                          ) : null}
-                        </div>
-                      ) : null}
-                    </div>
-                    <hr />
-                  </div>
-                ),
-              )}
-            </div>
-            <div class="qr-summary-buttonContainer">
-              <button type="button" class="btn button btn-secondary btn-lg qr-button-secondary" onClick={() => this.returnToQuestionnaire()}>
-                {this.strings.back}
-              </button>
-              <button type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.completeQuestionnaireResponse()}>
-                {this.strings.saveQuestionnaire}
-              </button>
-            </div>
-          </div>
-        )}
+        <div class="qr-summary-buttonContainer">
+          <button type="button" class="btn button btn-outline-primary btn-lg qr-button-outline-primary" onClick={() => this.returnToQuestionnaire()}>
+            {this.strings.back}
+          </button>
+          <button type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.completeQuestionnaireResponse()}>
+            {this.strings.summary.saveQuestionnaire}
+          </button>
+        </div>
       </div>
     );
   }

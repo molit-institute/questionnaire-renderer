@@ -323,7 +323,6 @@ export class QuestionnaireRenderer {
    */
   createQuestionnaireResponse() {
     this.currentQuestionnaireResponse = questionnaireResponseController.createQuestionnaireResponse(this.questionnaire, this.subject);
-    console.log(this.currentQuestionnaireResponse);
   }
 
   /**
@@ -391,8 +390,6 @@ export class QuestionnaireRenderer {
    * load Questionnaire if questionnaire is null and questionnaireUrl is given
    */
   async handleQuestionnaire() {
-    console.log('subject', this.subject);
-    console.log('questionnaire', this.questionnaire, this.questionnaire.id);
     if (this.questionnaire) {
       if (typeof this.questionnaire === 'string') {
         this.currentQuestionnaire = JSON.parse(this.questionnaire);
@@ -635,7 +632,6 @@ export class QuestionnaireRenderer {
       newList = await questionnaireController.handleEnableWhen(this.currentQuestionnaireResponse, this.currentQuestionnaire.item);
     }
     this.filteredItemList = newList;
-    console.log("filteredItemList", this.filteredItemList)
   }
 
   /**

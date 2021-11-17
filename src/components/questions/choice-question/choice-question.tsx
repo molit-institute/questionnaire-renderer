@@ -216,12 +216,11 @@ export class ChoiceQuestion {
       <div class="qr-question-container">
         {this.variant === 'touch' ? (
           <div>
-            {' '}
             <div class="card">
-            <div class="qr-question-title">
-              <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp; 
-              <span class="qr-question-text">{this.question.text}</span>
-            </div>
+              <div class="qr-question-title">
+                <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
+                <span class="qr-question-text">{this.question.text}</span>
+              </div>
               {this.strings ? (
                 !this.repeats ? (
                   <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
@@ -245,7 +244,7 @@ export class ChoiceQuestion {
                     style={{ background: this.selected && this.selected.code === answer.code ? '#e8f4fd' : 'white' }}
                     onClick={() => this.onBoxClickedSingleChoice(answer.display, answer.code)}
                   >
-                    <div class="form-check">
+                    <div class="form-check qr-choiceQuestion-answer">
                       {this.selected && this.selected.code === answer.code ? (
                         <input class="form-check-input qr-choiceQuestion-radioButton" type="radio" name={'Radio' + this.question.linkId} id={answer.code} checked />
                       ) : (

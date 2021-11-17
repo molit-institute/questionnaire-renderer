@@ -140,7 +140,7 @@ export class BooleanQuestion {
       <div class="qr-question-container">
         {this.variant === 'touch' ? (
           <div>
-            <div class="card">
+            <div class="">
             <div class="qr-question-title">
               <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp; 
               <span class="qr-question-text">{this.question.text}</span>

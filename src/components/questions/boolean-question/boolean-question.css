@@ -26,6 +26,9 @@
   border: 0;
   margin: 6px;
   cursor: pointer;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 .qr-question-inputLabel {
   width: 100%;

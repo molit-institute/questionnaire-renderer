@@ -15,7 +15,7 @@
 | `editable`              | `editable`               |                                                                            | `boolean` | `undefined` |
 | `locale`                | `locale`                 | Language property of the component. </br> Currently suported: [de, en, es] | `string`  | `'en'`      |
 | `mode`                  | `mode`                   |                                                                            | `string`  | `undefined` |
-| `questionnaire`         | --                       |                                                                            | `Object`  | `null`      |
+| `questionnaire`         | `questionnaire`          |                                                                            | `any`     | `null`      |
 | `questionnaireResponse` | `questionnaire-response` |                                                                            | `any`     | `null`      |
 | `subject`               | --                       | FHIR Patient-Resource                                                      | `Object`  | `undefined` |
 | `summary_text`          | `summary_text`           |                                                                            | `string`  | `undefined` |
