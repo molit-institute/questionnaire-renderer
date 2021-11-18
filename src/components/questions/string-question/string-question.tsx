@@ -130,15 +130,17 @@ export class StringQuestion {
         {this.variant === 'touch' ? (
           <div>
             <div class="">
-            <div class="qr-question-title">
-              <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp; 
-              <span class="qr-question-text">{this.question.text}</span>
-            </div>
-              {this.strings ? (
-                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
-                  {this.strings.mandatory_question}
-                </div>
-              ) : null}
+              <div class="qr-question-title">
+                <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
+                <span class="qr-question-text">{this.question.text}</span>
+              </div>
+              <div class="qr-question-mandatoryQuestion">
+                {this.strings ? (
+                  <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
+                    {this.strings.mandatory_question}
+                  </div>
+                ) : null}
+              </div>
             </div>
             <hr />
 
@@ -154,16 +156,7 @@ export class StringQuestion {
           </div>
         ) : null}
         {/* FORM */}
-        {this.variant === 'form' ? <div><div id={'string' + this.question.linkId} class="option-card">
-          {this.strings ? (
-            <label class="" htmlFor="string">
-              {this.question.text}:
-            </label>
-          ) : null}
-          <input id="string" type="text" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
-        </div></div> : null}
-        {/* COMPACT */}
-        {this.variant === 'compact' ?
+        {this.variant === 'form' ? (
           <div>
             <div id={'string' + this.question.linkId} class="option-card">
               {this.strings ? (
@@ -173,7 +166,21 @@ export class StringQuestion {
               ) : null}
               <input id="string" type="text" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
             </div>
-          </div> : null}
+          </div>
+        ) : null}
+        {/* COMPACT */}
+        {this.variant === 'compact' ? (
+          <div>
+            <div id={'string' + this.question.linkId} class="option-card">
+              {this.strings ? (
+                <label class="" htmlFor="string">
+                  {this.question.text}:
+                </label>
+              ) : null}
+              <input id="string" type="text" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
+            </div>
+          </div>
+        ) : null}
       </div>
     );
   }

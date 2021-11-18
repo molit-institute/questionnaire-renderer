@@ -118,8 +118,9 @@ export class ChoiceQuestion {
   repeats: any = null;
 
   /* computed */
+  //Returns true, if the selected is true and contains an array with one or more items
   validate() {
-    return this.selected || this.selected === [];
+    return this.selected && this.selected.length !== 0;
   }
 
   /* methods */
@@ -200,6 +201,7 @@ export class ChoiceQuestion {
   /* Lifecycle Methods */
   @Event() emitRemoveRequiredAnswer: EventEmitter;
   async componentWillLoad(): Promise<void> {
+    this.strings = await getLocaleComponentStrings(this.element, this.locale);
     try {
       this.optionsList = await this.getChoiceOptions();
     } catch (e) {
@@ -221,17 +223,21 @@ export class ChoiceQuestion {
                 <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
                 <span class="qr-question-text">{this.question.text}</span>
               </div>
-              {this.strings ? (
+              <div class="qr-question-mandatoryQuestion">
+                {this.strings ? (
                 !this.repeats ? (
-                  <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
+                  <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden ' : ''}>
+                    <div></div>
                     {this.strings.mandatory_question}
                   </div>
                 ) : (
-                  <div style={{ color: this.danger }} class={!this.validateCheckBox() ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
+                  <div style={{ color: this.danger }} class={!this.validateCheckBox() ? 'qr-question-hidden ' : ''}>
                     {this.strings.mandatory_question}
                   </div>
                 )
               ) : null}
+              </div>
+              
             </div>
             <hr />
             {!this.repeats ? (

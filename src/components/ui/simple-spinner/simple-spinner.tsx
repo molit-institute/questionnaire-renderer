@@ -11,10 +11,10 @@ export class SimpleSpinner {
 
   render() {
     return (
-      <div>
-        <div id="loading" style={{ borderTopColor: this.borderTopColor }}></div>
+      <div class="qr-spinner-container">
+        <div class="qr-spinner-element" id="loading" style={{ borderTopColor: this.borderTopColor }}></div>
         {this.message.length > 0 ? (
-          <div class="spinner-text">
+          <div class="qr-spinner-text">
             {this.message}
           </div>
         ) : null}

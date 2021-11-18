@@ -319,7 +319,7 @@ export class StepperQuestionnaire {
         {/* // <div class="column card-body"> */}
         {/* SPINNER */}
         {this.spinner.loading && this.filteredItemList && this.count !== null ? (
-          <div class="qr-stepperQuestionnaire-spinner center-vertical">
+          <div class="qr-stepperQuestionnaire-spinner">
             <simple-spinner message={this.spinner.message}></simple-spinner>
           </div>
         ) : null}

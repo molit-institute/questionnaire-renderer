@@ -145,15 +145,17 @@ export class UrlQuestion {
         {this.variant === 'touch' ? (
           <div>
             <div class="card">
-            <div class="qr-question-title">
-              <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp; 
-              <span class="qr-question-text">{this.question.text}</span>
-            </div>
-              {this.strings ? (
-                <div id="url-mandatory" style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
-                  {this.strings.mandatory_question}
-                </div>
-              ) : null}
+              <div class="qr-question-title">
+                <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
+                <span class="qr-question-text">{this.question.text}</span>
+              </div>
+              <div class="qr-question-mandatoryQuestion">
+                {this.strings ? (
+                  <div id="url-mandatory" style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
+                    {this.strings.mandatory_question}
+                  </div>
+                ) : null}
+              </div>
             </div>
             <hr />
 
@@ -179,48 +181,52 @@ export class UrlQuestion {
             <br />
           </div>
         ) : null}
-        {this.variant === 'form' ? <div>
-          <div class="option-card">
-            <div class="form-row">
-              <div id={'url' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
-                <label class="" htmlFor="url-text">
-                {this.question.text}:
-                </label>
-                <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control" id="url-text" pattern="\S*" />
-                {this.strings ? (
-                  this.naUrl ? (
-                    <div class={this.naUrl === null ? 'hidden my-valid-feedback' : 'visible my-valid-feedback'}>{this.strings.url.valid}</div>
-                  ) : (
-                    <div style={{ color: this.danger }} class={this.naUrl === false ? 'visible my-invalid-feedback' : this.naUrl === null ? 'hidden my-invalid-feedback' : 'hidden my-invalid-feedback'}>
-                      {this.strings.url.invalid}
-                    </div>
-                  )
-                ) : null}
+        {this.variant === 'form' ? (
+          <div>
+            <div class="option-card">
+              <div class="form-row">
+                <div id={'url' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
+                  <label class="" htmlFor="url-text">
+                    {this.question.text}:
+                  </label>
+                  <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control" id="url-text" pattern="\S*" />
+                  {this.strings ? (
+                    this.naUrl ? (
+                      <div class={this.naUrl === null ? 'hidden my-valid-feedback' : 'visible my-valid-feedback'}>{this.strings.url.valid}</div>
+                    ) : (
+                      <div style={{ color: this.danger }} class={this.naUrl === false ? 'visible my-invalid-feedback' : this.naUrl === null ? 'hidden my-invalid-feedback' : 'hidden my-invalid-feedback'}>
+                        {this.strings.url.invalid}
+                      </div>
+                    )
+                  ) : null}
+                </div>
               </div>
             </div>
           </div>
-        </div> : null}
-        {this.variant === 'compact' ? <div>
-          <div class="option-card">
-            <div class="form-row">
-              <div id={'url' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
-                <label class="" htmlFor="url-text">
-                {this.question.text}:
-                </label>
-                <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control" id="url-text" pattern="\S*" />
-                {this.strings ? (
-                  this.naUrl ? (
-                    <div class={this.naUrl === null ? 'hidden my-valid-feedback' : 'visible my-valid-feedback'}>{this.strings.url.valid}</div>
-                  ) : (
-                    <div style={{ color: this.danger }} class={this.naUrl === false ? 'visible my-invalid-feedback' : this.naUrl === null ? 'hidden my-invalid-feedback' : 'hidden my-invalid-feedback'}>
-                      {this.strings.url.invalid}
-                    </div>
-                  )
-                ) : null}
+        ) : null}
+        {this.variant === 'compact' ? (
+          <div>
+            <div class="option-card">
+              <div class="form-row">
+                <div id={'url' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
+                  <label class="" htmlFor="url-text">
+                    {this.question.text}:
+                  </label>
+                  <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control" id="url-text" pattern="\S*" />
+                  {this.strings ? (
+                    this.naUrl ? (
+                      <div class={this.naUrl === null ? 'hidden my-valid-feedback' : 'visible my-valid-feedback'}>{this.strings.url.valid}</div>
+                    ) : (
+                      <div style={{ color: this.danger }} class={this.naUrl === false ? 'visible my-invalid-feedback' : this.naUrl === null ? 'hidden my-invalid-feedback' : 'hidden my-invalid-feedback'}>
+                        {this.strings.url.invalid}
+                      </div>
+                    )
+                  ) : null}
+                </div>
               </div>
             </div>
           </div>
-        </div> : null}
+        ) : null}
       </div>
     );
   }

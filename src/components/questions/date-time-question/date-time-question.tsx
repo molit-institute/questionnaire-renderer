@@ -156,15 +156,17 @@ export class DateTimeQuestion {
         {this.variant === 'touch' ? (
           <div>
             <div class="card">
-            <div class="qr-question-title">
-              <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp; 
-              <span class="qr-question-text">{this.question.text}</span>
-            </div>
-              {this.strings ? (
-                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
-                  {this.strings.mandatory_question}
-                </div>
-              ) : null}
+              <div class="qr-question-title">
+                <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
+                <span class="qr-question-text">{this.question.text}</span>
+              </div>
+              <div class="qr-question-mandatoryQuestion">
+                {this.strings ? (
+                  <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
+                    {this.strings.mandatory_question}
+                  </div>
+                ) : null}
+              </div>
             </div>
             <hr />
             <div class="card qr-question-optionCard">
