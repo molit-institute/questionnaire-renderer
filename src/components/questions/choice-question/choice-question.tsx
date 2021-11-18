@@ -118,8 +118,9 @@ export class ChoiceQuestion {
   repeats: any = null;
 
   /* computed */
+  //Returns true, if the selected is true and contains an array with one or more items
   validate() {
-    return this.selected || this.selected === [];
+    return this.selected && this.selected.length !== 0;
   }
 
   /* methods */
@@ -200,6 +201,7 @@ export class ChoiceQuestion {
   /* Lifecycle Methods */
   @Event() emitRemoveRequiredAnswer: EventEmitter;
   async componentWillLoad(): Promise<void> {
+    this.strings = await getLocaleComponentStrings(this.element, this.locale);
     try {
       this.optionsList = await this.getChoiceOptions();
     } catch (e) {

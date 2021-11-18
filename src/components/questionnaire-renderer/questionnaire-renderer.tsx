@@ -138,6 +138,7 @@ export class QuestionnaireRenderer {
   }
 
   @Prop() summaryText: string = null;
+  @Prop() showSummaryRemarks: boolean = false;
   /**
    * Primary color
    */
@@ -650,6 +651,11 @@ export class QuestionnaireRenderer {
     this.error.emit(error);
   }
 
+  @Event() addRemarks: EventEmitter;
+  addAdditionalRemarks() {
+    this.addRemarks.emit('addRemarks');
+  }
+
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
@@ -709,9 +715,9 @@ export class QuestionnaireRenderer {
               onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
               onReturn={() => this.leaveQuestionnaireRenderer()}
               onEmitAnswer={ev => this.handleQuestionnaireResponseEvent(ev)}
+              onAddRemarks={() => this.addAdditionalRemarks()}
             ></Tag>
           </div>
-
         ) : null}
         {this.show_questionnaire && this.show_summary && !this.showOnlySummary ? (
           // TODO does calc work like this?
@@ -731,23 +737,23 @@ export class QuestionnaireRenderer {
         {this.show_summary || this.showOnlySummary ? (
           <div class="qr-questionnaireResponse-questionnaireSummary">
             <questionnaire-summary
-            subject={this.subject}
-            baseUrl={this.baseUrl}
-            locale={this.locale}
-            task={this.task}
-            summary_text={this.summaryText}
-            questionnaire={this.questionnaire}
-            questionnaireResponse={this.enableFullQuestionnaireResponse ? this.currentQuestionnaireResponse : this.filterQuestionnaireResponse()}
-            onToQuestionnaireRenderer={() => this.toQuestionnaire()}
-            onEditQuestion={question => this.editQuestion(question)}
-            onFinishQuestionnaire={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
-            onError={error => this.emitError(error)}
-            token={this.token}
-            basicAuth={this.basicAuth}
-            editable={!this.showOnlySummary}
-          ></questionnaire-summary>
+              subject={this.subject}
+              baseUrl={this.baseUrl}
+              locale={this.locale}
+              task={this.task}
+              summary_text={this.summaryText}
+              questionnaire={this.questionnaire}
+              questionnaireResponse={this.enableFullQuestionnaireResponse ? this.currentQuestionnaireResponse : this.filterQuestionnaireResponse()}
+              onToQuestionnaireRenderer={() => this.toQuestionnaire()}
+              onEditQuestion={question => this.editQuestion(question)}
+              onFinishQuestionnaire={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
+              onError={error => this.emitError(error)}
+              token={this.token}
+              basicAuth={this.basicAuth}
+              editable={!this.showOnlySummary}
+              showSummaryRemarks={this.showSummaryRemarks}
+            ></questionnaire-summary>
           </div>
-
         ) : null}
       </div>
     );

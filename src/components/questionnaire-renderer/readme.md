@@ -26,6 +26,7 @@
 | `questionnaireUrl`                | `questionnaire-url`                  | The Url to fetch the Questionnaire from                                                                                         | `string`  | `null`                    |
 | `secondary`                       | `secondary`                          | Secondary color                                                                                                                 | `string`  | `undefined`               |
 | `showOnlySummary`                 | `show-only-summary`                  | If showOnlySummary is true, the questionnaire-renderer will only show the summary                                               | `boolean` | `false`                   |
+| `showSummaryRemarks`              | `show-summary-remarks`               |                                                                                                                                 | `boolean` | `false`                   |
 | `startQuestion`                   | --                                   | ID of the question in the ItemList where in the list of questions the renderer should start                                     | `Object`  | `null`                    |
 | `subject`                         | `subject`                            | FHIR-Resource Patient                                                                                                           | `any`     | `null`                    |
 | `summaryText`                     | `summary-text`                       |                                                                                                                                 | `string`  | `null`                    |
@@ -37,12 +38,13 @@
 
 ## Events
 
-| Event      | Description                         | Type               |
-| ---------- | ----------------------------------- | ------------------ |
-| `error`    | Emits an error-event                | `CustomEvent<any>` |
-| `exit`     | Emits an Event to exit the Renderer | `CustomEvent<any>` |
-| `finished` |                                     | `CustomEvent<any>` |
-| `updated`  |                                     | `CustomEvent<any>` |
+| Event        | Description                         | Type               |
+| ------------ | ----------------------------------- | ------------------ |
+| `addRemarks` |                                     | `CustomEvent<any>` |
+| `error`      | Emits an error-event                | `CustomEvent<any>` |
+| `exit`       | Emits an Event to exit the Renderer | `CustomEvent<any>` |
+| `finished`   |                                     | `CustomEvent<any>` |
+| `updated`    |                                     | `CustomEvent<any>` |
 
 
 ## Dependencies

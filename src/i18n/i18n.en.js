@@ -20,7 +20,9 @@ export default {
     noAnswer: "No answer",
     youHave: "You have",
     questionsAnswered: "questions answered",
-    saveQuestionnaire: "Save questionnaire"
+    saveQuestionnaire: "Save questionnaire",
+    remarks: "Additional remarks",
+    remarksText: "Do you want to add additional remarks to the questionnaire?"
   },
 
   loading: {

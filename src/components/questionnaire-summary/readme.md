@@ -17,6 +17,7 @@
 | `mode`                  | `mode`                   |                                                                            | `string`  | `undefined` |
 | `questionnaire`         | `questionnaire`          |                                                                            | `any`     | `null`      |
 | `questionnaireResponse` | `questionnaire-response` |                                                                            | `any`     | `null`      |
+| `showSummaryRemarks`    | `show-summary-remarks`   |                                                                            | `boolean` | `undefined` |
 | `subject`               | --                       | FHIR Patient-Resource                                                      | `Object`  | `undefined` |
 | `summary_text`          | `summary_text`           |                                                                            | `string`  | `undefined` |
 | `task`                  | `task`                   |                                                                            | `any`     | `undefined` |
@@ -27,6 +28,7 @@
 
 | Event                     | Description                                                               | Type               |
 | ------------------------- | ------------------------------------------------------------------------- | ------------------ |
+| `addRemarks`              |                                                                           | `CustomEvent<any>` |
 | `editQuestion`            | Emits an event to return to the questionnaire renderer to edit a question | `CustomEvent<any>` |
 | `error`                   |                                                                           | `CustomEvent<any>` |
 | `finishQuestionnaire`     |                                                                           | `CustomEvent<any>` |

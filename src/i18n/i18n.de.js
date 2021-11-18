@@ -21,7 +21,9 @@ export default {
     noAnswer: "Keine Antwort",
     youHave: "Sie haben",
     questionsAnswered: "Fragen beantwortet",
-    saveQuestionnaire: "Fragebogen speichern"
+    saveQuestionnaire: "Fragebogen speichern",
+    remarks: "Zusätzliche Anmerkungen",
+    remarksText: "Möchten Sie den Fragebogen durch eine Notiz ergänzen?"
   },
 
   loading: {

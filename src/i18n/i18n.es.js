@@ -20,7 +20,9 @@ export default {
     noAnswer: "No hay respuesta",
     youHave: "Usted tiene",
     questionsAnswered: "Preguntas contestadas",
-    saveQuestionnaire: "Guardar el cuestionario"
+    saveQuestionnaire: "Guardar el cuestionario",
+    remarks: "Observaciones adicionales",
+    remarksText: "Desea añadir observaciones adicionales al cuestionario?"
   },
 
   loading: {

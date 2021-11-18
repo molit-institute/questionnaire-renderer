@@ -311,6 +311,7 @@ export namespace Components {
           * If showOnlySummary is true, the questionnaire-renderer will only show the summary
          */
         "showOnlySummary": boolean;
+        "showSummaryRemarks": boolean;
         /**
           * ID of the question in the ItemList where in the list of questions the renderer should start
          */
@@ -346,6 +347,7 @@ export namespace Components {
         "mode": string;
         "questionnaire": any;
         "questionnaireResponse": any;
+        "showSummaryRemarks": boolean;
         /**
           * FHIR Patient-Resource
          */
@@ -950,6 +952,7 @@ declare namespace LocalJSX {
           * Current type of Questionnaire-Style to display Available: stepper-questionnaire, grouped-questionnaire, full-questionnaire
          */
         "mode"?: string;
+        "onAddRemarks"?: (event: CustomEvent<any>) => void;
         /**
           * Emits an error-event
          */
@@ -984,6 +987,7 @@ declare namespace LocalJSX {
           * If showOnlySummary is true, the questionnaire-renderer will only show the summary
          */
         "showOnlySummary"?: boolean;
+        "showSummaryRemarks"?: boolean;
         /**
           * ID of the question in the ItemList where in the list of questions the renderer should start
          */
@@ -1017,6 +1021,7 @@ declare namespace LocalJSX {
          */
         "locale"?: string;
         "mode"?: string;
+        "onAddRemarks"?: (event: CustomEvent<any>) => void;
         /**
           * Emits an event to return to the questionnaire renderer to edit a question
          */
@@ -1030,6 +1035,7 @@ declare namespace LocalJSX {
         "onToQuestionnaireRenderer"?: (event: CustomEvent<any>) => void;
         "questionnaire"?: any;
         "questionnaireResponse"?: any;
+        "showSummaryRemarks"?: boolean;
         /**
           * FHIR Patient-Resource
          */
