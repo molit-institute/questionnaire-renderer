@@ -223,17 +223,21 @@ export class ChoiceQuestion {
                 <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
                 <span class="qr-question-text">{this.question.text}</span>
               </div>
-              {this.strings ? (
+              <div class="qr-question-mandatoryQuestion">
+                {this.strings ? (
                 !this.repeats ? (
-                  <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
+                  <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden ' : ''}>
+                    <div></div>
                     {this.strings.mandatory_question}
                   </div>
                 ) : (
-                  <div style={{ color: this.danger }} class={!this.validateCheckBox() ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
+                  <div style={{ color: this.danger }} class={!this.validateCheckBox() ? 'qr-question-hidden ' : ''}>
                     {this.strings.mandatory_question}
                   </div>
                 )
               ) : null}
+              </div>
+              
             </div>
             <hr />
             {!this.repeats ? (

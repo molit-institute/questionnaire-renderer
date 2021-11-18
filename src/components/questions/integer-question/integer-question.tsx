@@ -199,14 +199,16 @@ export class IntegerQuestion {
         {this.variant === 'touch' ? (
           <div>
             <div class="qr-question-title">
-              <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp; 
+              <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
               <span class="qr-question-text">{this.question.text}</span>
             </div>
-            {this.strings ? (
-              <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'} >
-                {this.strings.mandatory_question}
-              </div>
-            ) : null}
+            <div class="qr-question-mandatoryQuestion">
+              {this.strings ? (
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
+                  {this.strings.mandatory_question}
+                </div>
+              ) : null}
+            </div>
             <hr />
             {this.isVasQuestion() === true ? (
               <vas-question min={this.minVas()} max={this.maxVas()} step={this.stepVas()} selected={this.selected} labelLower={this.labelLowerVas()} labelUpper={this.labelUpperVas()} />
@@ -233,7 +235,16 @@ export class IntegerQuestion {
                       class="form-control qr-question-input qr-integerQuestion-input"
                     />
                     {this.strings ? (
-                      <div style={{ color: this.danger }} class={this.validate() !== false ? 'qr-question-hidden qr-integerQuestion-hidden my-invalid-feedback' : this.selected === null ? 'qr-question-hidden qr-integerQuestion-hidden my-invalid-feedback' : 'qr-question-visible qr-integerQuestion-visible my-invalid-feedback'}>
+                      <div
+                        style={{ color: this.danger }}
+                        class={
+                          this.validate() !== false
+                            ? 'qr-question-hidden qr-integerQuestion-hidden my-invalid-feedback'
+                            : this.selected === null
+                            ? 'qr-question-hidden qr-integerQuestion-hidden my-invalid-feedback'
+                            : 'qr-question-visible qr-integerQuestion-visible my-invalid-feedback'
+                        }
+                      >
                         {this.strings.integer.invalid}
                       </div>
                     ) : null}

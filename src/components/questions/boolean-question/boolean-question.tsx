@@ -145,11 +145,13 @@ export class BooleanQuestion {
               <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp; 
               <span class="qr-question-text">{this.question.text}</span>
             </div>
+            <div class="qr-question-mandatoryQuestion">
               {this.strings ? (
-                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden qr-question-mandatoryQuestion' : 'qr-question-mandatoryQuestion'}>
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
                   {this.strings.mandatory_question}
                 </div>
               ) : null}
+                </div>
             </div>
             <hr />
             <div class="qr-question-optionCard">
