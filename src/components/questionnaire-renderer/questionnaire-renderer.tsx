@@ -629,7 +629,7 @@ export class QuestionnaireRenderer {
    */
   async filterItemList() {
     let newList = [];
-    if (this.currentQuestionnaireResponse && this.questionnaire) {
+    if (this.currentQuestionnaireResponse && this.currentQuestionnaire) {
       newList = await questionnaireController.handleEnableWhen(this.currentQuestionnaireResponse, this.currentQuestionnaire.item);
     }
     this.filteredItemList = newList;

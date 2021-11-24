@@ -349,7 +349,7 @@ export class QuestionnaireSummary {
             </div>
           )}
         </div>
-        <div class="qr-summary-buttonContainer">
+        <div class="qr-summary-buttonContainer" v-if="editable">
           <button type="button" class="btn button btn-outline-primary btn-lg qr-button-outline-primary" onClick={() => this.returnToQuestionnaire()}>
             {this.strings.back}
           </button>

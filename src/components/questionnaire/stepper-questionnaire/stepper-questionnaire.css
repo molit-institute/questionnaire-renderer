@@ -7,6 +7,9 @@
   margin-top: -4px;
   color: #6a6a6a;
 }
+.qr-question-hidden {
+  visibility: hidden;
+}
 .center-vertical {
   flex: 1;
   display: flex;
