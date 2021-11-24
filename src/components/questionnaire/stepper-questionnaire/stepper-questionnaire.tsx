@@ -282,7 +282,6 @@ export class StepperQuestionnaire {
    *
    */
   isGroupQuestion() {
-    console.log(this.filteredItemList[this.count].type);
     return this.filteredItemList[this.count].type === "group";
   }
 
