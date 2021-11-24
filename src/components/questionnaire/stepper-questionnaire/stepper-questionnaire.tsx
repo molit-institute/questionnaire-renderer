@@ -225,13 +225,13 @@ export class StepperQuestionnaire {
     } else if (this.count === this.filteredItemList.length - 1 && !this.disabled && !this.editMode) {
       if (!this.enableSummary) {
         this.finish.emit('finish');
-      }else{
+      } else {
         this.summary.emit('summary');
       }
     } else if (this.startCount !== null && this.editMode) {
       if (!this.enableSummary) {
         this.finish.emit('finish');
-      }else{
+      } else {
         this.summary.emit('summary');
       }
     }
@@ -277,6 +277,12 @@ export class StepperQuestionnaire {
         }
       }
     }
+  }
+  /**
+   *
+   */
+  isGroupQuestion() {
+    return this.filteredItemList[this.count].type === "group";
   }
 
   /* Lifecycle Methods */
@@ -327,11 +333,18 @@ export class StepperQuestionnaire {
           <div class="qr-stepperQuestionnaire-progress-container">
             {/* PROGRESS */}
             <div class="progress qr-stepperQuestionnaire-progress">
-              <div class="progress-bar qr-stepperQuestionnaire-progress-progressBar" role="progressbar" aria-valuenow={this.questionCount} aria-valuemin="1" aria-valuemax={this.numberOfQuestions()} style={{ width: (this.questionCount / this.numberOfQuestions()) * 100 + '%' }}></div>
+              <div
+                class="progress-bar qr-stepperQuestionnaire-progress-progressBar"
+                role="progressbar"
+                aria-valuenow={this.questionCount}
+                aria-valuemin="1"
+                aria-valuemax={this.numberOfQuestions()}
+                style={{ width: (this.questionCount / this.numberOfQuestions()) * 100 + '%' }}
+              ></div>
             </div>
             {/* Progress Counter */}
             {this.strings ? (
-              <div class="progress-counter qr-stepperQuestionnaire-title">
+              <div class={this.isGroupQuestion() ? 'qr-question-hidden progress-counter qr-stepperQuestionnaire-title' : 'progress-counter qr-stepperQuestionnaire-title'}>
                 <span style={{ color: this.primary }}>
                   {this.strings.question} {this.questionCount} &nbsp;
                 </span>
