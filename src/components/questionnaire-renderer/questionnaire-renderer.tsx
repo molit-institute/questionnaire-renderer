@@ -656,6 +656,10 @@ export class QuestionnaireRenderer {
     this.addRemarks.emit('addRemarks');
   }
 
+  @Event() closeSummary: EventEmitter;
+  closesSummary() {
+    this.closeSummary.emit('closeSummary');
+  }
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
@@ -748,6 +752,7 @@ export class QuestionnaireRenderer {
               onEditQuestion={question => this.editQuestion(question)}
               onFinishQuestionnaire={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
               onError={error => this.emitError(error)}
+              onCloseSummary={() => this.closesSummary()}
               token={this.token}
               basicAuth={this.basicAuth}
               editable={!this.showOnlySummary}

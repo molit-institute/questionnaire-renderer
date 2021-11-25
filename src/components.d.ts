@@ -953,6 +953,7 @@ declare namespace LocalJSX {
          */
         "mode"?: string;
         "onAddRemarks"?: (event: CustomEvent<any>) => void;
+        "onCloseSummary"?: (event: CustomEvent<any>) => void;
         /**
           * Emits an error-event
          */
@@ -1022,6 +1023,7 @@ declare namespace LocalJSX {
         "locale"?: string;
         "mode"?: string;
         "onAddRemarks"?: (event: CustomEvent<any>) => void;
+        "onCloseSummary"?: (event: CustomEvent<any>) => void;
         /**
           * Emits an event to return to the questionnaire renderer to edit a question
          */
