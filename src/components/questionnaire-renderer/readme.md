@@ -38,13 +38,14 @@
 
 ## Events
 
-| Event        | Description                         | Type               |
-| ------------ | ----------------------------------- | ------------------ |
-| `addRemarks` |                                     | `CustomEvent<any>` |
-| `error`      | Emits an error-event                | `CustomEvent<any>` |
-| `exit`       | Emits an Event to exit the Renderer | `CustomEvent<any>` |
-| `finished`   |                                     | `CustomEvent<any>` |
-| `updated`    |                                     | `CustomEvent<any>` |
+| Event          | Description                         | Type               |
+| -------------- | ----------------------------------- | ------------------ |
+| `addRemarks`   |                                     | `CustomEvent<any>` |
+| `closeSummary` |                                     | `CustomEvent<any>` |
+| `error`        | Emits an error-event                | `CustomEvent<any>` |
+| `exit`         | Emits an Event to exit the Renderer | `CustomEvent<any>` |
+| `finished`     |                                     | `CustomEvent<any>` |
+| `updated`      |                                     | `CustomEvent<any>` |
 
 
 ## Dependencies

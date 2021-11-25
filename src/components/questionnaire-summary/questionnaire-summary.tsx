@@ -272,6 +272,11 @@ export class QuestionnaireSummary {
   addAdditionalRemarks() {
     this.addRemarks.emit('addRemarks');
   }
+
+  @Event() closeSummary: EventEmitter;
+  buttonOkSummary(){
+    this.closeSummary.emit('closeSummary');
+  }
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
@@ -349,13 +354,21 @@ export class QuestionnaireSummary {
             </div>
           )}
         </div>
-        <div class="qr-summary-buttonContainer" v-if="editable">
-          <button type="button" class="btn button btn-outline-primary btn-lg qr-button-outline-primary" onClick={() => this.returnToQuestionnaire()}>
-            {this.strings.back}
-          </button>
-          <button type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.completeQuestionnaireResponse()}>
-            {this.strings.summary.saveQuestionnaire}
-          </button>
+        <div class="qr-summary-buttonContainer">
+          {this.editable ? (
+            <div>
+              <button type="button" class="btn button btn-outline-primary btn-lg qr-button-outline-primary" onClick={() => this.returnToQuestionnaire()}>
+                {this.strings.back}
+              </button>
+              <button type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.completeQuestionnaireResponse()}>
+                {this.strings.summary.saveQuestionnaire}
+              </button>
+            </div>
+          ) : (
+            <button type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.buttonOkSummary()}>
+                Ok
+            </button>
+          )}
         </div>
       </div>
     );

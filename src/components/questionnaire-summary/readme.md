@@ -29,6 +29,7 @@
 | Event                     | Description                                                               | Type               |
 | ------------------------- | ------------------------------------------------------------------------- | ------------------ |
 | `addRemarks`              |                                                                           | `CustomEvent<any>` |
+| `closeSummary`            |                                                                           | `CustomEvent<any>` |
 | `editQuestion`            | Emits an event to return to the questionnaire renderer to edit a question | `CustomEvent<any>` |
 | `error`                   |                                                                           | `CustomEvent<any>` |
 | `finishQuestionnaire`     |                                                                           | `CustomEvent<any>` |
