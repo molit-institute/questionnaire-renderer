@@ -85,7 +85,7 @@ async function getValueSetsWithReferences(FHIR_URL, referenceList, token, basicA
   let list = [];
   try {
     for (let o = 0; o < referenceList.length; o++) {
-      const valueSetBundle = await fhirApi.fetchByUrl(FHIR_URL + "/ValueSet?url=" + referenceList[o], token, basicAuth);
+      const valueSetBundle = await fhirApi.fetchByUrl(FHIR_URL + "/ValueSet?url=" + referenceList[o], null, token, basicAuth);
       if (valueSetBundle.data.entry) {
         let valueSet = valueSetBundle.data.entry[0].resource;
         list.push(valueSet);

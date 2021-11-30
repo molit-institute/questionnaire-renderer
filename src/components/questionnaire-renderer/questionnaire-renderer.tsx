@@ -405,7 +405,7 @@ export class QuestionnaireRenderer {
       }
     } else if (this.questionnaireUrl) {
       try {
-        this.currentQuestionnaire = await fhirApi.fetchByUrl(this.questionnaireUrl, this.token, this.basicAuth);
+        this.currentQuestionnaire = await fhirApi.fetchByUrl(this.questionnaireUrl, null, this.token, this.basicAuth);
         // Add Group-Ids to Questions in Groups
         for (let i = 0; i < this.currentQuestionnaire.item.length; i++) {
           if (this.currentQuestionnaire.item[i].type === 'group') {
