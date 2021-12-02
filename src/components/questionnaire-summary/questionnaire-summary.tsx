@@ -336,11 +336,11 @@ export class QuestionnaireSummary {
                 )}
               </div>
               {this.showSummaryRemarks ? (
-                <div class="qr-summary-remarks">
+                <div class="qr-summary-remarks" onClick={() => this.addAdditionalRemarks()}>
                   <div class="qr-summary-remarks-title">{this.strings.summary.remarks}</div>
                   <div class="qr-summary-remarks-content">
                     <span class="qr-summary-remarks-text">{this.strings.summary.remarksText}</span>
-                    <span class="qr-summary-remarks-icon" onClick={() => this.addAdditionalRemarks()}>
+                    <span class="qr-summary-remarks-icon" >
                       <svg class="material-design-icon__svg " style={{ width: '30px', height: '30px' }} viewBox="0 0 24 24">
                         <path
                           fill="#000000"
@@ -365,7 +365,7 @@ export class QuestionnaireSummary {
               </button>
             </div>
           ) : (
-            <button type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.buttonOkSummary()}>
+            <button type="button" class="btn button btn-primary btn-lg qr-button-primary qr-summary-ok-button" onClick={() => this.buttonOkSummary()}>
                 Ok
             </button>
           )}
