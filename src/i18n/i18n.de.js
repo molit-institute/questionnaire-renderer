@@ -8,7 +8,7 @@ export default {
   placeholder: "Hier Antwort eingeben",
   questionGroup: "Fragengruppe",
   page: "Seite",
-  accept: "Änderung übernehmen",
+  accept: "Übernehmen",
   back: "Zurück",
   next: "Weiter",
   yes: "Ja",
@@ -21,7 +21,7 @@ export default {
     noAnswer: "Keine Antwort",
     youHave: "Sie haben",
     questionsAnswered: "Fragen beantwortet",
-    saveQuestionnaire: "Fragebogen speichern",
+    saveQuestionnaire: "Speichern",
     remarks: "Zusätzliche Anmerkungen",
     remarksText: "Möchten Sie den Fragebogen durch eine Notiz ergänzen?"
   },
