@@ -86,10 +86,11 @@ export class StepperQuestionnaire {
   @Prop() enableReturn: boolean = true;
   @Prop() enableNext: boolean = true;
   @Prop() spinner: any;
+  @Prop() enableInformalLocale: boolean; 
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    this.strings = await getLocaleComponentStrings(this.element, newValue);
+    this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
 
   /**
@@ -302,7 +303,7 @@ export class StepperQuestionnaire {
   async componentWillLoad(): Promise<void> {
     this.lastquestion = this.lastQuestion;
     try {
-      this.strings = await getLocaleComponentStrings(this.element, this.locale);
+      this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
     } catch (e) {
       console.error(e);
     }
@@ -373,6 +374,7 @@ export class StepperQuestionnaire {
               locale={this.locale}
               onEmitNext={() => this.countUp()}
               variant={this.variant}
+              enableInformalLocale = {this.enableInformalLocale}
             ></Tag>
           </div>
         ) : null}

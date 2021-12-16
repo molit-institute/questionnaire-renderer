@@ -39,6 +39,8 @@ export class QuestionnaireSummary {
   @Prop() basicAuth: boolean;
   @Prop() editable: boolean;
   @Prop() showSummaryRemarks: boolean;
+  @Prop() enableSendQuestionnaireResponse: boolean;
+  @Prop() enableInformalLocale: boolean;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -46,7 +48,7 @@ export class QuestionnaireSummary {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    this.strings = await getLocaleComponentStrings(this.element, newValue);
+    this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
 
   /* computed */
@@ -239,7 +241,7 @@ export class QuestionnaireSummary {
 
       questResp.status = 'completed';
       // Handle QuestionnaireResponse
-      if (this.baseUrl) {
+      if (this.baseUrl && this.enableSendQuestionnaireResponse) {
         try {
           console.log('SummaryPage', this.baseUrl, questResp, this.token, this.basicAuth);
           let output = await fhirApi.submitResource(this.baseUrl, questResp, this.token, this.basicAuth);
@@ -281,7 +283,7 @@ export class QuestionnaireSummary {
 
   async componentWillLoad(): Promise<void> {
     try {
-      this.strings = await getLocaleComponentStrings(this.element, this.locale);
+      this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
       // this.itemList = questionnaireResponseController.createItemList(this.questionnaireResponse);
     } catch (e) {
       console.error(e);
@@ -336,11 +338,11 @@ export class QuestionnaireSummary {
                 )}
               </div>
               {this.showSummaryRemarks ? (
-                <div class="qr-summary-remarks">
+                <div class="qr-summary-remarks" onClick={() => this.addAdditionalRemarks()}>
                   <div class="qr-summary-remarks-title">{this.strings.summary.remarks}</div>
                   <div class="qr-summary-remarks-content">
                     <span class="qr-summary-remarks-text">{this.strings.summary.remarksText}</span>
-                    <span class="qr-summary-remarks-icon" onClick={() => this.addAdditionalRemarks()}>
+                    <span class="qr-summary-remarks-icon" >
                       <svg class="material-design-icon__svg " style={{ width: '30px', height: '30px' }} viewBox="0 0 24 24">
                         <path
                           fill="#000000"
@@ -365,7 +367,7 @@ export class QuestionnaireSummary {
               </button>
             </div>
           ) : (
-            <button type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.buttonOkSummary()}>
+            <button type="button" class="btn button btn-primary btn-lg qr-button-primary qr-summary-ok-button" onClick={() => this.buttonOkSummary()}>
                 Ok
             </button>
           )}

@@ -36,6 +36,7 @@ export class GroupQuestion {
   @Prop() startCount: Number;
   @Prop() enableReturn: boolean = true;
   @Prop() mode: string;
+  @Prop() enableInformalLocale: boolean; 
   /**
    * Primary color
    */
@@ -55,7 +56,7 @@ export class GroupQuestion {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    this.strings = await getLocaleComponentStrings(this.element, newValue);
+    this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
 
   /* methods */
@@ -165,6 +166,7 @@ export class GroupQuestion {
                             secondary={this.secondary}
                             danger={this.danger}
                             locale={this.locale}
+                            enableInformalLocale= {this.enableInformalLocale}
                           ></Tag>
                         </div>
                       </div>

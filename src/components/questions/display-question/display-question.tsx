@@ -14,6 +14,7 @@ export class DisplayQuestion {
   @Prop() variant: any = null;
   @Prop() question: any;
   @Prop() mode: string;
+  @Prop() enableInformalLocale: boolean; 
 
   /**
    * Language property of the component. </br>
@@ -23,14 +24,14 @@ export class DisplayQuestion {
   @Watch('locale')
   async watchLocale(newValue: string) {
 
-    this.strings = await getLocaleComponentStrings(this.element, newValue);
+    this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
 
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
     try {
-      this.strings = await getLocaleComponentStrings(this.element, this.locale);
+      this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
     } catch (e) {
       console.error(e);
     }

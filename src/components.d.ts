@@ -11,6 +11,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -36,6 +37,8 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableInformalLocale": boolean;
+        "key": string;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -60,6 +63,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -82,6 +86,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -104,6 +109,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -122,6 +128,7 @@ export namespace Components {
         "variant": any;
     }
     interface DisplayQuestion {
+        "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -136,6 +143,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableInformalLocale": boolean;
         "enableNext": boolean;
         "enableReturn": boolean;
         "filteredItemList": Array<any>;
@@ -166,6 +174,7 @@ export namespace Components {
          */
         "danger": string;
         "editMode": boolean;
+        "enableInformalLocale": boolean;
         "enableReturn": boolean;
         "filteredItemList": Array<any>;
         "lastQuestion": boolean;
@@ -197,6 +206,7 @@ export namespace Components {
          */
         "danger": string;
         "editMode": boolean;
+        "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -220,11 +230,22 @@ export namespace Components {
         "valueSets": Array<any>;
         "variant": any;
     }
+    interface InformationPage {
+        "enableInformalLocale": boolean;
+        "filteredItemList": Array<any>;
+        "informationText": String;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "locale": string;
+        "questionnaire": any;
+    }
     interface IntegerQuestion {
         /**
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -263,6 +284,8 @@ export namespace Components {
           * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
          */
         "enableFullQuestionnaireResponse": boolean;
+        "enableInformalLocale": boolean;
+        "enableInformationPage": boolean;
         /**
           * Enable the button that can be used to show the summary or end the questionnaire
          */
@@ -271,6 +294,7 @@ export namespace Components {
           * Enable the return-button to exit the render-view
          */
         "enableReturn": boolean;
+        "enableSendQuestionnaireResponse": boolean;
         /**
           * Enable the summary. The summary will be shown if enableSummary is true
          */
@@ -340,6 +364,8 @@ export namespace Components {
         "basicAuth": boolean;
         "demoMode": Boolean;
         "editable": boolean;
+        "enableInformalLocale": boolean;
+        "enableSendQuestionnaireResponse": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -367,6 +393,7 @@ export namespace Components {
          */
         "danger": string;
         "editMode": boolean;
+        "enableInformalLocale": boolean;
         "enableNext": boolean;
         "enableReturn": boolean;
         /**
@@ -397,6 +424,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -421,6 +449,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -443,6 +472,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -465,6 +495,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -547,6 +578,12 @@ declare global {
         prototype: HTMLGroupedQuestionnaireElement;
         new (): HTMLGroupedQuestionnaireElement;
     };
+    interface HTMLInformationPageElement extends Components.InformationPage, HTMLStencilElement {
+    }
+    var HTMLInformationPageElement: {
+        prototype: HTMLInformationPageElement;
+        new (): HTMLInformationPageElement;
+    };
     interface HTMLIntegerQuestionElement extends Components.IntegerQuestion, HTMLStencilElement {
     }
     var HTMLIntegerQuestionElement: {
@@ -623,6 +660,7 @@ declare global {
         "full-questionnaire": HTMLFullQuestionnaireElement;
         "group-question": HTMLGroupQuestionElement;
         "grouped-questionnaire": HTMLGroupedQuestionnaireElement;
+        "information-page": HTMLInformationPageElement;
         "integer-question": HTMLIntegerQuestionElement;
         "questionnaire-renderer": HTMLQuestionnaireRendererElement;
         "questionnaire-summary": HTMLQuestionnaireSummaryElement;
@@ -642,6 +680,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -668,6 +707,8 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableInformalLocale"?: boolean;
+        "key"?: string;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -694,6 +735,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -717,6 +759,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -740,6 +783,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -763,6 +807,7 @@ declare namespace LocalJSX {
         "variant"?: any;
     }
     interface DisplayQuestion {
+        "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -777,6 +822,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableInformalLocale"?: boolean;
         "enableNext"?: boolean;
         "enableReturn"?: boolean;
         "filteredItemList"?: Array<any>;
@@ -809,6 +855,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         "editMode"?: boolean;
+        "enableInformalLocale"?: boolean;
         "enableReturn"?: boolean;
         "filteredItemList"?: Array<any>;
         "lastQuestion"?: boolean;
@@ -848,6 +895,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         "editMode"?: boolean;
+        "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -880,11 +928,23 @@ declare namespace LocalJSX {
         "valueSets"?: Array<any>;
         "variant"?: any;
     }
+    interface InformationPage {
+        "enableInformalLocale"?: boolean;
+        "filteredItemList"?: Array<any>;
+        "informationText"?: String;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "locale"?: string;
+        "onStartQuestionnaire"?: (event: CustomEvent<any>) => void;
+        "questionnaire"?: any;
+    }
     interface IntegerQuestion {
         /**
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -928,6 +988,8 @@ declare namespace LocalJSX {
           * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
          */
         "enableFullQuestionnaireResponse"?: boolean;
+        "enableInformalLocale"?: boolean;
+        "enableInformationPage"?: boolean;
         /**
           * Enable the button that can be used to show the summary or end the questionnaire
          */
@@ -936,6 +998,7 @@ declare namespace LocalJSX {
           * Enable the return-button to exit the render-view
          */
         "enableReturn"?: boolean;
+        "enableSendQuestionnaireResponse"?: boolean;
         /**
           * Enable the summary. The summary will be shown if enableSummary is true
          */
@@ -1017,6 +1080,8 @@ declare namespace LocalJSX {
         "basicAuth"?: boolean;
         "demoMode"?: Boolean;
         "editable"?: boolean;
+        "enableInformalLocale"?: boolean;
+        "enableSendQuestionnaireResponse"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -1057,6 +1122,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         "editMode"?: boolean;
+        "enableInformalLocale"?: boolean;
         "enableNext"?: boolean;
         "enableReturn"?: boolean;
         /**
@@ -1090,6 +1156,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -1119,6 +1186,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -1146,6 +1214,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -1169,6 +1238,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -1212,6 +1282,7 @@ declare namespace LocalJSX {
         "full-questionnaire": FullQuestionnaire;
         "group-question": GroupQuestion;
         "grouped-questionnaire": GroupedQuestionnaire;
+        "information-page": InformationPage;
         "integer-question": IntegerQuestion;
         "questionnaire-renderer": QuestionnaireRenderer;
         "questionnaire-summary": QuestionnaireSummary;
@@ -1238,6 +1309,7 @@ declare module "@stencil/core" {
             "full-questionnaire": LocalJSX.FullQuestionnaire & JSXBase.HTMLAttributes<HTMLFullQuestionnaireElement>;
             "group-question": LocalJSX.GroupQuestion & JSXBase.HTMLAttributes<HTMLGroupQuestionElement>;
             "grouped-questionnaire": LocalJSX.GroupedQuestionnaire & JSXBase.HTMLAttributes<HTMLGroupedQuestionnaireElement>;
+            "information-page": LocalJSX.InformationPage & JSXBase.HTMLAttributes<HTMLInformationPageElement>;
             "integer-question": LocalJSX.IntegerQuestion & JSXBase.HTMLAttributes<HTMLIntegerQuestionElement>;
             "questionnaire-renderer": LocalJSX.QuestionnaireRenderer & JSXBase.HTMLAttributes<HTMLQuestionnaireRendererElement>;
             "questionnaire-summary": LocalJSX.QuestionnaireSummary & JSXBase.HTMLAttributes<HTMLQuestionnaireSummaryElement>;

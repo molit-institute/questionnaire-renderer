@@ -139,6 +139,9 @@ export class QuestionnaireRenderer {
 
   @Prop() summaryText: string = null;
   @Prop() showSummaryRemarks: boolean = false;
+  @Prop() enableSendQuestionnaireResponse: boolean = true;
+  @Prop() enableInformalLocale: boolean = false;
+  @Prop() enableInformationPage: boolean = false;
   /**
    * Primary color
    */
@@ -181,7 +184,7 @@ export class QuestionnaireRenderer {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    this.strings = await getLocaleComponentStrings(this.element, newValue);
+    this.strings = await getLocaleComponentStrings(this.element, newValue,this.enableInformalLocale);
   }
 
   answeredRequiredQuestionsList: Array<any> = [];
@@ -664,7 +667,7 @@ export class QuestionnaireRenderer {
 
   async componentWillLoad(): Promise<void> {
     try {
-      this.strings = await getLocaleComponentStrings(this.element, this.locale);
+      this.strings = await getLocaleComponentStrings(this.element, this.locale,this.enableInformalLocale);
       this.spinner = { ...this.spinner, loading: true };
       this.spinner = { ...this.spinner, message: this.strings.loading.questionnaire };
       await this.handleQuestionnaire();
@@ -715,6 +718,7 @@ export class QuestionnaireRenderer {
               locale={this.locale}
               spinner={this.spinner}
               enableSummary={this.enableSummary}
+              enableInformalLocale = {this.enableInformalLocale}
               onSummary={() => this.backToSummary()}
               onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
               onReturn={() => this.leaveQuestionnaireRenderer()}
@@ -757,6 +761,8 @@ export class QuestionnaireRenderer {
               basicAuth={this.basicAuth}
               editable={!this.showOnlySummary}
               showSummaryRemarks={this.showSummaryRemarks}
+              enableSendQuestionnaireResponse = {this.enableSendQuestionnaireResponse}
+              enableInformalLocale = {this.enableInformalLocale}
             ></questionnaire-summary>
           </div>
         ) : null}

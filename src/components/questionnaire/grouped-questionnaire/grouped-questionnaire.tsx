@@ -86,9 +86,10 @@ export class GroupedQuestionnaire {
   @Prop() enableReturn: boolean = true;
   @Prop() spinner: any;
   @Prop() locale: string = 'en';
+  @Prop() enableInformalLocale: boolean; 
   @Watch('locale')
   async watchLocale(newValue: string) {
-    this.strings = await getLocaleComponentStrings(this.element, newValue);
+    this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
 
   scrollToQuestion: boolean = true;
@@ -301,7 +302,7 @@ export class GroupedQuestionnaire {
   }
   async componentWillLoad(): Promise<void> {
     try {
-      this.strings = await getLocaleComponentStrings(this.element, this.locale);
+      this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
     } catch (e) {
       console.error(e);
     }
@@ -342,6 +343,7 @@ export class GroupedQuestionnaire {
                   secondary={this.secondary}
                   danger={this.danger}
                   locale={this.locale}
+                  enableInformalLocale = {this.enableInformalLocale}
                 ></Tag>
               </div>
             ) : (
@@ -359,6 +361,7 @@ export class GroupedQuestionnaire {
                     danger={this.danger}
                     locale={this.locale}
                     variant={this.variant}
+                    enableInformalLocale = {this.enableInformalLocale}
                   ></Tag>
                 </div>
               </div>

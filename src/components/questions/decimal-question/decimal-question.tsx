@@ -79,6 +79,7 @@ export class DecimalQuestion {
    * Color used to symbolise danger
    */
   @Prop() danger: string;
+  @Prop() enableInformalLocale: boolean; 
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -86,7 +87,7 @@ export class DecimalQuestion {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    this.strings = await getLocaleComponentStrings(this.element, newValue);
+    this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
 
   /**
@@ -128,7 +129,7 @@ export class DecimalQuestion {
 
   async componentWillLoad(): Promise<void> {
     try {
-      this.strings = await getLocaleComponentStrings(this.element, this.locale);
+      this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
       await this.setSelected();
       this.allow_events = true;
     } catch (e) {
