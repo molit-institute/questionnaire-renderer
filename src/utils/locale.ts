@@ -1,4 +1,4 @@
-async function fetchLocaleStringsForComponent(componentName: string, locale: string): Promise<any> {
+async function fetchLocaleStringsForComponent(componentName: string, locale: string, enableInformalLocale: boolean): Promise<any> {
   try {
     switch (locale.toLowerCase()) {
       case 'en': {
@@ -10,8 +10,13 @@ async function fetchLocaleStringsForComponent(componentName: string, locale: str
         return response.default;
       }
       case 'de': {
-        const response = await import('../i18n/i18n.de.js');
-        return response.default;
+        if (enableInformalLocale) {
+          const response = await import('../i18n/i18n.de-informal.js');
+          return response.default;
+        } else {
+          const response = await import('../i18n/i18n.de.js');
+          return response.default;
+        }
       }
       default: {
         throw new TypeError('The provided locale (' + locale + ") wasn't valid");
@@ -22,11 +27,11 @@ async function fetchLocaleStringsForComponent(componentName: string, locale: str
   }
 }
 
-export async function getLocaleComponentStrings(element: HTMLElement, componentLanguage: string): Promise<any> {
+export async function getLocaleComponentStrings(element: HTMLElement, componentLanguage: string, enableInformalLocale: boolean): Promise<any> {
   let componentName = element.tagName.toLowerCase();
   let strings;
   try {
-    strings = await fetchLocaleStringsForComponent(componentName, componentLanguage);
+    strings = await fetchLocaleStringsForComponent(componentName, componentLanguage, enableInformalLocale);
   } catch (e) {
     console.error('An error occured while fetching the resources: ' + e);
   }

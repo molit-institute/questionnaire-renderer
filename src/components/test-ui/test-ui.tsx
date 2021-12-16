@@ -137,6 +137,7 @@ export class TestUi {
               enableReturn={false}
               enableNext={false}
               variant={this.questionnaireVariant}
+              enableInformalLocale= {true}
               summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
             ></questionnaire-renderer>
           ) : null}

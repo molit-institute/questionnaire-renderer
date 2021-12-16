@@ -23,6 +23,7 @@ export class ChoiceQuestion {
    * Variable to store the value of the input
    */
   @State() selected: any = [];
+  // @State() statusi: string="render";
   @Event() emitAnswer: EventEmitter;
   @Watch('selected')
   watchSelected() {
@@ -100,6 +101,7 @@ export class ChoiceQuestion {
    * Color used to symbolise danger
    */
   @Prop() danger: string;
+  @Prop() enableInformalLocale: boolean; 
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -107,9 +109,8 @@ export class ChoiceQuestion {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    this.strings = await getLocaleComponentStrings(this.element, newValue);
+    this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
-
   /**
    * Allows events to be emitted if true
    */
@@ -184,6 +185,11 @@ export class ChoiceQuestion {
     }
   }
 
+  rerender(){
+    // this.element.forceUpdate();
+    // this.statusi = "updated";
+  }
+
   compareOption() {
     let flatList = questionnaireResponseController.createItemList(this.questionnaire);
     for (let i = 0; i < flatList.length; i++) {
@@ -201,7 +207,7 @@ export class ChoiceQuestion {
   /* Lifecycle Methods */
   @Event() emitRemoveRequiredAnswer: EventEmitter;
   async componentWillLoad(): Promise<void> {
-    this.strings = await getLocaleComponentStrings(this.element, this.locale);
+    this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
     try {
       this.optionsList = await this.getChoiceOptions();
     } catch (e) {
@@ -218,6 +224,7 @@ export class ChoiceQuestion {
       <div class="qr-question-container">
         {this.variant === 'touch' ? (
           <div>
+            {/* {this.statusi} */}
             <div class="card">
               <div class="qr-question-title">
                 <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;

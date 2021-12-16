@@ -39,6 +39,8 @@ export class QuestionnaireSummary {
   @Prop() basicAuth: boolean;
   @Prop() editable: boolean;
   @Prop() showSummaryRemarks: boolean;
+  @Prop() enableSendQuestionnaireResponse: boolean;
+  @Prop() enableInformalLocale: boolean;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -46,7 +48,7 @@ export class QuestionnaireSummary {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    this.strings = await getLocaleComponentStrings(this.element, newValue);
+    this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
 
   /* computed */
@@ -239,7 +241,7 @@ export class QuestionnaireSummary {
 
       questResp.status = 'completed';
       // Handle QuestionnaireResponse
-      if (this.baseUrl) {
+      if (this.baseUrl && this.enableSendQuestionnaireResponse) {
         try {
           console.log('SummaryPage', this.baseUrl, questResp, this.token, this.basicAuth);
           let output = await fhirApi.submitResource(this.baseUrl, questResp, this.token, this.basicAuth);
@@ -281,7 +283,7 @@ export class QuestionnaireSummary {
 
   async componentWillLoad(): Promise<void> {
     try {
-      this.strings = await getLocaleComponentStrings(this.element, this.locale);
+      this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
       // this.itemList = questionnaireResponseController.createItemList(this.questionnaireResponse);
     } catch (e) {
       console.error(e);

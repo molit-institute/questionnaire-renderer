@@ -18,16 +18,16 @@ export default {
   numberOfQuestions:"Anzahl der Fragen",
   publisher: "Herausgeber",
   start: "Starten",
-
+  
   summary: {
     title: "Zusammenfassung",
-    yourAnswer: "Ihre Antwort",
+    yourAnswer: "Deine Antwort",
     noAnswer: "Keine Antwort",
-    youHave: "Sie haben",
+    youHave: "Du hast",
     questionsAnswered: "Fragen beantwortet",
     saveQuestionnaire: "Speichern",
     remarks: "Zusätzliche Anmerkungen",
-    remarksText: "Möchten Sie den Fragebogen durch eine Notiz ergänzen?"
+    remarksText: "Möchtest Du den Fragebogen durch eine Notiz ergänzen?"
   },
 
   loading: {
@@ -36,25 +36,25 @@ export default {
     valueset: "Lade ValueSets"
   },
   url: {
-    text: "Geben Sie hier die Url ein",
+    text: "Gebe hier die Url ein",
     invalid: "Die angegebene Url ist nicht korrekt.",
     valid: "Die angegebene Url ist korrekt."
   },
   time: {
-    text: "Geben Sie hier die Zeit ein"
+    text: "Gebe hier die Zeit ein"
   },
   text: {
-    text: "Geben Sie hier den Text ein"
+    text: "Gebe hier den Text ein"
   },
   integer: {
-    text: "Geben Sie hier die Zahl ein",
-    invalid: "Die von Ihnen angegebene Zahl ist nicht gültig."
+    text: "Gebe hier die Zahl ein",
+    invalid: "Die von Dir angegebene Zahl ist nicht gültig."
   },
   decimal: {
-    text: "Geben Sie hier die Zahl ein",
+    text: "Gebe hier die Zahl ein",
     invalid: "Die von Ihnen angegebene Zahl ist nicht gültig."
   },
   date: {
-    text: "Geben Sie hier das Datum ein"
+    text: "Gebe hier das Datum ein"
   }
 }

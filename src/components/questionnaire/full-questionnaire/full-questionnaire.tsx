@@ -28,6 +28,7 @@ export class FullQuestionnaire {
   @Prop() valueSets: Array<any>;
   @Prop() baseUrl: string;
   @Prop() startCount: number;
+  @Prop() enableInformalLocale: boolean; 
   /**
    * Primary color
    */
@@ -48,7 +49,7 @@ export class FullQuestionnaire {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    this.strings = await getLocaleComponentStrings(this.element, newValue);
+    this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
 
   @Prop() enableReturn: boolean = true;
@@ -119,7 +120,7 @@ export class FullQuestionnaire {
   }
   async componentWillLoad(): Promise<void> {
     try {
-      this.strings = await getLocaleComponentStrings(this.element, this.locale);
+      this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
     } catch (e) {
       console.error(e);
     }
@@ -162,6 +163,7 @@ export class FullQuestionnaire {
                             danger={this.danger}
                             locale={this.locale}
                             variant={this.variant}
+                            enableInformalLocale = {this.enableInformalLocale}
                           ></Tag>
                         </div>
                       ) : null}

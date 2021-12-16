@@ -95,9 +95,10 @@ export class DateTimeQuestion {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    this.strings = await getLocaleComponentStrings(this.element, newValue);
+    this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
-
+  @Prop() enableInformalLocale: boolean; 
+  
   /**
    * Allows events to be emitted if true
    */
@@ -141,7 +142,7 @@ export class DateTimeQuestion {
   /* Lifecycle Methods */
   async componentWillLoad(): Promise<void> {
     try {
-      this.strings = await getLocaleComponentStrings(this.element, this.locale);
+      this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
       this.allow_events = false;
       this.getDateAndTime();
       this.allow_events = true;
