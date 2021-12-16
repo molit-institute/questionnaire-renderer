@@ -38,6 +38,7 @@ export namespace Components {
          */
         "danger": string;
         "enableInformalLocale": boolean;
+        "key": string;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -707,6 +708,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         "enableInformalLocale"?: boolean;
+        "key"?: string;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */

@@ -15,6 +15,7 @@ import { getLocaleComponentStrings } from '../../../utils/locale';
 export class ChoiceQuestion {
   @Element() element: HTMLElement;
   @Prop() variant: any = null;
+  @Prop() key: string = null;
   /**
    *  String containing the translations for the current locale
    */
@@ -186,7 +187,7 @@ export class ChoiceQuestion {
   }
 
   rerender(){
-    // this.element.forceUpdate();
+    
     // this.statusi = "updated";
   }
 
