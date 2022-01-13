@@ -13,7 +13,7 @@ export class InformationPage {
   @State() strings: any;
 
   @Prop() questionnaire: any = null;
-  @Prop() informationText: String = '';
+  @Prop() informationPageText: String = '';
   @Prop() enableInformalLocale: boolean;
   @Prop() filteredItemList: Array<any>;
   /**
@@ -49,14 +49,18 @@ export class InformationPage {
         <div class="qr-informationPage-info">
           <div class="qr-informationPage-title">{this.questionnaire.title}</div>
           <div class="qr-informationPage-text">{this.questionnaire.description}</div>
-          <div class="qr-informationPage-publisher-container">
-            <span class="qr-informationPage-publisher"> {this.strings.publisher}</span>
-            <span class="qr-informationPage-publisher-name">{this.questionnaire.publisher}</span>
-          </div>
-          <div class="qr-informationPage-questions-container">
+          {/* <div class="qr-informationPage-publisher-container">
+            {this.questionnaire && this.questionnaire.publisher ? (
+              <div>
+                <span class="qr-informationPage-publisher"> {this.strings.publisher}</span>
+                <span class="qr-informationPage-publisher-name">{this.questionnaire.publisher}</span>
+              </div>
+            ) : null}
+          </div> */}
+          {/* <div class="qr-informationPage-questions-container">
             <span class="qr-informationPage-questions"> {this.strings.numberOfQuestions}</span>
             <span class="qr-informationPage-questions-number">{this.numberOfQuestions()}</span>
-          </div>
+          </div> */}
         </div>
         <div class="qr-informationPage-button">
           <button type="button" class="btn button btn-primary btn-lg qr-button-primary qr-summary-ok-button" onClick={() => this.onStartQuestionnaire()}>

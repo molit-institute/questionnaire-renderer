@@ -123,6 +123,8 @@ export class TestUi {
               // onFinished={event => this.toSummary(event)}
               // onUpdated={event => this.updateQR(event)}
               // onExit={() => this.toQuestionnaireList()}
+              enableInformationPage = {true}
+              informationPageText ="Test InformationPageText"
               questionnaireResponse={this.questionnaireResponse}
               questionnaire={this.questionnaire}
               baseUrl={this.baseUrl}

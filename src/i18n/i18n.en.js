@@ -14,6 +14,10 @@ export default {
   no: "no",
   group: "Group",
 
+  numberOfQuestions:"Number of questions",
+  publisher: "Publisher",
+  start: "Start",
+  
   summary: {
     title: "Summary",
     yourAnswer: "Your answer",

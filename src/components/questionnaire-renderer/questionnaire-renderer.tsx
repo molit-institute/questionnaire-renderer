@@ -138,6 +138,7 @@ export class QuestionnaireRenderer {
   }
 
   @Prop() summaryText: string = null;
+  @Prop() informationPageText: string = null;
   @Prop() showSummaryRemarks: boolean = false;
   @Prop() enableSendQuestionnaireResponse: boolean = true;
   @Prop() enableInformalLocale: boolean = false;
@@ -184,7 +185,7 @@ export class QuestionnaireRenderer {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-    this.strings = await getLocaleComponentStrings(this.element, newValue,this.enableInformalLocale);
+    this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
 
   answeredRequiredQuestionsList: Array<any> = [];
@@ -193,8 +194,9 @@ export class QuestionnaireRenderer {
   currentValueSets: Array<any> = [];
   currentStartCount: number = null;
   lastAnsweredQuestion: any = null;
-  @State() show_questionnaire: boolean = true;
+  @State() show_questionnaire: boolean = false;
   @State() show_summary: boolean = false;
+  @State() show_informationPage: boolean = true;
   @State() last_question: boolean = false;
 
   /* computed */
@@ -310,6 +312,23 @@ export class QuestionnaireRenderer {
         this.start_question = null;
       }
       this.finished.emit(this.filterQuestionnaireResponse());
+    }
+  }
+
+  /**
+   *
+   */
+  handleInformationPage() {
+    if (!this.showOnlySummary) {
+      if (this.enableInformationPage) {
+        this.show_informationPage = true;
+        this.show_questionnaire = false;
+        this.show_summary = false;
+      } else if (!this.enableInformationPage) {
+        this.show_informationPage = false;
+        this.show_questionnaire = true;
+        this.show_summary = false;
+      }
     }
   }
 
@@ -667,7 +686,7 @@ export class QuestionnaireRenderer {
 
   async componentWillLoad(): Promise<void> {
     try {
-      this.strings = await getLocaleComponentStrings(this.element, this.locale,this.enableInformalLocale);
+      this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
       this.spinner = { ...this.spinner, loading: true };
       this.spinner = { ...this.spinner, message: this.strings.loading.questionnaire };
       await this.handleQuestionnaire();
@@ -685,6 +704,7 @@ export class QuestionnaireRenderer {
       this.currentMode = this.mode;
       this.handleVariants();
       await this.handleStartQuestion(this.start_question);
+      this.handleInformationPage();
       setTimeout(() => {
         this.spinner = { ...this.spinner, loading: false };
       }, 250);
@@ -718,7 +738,7 @@ export class QuestionnaireRenderer {
               locale={this.locale}
               spinner={this.spinner}
               enableSummary={this.enableSummary}
-              enableInformalLocale = {this.enableInformalLocale}
+              enableInformalLocale={this.enableInformalLocale}
               onSummary={() => this.backToSummary()}
               onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
               onReturn={() => this.leaveQuestionnaireRenderer()}
@@ -761,9 +781,20 @@ export class QuestionnaireRenderer {
               basicAuth={this.basicAuth}
               editable={!this.showOnlySummary}
               showSummaryRemarks={this.showSummaryRemarks}
-              enableSendQuestionnaireResponse = {this.enableSendQuestionnaireResponse}
-              enableInformalLocale = {this.enableInformalLocale}
+              enableSendQuestionnaireResponse={this.enableSendQuestionnaireResponse}
+              enableInformalLocale={this.enableInformalLocale}
             ></questionnaire-summary>
+          </div>
+        ) : null}
+        {this.show_informationPage && this.enableInformationPage ? (
+          <div>
+            <information-page 
+            informationPageText={this.informationPageText} 
+            questionnaire={this.questionnaire} 
+            filteredItemList={this.filteredItemList} 
+            enableInformalLocale={this.enableInformalLocale}
+            locale={this.locale}
+            ></information-page>
           </div>
         ) : null}
       </div>
