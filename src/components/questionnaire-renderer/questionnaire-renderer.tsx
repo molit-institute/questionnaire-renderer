@@ -269,15 +269,17 @@ export class QuestionnaireRenderer {
   /**
    *
    */
-  toQuestionnaire() {
+  toQuestionnaire(lastQuestion) {
+    this.show_informationPage=false;
     this.lastAnsweredQuestion = null;
     this.currentStartCount = null;
     this.start_question = null;
     this.edit_mode = false;
-    this.last_question = true;
+    this.last_question = lastQuestion;
     this.show_summary = false;
     this.show_questionnaire = true;
   }
+
 
   /**
    *
@@ -772,7 +774,7 @@ export class QuestionnaireRenderer {
               summary_text={this.summaryText}
               questionnaire={this.questionnaire}
               questionnaireResponse={this.enableFullQuestionnaireResponse ? this.currentQuestionnaireResponse : this.filterQuestionnaireResponse()}
-              onToQuestionnaireRenderer={() => this.toQuestionnaire()}
+              onToQuestionnaireRenderer={() => this.toQuestionnaire(true)}
               onEditQuestion={question => this.editQuestion(question)}
               onFinishQuestionnaire={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
               onError={error => this.emitError(error)}
@@ -788,12 +790,13 @@ export class QuestionnaireRenderer {
         ) : null}
         {this.show_informationPage && this.enableInformationPage ? (
           <div>
-            <information-page 
-            informationPageText={this.informationPageText} 
-            questionnaire={this.questionnaire} 
-            filteredItemList={this.filteredItemList} 
-            enableInformalLocale={this.enableInformalLocale}
-            locale={this.locale}
+            <information-page
+              informationPageText={this.informationPageText}
+              questionnaire={this.questionnaire}
+              filteredItemList={this.filteredItemList}
+              enableInformalLocale={this.enableInformalLocale}
+              locale={this.locale}
+              onStartQuestionnaire={() => this.toQuestionnaire(false)}
             ></information-page>
           </div>
         ) : null}

@@ -14,7 +14,7 @@ export class InformationPage {
 
   @Prop() questionnaire: any = null;
   @Prop() informationPageText: String = '';
-  @Prop() enableInformalLocale: boolean;
+  @Prop() enableInformalLocale: boolean = false;
   @Prop() filteredItemList: Array<any>;
   /**
    * Language property of the component. </br>
@@ -43,24 +43,32 @@ export class InformationPage {
     }
     return number;
   }
+
+  async componentWillLoad(): Promise<void> {
+    try {
+      this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
+    } catch (e) {
+      console.error(e);
+    }
+  }
   render() {
     return (
       <div class="qr-informationPage-container">
         <div class="qr-informationPage-info">
           <div class="qr-informationPage-title">{this.questionnaire.title}</div>
           <div class="qr-informationPage-text">{this.questionnaire.description}</div>
-          {/* <div class="qr-informationPage-publisher-container">
+          <div class="qr-informationPage-publisher-container">
             {this.questionnaire && this.questionnaire.publisher ? (
               <div>
-                <span class="qr-informationPage-publisher"> {this.strings.publisher}</span>
+                <span class="qr-informationPage-publisher"> {this.strings.publisher}:</span>
                 <span class="qr-informationPage-publisher-name">{this.questionnaire.publisher}</span>
               </div>
             ) : null}
-          </div> */}
-          {/* <div class="qr-informationPage-questions-container">
-            <span class="qr-informationPage-questions"> {this.strings.numberOfQuestions}</span>
+          </div>
+          <div class="qr-informationPage-questions-container">
+            <span class="qr-informationPage-questions"> {this.strings.numberOfQuestions}:</span>
             <span class="qr-informationPage-questions-number">{this.numberOfQuestions()}</span>
-          </div> */}
+          </div>
         </div>
         <div class="qr-informationPage-button">
           <button type="button" class="btn button btn-primary btn-lg qr-button-primary qr-summary-ok-button" onClick={() => this.onStartQuestionnaire()}>
