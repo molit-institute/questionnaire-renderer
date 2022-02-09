@@ -788,7 +788,7 @@ export class QuestionnaireRenderer {
             ></questionnaire-summary>
           </div>
         ) : null}
-        {this.show_informationPage && this.enableInformationPage ? (
+        {this.show_informationPage && this.enableInformationPage && !this.showOnlySummary ? (
           <div>
             <information-page
               informationPageText={this.informationPageText}
