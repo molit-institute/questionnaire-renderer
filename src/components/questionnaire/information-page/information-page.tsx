@@ -54,9 +54,10 @@ export class InformationPage {
   render() {
     return (
       <div class="qr-informationPage-container">
+      <div class="qr-informationPage-title">{this.questionnaire.title}</div>
         <div class="qr-informationPage-info">
-          <div class="qr-informationPage-title">{this.questionnaire.title}</div>
-          <div class="qr-informationPage-text">{this.questionnaire.description}</div>
+          <div class="qr-informationPage-description">{this.questionnaire.description}</div>
+          <div class="qr-informationPage-text">{this.informationPageText}</div>
           <div class="qr-informationPage-publisher-container">
             {this.questionnaire && this.questionnaire.publisher ? (
               <div>

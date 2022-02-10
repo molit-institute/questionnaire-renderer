@@ -14,9 +14,13 @@
 | `danger`                          | `danger`                             | Color used to symbolise danger                                                                                                  | `string`  | `undefined`               |
 | `editMode`                        | `edit-mode`                          | If true the render will show the button to exit the renderer                                                                    | `boolean` | `false`                   |
 | `enableFullQuestionnaireResponse` | `enable-full-questionnaire-response` | If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen | `boolean` | `false`                   |
+| `enableInformalLocale`            | `enable-informal-locale`             |                                                                                                                                 | `boolean` | `false`                   |
+| `enableInformationPage`           | `enable-information-page`            |                                                                                                                                 | `boolean` | `false`                   |
 | `enableNext`                      | `enable-next`                        | Enable the button that can be used to show the summary or end the questionnaire                                                 | `boolean` | `true`                    |
 | `enableReturn`                    | `enable-return`                      | Enable the return-button to exit the render-view                                                                                | `boolean` | `true`                    |
+| `enableSendQuestionnaireResponse` | `enable-send-questionnaire-response` |                                                                                                                                 | `boolean` | `true`                    |
 | `enableSummary`                   | `enable-summary`                     | Enable the summary. The summary will be shown if enableSummary is true                                                          | `boolean` | `false`                   |
+| `informationPageText`             | `information-page-text`              |                                                                                                                                 | `string`  | `null`                    |
 | `lastQuestion`                    | `last-question`                      | If true, the Renderer will show the last question                                                                               | `boolean` | `false`                   |
 | `locale`                          | `locale`                             | Language property of the component. </br> Currently suported: [de, en, es]                                                      | `string`  | `'en'`                    |
 | `mode`                            | `mode`                               | Current type of Questionnaire-Style to display Available: stepper-questionnaire, grouped-questionnaire, full-questionnaire      | `string`  | `'stepper-questionnaire'` |
@@ -57,11 +61,13 @@
 ### Depends on
 
 - [questionnaire-summary](../questionnaire-summary)
+- [information-page](../questionnaire/information-page)
 
 ### Graph
 ```mermaid
 graph TD;
   questionnaire-renderer --> questionnaire-summary
+  questionnaire-renderer --> information-page
   questionnaire-summary --> simple-spinner
   test-ui --> questionnaire-renderer
   style questionnaire-renderer fill:#f9f,stroke:#333,stroke-width:4px

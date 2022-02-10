@@ -140,7 +140,7 @@ export class TestUi {
               enableNext={false}
               variant={this.questionnaireVariant}
               enableInformalLocale= {true}
-              showOnlySummary= {true}
+              showOnlySummary= {false}
               summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
             ></questionnaire-renderer>
           ) : null}

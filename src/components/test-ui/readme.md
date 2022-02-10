@@ -16,6 +16,7 @@
 graph TD;
   test-ui --> questionnaire-renderer
   questionnaire-renderer --> questionnaire-summary
+  questionnaire-renderer --> information-page
   questionnaire-summary --> simple-spinner
   style test-ui fill:#f9f,stroke:#333,stroke-width:4px
 ```
