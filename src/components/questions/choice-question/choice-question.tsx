@@ -16,6 +16,7 @@ export class ChoiceQuestion {
   @Element() element: HTMLElement;
   @Prop() variant: any = null;
   @Prop() key: string = null;
+  @State() reset: Boolean = false;
   /**
    *  String containing the translations for the current locale
    */
@@ -70,6 +71,11 @@ export class ChoiceQuestion {
     this.setSelected();
     this.allow_events = true;
     this.repeats = this.question.repeats;
+
+    this.reset = true;
+    setTimeout(() => {
+      this.reset = false;
+    }, 5);
   }
   @Prop() answers: any;
   @Prop() mode: string;
@@ -102,7 +108,7 @@ export class ChoiceQuestion {
    * Color used to symbolise danger
    */
   @Prop() danger: string;
-  @Prop() enableInformalLocale: boolean; 
+  @Prop() enableInformalLocale: boolean;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -186,8 +192,7 @@ export class ChoiceQuestion {
     }
   }
 
-  rerender(){
-    
+  rerender() {
     // this.statusi = "updated";
   }
 
@@ -223,29 +228,29 @@ export class ChoiceQuestion {
   render() {
     return (
       <div class="qr-question-container">
-        {this.variant === 'touch' ? (
+        {this.variant === 'touch' && !this.reset ? (
           <div>
-            {/* {this.statusi} */}
             <div class="card">
               <div class="qr-question-title">
-                <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
-                <span class="qr-question-text">{this.question.text}</span>
+                <div class={this.reset ? 'qr-question-hidden' : ''}>
+                  <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
+                  <span class="qr-question-text">{this.question.text}</span>
+                </div>
               </div>
               <div class="qr-question-mandatoryQuestion">
                 {this.strings ? (
-                !this.repeats ? (
-                  <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden ' : ''}>
-                    <div></div>
-                    {this.strings.mandatory_question}
-                  </div>
-                ) : (
-                  <div style={{ color: this.danger }} class={!this.validateCheckBox() ? 'qr-question-hidden ' : ''}>
-                    {this.strings.mandatory_question}
-                  </div>
-                )
-              ) : null}
+                  !this.repeats ? (
+                    <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden ' : ''}>
+                      <div></div>
+                      {this.strings.mandatory_question}
+                    </div>
+                  ) : (
+                    <div style={{ color: this.danger }} class={!this.validateCheckBox() ? 'qr-question-hidden ' : ''}>
+                      {this.strings.mandatory_question}
+                    </div>
+                  )
+                ) : null}
               </div>
-              
             </div>
             <hr />
             {!this.repeats ? (

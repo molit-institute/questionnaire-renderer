@@ -43,9 +43,14 @@ export class DateQuestion {
   }
 
   @Prop() question: any;
+  @State() reset: Boolean = false;
   @Watch('question')
   watchQuestion() {
     this.setSelected();
+
+    setTimeout(() => {
+      this.reset = false;
+    }, 5);
   }
   @Prop() mode: string;
   @Prop() questionnaireResponse: Object = null;
@@ -67,7 +72,7 @@ export class DateQuestion {
    * Color used to symbolise danger
    */
   @Prop() danger: string;
-  @Prop() enableInformalLocale: boolean; 
+  @Prop() enableInformalLocale: boolean;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -119,8 +124,10 @@ export class DateQuestion {
           <div>
             <div class="card">
               <div class="qr-question-title">
-                <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
-                <span class="qr-question-text">{this.question.text}</span>
+                <div class={this.reset ? 'qr-question-hidden' : ''}>
+                  <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
+                  <span class="qr-question-text">{this.question.text}</span>
+                </div>
               </div>
               <div class="qr-question-mandatoryQuestion">
                 {this.strings ? (

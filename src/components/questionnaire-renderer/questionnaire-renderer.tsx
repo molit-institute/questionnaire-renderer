@@ -664,7 +664,13 @@ export class QuestionnaireRenderer {
    */
   @Event() exit: EventEmitter;
   leaveQuestionnaireRenderer() {
-    this.exit.emit(this.currentQuestionnaireResponse);
+    if(this.enableInformationPage){
+      this.show_summary= false;
+      this.show_questionnaire = false;
+      this.show_informationPage = true;
+    }else{
+      this.exit.emit(this.currentQuestionnaireResponse);
+    }
   }
 
   /**

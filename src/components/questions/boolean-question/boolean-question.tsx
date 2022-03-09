@@ -39,11 +39,17 @@ export class BooleanQuestion {
 
   @Prop() questionnaire: Object = null;
   @Prop() question: any;
+  @State() reset: Boolean = false;
   @Watch('question')
   async watchQuestion() {
     this.allow_events = false;
     await this.setSelected();
     this.allow_events = true;
+
+    this.reset = true;
+    setTimeout(() => {
+      this.reset = false;
+    }, 5);
   }
 
   @Prop() mode: string;
@@ -66,7 +72,7 @@ export class BooleanQuestion {
    * Color used to symbolise danger
    */
   @Prop() danger: string;
-  @Prop() enableInformalLocale: boolean; 
+  @Prop() enableInformalLocale: boolean;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -93,7 +99,7 @@ export class BooleanQuestion {
   }
 
   /**
-   * Checks if the question before this question has the type boolean 
+   * Checks if the question before this question has the type boolean
    * @returns true if the question before has the type boolean
    */
   checkForBooleanQuestions() {
@@ -141,24 +147,29 @@ export class BooleanQuestion {
         {this.variant === 'touch' ? (
           <div>
             <div class="">
-            <div class="qr-question-title">
-              <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp; 
-              <span class="qr-question-text">{this.question.text}</span>
-            </div>
-            <div class="qr-question-mandatoryQuestion">
-              {this.strings ? (
-                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
-                  {this.strings.mandatory_question}
+              <div class="qr-question-title">
+                <div class={this.reset ? 'qr-question-hidden' : ''}>
+                  <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
+                  <span class="qr-question-text">{this.question.text}</span>
                 </div>
-              ) : null}
-                </div>
+              </div>
+              <div class="qr-question-mandatoryQuestion">
+                {this.strings ? (
+                  <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
+                    {this.strings.mandatory_question}
+                  </div>
+                ) : null}
+              </div>
             </div>
             <hr />
             <div class="qr-question-optionCard">
               {this.question ? (
                 <div class="form-group" id={'radio-boolean-' + this.question.linkId}>
                   {options.map(answer => (
-                    <div class={this.selected && answer.code === this.selected ? 'qr-booleanQuestion-card qr-booleanQuestion-radio-button-card qr-booleanQuestion-card-selected' : 'qr-booleanQuestion-card qr-booleanQuestion-radio-button-card'} onClick={() => this.onCardClick(answer.code)}>
+                    <div
+                      class={this.selected && answer.code === this.selected ? 'qr-booleanQuestion-card qr-booleanQuestion-radio-button-card qr-booleanQuestion-card-selected' : 'qr-booleanQuestion-card qr-booleanQuestion-radio-button-card'}
+                      onClick={() => this.onCardClick(answer.code)}
+                    >
                       <div class="form-check">
                         {this.selected === answer.code ? (
                           <input id={'radio-' + answer.code + '-' + this.question.linkId} class="form-check-input qr-booleanQuestion-radioButton" type="radio" name={'Radio' + this.question.linkId} checked />

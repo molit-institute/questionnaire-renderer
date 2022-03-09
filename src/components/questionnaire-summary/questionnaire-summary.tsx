@@ -363,7 +363,7 @@ export class QuestionnaireSummary {
         </div>
         <div class="qr-summary-buttonContainer">
           {this.editable ? (
-            <div>
+            <div class="qr-summary-buttonContainer">
               <button type="button" class="btn button btn-outline-primary btn-lg qr-button-outline-primary" onClick={() => this.returnToQuestionnaire()}>
                 {this.strings.back}
               </button>
