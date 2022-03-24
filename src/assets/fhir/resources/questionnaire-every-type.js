@@ -93,13 +93,13 @@ const everyTypeQuestionnaire = {
         //   type: 'time',
         //   required: true,
         // },
-        // {
-        //   linkId: '3.8',
-        //   prefix: '3.8',
-        //   text: 'DateTime Required',
-        //   type: 'dateTime',
-        //   required: true,
-        // },
+        {
+          linkId: '3.8',
+          prefix: '3.8',
+          text: 'DateTime Required',
+          type: 'dateTime',
+          required: true,
+        },
         // {
         //   linkId: '3.9',
         //   prefix: '3.9',
@@ -138,86 +138,86 @@ const everyTypeQuestionnaire = {
         // },
       // ],
     // },
-    {
-      linkId: '6',
-      text: 'Visual Analog Scale',
-      type: 'group',
-      item: [
-        {
-          extension: [
-            {
-              url: 'http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl',
-              valueCodeableConcept: {
-                coding: [
-                  {
-                    system: 'http://molit.eu/fhir/CodeSystem/questionnaire-codes-tbd',
-                    code: 'slider',
-                  },
-                ],
-              },
-            },
-            {
-              url: 'http://hl7.org/fhir/StructureDefinition/minValue',
-              valueInteger: 0,
-            },
-            {
-              url: 'http://hl7.org/fhir/StructureDefinition/maxValue',
-              valueInteger: 100,
-            },
-            {
-              url: 'http://hl7.org/fhir/StructureDefinition/questionnaire-sliderStepValue',
-              valueInteger: 1,
-            },
-          ],
-          linkId: '6.1',
-          prefix: '6.1',
-          text: 'Bitte geben Sie über die analoge Skala an, wie stark Ihre Schmerzen sind.',
-          type: 'integer',
-          item: [
-            {
-              extension: [
-                {
-                  url: 'http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl',
-                  valueCodeableConcept: {
-                    coding: [
-                      {
-                        system: 'http://hl7.org/fhir/questionnaire-item-control',
-                        code: 'lower',
-                        display: 'Lower-bound',
-                      },
-                    ],
-                    text: "Text is displayed to the left of the set of answer choices or a scaling control for the parent question item to indicate the meaning of the 'lower' bound. E.g. 'Strongly disagree'",
-                  },
-                },
-              ],
-              linkId: '6.1.1',
-              text: 'No pain',
-              type: 'display',
-            },
-            {
-              extension: [
-                {
-                  url: 'http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl',
-                  valueCodeableConcept: {
-                    coding: [
-                      {
-                        system: 'http://hl7.org/fhir/questionnaire-item-control',
-                        code: 'upper',
-                        display: 'Upper-bound',
-                      },
-                    ],
-                    text: "Text is displayed to the right of the set of answer choices or a scaling control for the parent question item to indicate the meaning of the 'upper' bound. E.g. 'Strongly agree'",
-                  },
-                },
-              ],
-              linkId: '6.1.2',
-              text: 'Worst pain ever',
-              type: 'display',
-            },
-          ],
-        },
-      ],
-    },
+    // {
+    //   linkId: '6',
+    //   text: 'Visual Analog Scale',
+    //   type: 'group',
+    //   item: [
+    //     {
+    //       extension: [
+    //         {
+    //           url: 'http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl',
+    //           valueCodeableConcept: {
+    //             coding: [
+    //               {
+    //                 system: 'http://molit.eu/fhir/CodeSystem/questionnaire-codes-tbd',
+    //                 code: 'slider',
+    //               },
+    //             ],
+    //           },
+    //         },
+    //         {
+    //           url: 'http://hl7.org/fhir/StructureDefinition/minValue',
+    //           valueInteger: 0,
+    //         },
+    //         {
+    //           url: 'http://hl7.org/fhir/StructureDefinition/maxValue',
+    //           valueInteger: 100,
+    //         },
+    //         {
+    //           url: 'http://hl7.org/fhir/StructureDefinition/questionnaire-sliderStepValue',
+    //           valueInteger: 1,
+    //         },
+    //       ],
+    //       linkId: '6.1',
+    //       prefix: '6.1',
+    //       text: 'Bitte geben Sie über die analoge Skala an, wie stark Ihre Schmerzen sind.',
+    //       type: 'integer',
+    //       item: [
+    //         {
+    //           extension: [
+    //             {
+    //               url: 'http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl',
+    //               valueCodeableConcept: {
+    //                 coding: [
+    //                   {
+    //                     system: 'http://hl7.org/fhir/questionnaire-item-control',
+    //                     code: 'lower',
+    //                     display: 'Lower-bound',
+    //                   },
+    //                 ],
+    //                 text: "Text is displayed to the left of the set of answer choices or a scaling control for the parent question item to indicate the meaning of the 'lower' bound. E.g. 'Strongly disagree'",
+    //               },
+    //             },
+    //           ],
+    //           linkId: '6.1.1',
+    //           text: 'No pain',
+    //           type: 'display',
+    //         },
+    //         {
+    //           extension: [
+    //             {
+    //               url: 'http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl',
+    //               valueCodeableConcept: {
+    //                 coding: [
+    //                   {
+    //                     system: 'http://hl7.org/fhir/questionnaire-item-control',
+    //                     code: 'upper',
+    //                     display: 'Upper-bound',
+    //                   },
+    //                 ],
+    //                 text: "Text is displayed to the right of the set of answer choices or a scaling control for the parent question item to indicate the meaning of the 'upper' bound. E.g. 'Strongly agree'",
+    //               },
+    //             },
+    //           ],
+    //           linkId: '6.1.2',
+    //           text: 'Worst pain ever',
+    //           type: 'display',
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // },
   ],
 };
 export default everyTypeQuestionnaire;

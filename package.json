@@ -26,7 +26,7 @@
   "dependencies": {
     "@molit/fhir-api": "^1.0.35",
     "@molit/fhir-util": "^1.0.22",
-    "@stencil/core": "^2.8.1",
+    "@stencil/core": "^2.14.2",
     "moment": "^2.29.1"
   },
   "license": "Apache-2.0",

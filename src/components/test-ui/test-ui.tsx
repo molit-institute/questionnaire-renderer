@@ -137,7 +137,7 @@ export class TestUi {
               enableFullQuestionnaireResponse={false}
               enableSummary={true}
               enableReturn={false}
-              enableNext={false}
+              enableNext={true}
               variant={this.questionnaireVariant}
               enableInformalLocale= {true}
               showOnlySummary= {false}
