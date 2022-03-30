@@ -13,8 +13,8 @@ export class InformationPage {
   @State() strings: any;
 
   @Prop() questionnaire: any = null;
-  @Prop() informationText: String = '';
-  @Prop() enableInformalLocale: boolean;
+  @Prop() informationPageText: String = '';
+  @Prop() enableInformalLocale: boolean = false;
   @Prop() filteredItemList: Array<any>;
   /**
    * Language property of the component. </br>
@@ -43,20 +43,34 @@ export class InformationPage {
     }
     return number;
   }
+
+  async componentWillLoad(): Promise<void> {
+    try {
+      this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
+    } catch (e) {
+      console.error(e);
+    }
+  }
   render() {
     return (
       <div class="qr-informationPage-container">
+        <div class="qr-informationPage-title">{this.questionnaire.title}</div>
         <div class="qr-informationPage-info">
-          <div class="qr-informationPage-title">{this.questionnaire.title}</div>
-          <div class="qr-informationPage-text">{this.questionnaire.description}</div>
-          <div class="qr-informationPage-publisher-container">
-            <span class="qr-informationPage-publisher"> {this.strings.publisher}</span>
-            <span class="qr-informationPage-publisher-name">{this.questionnaire.publisher}</span>
+          <div class="qr-informationPage-description">{this.questionnaire.description}</div>
+          <div class="qr-informationPage-text">{this.informationPageText}</div>
+          <div class="qr-informatonPage-info-section">
+            {this.questionnaire && this.questionnaire.publisher ? (
+              <div class="qr-informationPage-publisher-container">
+                <span class="qr-informationPage-publisher"> {this.strings.publisher}:</span>
+                <span class="qr-informationPage-publisher-name">{this.questionnaire.publisher}</span>
+              </div>
+            ) : null}
+            <div class="qr-informationPage-questions-container">
+              <span class="qr-informationPage-questions"> {this.strings.numberOfQuestions}:</span>
+              <span class="qr-informationPage-questions-number">{this.numberOfQuestions()}</span>
+            </div>
           </div>
-          <div class="qr-informationPage-questions-container">
-            <span class="qr-informationPage-questions"> {this.strings.numberOfQuestions}</span>
-            <span class="qr-informationPage-questions-number">{this.numberOfQuestions()}</span>
-          </div>
+        
         </div>
         <div class="qr-informationPage-button">
           <button type="button" class="btn button btn-primary btn-lg qr-button-primary qr-summary-ok-button" onClick={() => this.onStartQuestionnaire()}>

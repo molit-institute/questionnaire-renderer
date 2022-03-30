@@ -15,6 +15,7 @@ import { getLocaleComponentStrings } from '../../../utils/locale';
 export class IntegerQuestion {
   @Element() element: HTMLElement;
   integerInput!: HTMLInputElement;
+  @State() reset: Boolean = false;
   @Prop() variant: any = null;
   /**
    *  String containing the translations for the current locale
@@ -57,6 +58,10 @@ export class IntegerQuestion {
       this.integerInput.value = '';
     }
     this.setSelected();
+    this.reset = true;
+    setTimeout(() => {
+      this.reset = false;
+    }, 5);
   }
 
   @Prop() mode: string;
@@ -79,7 +84,7 @@ export class IntegerQuestion {
    * Color used to symbolise danger
    */
   @Prop() danger: string;
-  @Prop() enableInformalLocale: boolean; 
+  @Prop() enableInformalLocale: boolean;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -200,9 +205,12 @@ export class IntegerQuestion {
         {this.variant === 'touch' ? (
           <div>
             <div class="qr-question-title">
-              <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
-              <span class="qr-question-text">{this.question.text}</span>
+              <div class={this.reset ? 'qr-question-hidden' : ''}>
+                <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
+                <span class="qr-question-text">{this.question.text}</span>
+              </div>
             </div>
+
             <div class="qr-question-mandatoryQuestion">
               {this.strings ? (
                 <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>

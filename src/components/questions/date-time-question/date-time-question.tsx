@@ -64,9 +64,14 @@ export class DateTimeQuestion {
   }
 
   @Prop() question: any;
+  @State() reset: Boolean = false;
   @Watch('question')
   watchQuestion() {
     this.getDateAndTime();
+
+    setTimeout(() => {
+      this.reset = false;
+    }, 5);
   }
   @Prop() mode: string;
   @Prop() questionnaireResponse: Object = null;
@@ -97,8 +102,8 @@ export class DateTimeQuestion {
   async watchLocale(newValue: string) {
     this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
-  @Prop() enableInformalLocale: boolean; 
-  
+  @Prop() enableInformalLocale: boolean;
+
   /**
    * Allows events to be emitted if true
    */
@@ -158,8 +163,10 @@ export class DateTimeQuestion {
           <div>
             <div class="card">
               <div class="qr-question-title">
-                <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
-                <span class="qr-question-text">{this.question.text}</span>
+                <div class={this.reset ? 'qr-question-hidden' : ''}>
+                  <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
+                  <span class="qr-question-text">{this.question.text}</span>
+                </div>
               </div>
               <div class="qr-question-mandatoryQuestion">
                 {this.strings ? (

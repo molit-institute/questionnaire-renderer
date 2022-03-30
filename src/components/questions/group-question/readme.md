@@ -7,25 +7,26 @@
 
 ## Properties
 
-| Property                     | Attribute       | Description                                                                | Type      | Default     |
-| ---------------------------- | --------------- | -------------------------------------------------------------------------- | --------- | ----------- |
-| `baseUrl`                    | `base-url`      |                                                                            | `string`  | `undefined` |
-| `danger`                     | `danger`        | Color used to symbolise danger                                             | `string`  | `undefined` |
-| `editMode`                   | `edit-mode`     |                                                                            | `boolean` | `false`     |
-| `enableReturn`               | `enable-return` |                                                                            | `boolean` | `true`      |
-| `filteredItemList`           | --              |                                                                            | `any[]`   | `undefined` |
-| `lastQuestion`               | `last-question` |                                                                            | `boolean` | `false`     |
-| `locale`                     | `locale`        | Language property of the component. </br> Currently suported: [de, en, es] | `string`  | `'en'`      |
-| `mode`                       | `mode`          |                                                                            | `string`  | `undefined` |
-| `primary`                    | `primary`       | Primary color                                                              | `string`  | `undefined` |
-| `question`                   | `question`      |                                                                            | `any`     | `undefined` |
-| `questionnaire` _(required)_ | `questionnaire` |                                                                            | `any`     | `undefined` |
-| `questionnaireResponse`      | --              |                                                                            | `Object`  | `null`      |
-| `requiredQuestionList`       | --              |                                                                            | `any[]`   | `undefined` |
-| `secondary`                  | `secondary`     | Secondary color                                                            | `string`  | `undefined` |
-| `startCount`                 | --              |                                                                            | `Number`  | `undefined` |
-| `valueSets`                  | --              |                                                                            | `any[]`   | `undefined` |
-| `variant`                    | `variant`       |                                                                            | `any`     | `null`      |
+| Property                     | Attribute                | Description                                                                | Type      | Default     |
+| ---------------------------- | ------------------------ | -------------------------------------------------------------------------- | --------- | ----------- |
+| `baseUrl`                    | `base-url`               |                                                                            | `string`  | `undefined` |
+| `danger`                     | `danger`                 | Color used to symbolise danger                                             | `string`  | `undefined` |
+| `editMode`                   | `edit-mode`              |                                                                            | `boolean` | `false`     |
+| `enableInformalLocale`       | `enable-informal-locale` |                                                                            | `boolean` | `undefined` |
+| `enableReturn`               | `enable-return`          |                                                                            | `boolean` | `true`      |
+| `filteredItemList`           | --                       |                                                                            | `any[]`   | `undefined` |
+| `lastQuestion`               | `last-question`          |                                                                            | `boolean` | `false`     |
+| `locale`                     | `locale`                 | Language property of the component. </br> Currently suported: [de, en, es] | `string`  | `'en'`      |
+| `mode`                       | `mode`                   |                                                                            | `string`  | `undefined` |
+| `primary`                    | `primary`                | Primary color                                                              | `string`  | `undefined` |
+| `question`                   | `question`               |                                                                            | `any`     | `undefined` |
+| `questionnaire` _(required)_ | `questionnaire`          |                                                                            | `any`     | `undefined` |
+| `questionnaireResponse`      | --                       |                                                                            | `Object`  | `null`      |
+| `requiredQuestionList`       | --                       |                                                                            | `any[]`   | `undefined` |
+| `secondary`                  | `secondary`              | Secondary color                                                            | `string`  | `undefined` |
+| `startCount`                 | --                       |                                                                            | `Number`  | `undefined` |
+| `valueSets`                  | --                       |                                                                            | `any[]`   | `undefined` |
+| `variant`                    | `variant`                |                                                                            | `any`     | `null`      |
 
 
 ## Events

@@ -47,6 +47,7 @@ export class DecimalQuestion {
   }
 
   @Prop() question: any;
+  @State() reset: Boolean = false;
   @Watch('question')
   watchQuestion() {
     /**Note: This code prevents the input from showing the invalid value as long as the type of the question
@@ -57,6 +58,10 @@ export class DecimalQuestion {
       this.decimalInput.value = '';
     }
     this.setSelected();
+
+    setTimeout(() => {
+      this.reset = false;
+    }, 5);
   }
 
   @Prop() mode: string;
@@ -79,7 +84,7 @@ export class DecimalQuestion {
    * Color used to symbolise danger
    */
   @Prop() danger: string;
-  @Prop() enableInformalLocale: boolean; 
+  @Prop() enableInformalLocale: boolean;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -144,8 +149,10 @@ export class DecimalQuestion {
           <div>
             <div class="card">
               <div class="qr-question-title">
-                <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
-                <span class="qr-question-text">{this.question.text}</span>
+                <div class={this.reset ? 'qr-question-hidden' : ''}>
+                  <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
+                  <span class="qr-question-text">{this.question.text}</span>
+                </div>
               </div>
               <div class="qr-question-mandatoryQuestion">
                 {this.strings ? (

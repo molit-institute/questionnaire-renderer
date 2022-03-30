@@ -144,56 +144,61 @@ export class QuestionnaireSummary {
    */
   getAnswer(question) {
     let answer = null;
-    if (!this.checkIfDisplay(question.linkId) && question.answer.length === 0 && !question.item && !question.answer[0]) {
-      answer = this.strings.summary.noAnswer;
-      return answer;
-    } else {
-      switch (this.getType(question)) {
-        case 'boolean':
-          if (question.answer[0].valueBoolean === true) {
-            answer = this.strings.yes;
-          } else if (question.answer[0].valueBoolean === false) {
-            answer = this.strings.no;
-          }
-          break;
-        case 'decimal':
-          answer = question.answer[0].valueDecimal;
-          break;
-        case 'integer':
-          answer = question.answer[0].valueInteger;
-          break;
-        case 'date':
-          answer = question.answer[0].valueDate;
-          break;
-        case 'dateTime':
-          answer = question.answer[0].valueDateTime;
-          break;
-        case 'time':
-          answer = question.answer[0].valueTime;
-          break;
-        case 'string':
-          answer = question.answer[0].valueString;
-          break;
-        case 'url':
-          if (question.answer[0].valueUri !== '') {
-            answer = question.answer[0].valueUri;
-          } else {
-            answer = this.strings.summary.noAnswer;
-          }
-          break;
-        case 'attachment':
-          answer = question.answer[0].valueAttachment;
-          break;
-        case 'coding':
-          answer = this.formatChoice(question.answer);
-          break;
-        case 'quantity':
-          answer = question.answer[0].valueQuantity;
-          break;
+    if (question.answer) {
+      if (!this.checkIfDisplay(question.linkId) && question.answer.length === 0 && !question.item && !question.answer[0]) {
+        answer = this.strings.summary.noAnswer;
+        return answer;
+      } else {
+        switch (this.getType(question)) {
+          case 'boolean':
+            if (question.answer[0].valueBoolean === true) {
+              answer = this.strings.yes;
+            } else if (question.answer[0].valueBoolean === false) {
+              answer = this.strings.no;
+            }
+            break;
+          case 'decimal':
+            answer = question.answer[0].valueDecimal;
+            break;
+          case 'integer':
+            answer = question.answer[0].valueInteger;
+            break;
+          case 'date':
+            answer = question.answer[0].valueDate;
+            break;
+          case 'dateTime':
+            answer = question.answer[0].valueDateTime;
+            break;
+          case 'time':
+            answer = question.answer[0].valueTime;
+            break;
+          case 'string':
+            answer = question.answer[0].valueString;
+            break;
+          case 'url':
+            if (question.answer[0].valueUri !== '') {
+              answer = question.answer[0].valueUri;
+            } else {
+              answer = this.strings.summary.noAnswer;
+            }
+            break;
+          case 'attachment':
+            answer = question.answer[0].valueAttachment;
+            break;
+          case 'coding':
+            answer = this.formatChoice(question.answer);
+            break;
+          case 'quantity':
+            answer = question.answer[0].valueQuantity;
+            break;
 
-        default:
-          break;
+          default:
+            break;
+        }
+        return answer;
       }
+    } else {
+      answer = this.strings.summary.noAnswer;
       return answer;
     }
   }
@@ -243,7 +248,7 @@ export class QuestionnaireSummary {
       // Handle QuestionnaireResponse
       if (this.baseUrl && this.enableSendQuestionnaireResponse) {
         try {
-          console.log('SummaryPage', this.baseUrl, questResp, this.token, this.basicAuth);
+          // console.log('SummaryPage', this.baseUrl, questResp, this.token, this.basicAuth);
           let output = await fhirApi.submitResource(this.baseUrl, questResp, this.token, this.basicAuth);
           console.info('Questionnaire Response ID: ' + output.data.id, 'Url: ' + output.config.url + '/' + output.data.id);
         } catch (e) {
@@ -276,7 +281,7 @@ export class QuestionnaireSummary {
   }
 
   @Event() closeSummary: EventEmitter;
-  buttonOkSummary(){
+  buttonOkSummary() {
     this.closeSummary.emit('closeSummary');
   }
   /* Lifecycle Methods */
@@ -342,7 +347,7 @@ export class QuestionnaireSummary {
                   <div class="qr-summary-remarks-title">{this.strings.summary.remarks}</div>
                   <div class="qr-summary-remarks-content">
                     <span class="qr-summary-remarks-text">{this.strings.summary.remarksText}</span>
-                    <span class="qr-summary-remarks-icon" >
+                    <span class="qr-summary-remarks-icon">
                       <svg class="material-design-icon__svg " style={{ width: '30px', height: '30px' }} viewBox="0 0 24 24">
                         <path
                           fill="#000000"
@@ -358,7 +363,7 @@ export class QuestionnaireSummary {
         </div>
         <div class="qr-summary-buttonContainer">
           {this.editable ? (
-            <div>
+            <div class="qr-summary-buttons">
               <button type="button" class="btn button btn-outline-primary btn-lg qr-button-outline-primary" onClick={() => this.returnToQuestionnaire()}>
                 {this.strings.back}
               </button>
@@ -367,9 +372,11 @@ export class QuestionnaireSummary {
               </button>
             </div>
           ) : (
-            <button type="button" class="btn button btn-primary btn-lg qr-button-primary qr-summary-ok-button" onClick={() => this.buttonOkSummary()}>
+            <div class="qr-summary-ok-button">
+              <button type="button" class="btn button btn-primary btn-lg qr-button-primary qr-summary-ok-button" onClick={() => this.buttonOkSummary()}>
                 Ok
-            </button>
+              </button>
+            </div>
           )}
         </div>
       </div>

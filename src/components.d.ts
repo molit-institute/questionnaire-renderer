@@ -233,7 +233,7 @@ export namespace Components {
     interface InformationPage {
         "enableInformalLocale": boolean;
         "filteredItemList": Array<any>;
-        "informationText": String;
+        "informationPageText": String;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -299,6 +299,7 @@ export namespace Components {
           * Enable the summary. The summary will be shown if enableSummary is true
          */
         "enableSummary": boolean;
+        "informationPageText": string;
         /**
           * If true, the Renderer will show the last question
          */
@@ -931,7 +932,7 @@ declare namespace LocalJSX {
     interface InformationPage {
         "enableInformalLocale"?: boolean;
         "filteredItemList"?: Array<any>;
-        "informationText"?: String;
+        "informationPageText"?: String;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -1003,6 +1004,7 @@ declare namespace LocalJSX {
           * Enable the summary. The summary will be shown if enableSummary is true
          */
         "enableSummary"?: boolean;
+        "informationPageText"?: string;
         /**
           * If true, the Renderer will show the last question
          */

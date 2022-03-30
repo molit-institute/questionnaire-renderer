@@ -5,6 +5,7 @@ import enableQuestionnaire from '../../assets/fhir/resources/questionnaire-lang-
 import everyTypeQuestionnaire from '../../assets/fhir/resources/questionnaire-every-type.js';
 import repeatedQuestionnaire from '../../assets/fhir/resources/questionnaire-repeat.js';
 import qlq_c30 from '../../assets/fhir/resources/qlq-c30.js';
+// import qlq30_response from '../../assets/fhir/resources/qlq30_response.js';
 
 @Component({
   tag: 'test-ui',
@@ -82,7 +83,6 @@ export class TestUi {
     this.edit = false;
     this.indexQuestion = null;
   }
-
   render() {
     return (
       <div>
@@ -123,6 +123,8 @@ export class TestUi {
               // onFinished={event => this.toSummary(event)}
               // onUpdated={event => this.updateQR(event)}
               // onExit={() => this.toQuestionnaireList()}
+              enableInformationPage = {true}
+              informationPageText ="Test InformationPageText"
               questionnaireResponse={this.questionnaireResponse}
               questionnaire={this.questionnaire}
               baseUrl={this.baseUrl}
@@ -135,9 +137,10 @@ export class TestUi {
               enableFullQuestionnaireResponse={false}
               enableSummary={true}
               enableReturn={false}
-              enableNext={false}
+              enableNext={true}
               variant={this.questionnaireVariant}
               enableInformalLocale= {true}
+              showOnlySummary= {false}
               summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
             ></questionnaire-renderer>
           ) : null}
