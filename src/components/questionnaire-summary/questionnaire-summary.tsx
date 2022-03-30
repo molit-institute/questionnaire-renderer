@@ -363,7 +363,7 @@ export class QuestionnaireSummary {
         </div>
         <div class="qr-summary-buttonContainer">
           {this.editable ? (
-            <div class="qr-summary-buttonContainer">
+            <div class="qr-summary-buttons">
               <button type="button" class="btn button btn-outline-primary btn-lg qr-button-outline-primary" onClick={() => this.returnToQuestionnaire()}>
                 {this.strings.back}
               </button>
@@ -372,9 +372,11 @@ export class QuestionnaireSummary {
               </button>
             </div>
           ) : (
-            <button type="button" class="btn button btn-primary btn-lg qr-button-primary qr-summary-ok-button" onClick={() => this.buttonOkSummary()}>
-              Ok
-            </button>
+            <div class="qr-summary-ok-button">
+              <button type="button" class="btn button btn-primary btn-lg qr-button-primary qr-summary-ok-button" onClick={() => this.buttonOkSummary()}>
+                Ok
+              </button>
+            </div>
           )}
         </div>
       </div>
