@@ -143,6 +143,7 @@ export class QuestionnaireRenderer {
   @Prop() enableSendQuestionnaireResponse: boolean = true;
   @Prop() enableInformalLocale: boolean = false;
   @Prop() enableInformationPage: boolean = false;
+  @Prop() enableTrademark: boolean = false;
   /**
    * Primary color
    */
@@ -270,7 +271,7 @@ export class QuestionnaireRenderer {
    *
    */
   toQuestionnaire(lastQuestion) {
-    this.show_informationPage=false;
+    this.show_informationPage = false;
     this.lastAnsweredQuestion = null;
     this.currentStartCount = null;
     this.start_question = null;
@@ -664,11 +665,11 @@ export class QuestionnaireRenderer {
    */
   @Event() exit: EventEmitter;
   leaveQuestionnaireRenderer() {
-    if(this.enableInformationPage){
-      this.show_summary= false;
+    if (this.enableInformationPage) {
+      this.show_summary = false;
       this.show_questionnaire = false;
       this.show_informationPage = true;
-    }else{
+    } else {
       this.exit.emit(this.currentQuestionnaireResponse);
     }
   }
@@ -747,6 +748,7 @@ export class QuestionnaireRenderer {
               spinner={this.spinner}
               enableSummary={this.enableSummary}
               enableInformalLocale={this.enableInformalLocale}
+              enableTrademark={this.enableTrademark}
               onSummary={() => this.backToSummary()}
               onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
               onReturn={() => this.leaveQuestionnaireRenderer()}
