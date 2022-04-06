@@ -40,8 +40,3 @@
   border-color: #1680d1;
   background-color: #e8f4fd;
 }
-.qr-summary-buttonContainer {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px;
-}
