@@ -143,6 +143,8 @@ export class QuestionnaireRenderer {
   @Prop() enableSendQuestionnaireResponse: boolean = true;
   @Prop() enableInformalLocale: boolean = false;
   @Prop() enableInformationPage: boolean = false;
+  @Prop() trademarkText: string = null;
+  @Prop() enableGroupDescription: boolean = true;
   /**
    * Primary color
    */
@@ -270,7 +272,7 @@ export class QuestionnaireRenderer {
    *
    */
   toQuestionnaire(lastQuestion) {
-    this.show_informationPage=false;
+    this.show_informationPage = false;
     this.lastAnsweredQuestion = null;
     this.currentStartCount = null;
     this.start_question = null;
@@ -664,11 +666,11 @@ export class QuestionnaireRenderer {
    */
   @Event() exit: EventEmitter;
   leaveQuestionnaireRenderer() {
-    if(this.enableInformationPage){
-      this.show_summary= false;
+    if (this.enableInformationPage) {
+      this.show_summary = false;
       this.show_questionnaire = false;
       this.show_informationPage = true;
-    }else{
+    } else {
       this.exit.emit(this.currentQuestionnaireResponse);
     }
   }
@@ -747,6 +749,8 @@ export class QuestionnaireRenderer {
               spinner={this.spinner}
               enableSummary={this.enableSummary}
               enableInformalLocale={this.enableInformalLocale}
+              trademarkText={this.trademarkText}
+              enableGroupDescription = {this.enableGroupDescription}
               onSummary={() => this.backToSummary()}
               onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
               onReturn={() => this.leaveQuestionnaireRenderer()}
@@ -791,6 +795,7 @@ export class QuestionnaireRenderer {
               showSummaryRemarks={this.showSummaryRemarks}
               enableSendQuestionnaireResponse={this.enableSendQuestionnaireResponse}
               enableInformalLocale={this.enableInformalLocale}
+              trademarkText={this.trademarkText}
             ></questionnaire-summary>
           </div>
         ) : null}
@@ -803,6 +808,7 @@ export class QuestionnaireRenderer {
               enableInformalLocale={this.enableInformalLocale}
               locale={this.locale}
               onStartQuestionnaire={() => this.toQuestionnaire(false)}
+              trademarkText={this.trademarkText}
             ></information-page>
           </div>
         ) : null}

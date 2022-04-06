@@ -5,6 +5,7 @@ import enableQuestionnaire from '../../assets/fhir/resources/questionnaire-lang-
 import everyTypeQuestionnaire from '../../assets/fhir/resources/questionnaire-every-type.js';
 import repeatedQuestionnaire from '../../assets/fhir/resources/questionnaire-repeat.js';
 import qlq_c30 from '../../assets/fhir/resources/qlq-c30.js';
+import q_5d_5l from '../../assets/fhir/resources/5q-5d-5l.js';
 // import qlq30_response from '../../assets/fhir/resources/qlq30_response.js';
 
 @Component({
@@ -25,7 +26,7 @@ export class TestUi {
   indexQuestion: Object = null;
   baseUrl: string = "https://fhir.molit.eu/fhir";
   questionnaire: any = null;
-  questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30];
+  questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30, q_5d_5l];
 
   /* computed */
   examplePatient() {
