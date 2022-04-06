@@ -87,6 +87,7 @@ export class StepperQuestionnaire {
   @Prop() enableNext: boolean = true;
   @Prop() spinner: any;
   @Prop() enableInformalLocale: boolean; 
+  @Prop() trademarkText: string = null;
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
@@ -413,7 +414,11 @@ export class StepperQuestionnaire {
             </span>
           </div>
         ) : null}
-        {/* // </div> */}
+        {this.trademarkText ? (
+          <div class="qr-stepperQuestionnaire-trademark">
+            {this.trademarkText}
+          </div>
+        ):null}
       </div>
     );
   }

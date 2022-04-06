@@ -143,7 +143,7 @@ export class QuestionnaireRenderer {
   @Prop() enableSendQuestionnaireResponse: boolean = true;
   @Prop() enableInformalLocale: boolean = false;
   @Prop() enableInformationPage: boolean = false;
-  @Prop() enableTrademark: boolean = false;
+  @Prop() trademarkText: string = null;
   /**
    * Primary color
    */
@@ -748,7 +748,7 @@ export class QuestionnaireRenderer {
               spinner={this.spinner}
               enableSummary={this.enableSummary}
               enableInformalLocale={this.enableInformalLocale}
-              enableTrademark={this.enableTrademark}
+              trademarkText={this.trademarkText}
               onSummary={() => this.backToSummary()}
               onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
               onReturn={() => this.leaveQuestionnaireRenderer()}
@@ -793,6 +793,7 @@ export class QuestionnaireRenderer {
               showSummaryRemarks={this.showSummaryRemarks}
               enableSendQuestionnaireResponse={this.enableSendQuestionnaireResponse}
               enableInformalLocale={this.enableInformalLocale}
+              trademarkText={this.trademarkText}
             ></questionnaire-summary>
           </div>
         ) : null}
@@ -805,6 +806,7 @@ export class QuestionnaireRenderer {
               enableInformalLocale={this.enableInformalLocale}
               locale={this.locale}
               onStartQuestionnaire={() => this.toQuestionnaire(false)}
+              trademarkText={this.trademarkText}
             ></information-page>
           </div>
         ) : null}

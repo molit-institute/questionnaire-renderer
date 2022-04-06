@@ -41,6 +41,7 @@ export class QuestionnaireSummary {
   @Prop() showSummaryRemarks: boolean;
   @Prop() enableSendQuestionnaireResponse: boolean;
   @Prop() enableInformalLocale: boolean;
+  @Prop() trademarkText: string=null;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -379,6 +380,11 @@ export class QuestionnaireSummary {
             </div>
           )}
         </div>
+        {this.trademarkText ? (
+          <div class="qr-summary-trademark">
+            {this.trademarkText}
+          </div>
+        ):null}
       </div>
     );
   }
