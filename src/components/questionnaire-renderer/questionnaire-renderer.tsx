@@ -144,6 +144,7 @@ export class QuestionnaireRenderer {
   @Prop() enableInformalLocale: boolean = false;
   @Prop() enableInformationPage: boolean = false;
   @Prop() trademarkText: string = null;
+  @Prop() enableGroupDescription: boolean = true;
   /**
    * Primary color
    */
@@ -749,6 +750,7 @@ export class QuestionnaireRenderer {
               enableSummary={this.enableSummary}
               enableInformalLocale={this.enableInformalLocale}
               trademarkText={this.trademarkText}
+              enableGroupDescription = {this.enableGroupDescription}
               onSummary={() => this.backToSummary()}
               onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
               onReturn={() => this.leaveQuestionnaireRenderer()}

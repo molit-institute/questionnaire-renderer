@@ -86,8 +86,9 @@ export class StepperQuestionnaire {
   @Prop() enableReturn: boolean = true;
   @Prop() enableNext: boolean = true;
   @Prop() spinner: any;
-  @Prop() enableInformalLocale: boolean; 
+  @Prop() enableInformalLocale: boolean;
   @Prop() trademarkText: string = null;
+  @Prop() enableGroupDescription: boolean;
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
@@ -284,7 +285,7 @@ export class StepperQuestionnaire {
    *
    */
   isGroupQuestion() {
-    return this.filteredItemList[this.count].type === "group";
+    return this.filteredItemList[this.count].type === 'group';
   }
 
   /* Lifecycle Methods */
@@ -360,7 +361,7 @@ export class StepperQuestionnaire {
         <br />
         {!this.spinner.loading && this.count !== null && this.filteredItemList ? (
           <div class="qr-stepperQuestionnaire-questions">
-            {this.getQuestion().groupId && !this.getQuestion().item ? <div class="qr-stepperQuestionnaire-group-text">{this.getGroupText(this.getQuestion())}</div> : null}
+            {this.enableGroupDescription ? <span>{this.getQuestion().groupId && !this.getQuestion().item ? <div class="qr-stepperQuestionnaire-group-text">{this.getGroupText(this.getQuestion())}</div> : null}</span> : null}
             <Tag
               key={this.getQuestion().id}
               question={this.getQuestion()}
@@ -375,7 +376,7 @@ export class StepperQuestionnaire {
               locale={this.locale}
               onEmitNext={() => this.countUp()}
               variant={this.variant}
-              enableInformalLocale = {this.enableInformalLocale}
+              enableInformalLocale={this.enableInformalLocale}
             ></Tag>
           </div>
         ) : null}
@@ -414,11 +415,7 @@ export class StepperQuestionnaire {
             </span>
           </div>
         ) : null}
-        {this.trademarkText ? (
-          <div class="qr-stepperQuestionnaire-trademark">
-            {this.trademarkText}
-          </div>
-        ):null}
+        {this.trademarkText ? <div class="qr-stepperQuestionnaire-trademark">{this.trademarkText}</div> : null}
       </div>
     );
   }
