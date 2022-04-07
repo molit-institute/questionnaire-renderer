@@ -169,7 +169,7 @@ export class StepperQuestionnaire {
   numberOfQuestions() {
     let number = 0;
     for (let i = 0; i < this.filteredItemList.length; i++) {
-      if (this.filteredItemList[i].type !== 'group') {
+      if (this.filteredItemList[i].type !== 'group' || this.filteredItemList[i].type !== 'display') {
         number++;
       }
     }
@@ -203,7 +203,7 @@ export class StepperQuestionnaire {
   getQuestionPositionNumber() {
     let positionnumber = 1;
     for (let i = 0; i < this.count; i++) {
-      if (this.filteredItemList[i].type !== 'group') {
+      if (this.filteredItemList[i].type !== 'group' || this.filteredItemList[i].type !== 'display' ) {
         positionnumber++;
       }
     }

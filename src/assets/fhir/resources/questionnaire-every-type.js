@@ -100,13 +100,19 @@ const everyTypeQuestionnaire = {
           type: 'dateTime',
           required: true,
         },
-        // {
-        //   linkId: '3.9',
-        //   prefix: '3.9',
-        //   text: 'Boolean Required',
-        //   type: 'boolean',
-        //   required: true,
-        // },
+        {
+          linkId: '3.8.1',
+          prefix: '3.8.1',
+          text: 'Dies ist eine Display Frage',
+          type: 'display',
+        },
+        {
+          linkId: '3.9',
+          prefix: '3.9',
+          text: 'Boolean Required',
+          type: 'boolean',
+          required: true,
+        },
         // {
         //   linkId: '3.9',
         //   prefix: '3.9',

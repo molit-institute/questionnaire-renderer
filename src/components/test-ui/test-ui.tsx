@@ -124,6 +124,7 @@ export class TestUi {
               // onFinished={event => this.toSummary(event)}
               // onUpdated={event => this.updateQR(event)}
               // onExit={() => this.toQuestionnaireList()}
+              trademarkText='Dont copy meeeeee'
               enableInformationPage = {true}
               informationPageText ="Test InformationPageText"
               questionnaireResponse={this.questionnaireResponse}
@@ -142,6 +143,8 @@ export class TestUi {
               variant={this.questionnaireVariant}
               enableInformalLocale= {true}
               showOnlySummary= {false}
+              enableExpand={true}
+              enableGroupDescription={false}
               summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
             ></questionnaire-renderer>
           ) : null}

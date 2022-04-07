@@ -102,7 +102,7 @@ export class QuestionnaireSummary {
   }
 
   /**
-   *
+   * Returns true if question has the type "display"
    * @param linkId
    * @returns
    */
@@ -139,17 +139,18 @@ export class QuestionnaireSummary {
   }
 
   /**
-   * Returns the answer of of the given question if it contains any. If question.asnwer contains no answers
+   * Returns the answer of the given question if it contains any. If question.answer contains no answers
    * @param question
    * @returns
    */
   getAnswer(question) {
     let answer = null;
     if (question.answer) {
-      if (!this.checkIfDisplay(question.linkId) && question.answer.length === 0 && !question.item && !question.answer[0]) {
+      if (this.checkIfDisplay(question.linkId) && question.answer.length === 0 && !question.item && !question.answer[0]) {
         answer = this.strings.summary.noAnswer;
         return answer;
       } else {
+        console.log("hi")
         switch (this.getType(question)) {
           case 'boolean':
             if (question.answer[0].valueBoolean === true) {
@@ -289,6 +290,7 @@ export class QuestionnaireSummary {
 
   async componentWillLoad(): Promise<void> {
     try {
+      console.log(this.questionnaireResponse)
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
       // this.itemList = questionnaireResponseController.createItemList(this.questionnaireResponse);
     } catch (e) {

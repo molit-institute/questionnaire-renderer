@@ -8,6 +8,7 @@ import questionnaireResponseController from "./questionnaireResponseController";
  */
 export function getChoiceOptions(questionnaire, question, valueSets, FHIR_URL) {
   //check if reference or ValueSet
+  console.log("getChoiceoptions paras",questionnaire, question, valueSets, FHIR_URL)
   if (questionnaire && question) {
     if (question.answerValueSet) {
       let reference = question.answerValueSet;
@@ -87,17 +88,23 @@ function getReferenceOptions(questionnaire, reference) {
  * @param {String} url The ValueSets url
  */
 async function getValueSetOptions(reference, valueSets) {
+  console.log("getValueSetOptions paras", reference, valueSets)
   let valueSet = null;
   for (let i = 0; i < valueSets.length; i++) {
-    let valueSetUrl = valueSets[i].url;
+    let valueSetUrl = null;
+    if(valueSets[i].url){
+      valueSetUrl = valueSets[i].url;
+    }else{
+      valueSetUrl = valueSets[i].compose.include[0].system;
+    }
+    console.log(reference, valueSetUrl)
     if (reference === valueSetUrl) {
       valueSet = valueSets[i];
     }
   }
   if (valueSet && valueSet.expansion && valueSet.expansion.contains) {
     return await valueSet.expansion.contains;
-  }
-  if (valueSet && valueSet.compose && valueSet.compose.include) {
+  } else if (valueSet && valueSet.compose && valueSet.compose.include) {
     //TODO how to handle multiple includes?
     return valueSet.compose.include[0].concept;
   }
