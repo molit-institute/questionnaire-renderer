@@ -150,7 +150,6 @@ export class QuestionnaireSummary {
         answer = this.strings.summary.noAnswer;
         return answer;
       } else {
-        console.log("hi")
         switch (this.getType(question)) {
           case 'boolean':
             if (question.answer[0].valueBoolean === true) {
@@ -250,7 +249,6 @@ export class QuestionnaireSummary {
       // Handle QuestionnaireResponse
       if (this.baseUrl && this.enableSendQuestionnaireResponse) {
         try {
-          // console.log('SummaryPage', this.baseUrl, questResp, this.token, this.basicAuth);
           let output = await fhirApi.submitResource(this.baseUrl, questResp, this.token, this.basicAuth);
           console.info('Questionnaire Response ID: ' + output.data.id, 'Url: ' + output.config.url + '/' + output.data.id);
         } catch (e) {
@@ -290,7 +288,6 @@ export class QuestionnaireSummary {
 
   async componentWillLoad(): Promise<void> {
     try {
-      console.log(this.questionnaireResponse)
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
       // this.itemList = questionnaireResponseController.createItemList(this.questionnaireResponse);
     } catch (e) {

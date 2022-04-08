@@ -23,7 +23,6 @@ async function getNewValueSets(questionnaireList, FHIR_URL, token, basicAuth, ex
     //put all References in Array, avoid doubles
     referenceList = getReferencesFromValueSets(questionsValueSetList);
 
-    console.log('getNewValueSets', FHIR_URL, referenceList, token, basicAuth, expand);
     //load all ValueSets and return the List
     if (FHIR_URL) {
       return await getValueSetsWithReferences(FHIR_URL, referenceList, token, basicAuth, expand);
@@ -89,22 +88,20 @@ async function getValueSetsWithReferences(FHIR_URL, referenceList, token, basicA
       let valueSetBundle = null;
       if (expand) {
         valueSetBundle = await fhirApi.fetchByUrl(FHIR_URL + '/ValueSet/$expand?url=' + referenceList[o], null, token, basicAuth);
-        console.log(valueSetBundle);
       } else {
         valueSetBundle = await fhirApi.fetchByUrl(FHIR_URL + '/ValueSet?url=' + referenceList[o], null, token, basicAuth);
         //TODO Handle retrieving codesystem
       }
-      console.log("getValueSetsWithReferences", valueSetBundle)
       // LEERE LISTE !!!
+      let valueSet = {valueSet: null,reference:referenceList[o]}
       if (valueSetBundle.data.entry) {
-        let valueSet = valueSetBundle.data.entry[0].resource;
+        valueSet.valueSet = valueSetBundle.data.entry[0].resource;
         list.push(valueSet);
       }else {
-        let valueSet = valueSetBundle.data;
+        valueSet.valueSet = valueSetBundle.data;
         list.push(valueSet);
       }
     }
-    console.log("getValueSetsWithReferences list",list)
     return list;
   } catch (error) {
     throw new Error(error.message);

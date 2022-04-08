@@ -8,7 +8,6 @@ import questionnaireResponseController from "./questionnaireResponseController";
  */
 export function getChoiceOptions(questionnaire, question, valueSets, FHIR_URL) {
   //check if reference or ValueSet
-  console.log("getChoiceoptions paras",questionnaire, question, valueSets, FHIR_URL)
   if (questionnaire && question) {
     if (question.answerValueSet) {
       let reference = question.answerValueSet;
@@ -88,18 +87,16 @@ function getReferenceOptions(questionnaire, reference) {
  * @param {String} url The ValueSets url
  */
 async function getValueSetOptions(reference, valueSets) {
-  console.log("getValueSetOptions paras", reference, valueSets)
   let valueSet = null;
   for (let i = 0; i < valueSets.length; i++) {
     let valueSetUrl = null;
-    if(valueSets[i].url){
-      valueSetUrl = valueSets[i].url;
+    if(valueSets[i].valueSet.url){
+      valueSetUrl = valueSets[i].valueSet.url;
     }else{
-      valueSetUrl = valueSets[i].compose.include[0].system;
+      valueSetUrl = valueSets[i].reference;
     }
-    console.log(reference, valueSetUrl)
     if (reference === valueSetUrl) {
-      valueSet = valueSets[i];
+      valueSet = valueSets[i].valueSet;
     }
   }
   if (valueSet && valueSet.expansion && valueSet.expansion.contains) {

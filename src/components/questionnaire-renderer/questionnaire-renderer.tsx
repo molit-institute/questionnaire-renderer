@@ -576,14 +576,12 @@ export class QuestionnaireRenderer {
       if (missingReferences.length !== 0) {
         if (this.baseUrl) {
           this.currentValueSets.concat(await valueSetController.getValueSetsWithReferences(this.baseUrl, missingReferences, this.token, this.basicAuth, this.enableExpand));
-          console.log("references currentValueSets",this.currentValueSets)
         }
       }
     } else {
       try {
         // if (this.currentQuestionnaire && this.baseUrl) {
         this.currentValueSets = await valueSetController.getNewValueSets([this.currentQuestionnaire], this.baseUrl, this.token, this.basicAuth, this.enableExpand);
-        console.log("currentValueSets",this.currentValueSets)
         // }
       } catch (error) {
         // console.error(error);

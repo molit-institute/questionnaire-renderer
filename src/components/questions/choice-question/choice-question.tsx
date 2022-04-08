@@ -177,7 +177,6 @@ export class ChoiceQuestion {
    * Returns the options for in the Question for the view to display
    */
   async getChoiceOptions() {
-    console.log(this.questionnaire, this.question, this.valueSets, this.baseUrl);
     return questionnaireController.getChoiceOptions(this.questionnaire, this.question, this.valueSets, this.baseUrl);
   }
 
