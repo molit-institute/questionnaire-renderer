@@ -145,6 +145,7 @@ export class QuestionnaireRenderer {
   @Prop() enableInformationPage: boolean = false;
   @Prop() trademarkText: string = null;
   @Prop() enableGroupDescription: boolean = true;
+  @Prop() enableExpand: boolean=true;
   /**
    * Primary color
    */
@@ -574,13 +575,13 @@ export class QuestionnaireRenderer {
       this.currentValueSets.push(this.valueSets);
       if (missingReferences.length !== 0) {
         if (this.baseUrl) {
-          this.currentValueSets.concat(await valueSetController.getValueSetsWithReferences(this.baseUrl, missingReferences, this.token, this.basicAuth));
+          this.currentValueSets.concat(await valueSetController.getValueSetsWithReferences(this.baseUrl, missingReferences, this.token, this.basicAuth, this.enableExpand));
         }
       }
     } else {
       try {
         // if (this.currentQuestionnaire && this.baseUrl) {
-        this.currentValueSets = await valueSetController.getNewValueSets([this.currentQuestionnaire], this.baseUrl, this.token, this.basicAuth);
+        this.currentValueSets = await valueSetController.getNewValueSets([this.currentQuestionnaire], this.baseUrl, this.token, this.basicAuth, this.enableExpand);
         // }
       } catch (error) {
         // console.error(error);

@@ -281,10 +281,12 @@ export namespace Components {
           * If true the render will show the button to exit the renderer
          */
         "editMode": boolean;
+        "enableExpand": boolean;
         /**
           * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
          */
         "enableFullQuestionnaireResponse": boolean;
+        "enableGroupDescription": boolean;
         "enableInformalLocale": boolean;
         "enableInformationPage": boolean;
         /**
@@ -397,6 +399,7 @@ export namespace Components {
          */
         "danger": string;
         "editMode": boolean;
+        "enableGroupDescription": boolean;
         "enableInformalLocale": boolean;
         "enableNext": boolean;
         "enableReturn": boolean;
@@ -990,10 +993,12 @@ declare namespace LocalJSX {
           * If true the render will show the button to exit the renderer
          */
         "editMode"?: boolean;
+        "enableExpand"?: boolean;
         /**
           * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
          */
         "enableFullQuestionnaireResponse"?: boolean;
+        "enableGroupDescription"?: boolean;
         "enableInformalLocale"?: boolean;
         "enableInformationPage"?: boolean;
         /**
@@ -1131,6 +1136,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         "editMode"?: boolean;
+        "enableGroupDescription"?: boolean;
         "enableInformalLocale"?: boolean;
         "enableNext"?: boolean;
         "enableReturn"?: boolean;

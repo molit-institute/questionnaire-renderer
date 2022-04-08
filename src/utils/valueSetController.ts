@@ -1,5 +1,5 @@
-import * as fhirApi from "@molit/fhir-api";
-import questionnaireResponseController from "./questionnaireResponseController";
+import * as fhirApi from '@molit/fhir-api';
+import questionnaireResponseController from './questionnaireResponseController';
 
 /**
  * Returns all ValueSets needed for the currently stored questionnaires. This Method takes all Questionnaires
@@ -7,7 +7,7 @@ import questionnaireResponseController from "./questionnaireResponseController";
  * @param {Array} questionnaireList
  * @param {*} FHIR_URL
  */
-async function getNewValueSets(questionnaireList, FHIR_URL, token, basicAuth) {
+async function getNewValueSets(questionnaireList, FHIR_URL, token, basicAuth, expand) {
   if (questionnaireList) {
     let questionsValueSetList = [];
     let fullQuestionsList = [];
@@ -25,12 +25,12 @@ async function getNewValueSets(questionnaireList, FHIR_URL, token, basicAuth) {
 
     //load all ValueSets and return the List
     if (FHIR_URL) {
-      return await getValueSetsWithReferences(FHIR_URL, referenceList, token, basicAuth);
+      return await getValueSetsWithReferences(FHIR_URL, referenceList, token, basicAuth, expand);
     } else {
-      throw new Error("The given FHIR_URL was null or undefined");
+      throw new Error('The given FHIR_URL was null or undefined');
     }
   } else {
-    throw new Error("The given QuestionnaireList was null or undefined");
+    throw new Error('The given QuestionnaireList was null or undefined');
   }
 }
 
@@ -44,7 +44,7 @@ function getQuestionsWithValueSet(fullQuestionsList) {
     let questions = fullQuestionsList[e];
     for (let l = 0; l < questions.length; l++) {
       let question = questions[l];
-      if (question.answerValueSet && !question.answerValueSet.startsWith("#")) {
+      if (question.answerValueSet && !question.answerValueSet.startsWith('#')) {
         list.push(question);
       }
     }
@@ -81,13 +81,24 @@ function getReferencesFromValueSets(questionsValueSetList) {
  * @param {*} FHIR_URL baseUrl
  * @param {*} referenceList List of valueSet-references
  */
-async function getValueSetsWithReferences(FHIR_URL, referenceList, token, basicAuth) {
+async function getValueSetsWithReferences(FHIR_URL, referenceList, token, basicAuth, expand) {
   let list = [];
   try {
     for (let o = 0; o < referenceList.length; o++) {
-      const valueSetBundle = await fhirApi.fetchByUrl(FHIR_URL + "/ValueSet?url=" + referenceList[o], null, token, basicAuth);
+      let valueSetBundle = null;
+      if (expand) {
+        valueSetBundle = await fhirApi.fetchByUrl(FHIR_URL + '/ValueSet/$expand?url=' + referenceList[o], null, token, basicAuth);
+      } else {
+        valueSetBundle = await fhirApi.fetchByUrl(FHIR_URL + '/ValueSet?url=' + referenceList[o], null, token, basicAuth);
+        //TODO Handle retrieving codesystem
+      }
+      // LEERE LISTE !!!
+      let valueSet = {valueSet: null,reference:referenceList[o]}
       if (valueSetBundle.data.entry) {
-        let valueSet = valueSetBundle.data.entry[0].resource;
+        valueSet.valueSet = valueSetBundle.data.entry[0].resource;
+        list.push(valueSet);
+      }else {
+        valueSet.valueSet = valueSetBundle.data;
         list.push(valueSet);
       }
     }
@@ -101,5 +112,5 @@ export default {
   getNewValueSets,
   getQuestionsWithValueSet,
   getReferencesFromValueSets,
-  getValueSetsWithReferences
+  getValueSetsWithReferences,
 };

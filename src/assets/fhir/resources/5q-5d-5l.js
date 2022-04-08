@@ -134,11 +134,11 @@ export default {
         text: "Wir wollen herausfinden, wie gut oder schlecht Ihre Gesundheit HEUTE ist.",
         type: "group",
         item: [
-          // {
-          //   linkId: "6-subtitle",
-          //   text: "<li> Diese Skala ist mit Zahlen von 0 bis 100 versehen. </br></br> <li> 100 ist die <u>beste</u> Gesundheit, die Sie sich vorstellen können. 0 (Null) ist die <u>schlechteste</u> Gesundheit, die Sie sich vorstellen können.",
-          //   type: "display"
-          // },
+          {
+            linkId: "6-subtitle",
+            text: "<li> Diese Skala ist mit Zahlen von 0 bis 100 versehen. </br></br> <li> 100 ist die <u>beste</u> Gesundheit, die Sie sich vorstellen können. 0 (Null) ist die <u>schlechteste</u> Gesundheit, die Sie sich vorstellen können.",
+            type: "display"
+          },
           {
             linkId: "6.1",
             prefix: "6.1",
