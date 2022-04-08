@@ -38,6 +38,8 @@
 | `token`                           | `token`                              | A token that can be send with server-requests                                                                                   | `string`  | `undefined`               |
 | `valueSets`                       | --                                   | List of ValueSets that are needed to display the given questionnaire                                                            | `any[]`   | `null`                    |
 | `variant`                         | `variant`                            |                                                                                                                                 | `any`     | `'Touch'`                 |
+| `vasShowSelectedValue`            | `vas-show-selected-value`            |                                                                                                                                 | `boolean` | `false`                   |
+| `vasVertical`                     | `vas-vertical`                       | Options for Visual Analog Scale                                                                                                 | `boolean` | `false`                   |
 
 
 ## Events

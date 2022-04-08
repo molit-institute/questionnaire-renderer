@@ -23,7 +23,7 @@ export class TestUi {
   lastQuestion: boolean = false;
   edit: boolean = false;
   indexQuestion: Object = null;
-  baseUrl: string = "https://fhir.molit.eu/fhir";
+  baseUrl: string = 'https://fhir.molit.eu/fhir';
   questionnaire: any = null;
   questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30];
 
@@ -123,8 +123,8 @@ export class TestUi {
               // onFinished={event => this.toSummary(event)}
               // onUpdated={event => this.updateQR(event)}
               // onExit={() => this.toQuestionnaireList()}
-              enableInformationPage = {true}
-              informationPageText ="Test InformationPageText"
+              enableInformationPage={true}
+              informationPageText="Test InformationPageText"
               questionnaireResponse={this.questionnaireResponse}
               questionnaire={this.questionnaire}
               baseUrl={this.baseUrl}
@@ -139,9 +139,11 @@ export class TestUi {
               enableReturn={false}
               enableNext={true}
               variant={this.questionnaireVariant}
-              enableInformalLocale= {true}
-              showOnlySummary= {false}
+              enableInformalLocale={true}
+              showOnlySummary={false}
               summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
+              vasVertical={true}
+              vasShowSelectedValue={true}
             ></questionnaire-renderer>
           ) : null}
           {this.show_summary ? (

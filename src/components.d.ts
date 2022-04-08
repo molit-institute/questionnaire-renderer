@@ -166,6 +166,11 @@ export namespace Components {
         "startCount": number;
         "valueSets": Array<any>;
         "variant": any;
+        "vasShowSelectedValue": boolean;
+        /**
+          * Options for Visual Analog Scale
+         */
+        "vasVertical": boolean;
     }
     interface GroupQuestion {
         "baseUrl": string;
@@ -229,6 +234,11 @@ export namespace Components {
         "startCount": number;
         "valueSets": Array<any>;
         "variant": any;
+        "vasShowSelectedValue": boolean;
+        /**
+          * Options for Visual Analog Scale
+         */
+        "vasVertical": boolean;
     }
     interface InformationPage {
         "enableInformalLocale": boolean;
@@ -262,6 +272,11 @@ export namespace Components {
          */
         "secondary": string;
         "variant": any;
+        "vasShowSelectedValue": boolean;
+        /**
+          * Options for Visual Analog Scale
+         */
+        "vasVertical": boolean;
     }
     interface QuestionnaireRenderer {
         /**
@@ -359,6 +374,11 @@ export namespace Components {
          */
         "valueSets": Array<any>;
         "variant": any;
+        "vasShowSelectedValue": boolean;
+        /**
+          * Options for Visual Analog Scale
+         */
+        "vasVertical": boolean;
     }
     interface QuestionnaireSummary {
         "baseUrl": string;
@@ -419,6 +439,11 @@ export namespace Components {
         "startCount": number;
         "valueSets": Array<any>;
         "variant": any;
+        "vasShowSelectedValue": boolean;
+        /**
+          * Options for Visual Analog Scale
+         */
+        "vasVertical": boolean;
     }
     interface StringQuestion {
         /**
@@ -522,6 +547,11 @@ export namespace Components {
         "selected": number;
         "step": number;
         "variant": any;
+        "vasShowSelectedValue": boolean;
+        /**
+          * Options for Visual Analog Scale
+         */
+        "vasVertical": boolean;
     }
 }
 declare global {
@@ -848,6 +878,11 @@ declare namespace LocalJSX {
         "startCount"?: number;
         "valueSets"?: Array<any>;
         "variant"?: any;
+        "vasShowSelectedValue"?: boolean;
+        /**
+          * Options for Visual Analog Scale
+         */
+        "vasVertical"?: boolean;
     }
     interface GroupQuestion {
         "baseUrl"?: string;
@@ -928,6 +963,11 @@ declare namespace LocalJSX {
         "startCount"?: number;
         "valueSets"?: Array<any>;
         "variant"?: any;
+        "vasShowSelectedValue"?: boolean;
+        /**
+          * Options for Visual Analog Scale
+         */
+        "vasVertical"?: boolean;
     }
     interface InformationPage {
         "enableInformalLocale"?: boolean;
@@ -967,6 +1007,11 @@ declare namespace LocalJSX {
          */
         "secondary"?: string;
         "variant"?: any;
+        "vasShowSelectedValue"?: boolean;
+        /**
+          * Options for Visual Analog Scale
+         */
+        "vasVertical"?: boolean;
     }
     interface QuestionnaireRenderer {
         /**
@@ -1076,6 +1121,11 @@ declare namespace LocalJSX {
          */
         "valueSets"?: Array<any>;
         "variant"?: any;
+        "vasShowSelectedValue"?: boolean;
+        /**
+          * Options for Visual Analog Scale
+         */
+        "vasVertical"?: boolean;
     }
     interface QuestionnaireSummary {
         "baseUrl"?: string;
@@ -1152,6 +1202,11 @@ declare namespace LocalJSX {
         "startCount"?: number;
         "valueSets"?: Array<any>;
         "variant"?: any;
+        "vasShowSelectedValue"?: boolean;
+        /**
+          * Options for Visual Analog Scale
+         */
+        "vasVertical"?: boolean;
     }
     interface StringQuestion {
         /**
@@ -1273,6 +1328,11 @@ declare namespace LocalJSX {
         "selected"?: number;
         "step"?: number;
         "variant"?: any;
+        "vasShowSelectedValue"?: boolean;
+        /**
+          * Options for Visual Analog Scale
+         */
+        "vasVertical"?: boolean;
     }
     interface IntrinsicElements {
         "boolean-question": BooleanQuestion;

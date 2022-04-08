@@ -137,6 +137,12 @@ export class QuestionnaireRenderer {
     }
   }
 
+  /**
+   * Options for Visual Analog Scale
+   */
+  @Prop() vasVertical: boolean = false;
+  @Prop() vasShowSelectedValue: boolean = false;
+
   @Prop() summaryText: string = null;
   @Prop() informationPageText: string = null;
   @Prop() showSummaryRemarks: boolean = false;
@@ -270,7 +276,7 @@ export class QuestionnaireRenderer {
    *
    */
   toQuestionnaire(lastQuestion) {
-    this.show_informationPage=false;
+    this.show_informationPage = false;
     this.lastAnsweredQuestion = null;
     this.currentStartCount = null;
     this.start_question = null;
@@ -279,7 +285,6 @@ export class QuestionnaireRenderer {
     this.show_summary = false;
     this.show_questionnaire = true;
   }
-
 
   /**
    *
@@ -664,11 +669,11 @@ export class QuestionnaireRenderer {
    */
   @Event() exit: EventEmitter;
   leaveQuestionnaireRenderer() {
-    if(this.enableInformationPage){
-      this.show_summary= false;
+    if (this.enableInformationPage) {
+      this.show_summary = false;
       this.show_questionnaire = false;
       this.show_informationPage = true;
-    }else{
+    } else {
       this.exit.emit(this.currentQuestionnaireResponse);
     }
   }
@@ -747,6 +752,8 @@ export class QuestionnaireRenderer {
               spinner={this.spinner}
               enableSummary={this.enableSummary}
               enableInformalLocale={this.enableInformalLocale}
+              vasVertical={this.vasVertical}
+              vasShowSelectedValue={this.vasShowSelectedValue}
               onSummary={() => this.backToSummary()}
               onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
               onReturn={() => this.leaveQuestionnaireRenderer()}

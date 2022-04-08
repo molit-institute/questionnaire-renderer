@@ -68,6 +68,11 @@ export class GroupedQuestionnaire {
   @Prop() startCount: number;
   @Prop() lastQuestion: boolean = false;
   /**
+   * Options for Visual Analog Scale
+   */
+  @Prop() vasVertical: boolean;
+  @Prop() vasShowSelectedValue: boolean;
+  /**
    * Primary color
    */
   @Prop() primary: string;
@@ -86,7 +91,7 @@ export class GroupedQuestionnaire {
   @Prop() enableReturn: boolean = true;
   @Prop() spinner: any;
   @Prop() locale: string = 'en';
-  @Prop() enableInformalLocale: boolean; 
+  @Prop() enableInformalLocale: boolean;
   @Watch('locale')
   async watchLocale(newValue: string) {
     this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
@@ -343,7 +348,7 @@ export class GroupedQuestionnaire {
                   secondary={this.secondary}
                   danger={this.danger}
                   locale={this.locale}
-                  enableInformalLocale = {this.enableInformalLocale}
+                  enableInformalLocale={this.enableInformalLocale}
                 ></Tag>
               </div>
             ) : (
@@ -361,7 +366,9 @@ export class GroupedQuestionnaire {
                     danger={this.danger}
                     locale={this.locale}
                     variant={this.variant}
-                    enableInformalLocale = {this.enableInformalLocale}
+                    vasVertical={this.vasVertical}
+                    vasShowSelectedValue={this.vasShowSelectedValue}
+                    enableInformalLocale={this.enableInformalLocale}
                   ></Tag>
                 </div>
               </div>
