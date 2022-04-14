@@ -1,4 +1,4 @@
-import questionnaireResponseController from "./questionnaireResponseController";
+import questionnaireResponseController from './questionnaireResponseController';
 
 /**
  * Takes the given question and returns an Array of options for the Gui to iterate through. Handling reference and ValueSets
@@ -11,13 +11,13 @@ export function getChoiceOptions(questionnaire, question, valueSets, FHIR_URL) {
   if (questionnaire && question) {
     if (question.answerValueSet) {
       let reference = question.answerValueSet;
-      if (reference.startsWith("#")) {
+      if (reference.startsWith('#')) {
         return getReferenceOptions(questionnaire, reference);
       } else {
         if (FHIR_URL && valueSets) {
           return getValueSetOptions(reference, valueSets); //FHIR_URL wurde rausgenommen
         } else {
-          throw new Error("The given FHIR_URL or ValueSets was null or undefined");
+          throw new Error('The given FHIR_URL or ValueSets was null or undefined');
         }
       }
     } else if (question.answerOption) {
@@ -26,14 +26,14 @@ export function getChoiceOptions(questionnaire, question, valueSets, FHIR_URL) {
         let count = i + 1;
         let option = {
           display: getAnswerOptionValue(question.answerOption[i]),
-          code: "A" + count
+          code: 'A' + count,
         };
         optionsList.push(option);
       }
       return optionsList;
     }
   } else {
-    throw new Error("Getting Choice Options failed, because the given parameters were null, undefined or empty");
+    throw new Error('Getting Choice Options failed, because the given parameters were null, undefined or empty');
   }
 }
 
@@ -67,7 +67,7 @@ function getAnswerOptionValue(answerOption) {
 function getReferenceOptions(questionnaire, reference) {
   //getting reference id to compare to ValueSet-Id
   if (questionnaire && reference) {
-    let referenceSplit = reference.split("#", 2);
+    let referenceSplit = reference.split('#', 2);
     let referenceId = referenceSplit[1];
     for (let i = 0; i < questionnaire.contained.length; i++) {
       if (questionnaire.contained[i].id === referenceId) {
@@ -90,9 +90,9 @@ async function getValueSetOptions(reference, valueSets) {
   let valueSet = null;
   for (let i = 0; i < valueSets.length; i++) {
     let valueSetUrl = null;
-    if(valueSets[i].valueSet.url){
+    if (valueSets[i].valueSet.url) {
       valueSetUrl = valueSets[i].valueSet.url;
-    }else{
+    } else {
       valueSetUrl = valueSets[i].reference;
     }
     if (reference === valueSetUrl) {
@@ -134,7 +134,7 @@ function addItemToList(answersList, itemList, newItemList) {
     if (itemList[i].enableWhen) {
       let results = [];
       for (let x = 0; x < itemList[i].enableWhen.length; x++) {
-        let item = answersList.find(function(element) {
+        let item = answersList.find(function (element) {
           return element.linkId === itemList[i].enableWhen[x].question;
         });
         if (item.answer && item.answer.length !== 0) {
@@ -145,18 +145,18 @@ function addItemToList(answersList, itemList, newItemList) {
       }
       if (itemList[i].enableBehavior) {
         switch (itemList[i].enableBehavior) {
-          case "All":
+          case 'All':
             if (results.length === itemList[i].enableWhen.length) {
               newItemList.push(itemList[i]);
-              if (itemList[i].type === "group") {
+              if (itemList[i].type === 'group') {
                 addItemToList(answersList, itemList[i].item, newItemList);
               }
             }
             break;
-          case "Any":
+          case 'Any':
             if (results.length > 0) {
               newItemList.push(itemList[i]);
-              if (itemList[i].type === "group") {
+              if (itemList[i].type === 'group') {
                 addItemToList(answersList, itemList[i].item, newItemList);
               }
             }
@@ -164,7 +164,7 @@ function addItemToList(answersList, itemList, newItemList) {
           default:
             if (results.length > 0) {
               newItemList.push(itemList[i]);
-              if (itemList[i].type === "group") {
+              if (itemList[i].type === 'group') {
                 addItemToList(answersList, itemList[i].item, newItemList);
               }
             }
@@ -173,14 +173,14 @@ function addItemToList(answersList, itemList, newItemList) {
       } else {
         if (results.length > 0) {
           newItemList.push(itemList[i]);
-          if (itemList[i].type === "group") {
+          if (itemList[i].type === 'group') {
             addItemToList(answersList, itemList[i].item, newItemList);
           }
         }
       }
     } else {
       newItemList.push(itemList[i]);
-      if (itemList[i].type === "group") {
+      if (itemList[i].type === 'group') {
         addItemToList(answersList, itemList[i].item, newItemList);
       }
     }
@@ -198,35 +198,35 @@ function handleEnableWhenLogic(item, enableWhen) {
   //liste mit results
   for (let i = 0; i < item.answer.length; i++) {
     switch (enableWhen.operator) {
-      case "exists":
+      case 'exists':
         result = true;
         break;
-      case "=":
+      case '=':
         if (handleEnableWhenValueType(item.answer[i]) === handleEnableWhenAnswerType(enableWhen)) {
           result = true;
         }
         break;
-      case "!=":
+      case '!=':
         if (handleEnableWhenValueType(item.answer[i]) !== handleEnableWhenAnswerType(enableWhen)) {
           result = true;
         }
         break;
-      case ">":
+      case '>':
         if (handleEnableWhenValueType(item.answer[i]) > handleEnableWhenAnswerType(enableWhen)) {
           result = true;
         }
         break;
-      case "<":
+      case '<':
         if (handleEnableWhenValueType(item.answer[i]) < handleEnableWhenAnswerType(enableWhen)) {
           result = true;
         }
         break;
-      case ">=":
+      case '>=':
         if (handleEnableWhenValueType(item.answer[i]) >= handleEnableWhenAnswerType(enableWhen)) {
           result = true;
         }
         break;
-      case "<=":
+      case '<=':
         if (handleEnableWhenValueType(item.answer[i]) <= handleEnableWhenAnswerType(enableWhen)) {
           result = true;
         }
@@ -302,4 +302,37 @@ function handleEnableWhenAnswerType(value) {
   }
 }
 
-export default { handleEnableWhen, getChoiceOptions };
+/**
+ * Counts all Questions from ItemList excluding Groups
+ * @returns number - integer value
+ */
+function getNumberOfQuestions(object, list) {
+  let itemList = null;
+  if (object) {
+    itemList = questionnaireResponseController.createItemList(object);
+  }
+  if (list) {
+    itemList = list;
+  }
+
+  let number = 0;
+  console.log(object)
+  if (object && object.resourceType === 'QuestionnaireResponse') {
+    for (let i = 0; i < itemList.length; i++) {
+      console.log(questionnaireResponseController.getAnswerType(itemList[i].answer))
+      if (questionnaireResponseController.getAnswerType(itemList[i].answer) !== 'group' && questionnaireResponseController.getAnswerType(itemList[i].answer) !== 'display') {
+        number++;
+      }
+    }
+  } else {
+    for (let i = 0; i < itemList.length; i++) {
+      if (itemList[i].type !== 'group' && itemList[i].type !== 'display') {
+        number++;
+      }
+    }
+  }
+
+  return number;
+}
+
+export default { handleEnableWhen, getChoiceOptions, getNumberOfQuestions };

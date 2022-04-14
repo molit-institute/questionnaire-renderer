@@ -5,6 +5,7 @@ import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '
 import { getLocaleComponentStrings } from '../../utils/locale';
 import questionnaireResponseController from '../../utils/questionnaireResponseController';
 import * as fhirApi from '@molit/fhir-api';
+import questionnaireController from '../../utils/questionnaireController';
 
 @Component({
   tag: 'questionnaire-summary',
@@ -205,20 +206,6 @@ export class QuestionnaireSummary {
   }
 
   /**
-   * Counts all Questions from ItemList excluding Groups
-   */
-  numberOfQuestions() {
-    let itemList = questionnaireResponseController.createItemList(this.questionnaireResponse);
-    let number = 0;
-    for (let i = 0; i < itemList.length; i++) {
-      if (itemList[i].type !== 'group' && !itemList[i].item) {
-        number++;
-      }
-    }
-    return number;
-  }
-
-  /**
    * Returns the count of all questions that contain answers
    * @returns
    */
@@ -302,7 +289,7 @@ export class QuestionnaireSummary {
 
         <div class="qr-summary-content">
           <div class="qr-summary-answeredQuestions">
-            {this.strings.summary.youHave} {this.countAnsweredQuestions()} {this.strings.of} {this.numberOfQuestions()} {this.strings.summary.questionsAnswered}
+            {this.strings.summary.youHave} {this.countAnsweredQuestions()} {this.strings.of} {questionnaireController.getNumberOfQuestions(this.questionnaireResponse,null)} {this.strings.summary.questionsAnswered}
           </div>
           <div class="qr-summary-information">{this.summary_text}</div>
           {this.spinner.loading ? (
@@ -326,8 +313,9 @@ export class QuestionnaireSummary {
                           <div>
                             <span class="qr-summary-item-yourAnswer">{this.strings.summary.yourAnswer}:&nbsp;</span>
                             <span class="qr-summary-item-answer">{this.getAnswer(item)} &nbsp;</span>
-
-                            {this.editable ? (
+                            
+                            {item.type}
+                            {this.editable && item.type !== 'group' && item.type !== 'display' ? (
                               <span style={{ cursor: 'pointer' }} class="qr-summary-item-editIcon" onClick={() => this.editSelectedQuestion(item)}>
                                 <svg class="material-design-icon__svg" style={{ width: '30px', height: '30px' }} viewBox="0 0 24 24">
                                   <path fill="#000000" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"></path>

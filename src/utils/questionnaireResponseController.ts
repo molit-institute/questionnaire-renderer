@@ -349,36 +349,37 @@ function getGroupsAndItems(varitem, itemList) {
 /**
  *Takes the given answers and returns the type
  *
- * @param {Object} answers
+ * @param {Object} answer
  */
-export function getAnswerType(answers) {
-  if (answers && answers.length !== 0) {
-    if (answers[0].valueBoolean || answers[0].valueBoolean === false) {
+export function getAnswerType(answer) {
+  console.log(answer)
+  if (answer && answer.length !== 0) {
+    if (answer[0].valueBoolean || answer[0].valueBoolean === false) {
       return valueTypes.BOOLEAN;
-    } else if (answers[0].valueDecimal) {
+    } else if (answer[0].valueDecimal) {
       return valueTypes.DECIMAL;
-    } else if (answers[0].valueInteger) {
+    } else if (answer[0].valueInteger) {
       return valueTypes.INTEGER;
-    } else if (answers[0].valueDate) {
+    } else if (answer[0].valueDate) {
       return valueTypes.DATE;
-    } else if (answers[0].valueDateTime) {
+    } else if (answer[0].valueDateTime) {
       return valueTypes.DATETIME;
-    } else if (answers[0].valueTime) {
+    } else if (answer[0].valueTime) {
       return valueTypes.TIME;
-    } else if (answers[0].valueString) {
+    } else if (answer[0].valueString) {
       return valueTypes.STRING;
-    } else if (answers[0].valueUri) {
+    } else if (answer[0].valueUri) {
       return valueTypes.URI;
-    } else if (answers[0].valueAttachment) {
+    } else if (answer[0].valueAttachment) {
       return valueTypes.ATTACHMENT;
-    } else if (answers[0].valueCoding) {
+    } else if (answer[0].valueCoding) {
       return valueTypes.CODING;
-    } else if (answers[0].valueQuantity) {
+    } else if (answer[0].valueQuantity) {
       return valueTypes.QUANTITY;
     } else {
       return 'notype';
     }
-  }else if(answers && answers.length === 0){
+  }else if(answer && answer.length === 0){
     return 'notype';
   }else {
     throw new Error('Getting the AnswerType failed because the given answer object was null or undefined');

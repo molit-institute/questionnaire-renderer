@@ -1,5 +1,6 @@
 import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '@stencil/core';
 import { getLocaleComponentStrings } from '../../../utils/locale';
+import questionnaireController from '../../../utils/questionnaireController';
 
 @Component({
   tag: 'information-page',
@@ -32,19 +33,6 @@ export class InformationPage {
     this.startQuestionnaire.emit('start');
   }
 
-  /**
-   * Counts all Questions from ItemList excluding Groups
-   */
-  numberOfQuestions() {
-    let number = 0;
-    for (let i = 0; i < this.filteredItemList.length; i++) {
-      if (this.filteredItemList[i].type !== 'group') {
-        number++;
-      }
-    }
-    return number;
-  }
-
   async componentWillLoad(): Promise<void> {
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
@@ -68,7 +56,7 @@ export class InformationPage {
             ) : null}
             <div class="qr-informationPage-questions-container">
               <span class="qr-informationPage-questions"> {this.strings.numberOfQuestions}:</span>
-              <span class="qr-informationPage-questions-number">{this.numberOfQuestions()}</span>
+              <span class="qr-informationPage-questions-number">{questionnaireController.getNumberOfQuestions(null,this.filteredItemList)}</span>
             </div>
           </div>
         

@@ -1,5 +1,6 @@
 import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '@stencil/core';
 import { getLocaleComponentStrings } from '../../../utils/locale';
+import questionnaireController from '../../../utils/questionnaireController';
 
 @Component({
   tag: 'stepper-questionnaire',
@@ -163,19 +164,6 @@ export class StepperQuestionnaire {
     return this.requiredQuestionList.length !== this.numberOfRequiredQuestions();
   }
 
-  /**
-   * Counts all Questions from ItemList excluding Groups
-   */
-  numberOfQuestions() {
-    let number = 0;
-    for (let i = 0; i < this.filteredItemList.length; i++) {
-      if (this.filteredItemList[i].type !== 'group' || this.filteredItemList[i].type !== 'display') {
-        number++;
-      }
-    }
-    return number;
-  }
-
   /* methods */
   getGroupText(currentQuestion) {
     let groupQuestion = this.filteredItemList.find(element => element.linkId === currentQuestion.groupId);
@@ -203,7 +191,7 @@ export class StepperQuestionnaire {
   getQuestionPositionNumber() {
     let positionnumber = 1;
     for (let i = 0; i < this.count; i++) {
-      if (this.filteredItemList[i].type !== 'group' || this.filteredItemList[i].type !== 'display' ) {
+      if (this.filteredItemList[i].type !== 'group' && this.filteredItemList[i].type !== 'display' ) {
         positionnumber++;
       }
     }
@@ -221,7 +209,7 @@ export class StepperQuestionnaire {
     if (this.count < this.filteredItemList.length - 1 && !this.disabled && !this.editMode) {
       //next button
       this.count++;
-      if (this.filteredItemList[this.count].type !== 'group') {
+      if (this.filteredItemList[this.count].type !== 'group' && this.filteredItemList[this.count].type !== 'display') {
         this.questionCount = this.getQuestionPositionNumber();
       }
       this.scrollToTop();
@@ -248,9 +236,9 @@ export class StepperQuestionnaire {
     if (this.count > 0 && !this.editMode) {
       this.count--;
       //update questionPositionNumber
-      if (this.filteredItemList[this.count].type !== 'group') {
+      if (this.filteredItemList[this.count].type !== 'group' && this.filteredItemList[this.count].type !== 'display') {
         this.questionCount = this.getQuestionPositionNumber();
-      } else if (this.filteredItemList[this.count].type === 'group' && this.questionCount === 1) {
+      } else if (this.filteredItemList[this.count].type === 'group' && this.filteredItemList[this.count].type !== 'display' && this.questionCount === 1) {
         this.questionCount = 0;
       }
       this.scrollToTop();
@@ -341,8 +329,8 @@ export class StepperQuestionnaire {
                 role="progressbar"
                 aria-valuenow={this.questionCount}
                 aria-valuemin="1"
-                aria-valuemax={this.numberOfQuestions()}
-                style={{ width: (this.questionCount / this.numberOfQuestions()) * 100 + '%' }}
+                aria-valuemax={questionnaireController.getNumberOfQuestions(null,this.filteredItemList)}
+                style={{ width: (this.questionCount / questionnaireController.getNumberOfQuestions(null,this.filteredItemList)) * 100 + '%' }}
               ></div>
             </div>
             {/* Progress Counter */}
@@ -352,7 +340,7 @@ export class StepperQuestionnaire {
                   {this.strings.question} {this.questionCount} &nbsp;
                 </span>
                 <span class="color-grey">
-                  {this.strings.of} {this.numberOfQuestions()}
+                  {this.strings.of} {questionnaireController.getNumberOfQuestions(null,this.filteredItemList)}
                 </span>
               </div>
             ) : null}
