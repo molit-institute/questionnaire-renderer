@@ -191,7 +191,7 @@ export class StepperQuestionnaire {
   getQuestionPositionNumber() {
     let positionnumber = 1;
     for (let i = 0; i < this.count; i++) {
-      if (this.filteredItemList[i].type !== 'group' && this.filteredItemList[i].type !== 'display' ) {
+      if (this.filteredItemList[i].type !== 'group' && this.filteredItemList[i].type !== 'display') {
         positionnumber++;
       }
     }
@@ -276,6 +276,17 @@ export class StepperQuestionnaire {
     return this.filteredItemList[this.count].type === 'group';
   }
 
+  /**
+   *  Returns true if the given question has the type 'display' and is part of a group
+   */
+  checkIfGroupDisplay(question) {
+    if (question.groupId && question.type === 'display') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   /* Lifecycle Methods */
   componentDidUpdate() {
     //TODO Is this the correct lifecycle hook?
@@ -329,8 +340,8 @@ export class StepperQuestionnaire {
                 role="progressbar"
                 aria-valuenow={this.questionCount}
                 aria-valuemin="1"
-                aria-valuemax={questionnaireController.getNumberOfQuestions(null,this.filteredItemList)}
-                style={{ width: (this.questionCount / questionnaireController.getNumberOfQuestions(null,this.filteredItemList)) * 100 + '%' }}
+                aria-valuemax={questionnaireController.getNumberOfQuestions(null, this.filteredItemList)}
+                style={{ width: (this.questionCount / questionnaireController.getNumberOfQuestions(null, this.filteredItemList)) * 100 + '%' }}
               ></div>
             </div>
             {/* Progress Counter */}
@@ -340,14 +351,14 @@ export class StepperQuestionnaire {
                   {this.strings.question} {this.questionCount} &nbsp;
                 </span>
                 <span class="color-grey">
-                  {this.strings.of} {questionnaireController.getNumberOfQuestions(null,this.filteredItemList)}
+                  {this.strings.of} {questionnaireController.getNumberOfQuestions(null, this.filteredItemList)}
                 </span>
               </div>
             ) : null}
           </div>
         ) : null}
         <br />
-        {!this.spinner.loading && this.count !== null && this.filteredItemList ? (
+        {!this.spinner.loading && this.count !== null && this.filteredItemList && !this.checkIfGroupDisplay(this.getQuestion()) ? (
           <div class="qr-stepperQuestionnaire-questions">
             {this.enableGroupDescription ? <span>{this.getQuestion().groupId && !this.getQuestion().item ? <div class="qr-stepperQuestionnaire-group-text">{this.getGroupText(this.getQuestion())}</div> : null}</span> : null}
             <Tag

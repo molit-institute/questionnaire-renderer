@@ -36,7 +36,7 @@ export class GroupQuestion {
   @Prop() startCount: Number;
   @Prop() enableReturn: boolean = true;
   @Prop() mode: string;
-  @Prop() enableInformalLocale: boolean; 
+  @Prop() enableInformalLocale: boolean;
   /**
    * Primary color
    */
@@ -74,6 +74,22 @@ export class GroupQuestion {
   }
 
   /**
+   * Creates and returns a list with all display-questions in this group
+   * @returns a list with all Display-Questions in this group
+   */
+  getDisplayQuestions() {
+    let list = [];
+    let itemlist = this.question.item;
+    itemlist.forEach(item => {
+      if (item.type === 'display') {
+        list.push(item);
+      }
+    });
+    console.log('list', list);
+    return list;
+  }
+
+  /**
    * Emits new Event to give the required Question to Parent-Component
    * to be removed from the List of answered Questions
    */
@@ -92,6 +108,9 @@ export class GroupQuestion {
   }
 
   /* Lifecycle Methods */
+  async componentWillLoad(): Promise<void> {
+    // this.getDisplayQuestions();
+  }
   render() {
     return (
       <div class="qr-question-container">
@@ -108,6 +127,17 @@ export class GroupQuestion {
             <div class="qr-groupQuestion-title">
               {this.question.prefix} {this.question.text}
             </div>
+            {/* TODO Liste mit allen Displayfragen in dieser Gruppe anzeigen */}
+            <div class="qr-groupQuestion-display-container">
+              {this.getDisplayQuestions().map((question) => {
+              return (
+                <div class="qr-groupQuestion-display-text">
+                  {question.text}
+                </div>
+              );
+            })}
+            </div>
+            
           </div>
         ) : (
           <div>
@@ -150,10 +180,10 @@ export class GroupQuestion {
                       </div>
                     ) : null}
 
-                    {groupquestion.type !== 'group' ? (
+                    {groupquestion.type !== 'group' && groupquestion.type !== 'display' ? (
                       <div class="card">
                         <div class="card-body">
-                          {groupquestion.groupId && !groupquestion.item ? <div class="qr-groupQuestion--text">{this.getGroupText(groupquestion)}</div> : null}
+                          {groupquestion.groupId && !groupquestion.item ? <div class="qr-groupQuestion-text">{this.getGroupText(groupquestion)}</div> : null}
                           <Tag
                             is={this.getQuestionType(groupquestion)}
                             question={groupquestion}
@@ -166,7 +196,7 @@ export class GroupQuestion {
                             secondary={this.secondary}
                             danger={this.danger}
                             locale={this.locale}
-                            enableInformalLocale= {this.enableInformalLocale}
+                            enableInformalLocale={this.enableInformalLocale}
                           ></Tag>
                         </div>
                       </div>

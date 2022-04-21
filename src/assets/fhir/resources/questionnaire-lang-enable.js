@@ -26,6 +26,26 @@ const enableQuestionnaire = {
       type: 'integer',
     },
     {
+      linkId:'123',
+      prefix: '123',
+      text: 'Group text',
+      type: 'group',
+      item: [
+        {
+          linkId: '123.2',
+          prefix: '1',
+          text: 'Dies ist eine Display-Frage 1',
+          type: 'display',
+        },
+        {
+          linkId: '11231.2',
+          prefix: '1',
+          text: 'Dies ist eine Display-Frage 2',
+          type: 'display',
+        },
+      ]
+    },
+    {
       linkId: '1.2',
       prefix: '1',
       text: 'Dies ist eine Display-Frage',
