@@ -38,6 +38,12 @@ const enableQuestionnaire = {
           type: 'display',
         },
         {
+          linkId: '2.22',
+          prefix: '2.22',
+          text: 'Test gruppenfrage',
+          type: 'integer',
+        },
+        {
           linkId: '11231.2',
           prefix: '1',
           text: 'Dies ist eine Display-Frage 2',
@@ -119,26 +125,34 @@ const enableQuestionnaire = {
     //   type: 'choice',
     //   answerValueSet: 'http://molit.eu/fhir/ValueSet/SLK_QLQC30_answers4',
     // },
-    // {
-    //   linkId: '2',
-    //   prefix: '1.1',
-    //   text: 'Persönliche Angaben',
-    //   type: 'group',
-    //   enableWhen: [
-    //     {
-    //       question: '1',
-    //       operator: '=',
-    //       answerBoolean: '22',
-    //     },
-    //   ],
-    //   item: [
-    //     {
-    //       linkId: '2.1',
-    //       prefix: '2.1',
-    //       text: 'Name',
-    //       type: 'string',
-    //       required: true,
-    //     },
+    {
+      linkId: '2',
+      prefix: '1.1',
+      text: 'Enable when gruppe',
+      type: 'group',
+      enableWhen: [
+        {
+          question: '1',
+          operator: '=',
+          answerBoolean: '22',
+        },
+      ],
+      item: [
+        {
+          linkId: '2.1',
+          prefix: '2.1',
+          text: 'Name',
+          type: 'string',
+          required: true,
+        },
+        {
+          linkId: '2.1',
+          prefix: '2.1',
+          text: 'Enable when display',
+          type: 'display'
+        }
+      ]
+    },
     //     {
     //       linkId: '2.2',
     //       prefix: '2.2',

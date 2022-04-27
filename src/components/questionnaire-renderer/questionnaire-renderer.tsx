@@ -428,8 +428,11 @@ export class QuestionnaireRenderer {
       for (let i = 0; i < this.currentQuestionnaire.item.length; i++) {
         if (this.currentQuestionnaire.item[i].type === 'group') {
           this.addGroupIdToItems(this.currentQuestionnaire.item[i].item, this.currentQuestionnaire.item[i].linkId);
+          await this.putDisplayQuestionsIntoGroups(this.currentQuestionnaire.item[i]);
         }
       }
+      await this.removeGroupedDisplayQuestions(this.currentQuestionnaire.item);
+      console.log(this.currentQuestionnaire)
     } else if (this.questionnaireUrl) {
       try {
         this.currentQuestionnaire = await fhirApi.fetchByUrl(this.questionnaireUrl, null, this.token, this.basicAuth);
@@ -437,13 +440,49 @@ export class QuestionnaireRenderer {
         for (let i = 0; i < this.currentQuestionnaire.item.length; i++) {
           if (this.currentQuestionnaire.item[i].type === 'group') {
             this.addGroupIdToItems(this.currentQuestionnaire.item[i].item, this.currentQuestionnaire.item[i].linkId);
+            await this.putDisplayQuestionsIntoGroups(this.currentQuestionnaire.item[i]);
           }
         }
+        await this.removeGroupedDisplayQuestions(this.currentQuestionnaire.item);
       } catch (error) {
         //TODO Errorhandling
       }
     } else {
       //TODO handle missing Questionnaire | Spinner, info ...
+    }
+  }
+
+  /**
+   * Removes questions of the type "display" from the list. Does not remove display-questions containing a groupId  
+   */
+  async removeGroupedDisplayQuestions(list){
+    await list.reduceRight((acc,question,index,object) => {
+      if(question.type === "display" && question.groupId){
+        object.splice(index,1)
+      }
+      if(question.type === "group"){
+        this.removeGroupedDisplayQuestions(question.item)
+      }
+    }, []);
+  }
+
+  /**
+   * 
+   */  
+  async putDisplayQuestionsIntoGroups(group){
+    let displayQuestions = [];
+    group.displays=[]
+    let item = group.item;
+    for (let i = 0; i < item.length; i++) {
+      if(item[i].type ==="display" && item[i].groupId){
+        displayQuestions.push(item[i])
+      }
+      if (item[i].type === 'group') {
+        await this.putDisplayQuestionsIntoGroups(item[i]);
+      }
+    }
+    for (let a = 0; a < displayQuestions.length; a++){
+      group.displays.push(displayQuestions[a]);
     }
   }
 

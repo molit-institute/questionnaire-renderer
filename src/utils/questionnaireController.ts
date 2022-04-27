@@ -316,10 +316,8 @@ function getNumberOfQuestions(object, list) {
   }
 
   let number = 0;
-  console.log(object)
   if (object && object.resourceType === 'QuestionnaireResponse') {
     for (let i = 0; i < itemList.length; i++) {
-      console.log(questionnaireResponseController.getAnswerType(itemList[i].answer))
       if (questionnaireResponseController.getAnswerType(itemList[i].answer) !== 'group' && questionnaireResponseController.getAnswerType(itemList[i].answer) !== 'display') {
         number++;
       }

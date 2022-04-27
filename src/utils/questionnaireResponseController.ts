@@ -352,7 +352,6 @@ function getGroupsAndItems(varitem, itemList) {
  * @param {Object} answer
  */
 export function getAnswerType(answer) {
-  console.log(answer)
   if (answer && answer.length !== 0) {
     if (answer[0].valueBoolean || answer[0].valueBoolean === false) {
       return valueTypes.BOOLEAN;

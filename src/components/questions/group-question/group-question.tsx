@@ -74,22 +74,6 @@ export class GroupQuestion {
   }
 
   /**
-   * Creates and returns a list with all display-questions in this group
-   * @returns a list with all Display-Questions in this group
-   */
-  getDisplayQuestions() {
-    let list = [];
-    let itemlist = this.question.item;
-    itemlist.forEach(item => {
-      if (item.type === 'display') {
-        list.push(item);
-      }
-    });
-    console.log('list', list);
-    return list;
-  }
-
-  /**
    * Emits new Event to give the required Question to Parent-Component
    * to be removed from the List of answered Questions
    */
@@ -109,7 +93,6 @@ export class GroupQuestion {
 
   /* Lifecycle Methods */
   async componentWillLoad(): Promise<void> {
-    // this.getDisplayQuestions();
   }
   render() {
     return (
@@ -129,7 +112,7 @@ export class GroupQuestion {
             </div>
             {/* TODO Liste mit allen Displayfragen in dieser Gruppe anzeigen */}
             <div class="qr-groupQuestion-display-container">
-              {this.getDisplayQuestions().map((question) => {
+              {this.question.displays.map((question) => {
               return (
                 <div class="qr-groupQuestion-display-text">
                   {question.text}
