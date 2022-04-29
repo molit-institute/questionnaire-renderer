@@ -77,6 +77,7 @@ export class IntegerQuestion {
    */
   @Prop() vasVertical: boolean;
   @Prop() vasShowSelectedValue: boolean;
+  @Prop() vasSelectedValueLabel: string;
   /**
    * Primary color
    */
@@ -235,6 +236,7 @@ export class IntegerQuestion {
                 variant={this.variant}
                 vasVertical={this.vasVertical}
                 vasShowSelectedValue={this.vasShowSelectedValue}
+                vasSelectedValueLabel={this.vasSelectedValueLabel}
               />
             ) : (
               <div class="qr-question-optionCard">

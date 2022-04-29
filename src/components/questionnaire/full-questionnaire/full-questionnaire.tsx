@@ -34,6 +34,7 @@ export class FullQuestionnaire {
    */
   @Prop() vasVertical: boolean;
   @Prop() vasShowSelectedValue: boolean;
+  @Prop() vasSelectedValueLabel: string;
   /**
    * Primary color
    */
@@ -170,6 +171,7 @@ export class FullQuestionnaire {
                             variant={this.variant}
                             vasVertical={this.vasVertical}
                             vasShowSelectedValue={this.vasShowSelectedValue}
+                            vasSelectedValueLabel={this.vasSelectedValueLabel}
                             enableInformalLocale={this.enableInformalLocale}
                           ></Tag>
                         </div>

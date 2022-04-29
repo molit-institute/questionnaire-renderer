@@ -20,6 +20,7 @@ export class VasQuestion {
    */
   @Prop() vasVertical: boolean = false;
   @Prop() vasShowSelectedValue: boolean = false;
+  @Prop() vasSelectedValueLabel: string = null;
 
   /* computed */
   range() {
@@ -39,28 +40,26 @@ export class VasQuestion {
 
   render() {
     console.log('====================================');
-    console.log("vasVertical: " + this.vasVertical)
-    console.log("vasShowSelectedValue: " + this.vasShowSelectedValue);
+    console.log('vasVertical: ' + this.vasVertical);
+    console.log('vasShowSelectedValue: ' + this.vasShowSelectedValue);
+    console.log("vasSelectedValueLabel: " + this.vasSelectedValueLabel);    
     console.log('====================================');
     return (
-      <div class={!this.vasVertical ? 'qr-vasQuestion-container' : 'qr-vasQuestion-container-vertical qr-vasQuestion-container'}>
+      <div class={!this.vasVertical ? 'qr-vasQuestion-container' : 'qr-vasQuestion-container qr-vasQuestion-container-vertical'}>
         {this.variant === 'touch' ? (
           <div class={!this.vasVertical ? 'qr-vasQuestion-touch-container' : 'qr-vasQuestion-touch-container-vertical qr-vasQuestion-touch-container'}>
             <div class="class qr-question-optionCard">
               <div class={!this.vasVertical ? 'qr-vasQuestion-labels' : 'qr-vasQuestion-labels qr-vasQuestion-labels-vertical'}>
                 <p class="qr-vasQuestion-lower-label">{this.labelLower}</p>
-                {this.vasShowSelectedValue && <p class="qr-vasQuestion-selected-value-display">{this.selected}</p>}
+                {this.vasShowSelectedValue && (
+                  <p class="qr-vasQuestion-selected-value-container">
+                    {this.vasSelectedValueLabel && <div class="qr-vasQuestion-selected-value-label">{this.vasSelectedValueLabel}</div>}
+                    <div class="qr-vasQuestion-selected-value-display">{this.selected}</div>
+                  </p>
+                )}
                 <p class="qr-vasQuestion-upper-label">{this.labelUpper}</p>
               </div>
-              <input
-                name="vas"
-                type="range"
-                min={this.min}
-                max={this.max}
-                step={this.step}
-                class={!this.vasVertical ? 'qr-vasQuestion-input' : 'qr-vasQuestion-input qr-vasQuestion-input-vertical'}
-                onInput={ev => this.emitHandler(ev)}
-              />
+              <input name="vas" type="range" min={this.min} max={this.max} step={this.step} class={!this.vasVertical ? 'qr-vasQuestion-input' : 'qr-vasQuestion-input qr-vasQuestion-input-vertical'} onInput={ev => this.emitHandler(ev)} />
               <div class={!this.vasVertical ? 'qr-vasQuestion-slider-ticks' : 'qr-vasQuestion-slider-ticks qr-vasQuestion-slider-ticks-vertical'}>
                 {this.range().map(n => (
                   <p>{n}</p>

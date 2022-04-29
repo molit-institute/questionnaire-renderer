@@ -166,6 +166,7 @@ export namespace Components {
         "startCount": number;
         "valueSets": Array<any>;
         "variant": any;
+        "vasSelectedValueLabel": string;
         "vasShowSelectedValue": boolean;
         /**
           * Options for Visual Analog Scale
@@ -234,6 +235,7 @@ export namespace Components {
         "startCount": number;
         "valueSets": Array<any>;
         "variant": any;
+        "vasSelectedValueLabel": string;
         "vasShowSelectedValue": boolean;
         /**
           * Options for Visual Analog Scale
@@ -272,6 +274,7 @@ export namespace Components {
          */
         "secondary": string;
         "variant": any;
+        "vasSelectedValueLabel": string;
         "vasShowSelectedValue": boolean;
         /**
           * Options for Visual Analog Scale
@@ -374,6 +377,7 @@ export namespace Components {
          */
         "valueSets": Array<any>;
         "variant": any;
+        "vasSelectedValueLabel": string;
         "vasShowSelectedValue": boolean;
         /**
           * Options for Visual Analog Scale
@@ -439,6 +443,7 @@ export namespace Components {
         "startCount": number;
         "valueSets": Array<any>;
         "variant": any;
+        "vasSelectedValueLabel": string;
         "vasShowSelectedValue": boolean;
         /**
           * Options for Visual Analog Scale
@@ -547,6 +552,7 @@ export namespace Components {
         "selected": number;
         "step": number;
         "variant": any;
+        "vasSelectedValueLabel": string;
         "vasShowSelectedValue": boolean;
         /**
           * Options for Visual Analog Scale
@@ -878,6 +884,7 @@ declare namespace LocalJSX {
         "startCount"?: number;
         "valueSets"?: Array<any>;
         "variant"?: any;
+        "vasSelectedValueLabel"?: string;
         "vasShowSelectedValue"?: boolean;
         /**
           * Options for Visual Analog Scale
@@ -963,6 +970,7 @@ declare namespace LocalJSX {
         "startCount"?: number;
         "valueSets"?: Array<any>;
         "variant"?: any;
+        "vasSelectedValueLabel"?: string;
         "vasShowSelectedValue"?: boolean;
         /**
           * Options for Visual Analog Scale
@@ -1007,6 +1015,7 @@ declare namespace LocalJSX {
          */
         "secondary"?: string;
         "variant"?: any;
+        "vasSelectedValueLabel"?: string;
         "vasShowSelectedValue"?: boolean;
         /**
           * Options for Visual Analog Scale
@@ -1121,6 +1130,7 @@ declare namespace LocalJSX {
          */
         "valueSets"?: Array<any>;
         "variant"?: any;
+        "vasSelectedValueLabel"?: string;
         "vasShowSelectedValue"?: boolean;
         /**
           * Options for Visual Analog Scale
@@ -1202,6 +1212,7 @@ declare namespace LocalJSX {
         "startCount"?: number;
         "valueSets"?: Array<any>;
         "variant"?: any;
+        "vasSelectedValueLabel"?: string;
         "vasShowSelectedValue"?: boolean;
         /**
           * Options for Visual Analog Scale
@@ -1328,6 +1339,7 @@ declare namespace LocalJSX {
         "selected"?: number;
         "step"?: number;
         "variant"?: any;
+        "vasSelectedValueLabel"?: string;
         "vasShowSelectedValue"?: boolean;
         /**
           * Options for Visual Analog Scale

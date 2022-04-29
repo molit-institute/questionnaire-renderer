@@ -71,6 +71,7 @@ export class StepperQuestionnaire {
    */
   @Prop() vasVertical: boolean;
   @Prop() vasShowSelectedValue: boolean;
+  @Prop() vasSelectedValueLabel: string;
   /**
    * Primary color
    */
@@ -382,6 +383,7 @@ export class StepperQuestionnaire {
               enableInformalLocale = {this.enableInformalLocale}
               vasVertical={this.vasVertical}
               vasShowSelectedValue={this.vasShowSelectedValue}
+              vasSelectedValueLabel={this.vasSelectedValueLabel}
               ></Tag>
           </div>
         ) : null}

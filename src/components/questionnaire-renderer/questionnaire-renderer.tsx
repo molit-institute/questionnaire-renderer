@@ -142,6 +142,7 @@ export class QuestionnaireRenderer {
    */
   @Prop() vasVertical: boolean = false;
   @Prop() vasShowSelectedValue: boolean = false;
+  @Prop() vasSelectedValueLabel: string = null;
 
   @Prop() summaryText: string = null;
   @Prop() informationPageText: string = null;
@@ -754,6 +755,7 @@ export class QuestionnaireRenderer {
               enableInformalLocale={this.enableInformalLocale}
               vasVertical={this.vasVertical}
               vasShowSelectedValue={this.vasShowSelectedValue}
+              vasSelectedValueLabel={this.vasSelectedValueLabel}
               onSummary={() => this.backToSummary()}
               onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
               onReturn={() => this.leaveQuestionnaireRenderer()}
