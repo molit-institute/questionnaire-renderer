@@ -308,6 +308,21 @@ export class QuestionnaireSummary {
   buttonOkSummary() {
     this.closeSummary.emit('closeSummary');
   }
+
+  checkIfGroupQuestion(item){
+    console.log(this.questionnaire)
+    let list = questionnaireResponseController.createItemList(this.questionnaire)
+    for(let i = 0; i < list.length;i++){
+      if(item.linkId === list[i].linkId){
+        if(list[i].groupId){
+          return true;
+        }else{
+          return false;
+        }
+      }
+    }
+    return false;
+  }
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
@@ -341,7 +356,7 @@ export class QuestionnaireSummary {
               <div class="qr-summary-items">
                 {this.getItemList(this.questionnaireResponse).map(item =>
                   item.hasOwnProperty('extension') ? null : (
-                    <div class="qr-summary-item">
+                    <div class={!this.checkIfGroupQuestion(item) ? 'qr-summary-item ' : 'qr-summary-group-item'}>
                       <div class="qr-summary-item-prefix">
                         {!item.item ? this.strings.question : this.strings.group} {this.getPrefix(item.linkId)}{' '}
                       </div>

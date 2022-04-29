@@ -1,7 +1,8 @@
 import { Component, h, Prop, Watch, State, Element } from '@stencil/core';
 
 import { getLocaleComponentStrings } from '../../../utils/locale';
-import {markdownToHtml} from '../../../utils/markdown'
+import { markdownToHtml } from '../../../utils/markdown';
+import marked from 'marked';
 
 @Component({
   tag: 'display-question',
@@ -15,7 +16,7 @@ export class DisplayQuestion {
   @Prop() variant: any = null;
   @Prop() question: any;
   @Prop() mode: string;
-  @Prop() enableInformalLocale: boolean; 
+  @Prop() enableInformalLocale: boolean;
 
   /**
    * Language property of the component. </br>
@@ -24,15 +25,11 @@ export class DisplayQuestion {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-
     this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
 
-  markdown(text) {
-    if (!text ) {
-      return "";
-    }
-    return markdownToHtml(text);
+  parseTextFromMarkdown(text){
+    document.getElementById('text').innerHTML= markdownToHtml("huhu <br> <u>tach</u>",false);
   }
   /* Lifecycle Methods */
 
@@ -44,11 +41,19 @@ export class DisplayQuestion {
     }
   }
 
+  componentDidLoad(){
+    this.parseTextFromMarkdown("- test _marked_  huhu")
+  }
+
   render() {
     return (
       <div class="display">
-        <h5 class=""><span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
-          <span class="qr-question-text">{this.question.text}</span></h5>
+        {/* <h5 class=""> */}
+          <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
+          {/* <span class="qr-question-text">{markdownToHtml(this.question.text)}</span> */}
+          <span id="text"class="qr-question-text"></span>
+          
+        {/* </h5> */}
       </div>
     );
   }

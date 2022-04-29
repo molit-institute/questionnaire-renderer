@@ -18,15 +18,16 @@ const enableQuestionnaire = {
   date: '2017-08-23T00:00:00+02:00',
   subjectType: ['Patient'],
   item: [
+    { linkId: 'bla', text: 'test display', type: 'display' },
     {
       linkId: '1',
       prefix: '1',
       text: 'Geben sie bitte ihre Lieblingszahl ein',
-      required: true,
+      // required: true,
       type: 'integer',
     },
     {
-      linkId:'123',
+      linkId: '123',
       prefix: '123',
       text: 'Group text',
       type: 'group',
@@ -49,7 +50,7 @@ const enableQuestionnaire = {
           text: 'Dies ist eine Display-Frage 2',
           type: 'display',
         },
-      ]
+      ],
     },
     {
       linkId: '1.2',
@@ -149,9 +150,9 @@ const enableQuestionnaire = {
           linkId: '2.1',
           prefix: '2.1',
           text: 'Enable when display',
-          type: 'display'
-        }
-      ]
+          type: 'display',
+        },
+      ],
     },
     //     {
     //       linkId: '2.2',
