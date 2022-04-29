@@ -27,6 +27,8 @@
     "@molit/fhir-api": "^1.0.35",
     "@molit/fhir-util": "^1.0.22",
     "@stencil/core": "^2.14.2",
+    "dompurify": "^2.3.6",
+    "marked": "^4.0.14",
     "moment": "^2.29.1"
   },
   "license": "Apache-2.0",

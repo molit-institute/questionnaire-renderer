@@ -25,7 +25,7 @@ export class QuestionnaireRenderer {
   async watchCurrentQuestionnaireResponse() {
     await this.filterItemList();
     this.handleAnsweredQuestionsList();
-    this.updated.emit(this.currentQuestionnaireResponse);
+    this.updated.emit(this.filterQuestionnaireResponse());
   }
   @State() spinner: Object = {
     loading: true,
@@ -221,6 +221,7 @@ export class QuestionnaireRenderer {
   /* methods */
   filterQuestionnaireResponse() {
     let filteredQuestionnaireResponse = cloneDeep(this.currentQuestionnaireResponse);
+    questionnaireResponseController.removeQuestionnaireResponseDisplayQuestions(filteredQuestionnaireResponse.item)
     this.filterQuestionnaireResponseItems(this.filteredItemList, filteredQuestionnaireResponse.item);
     return filteredQuestionnaireResponse;
   }
@@ -432,7 +433,6 @@ export class QuestionnaireRenderer {
         }
       }
       await this.removeGroupedDisplayQuestions(this.currentQuestionnaire.item);
-      console.log(this.currentQuestionnaire)
     } else if (this.questionnaireUrl) {
       try {
         this.currentQuestionnaire = await fhirApi.fetchByUrl(this.questionnaireUrl, null, this.token, this.basicAuth);
@@ -456,7 +456,7 @@ export class QuestionnaireRenderer {
    * Removes questions of the type "display" from the list. Does not remove display-questions containing a groupId  
    */
   async removeGroupedDisplayQuestions(list){
-    await list.reduceRight((acc,question,index,object) => {
+    await list.reduceRight((_acc,question,index,object) => {
       if(question.type === "display" && question.groupId){
         object.splice(index,1)
       }
@@ -711,7 +711,7 @@ export class QuestionnaireRenderer {
       this.show_questionnaire = false;
       this.show_informationPage = true;
     } else {
-      this.exit.emit(this.currentQuestionnaireResponse);
+      this.exit.emit(this.filterQuestionnaireResponse());
     }
   }
 

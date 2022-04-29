@@ -14,6 +14,7 @@
 | `informationPageText`  | --                       |                                                                            | `String`  | `''`        |
 | `locale`               | `locale`                 | Language property of the component. </br> Currently suported: [de, en, es] | `string`  | `'en'`      |
 | `questionnaire`        | `questionnaire`          |                                                                            | `any`     | `null`      |
+| `trademarkText`        | `trademark-text`         |                                                                            | `string`  | `null`      |
 
 
 ## Events

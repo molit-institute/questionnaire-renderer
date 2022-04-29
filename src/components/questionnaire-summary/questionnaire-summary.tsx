@@ -6,6 +6,7 @@ import { getLocaleComponentStrings } from '../../utils/locale';
 import questionnaireResponseController from '../../utils/questionnaireResponseController';
 import * as fhirApi from '@molit/fhir-api';
 import questionnaireController from '../../utils/questionnaireController';
+import { cloneDeep } from 'lodash';
 
 @Component({
   tag: 'questionnaire-summary',
@@ -42,7 +43,7 @@ export class QuestionnaireSummary {
   @Prop() showSummaryRemarks: boolean;
   @Prop() enableSendQuestionnaireResponse: boolean;
   @Prop() enableInformalLocale: boolean;
-  @Prop() trademarkText: string=null;
+  @Prop() trademarkText: string = null;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -206,6 +207,22 @@ export class QuestionnaireSummary {
   }
 
   /**
+   *
+   * @param item
+   * @returns
+   */
+  getGroupDisplayQuestionsFromQuestionnaire(item) {
+    let displays = [];
+    let itemList = questionnaireResponseController.createItemList(this.questionnaire);
+    for (let i = 0; i < itemList.length; i++) {
+      if (itemList && itemList[i].linkId === item.linkId) {
+        displays = itemList[i].displays;
+      }
+    }
+    return displays;
+  }
+
+  /**
    * Returns the count of all questions that contain answers
    * @returns
    */
@@ -222,6 +239,24 @@ export class QuestionnaireSummary {
     return number;
   }
 
+  /**
+   * Adds answers with type display to the questionnaireResponse
+   */
+  async addDisplaysToQuestionnaireResponse(){
+    let itemList = this.questionnaire.item;
+    let questRespList = this.questionnaireResponse.item
+    for(let i=0;i < itemList.length; i++ ){
+      if(itemList[i].type === "display"){
+        let idBefore = itemList[i-1].linkId
+        await questRespList.reduceRight((_acc,answer,index,object) => {
+          if(answer.linkId===idBefore){
+            object.splice(index+1,0,{linkId:itemList[i].linkId,text:itemList[i].text,answer:[],type:"display"})
+          }
+        }, []);
+      }
+    }
+  }
+
   @Event() finishQuestionnaire: EventEmitter;
   @Event() finishTask: EventEmitter;
   @Event() error: EventEmitter;
@@ -229,10 +264,12 @@ export class QuestionnaireSummary {
     if (this.questionnaireResponse) {
       this.spinner = { ...this.spinner, loading: true };
       this.spinner = { ...this.spinner, message: this.strings.summary.saveQuestionnaire };
-      let questResp = this.questionnaireResponse;
+      this.questionnaireResponse.status = 'completed';
+      let questResp = cloneDeep(this.questionnaireResponse);
       let task = this.task;
 
-      questResp.status = 'completed';
+      questionnaireResponseController.removeQuestionnaireResponseDisplayQuestions(questResp.item);
+      
       // Handle QuestionnaireResponse
       if (this.baseUrl && this.enableSendQuestionnaireResponse) {
         try {
@@ -276,6 +313,7 @@ export class QuestionnaireSummary {
   async componentWillLoad(): Promise<void> {
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
+      this.addDisplaysToQuestionnaireResponse();
       // this.itemList = questionnaireResponseController.createItemList(this.questionnaireResponse);
     } catch (e) {
       console.error(e);
@@ -289,7 +327,7 @@ export class QuestionnaireSummary {
 
         <div class="qr-summary-content">
           <div class="qr-summary-answeredQuestions">
-            {this.strings.summary.youHave} {this.countAnsweredQuestions()} {this.strings.of} {questionnaireController.getNumberOfQuestions(this.questionnaireResponse,null)} {this.strings.summary.questionsAnswered}
+            {this.strings.summary.youHave} {this.countAnsweredQuestions()} {this.strings.of} {questionnaireController.getNumberOfQuestions(this.questionnaireResponse, null)} {this.strings.summary.questionsAnswered}
           </div>
           <div class="qr-summary-information">{this.summary_text}</div>
           {this.spinner.loading ? (
@@ -302,20 +340,26 @@ export class QuestionnaireSummary {
             <div>
               <div class="qr-summary-items">
                 {this.getItemList(this.questionnaireResponse).map(item =>
-                  item.hasOwnProperty('extension') && item.type === 'display' ? null : (
+                  item.hasOwnProperty('extension') ? null : (
                     <div class="qr-summary-item">
                       <div class="qr-summary-item-prefix">
                         {!item.item ? this.strings.question : this.strings.group} {this.getPrefix(item.linkId)}{' '}
                       </div>
                       <div class="qr-summary-item-text">{item.text}</div>
+                      {item && item.item ? (
+                        <div class="qr-summary-group-container">
+                          {this.getGroupDisplayQuestionsFromQuestionnaire(item).map(display => {
+                            return <div class="qr-summary-display-text">{display.text}</div>;
+                          })}
+                        </div>
+                      ) : null}
                       <div>
-                        {item && !item.item ? (
+                        {item && !item.item && item.type !== 'display' ? (
                           <div>
                             <span class="qr-summary-item-yourAnswer">{this.strings.summary.yourAnswer}:&nbsp;</span>
                             <span class="qr-summary-item-answer">{this.getAnswer(item)} &nbsp;</span>
-                            
-                            {item.type}
-                            {this.editable && item.type !== 'group' && item.type !== 'display' ? (
+
+                            {this.editable && item.type !== 'group'  ? (
                               <span style={{ cursor: 'pointer' }} class="qr-summary-item-editIcon" onClick={() => this.editSelectedQuestion(item)}>
                                 <svg class="material-design-icon__svg" style={{ width: '30px', height: '30px' }} viewBox="0 0 24 24">
                                   <path fill="#000000" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"></path>
@@ -367,11 +411,7 @@ export class QuestionnaireSummary {
             </div>
           )}
         </div>
-        {this.trademarkText ? (
-          <div class="qr-summary-trademark">
-            {this.trademarkText}
-          </div>
-        ):null}
+        {this.trademarkText ? <div class="qr-summary-trademark">{this.trademarkText}</div> : null}
       </div>
     );
   }

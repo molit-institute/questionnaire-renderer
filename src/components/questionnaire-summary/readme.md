@@ -24,6 +24,7 @@
 | `summary_text`                    | `summary_text`                       |                                                                            | `string`  | `undefined` |
 | `task`                            | `task`                               |                                                                            | `any`     | `undefined` |
 | `token`                           | `token`                              |                                                                            | `string`  | `undefined` |
+| `trademarkText`                   | `trademark-text`                     |                                                                            | `string`  | `null`      |
 
 
 ## Events

@@ -54,6 +54,22 @@ export function createQuestionnaireResponse(questionnaire, subject) {
 
 //#endregion
 
+//#region HANDLING DISPLAY-QUESTIONS
+/**
+   * Removes questions of the type "display" from the list.
+   */
+ async function removeQuestionnaireResponseDisplayQuestions(list){
+  await list.reduceRight((_acc,question,index,object) => {
+    if(question.type === "display"){
+      object.splice(index,1)
+    }
+    if(question.item && question.item.length !== 0){
+      this.removeQuestionnaireResponseDisplayQuestions(question.item)
+    }
+  }, []);
+}
+//#endregion
+
 //#region HANDLING QUESTIONNAIRE ITEM TO RESPONSE ITEM
 
 /**
@@ -66,7 +82,7 @@ function createItemArray(questionnaireItem) {
   for (let i = 0; i < questionnaireItem.length; i++) {
     if (questionnaireItem[i].type === `group`) {
       itemList.push(createGroupItem(questionnaireItem[i]));
-    } else {
+    } else if(questionnaireItem[i].type !=="display") {
       itemList.push(createQuestionItem(questionnaireItem[i]));
     }
   }
@@ -393,4 +409,5 @@ export default {
   getAnswersFromQuestionnaireResponse,
   createItemList,
   getAnswerType,
+  removeQuestionnaireResponseDisplayQuestions
 };

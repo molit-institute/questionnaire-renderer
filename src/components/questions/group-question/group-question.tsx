@@ -92,8 +92,7 @@ export class GroupQuestion {
   }
 
   /* Lifecycle Methods */
-  async componentWillLoad(): Promise<void> {
-  }
+  async componentWillLoad(): Promise<void> {}
   render() {
     return (
       <div class="qr-question-container">
@@ -112,15 +111,10 @@ export class GroupQuestion {
             </div>
             {/* TODO Liste mit allen Displayfragen in dieser Gruppe anzeigen */}
             <div class="qr-groupQuestion-display-container">
-              {this.question.displays.map((question) => {
-              return (
-                <div class="qr-groupQuestion-display-text">
-                  {question.text}
-                </div>
-              );
-            })}
+              {this.question.displays.map(question => {
+                return <div class="qr-groupQuestion-display-text">{question.text}</div>;
+              })}
             </div>
-            
           </div>
         ) : (
           <div>

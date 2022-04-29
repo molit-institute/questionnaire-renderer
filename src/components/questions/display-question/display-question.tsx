@@ -1,6 +1,7 @@
 import { Component, h, Prop, Watch, State, Element } from '@stencil/core';
 
 import { getLocaleComponentStrings } from '../../../utils/locale';
+import {markdownToHtml} from '../../../utils/markdown'
 
 @Component({
   tag: 'display-question',
@@ -27,6 +28,12 @@ export class DisplayQuestion {
     this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
 
+  markdown(text) {
+    if (!text ) {
+      return "";
+    }
+    return markdownToHtml(text);
+  }
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
