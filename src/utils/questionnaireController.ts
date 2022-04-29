@@ -89,15 +89,19 @@ function getReferenceOptions(questionnaire, reference) {
 async function getValueSetOptions(reference, valueSets) {
   let valueSet = null;
   for (let i = 0; i < valueSets.length; i++) {
-    let valueSetUrl = valueSets[i].url;
+    let valueSetUrl = null;
+    if(valueSets[i].valueSet.url){
+      valueSetUrl = valueSets[i].valueSet.url;
+    }else{
+      valueSetUrl = valueSets[i].reference;
+    }
     if (reference === valueSetUrl) {
-      valueSet = valueSets[i];
+      valueSet = valueSets[i].valueSet;
     }
   }
   if (valueSet && valueSet.expansion && valueSet.expansion.contains) {
     return await valueSet.expansion.contains;
-  }
-  if (valueSet && valueSet.compose && valueSet.compose.include) {
+  } else if (valueSet && valueSet.compose && valueSet.compose.include) {
     //TODO how to handle multiple includes?
     return valueSet.compose.include[0].concept;
   }

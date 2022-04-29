@@ -41,6 +41,7 @@ export class QuestionnaireSummary {
   @Prop() showSummaryRemarks: boolean;
   @Prop() enableSendQuestionnaireResponse: boolean;
   @Prop() enableInformalLocale: boolean;
+  @Prop() trademarkText: string=null;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -101,7 +102,7 @@ export class QuestionnaireSummary {
   }
 
   /**
-   *
+   * Returns true if question has the type "display"
    * @param linkId
    * @returns
    */
@@ -138,14 +139,14 @@ export class QuestionnaireSummary {
   }
 
   /**
-   * Returns the answer of of the given question if it contains any. If question.asnwer contains no answers
+   * Returns the answer of the given question if it contains any. If question.answer contains no answers
    * @param question
    * @returns
    */
   getAnswer(question) {
     let answer = null;
     if (question.answer) {
-      if (!this.checkIfDisplay(question.linkId) && question.answer.length === 0 && !question.item && !question.answer[0]) {
+      if (this.checkIfDisplay(question.linkId) && question.answer.length === 0 && !question.item && !question.answer[0]) {
         answer = this.strings.summary.noAnswer;
         return answer;
       } else {
@@ -248,7 +249,6 @@ export class QuestionnaireSummary {
       // Handle QuestionnaireResponse
       if (this.baseUrl && this.enableSendQuestionnaireResponse) {
         try {
-          // console.log('SummaryPage', this.baseUrl, questResp, this.token, this.basicAuth);
           let output = await fhirApi.submitResource(this.baseUrl, questResp, this.token, this.basicAuth);
           console.info('Questionnaire Response ID: ' + output.data.id, 'Url: ' + output.config.url + '/' + output.data.id);
         } catch (e) {
@@ -379,6 +379,11 @@ export class QuestionnaireSummary {
             </div>
           )}
         </div>
+        {this.trademarkText ? (
+          <div class="qr-summary-trademark">
+            {this.trademarkText}
+          </div>
+        ):null}
       </div>
     );
   }

@@ -378,7 +378,9 @@ export function getAnswerType(answers) {
     } else {
       return 'notype';
     }
-  } else {
+  }else if(answers && answers.length === 0){
+    return 'notype';
+  }else {
     throw new Error('Getting the AnswerType failed because the given answer object was null or undefined');
   }
 }

@@ -150,6 +150,9 @@ export class QuestionnaireRenderer {
   @Prop() enableSendQuestionnaireResponse: boolean = true;
   @Prop() enableInformalLocale: boolean = false;
   @Prop() enableInformationPage: boolean = false;
+  @Prop() trademarkText: string = null;
+  @Prop() enableGroupDescription: boolean = true;
+  @Prop() enableExpand: boolean=true;
   /**
    * Primary color
    */
@@ -578,13 +581,13 @@ export class QuestionnaireRenderer {
       this.currentValueSets.push(this.valueSets);
       if (missingReferences.length !== 0) {
         if (this.baseUrl) {
-          this.currentValueSets.concat(await valueSetController.getValueSetsWithReferences(this.baseUrl, missingReferences, this.token, this.basicAuth));
+          this.currentValueSets.concat(await valueSetController.getValueSetsWithReferences(this.baseUrl, missingReferences, this.token, this.basicAuth, this.enableExpand));
         }
       }
     } else {
       try {
         // if (this.currentQuestionnaire && this.baseUrl) {
-        this.currentValueSets = await valueSetController.getNewValueSets([this.currentQuestionnaire], this.baseUrl, this.token, this.basicAuth);
+        this.currentValueSets = await valueSetController.getNewValueSets([this.currentQuestionnaire], this.baseUrl, this.token, this.basicAuth, this.enableExpand);
         // }
       } catch (error) {
         // console.error(error);
@@ -756,6 +759,8 @@ export class QuestionnaireRenderer {
               vasVertical={this.vasVertical}
               vasShowSelectedValue={this.vasShowSelectedValue}
               vasSelectedValueLabel={this.vasSelectedValueLabel}
+              trademarkText={this.trademarkText}
+              enableGroupDescription = {this.enableGroupDescription}
               onSummary={() => this.backToSummary()}
               onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
               onReturn={() => this.leaveQuestionnaireRenderer()}
@@ -800,6 +805,7 @@ export class QuestionnaireRenderer {
               showSummaryRemarks={this.showSummaryRemarks}
               enableSendQuestionnaireResponse={this.enableSendQuestionnaireResponse}
               enableInformalLocale={this.enableInformalLocale}
+              trademarkText={this.trademarkText}
             ></questionnaire-summary>
           </div>
         ) : null}
@@ -812,6 +818,7 @@ export class QuestionnaireRenderer {
               enableInformalLocale={this.enableInformalLocale}
               locale={this.locale}
               onStartQuestionnaire={() => this.toQuestionnaire(false)}
+              trademarkText={this.trademarkText}
             ></information-page>
           </div>
         ) : null}

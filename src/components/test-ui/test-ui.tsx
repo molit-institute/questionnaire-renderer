@@ -5,6 +5,7 @@ import enableQuestionnaire from '../../assets/fhir/resources/questionnaire-lang-
 import everyTypeQuestionnaire from '../../assets/fhir/resources/questionnaire-every-type.js';
 import repeatedQuestionnaire from '../../assets/fhir/resources/questionnaire-repeat.js';
 import qlq_c30 from '../../assets/fhir/resources/qlq-c30.js';
+import q_5d_5l from '../../assets/fhir/resources/5q-5d-5l.js';
 // import qlq30_response from '../../assets/fhir/resources/qlq30_response.js';
 
 @Component({
@@ -25,7 +26,7 @@ export class TestUi {
   indexQuestion: Object = null;
   baseUrl: string = 'https://fhir.molit.eu/fhir';
   questionnaire: any = null;
-  questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30];
+  questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30, q_5d_5l];
 
   /* computed */
   examplePatient() {
@@ -123,8 +124,9 @@ export class TestUi {
               // onFinished={event => this.toSummary(event)}
               // onUpdated={event => this.updateQR(event)}
               // onExit={() => this.toQuestionnaireList()}
-              enableInformationPage={true}
-              informationPageText="Test InformationPageText"
+              trademarkText='Dont copy meeeeee'
+              enableInformationPage = {true}
+              informationPageText ="Test InformationPageText"
               questionnaireResponse={this.questionnaireResponse}
               questionnaire={this.questionnaire}
               baseUrl={this.baseUrl}
@@ -139,8 +141,10 @@ export class TestUi {
               enableReturn={false}
               enableNext={true}
               variant={this.questionnaireVariant}
-              enableInformalLocale={true}
-              showOnlySummary={false}
+              enableInformalLocale= {true}
+              showOnlySummary= {false}
+              enableExpand={true}
+              enableGroupDescription={false}
               summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
               vasVertical={true}
               vasShowSelectedValue={true}

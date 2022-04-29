@@ -92,7 +92,9 @@ export class StepperQuestionnaire {
   @Prop() enableReturn: boolean = true;
   @Prop() enableNext: boolean = true;
   @Prop() spinner: any;
-  @Prop() enableInformalLocale: boolean; 
+  @Prop() enableInformalLocale: boolean;
+  @Prop() trademarkText: string = null;
+  @Prop() enableGroupDescription: boolean;
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
@@ -173,7 +175,7 @@ export class StepperQuestionnaire {
   numberOfQuestions() {
     let number = 0;
     for (let i = 0; i < this.filteredItemList.length; i++) {
-      if (this.filteredItemList[i].type !== 'group') {
+      if (this.filteredItemList[i].type !== 'group' || this.filteredItemList[i].type !== 'display') {
         number++;
       }
     }
@@ -207,7 +209,7 @@ export class StepperQuestionnaire {
   getQuestionPositionNumber() {
     let positionnumber = 1;
     for (let i = 0; i < this.count; i++) {
-      if (this.filteredItemList[i].type !== 'group') {
+      if (this.filteredItemList[i].type !== 'group' || this.filteredItemList[i].type !== 'display' ) {
         positionnumber++;
       }
     }
@@ -289,7 +291,7 @@ export class StepperQuestionnaire {
    *
    */
   isGroupQuestion() {
-    return this.filteredItemList[this.count].type === "group";
+    return this.filteredItemList[this.count].type === 'group';
   }
 
   /* Lifecycle Methods */
@@ -365,7 +367,7 @@ export class StepperQuestionnaire {
         <br />
         {!this.spinner.loading && this.count !== null && this.filteredItemList ? (
           <div class="qr-stepperQuestionnaire-questions">
-            {this.getQuestion().groupId && !this.getQuestion().item ? <div class="qr-stepperQuestionnaire-group-text">{this.getGroupText(this.getQuestion())}</div> : null}
+            {this.enableGroupDescription ? <span>{this.getQuestion().groupId && !this.getQuestion().item ? <div class="qr-stepperQuestionnaire-group-text">{this.getGroupText(this.getQuestion())}</div> : null}</span> : null}
             <Tag
               key={this.getQuestion().id}
               question={this.getQuestion()}
@@ -384,7 +386,6 @@ export class StepperQuestionnaire {
               vasVertical={this.vasVertical}
               vasShowSelectedValue={this.vasShowSelectedValue}
               vasSelectedValueLabel={this.vasSelectedValueLabel}
-              ></Tag>
           </div>
         ) : null}
         {!this.spinner.loading ? <div class="qr-stepperQuestionnaire-spacer"></div> : null}
@@ -422,7 +423,7 @@ export class StepperQuestionnaire {
             </span>
           </div>
         ) : null}
-        {/* // </div> */}
+        {this.trademarkText ? <div class="qr-stepperQuestionnaire-trademark">{this.trademarkText}</div> : null}
       </div>
     );
   }

@@ -251,6 +251,7 @@ export namespace Components {
          */
         "locale": string;
         "questionnaire": any;
+        "trademarkText": string;
     }
     interface IntegerQuestion {
         /**
@@ -298,10 +299,12 @@ export namespace Components {
           * If true the render will show the button to exit the renderer
          */
         "editMode": boolean;
+        "enableExpand": boolean;
         /**
           * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
          */
         "enableFullQuestionnaireResponse": boolean;
+        "enableGroupDescription": boolean;
         "enableInformalLocale": boolean;
         "enableInformationPage": boolean;
         /**
@@ -372,6 +375,7 @@ export namespace Components {
           * A token that can be send with server-requests
          */
         "token": string;
+        "trademarkText": string;
         /**
           * List of ValueSets that are needed to display the given questionnaire
          */
@@ -406,6 +410,7 @@ export namespace Components {
         "summary_text": string;
         "task": any;
         "token": string;
+        "trademarkText": string;
     }
     interface SimpleSpinner {
         "borderTopColor": string;
@@ -418,6 +423,7 @@ export namespace Components {
          */
         "danger": string;
         "editMode": boolean;
+        "enableGroupDescription": boolean;
         "enableInformalLocale": boolean;
         "enableNext": boolean;
         "enableReturn": boolean;
@@ -441,6 +447,7 @@ export namespace Components {
         "secondary": string;
         "spinner": any;
         "startCount": number;
+        "trademarkText": string;
         "valueSets": Array<any>;
         "variant": any;
         "vasSelectedValueLabel": string;
@@ -987,6 +994,7 @@ declare namespace LocalJSX {
         "locale"?: string;
         "onStartQuestionnaire"?: (event: CustomEvent<any>) => void;
         "questionnaire"?: any;
+        "trademarkText"?: string;
     }
     interface IntegerQuestion {
         /**
@@ -1039,10 +1047,12 @@ declare namespace LocalJSX {
           * If true the render will show the button to exit the renderer
          */
         "editMode"?: boolean;
+        "enableExpand"?: boolean;
         /**
           * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
          */
         "enableFullQuestionnaireResponse"?: boolean;
+        "enableGroupDescription"?: boolean;
         "enableInformalLocale"?: boolean;
         "enableInformationPage"?: boolean;
         /**
@@ -1125,6 +1135,7 @@ declare namespace LocalJSX {
           * A token that can be send with server-requests
          */
         "token"?: string;
+        "trademarkText"?: string;
         /**
           * List of ValueSets that are needed to display the given questionnaire
          */
@@ -1172,6 +1183,7 @@ declare namespace LocalJSX {
         "summary_text"?: string;
         "task"?: any;
         "token"?: string;
+        "trademarkText"?: string;
     }
     interface SimpleSpinner {
         "borderTopColor"?: string;
@@ -1184,6 +1196,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         "editMode"?: boolean;
+        "enableGroupDescription"?: boolean;
         "enableInformalLocale"?: boolean;
         "enableNext"?: boolean;
         "enableReturn"?: boolean;
@@ -1210,6 +1223,7 @@ declare namespace LocalJSX {
         "secondary"?: string;
         "spinner"?: any;
         "startCount"?: number;
+        "trademarkText"?: string;
         "valueSets"?: Array<any>;
         "variant"?: any;
         "vasSelectedValueLabel"?: string;
