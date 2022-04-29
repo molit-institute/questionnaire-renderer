@@ -316,15 +316,18 @@ function getNumberOfQuestions(object, list) {
   }
 
   let number = 0;
+  console.log("getNumberOfQuestions",itemList)
   if (object && object.resourceType === 'QuestionnaireResponse') {
     for (let i = 0; i < itemList.length; i++) {
-      if (questionnaireResponseController.getAnswerType(itemList[i].answer) !== 'group' && questionnaireResponseController.getAnswerType(itemList[i].answer) !== 'display') {
+      if (!itemList[i].item && !itemList[i].type) {
+        console.log("response",itemList[i])
         number++;
       }
     }
   } else {
     for (let i = 0; i < itemList.length; i++) {
       if (itemList[i].type !== 'group' && itemList[i].type !== 'display') {
+        console.log("questionnaire",itemList[i])
         number++;
       }
     }
