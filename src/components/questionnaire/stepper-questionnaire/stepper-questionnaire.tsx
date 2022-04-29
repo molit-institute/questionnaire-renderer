@@ -386,6 +386,7 @@ export class StepperQuestionnaire {
               vasVertical={this.vasVertical}
               vasShowSelectedValue={this.vasShowSelectedValue}
               vasSelectedValueLabel={this.vasSelectedValueLabel}
+              ></Tag>
           </div>
         ) : null}
         {!this.spinner.loading ? <div class="qr-stepperQuestionnaire-spacer"></div> : null}
