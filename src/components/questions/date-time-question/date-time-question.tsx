@@ -5,6 +5,7 @@ import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '
 import questionnaireResponseController from '../../../utils/questionnaireResponseController';
 import { getLocaleComponentStrings } from '../../../utils/locale';
 import moment from 'moment';
+import { textToHtml } from '../../../utils/textToHtml';
 
 @Component({
   tag: 'date-time-question',
@@ -165,7 +166,7 @@ export class DateTimeQuestion {
               <div class="qr-question-title">
                 <div class={this.reset ? 'qr-question-hidden' : ''}>
                   <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
-                  <span class="qr-question-text">{this.question.text}</span>
+                  <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
                 </div>
               </div>
               <div class="qr-question-mandatoryQuestion">

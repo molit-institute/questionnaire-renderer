@@ -126,7 +126,7 @@ export class TestUi {
               // onExit={() => this.toQuestionnaireList()}
               trademarkText='Dont copy meeeeee'
               enableInformationPage = {true}
-              informationPageText ="Test InformationPageText"
+              informationPageText ="<u>Test</u> Information <br> PageText"
               questionnaireResponse={this.questionnaireResponse}
               questionnaire={this.questionnaire}
               baseUrl={this.baseUrl}

@@ -24,6 +24,7 @@
 | `summary_text`                    | `summary_text`                       |                                                                            | `string`  | `undefined` |
 | `task`                            | `task`                               |                                                                            | `any`     | `undefined` |
 | `token`                           | `token`                              |                                                                            | `string`  | `undefined` |
+| `trademarkText`                   | `trademark-text`                     |                                                                            | `string`  | `null`      |
 
 
 ## Events
@@ -48,11 +49,13 @@
 ### Depends on
 
 - [simple-spinner](../ui/simple-spinner)
+- [display-question](../questions/display-question)
 
 ### Graph
 ```mermaid
 graph TD;
   questionnaire-summary --> simple-spinner
+  questionnaire-summary --> display-question
   questionnaire-renderer --> questionnaire-summary
   style questionnaire-summary fill:#f9f,stroke:#333,stroke-width:4px
 ```

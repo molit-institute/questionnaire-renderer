@@ -12,6 +12,7 @@
 | `baseUrl`                    | `base-url`                 |                                                                            | `string`  | `undefined` |
 | `danger`                     | `danger`                   | Color used to symbolise danger                                             | `string`  | `undefined` |
 | `editMode`                   | `edit-mode`                |                                                                            | `boolean` | `false`     |
+| `enableGroupDescription`     | `enable-group-description` |                                                                            | `boolean` | `undefined` |
 | `enableInformalLocale`       | `enable-informal-locale`   |                                                                            | `boolean` | `undefined` |
 | `enableNext`                 | `enable-next`              |                                                                            | `boolean` | `true`      |
 | `enableReturn`               | `enable-return`            |                                                                            | `boolean` | `true`      |
@@ -26,6 +27,7 @@
 | `secondary`                  | `secondary`                | Secondary color                                                            | `string`  | `undefined` |
 | `spinner`                    | `spinner`                  |                                                                            | `any`     | `undefined` |
 | `startCount`                 | `start-count`              |                                                                            | `number`  | `undefined` |
+| `trademarkText`              | `trademark-text`           |                                                                            | `string`  | `null`      |
 | `valueSets`                  | --                         |                                                                            | `any[]`   | `undefined` |
 | `variant`                    | `variant`                  |                                                                            | `any`     | `null`      |
 | `vasSelectedValueLabel`      | `vas-selected-value-label` |                                                                            | `string`  | `undefined` |

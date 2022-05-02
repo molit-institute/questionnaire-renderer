@@ -54,6 +54,22 @@ export function createQuestionnaireResponse(questionnaire, subject) {
 
 //#endregion
 
+//#region HANDLING DISPLAY-QUESTIONS
+/**
+   * Removes questions of the type "display" from the list.
+   */
+ async function removeQuestionnaireResponseDisplayQuestions(list){
+  await list.reduceRight((_acc,question,index,object) => {
+    if(question.type === "display"){
+      object.splice(index,1)
+    }
+    if(question.item && question.item.length !== 0){
+      this.removeQuestionnaireResponseDisplayQuestions(question.item)
+    }
+  }, []);
+}
+//#endregion
+
 //#region HANDLING QUESTIONNAIRE ITEM TO RESPONSE ITEM
 
 /**
@@ -66,7 +82,7 @@ function createItemArray(questionnaireItem) {
   for (let i = 0; i < questionnaireItem.length; i++) {
     if (questionnaireItem[i].type === `group`) {
       itemList.push(createGroupItem(questionnaireItem[i]));
-    } else {
+    } else if(questionnaireItem[i].type !=="display") {
       itemList.push(createQuestionItem(questionnaireItem[i]));
     }
   }
@@ -349,36 +365,36 @@ function getGroupsAndItems(varitem, itemList) {
 /**
  *Takes the given answers and returns the type
  *
- * @param {Object} answers
+ * @param {Object} answer
  */
-export function getAnswerType(answers) {
-  if (answers && answers.length !== 0) {
-    if (answers[0].valueBoolean || answers[0].valueBoolean === false) {
+export function getAnswerType(answer) {
+  if (answer && answer.length !== 0) {
+    if (answer[0].valueBoolean || answer[0].valueBoolean === false) {
       return valueTypes.BOOLEAN;
-    } else if (answers[0].valueDecimal) {
+    } else if (answer[0].valueDecimal) {
       return valueTypes.DECIMAL;
-    } else if (answers[0].valueInteger) {
+    } else if (answer[0].valueInteger) {
       return valueTypes.INTEGER;
-    } else if (answers[0].valueDate) {
+    } else if (answer[0].valueDate) {
       return valueTypes.DATE;
-    } else if (answers[0].valueDateTime) {
+    } else if (answer[0].valueDateTime) {
       return valueTypes.DATETIME;
-    } else if (answers[0].valueTime) {
+    } else if (answer[0].valueTime) {
       return valueTypes.TIME;
-    } else if (answers[0].valueString) {
+    } else if (answer[0].valueString) {
       return valueTypes.STRING;
-    } else if (answers[0].valueUri) {
+    } else if (answer[0].valueUri) {
       return valueTypes.URI;
-    } else if (answers[0].valueAttachment) {
+    } else if (answer[0].valueAttachment) {
       return valueTypes.ATTACHMENT;
-    } else if (answers[0].valueCoding) {
+    } else if (answer[0].valueCoding) {
       return valueTypes.CODING;
-    } else if (answers[0].valueQuantity) {
+    } else if (answer[0].valueQuantity) {
       return valueTypes.QUANTITY;
     } else {
       return 'notype';
     }
-  }else if(answers && answers.length === 0){
+  }else if(answer && answer.length === 0){
     return 'notype';
   }else {
     throw new Error('Getting the AnswerType failed because the given answer object was null or undefined');
@@ -393,4 +409,5 @@ export default {
   getAnswersFromQuestionnaireResponse,
   createItemList,
   getAnswerType,
+  removeQuestionnaireResponseDisplayQuestions
 };

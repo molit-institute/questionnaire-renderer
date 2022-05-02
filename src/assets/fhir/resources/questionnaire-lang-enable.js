@@ -14,16 +14,48 @@ const enableQuestionnaire = {
   title: 'Fragebogen Lang',
   publisher: 'SLK-Kliniken Heilbronn',
   status: 'active',
-  description: ' ',
+  description: '<b>Huhu</b> <br> dies ist ein Test',
   date: '2017-08-23T00:00:00+02:00',
   subjectType: ['Patient'],
   item: [
+    { linkId: 'bla', text: 'test display', type: 'display' },
     {
       linkId: '1',
       prefix: '1',
       text: 'Geben sie bitte ihre Lieblingszahl ein',
-      required: true,
+      // required: true,
       type: 'integer',
+    },
+    {
+      linkId: '123',
+      prefix: '123',
+      text: 'Group text',
+      type: 'group',
+      item: [
+        {
+          linkId: '123.2',
+          text: '<b>Dies</b> ist eine Display-Frage 1',
+          type: 'display',
+        },
+        {
+          linkId: '2.22',
+          prefix: '2.22',
+          text: '<u>Test</u> gruppenfrage',
+          type: 'choice',
+          answerValueSet: "http://molit.eu/fhir/lion/ValueSet/eq-5d-5l-answers1-vs"
+        },
+        {
+          linkId: '11231.2',
+          text: 'Dies ist eine Display-Frage 2',
+          type: 'display',
+        },
+      ],
+    },
+    {
+      linkId: '1.2',
+      prefix: '1',
+      text: 'Dies ist eine Display-Frage',
+      type: 'display',
     },
     {
       linkId: '1.3',
@@ -78,25 +110,25 @@ const enableQuestionnaire = {
     //   text: 'Ist html toll?',
     //   type: 'boolean',
     // },
-    {
-      linkId: '5.2.19',
-      prefix: '5.2.19.',
-      text: 'Single-Choice Frage 1',
-      type: 'choice',
-      answerValueSet: 'http://molit.eu/fhir/ValueSet/SLK_QLQC30_answers4',
-      required: true
-    },
-    {
-      linkId: '5.2.20',
-      prefix: '5.2.20.',
-      text: 'Single-Choice Frage 1',
-      type: 'choice',
-      answerValueSet: 'http://molit.eu/fhir/ValueSet/SLK_QLQC30_answers4',
-    },
+    // {
+    //   linkId: '5.2.19',
+    //   prefix: '5.2.19.',
+    //   text: 'Single-Choice Frage 1',
+    //   type: 'choice',
+    //   answerValueSet: 'http://molit.eu/fhir/ValueSet/SLK_QLQC30_answers4',
+    //   required: true
+    // },
+    // {
+    //   linkId: '5.2.20',
+    //   prefix: '5.2.20.',
+    //   text: 'Single-Choice Frage 1',
+    //   type: 'choice',
+    //   answerValueSet: 'http://molit.eu/fhir/ValueSet/SLK_QLQC30_answers4',
+    // },
     {
       linkId: '2',
       prefix: '1.1',
-      text: 'Persönliche Angaben',
+      text: 'Enable when gruppe',
       type: 'group',
       enableWhen: [
         {
@@ -114,55 +146,63 @@ const enableQuestionnaire = {
           required: true,
         },
         {
-          linkId: '2.2',
-          prefix: '2.2',
-          text: 'Alter',
-          type: 'integer',
-          required: true,
-        },
-        {
-          linkId: '2.3',
-          prefix: '2.3',
-          text: 'Haare',
-          type: 'group',
-          item: [
-            {
-              linkId: '2.3.1',
-              prefix: '2.3.1',
-              text: 'Haben sie Haare auf dem Kopf',
-              type: 'boolean',
-              required: true,
-            },
-            {
-              linkId: '2.3.2',
-              prefix: '2.3.2',
-              text: 'Wieviele Haare?',
-              type: 'integer',
-              required: true,
-              enableWhen: [
-                {
-                  question: '2.3.1',
-                  operator: '=',
-                  answerBoolean: true,
-                },
-              ],
-            },
-          ],
+          linkId: '2.1',
+          prefix: '2.1',
+          text: 'Enable when display',
+          type: 'display',
         },
       ],
     },
-    {
-      linkId: '3',
-      prefix: '2',
-      text: 'Wir sind zu weit',
-      type: 'decimal',
-    },
-    {
-      linkId: '4',
-      prefix: '2.1',
-      text: 'Persönliche Angaben',
-      type: 'decimal',
-    },
+    //     {
+    //       linkId: '2.2',
+    //       prefix: '2.2',
+    //       text: 'Alter',
+    //       type: 'integer',
+    //       required: true,
+    //     },
+    //     {
+    //       linkId: '2.3',
+    //       prefix: '2.3',
+    //       text: 'Haare',
+    //       type: 'group',
+    //       item: [
+    //         {
+    //           linkId: '2.3.1',
+    //           prefix: '2.3.1',
+    //           text: 'Haben sie Haare auf dem Kopf',
+    //           type: 'boolean',
+    //           required: true,
+    //         },
+    //         {
+    //           linkId: '2.3.2',
+    //           prefix: '2.3.2',
+    //           text: 'Wieviele Haare?',
+    //           type: 'integer',
+    //           required: true,
+    //           enableWhen: [
+    //             {
+    //               question: '2.3.1',
+    //               operator: '=',
+    //               answerBoolean: true,
+    //             },
+    //           ],
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // },
+    // {
+    //   linkId: '3',
+    //   prefix: '2',
+    //   text: 'Wir sind zu weit',
+    //   type: 'decimal',
+    // },
+    // {
+    //   linkId: '4',
+    //   prefix: '2.1',
+    //   text: 'Persönliche Angaben',
+    //   type: 'decimal',
+    // },
   ],
 };
 export default enableQuestionnaire;

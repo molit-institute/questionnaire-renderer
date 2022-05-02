@@ -1,6 +1,7 @@
 import { Component, h, Prop, Watch, State, Element } from '@stencil/core';
 
 import { getLocaleComponentStrings } from '../../../utils/locale';
+import { textToHtml } from '../../../utils/textToHtml';
 
 @Component({
   tag: 'display-question',
@@ -14,7 +15,7 @@ export class DisplayQuestion {
   @Prop() variant: any = null;
   @Prop() question: any;
   @Prop() mode: string;
-  @Prop() enableInformalLocale: boolean; 
+  @Prop() enableInformalLocale: boolean;
 
   /**
    * Language property of the component. </br>
@@ -23,7 +24,6 @@ export class DisplayQuestion {
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
-
     this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
 
@@ -39,9 +39,9 @@ export class DisplayQuestion {
 
   render() {
     return (
-      <div class="display">
-        <h5 class=""><span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
-          <span class="qr-question-text">{this.question.text}</span></h5>
+      <div class="qr-displayQuestion-container">
+          <span class="qr-displayQuestion-prefix">{this.question.prefix}</span>&nbsp;
+          <span innerHTML={textToHtml(this.question.text)} class="qr-displayQuestion-text"></span>
       </div>
     );
   }

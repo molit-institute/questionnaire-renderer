@@ -37,6 +37,19 @@
 | `emitRemoveRequiredAnswer` | Emits new Event to give the required Question to Parent-Component to be removed from the List of answered Questions | `CustomEvent<any>` |
 
 
+## Dependencies
+
+### Depends on
+
+- [display-question](../display-question)
+
+### Graph
+```mermaid
+graph TD;
+  group-question --> display-question
+  style group-question fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

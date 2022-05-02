@@ -1,5 +1,7 @@
 import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '@stencil/core';
 import { getLocaleComponentStrings } from '../../../utils/locale';
+import questionnaireController from '../../../utils/questionnaireController';
+import { textToHtml } from '../../../utils/textToHtml';
 
 @Component({
   tag: 'information-page',
@@ -32,19 +34,6 @@ export class InformationPage {
     this.startQuestionnaire.emit('start');
   }
 
-  /**
-   * Counts all Questions from ItemList excluding Groups
-   */
-  numberOfQuestions() {
-    let number = 0;
-    for (let i = 0; i < this.filteredItemList.length; i++) {
-      if (this.filteredItemList[i].type !== 'group') {
-        number++;
-      }
-    }
-    return number;
-  }
-
   async componentWillLoad(): Promise<void> {
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
@@ -57,8 +46,8 @@ export class InformationPage {
       <div class="qr-informationPage-container">
         <div class="qr-informationPage-title">{this.questionnaire.title}</div>
         <div class="qr-informationPage-info">
-          <div class="qr-informationPage-description">{this.questionnaire.description}</div>
-          <div class="qr-informationPage-text">{this.informationPageText}</div>
+          <div class="qr-informationPage-description" innerHTML={textToHtml(this.questionnaire.description)}></div>
+          <div class="qr-informationPage-text" innerHTML={textToHtml(this.informationPageText)}></div>
           <div class="qr-informatonPage-info-section">
             {this.questionnaire && this.questionnaire.publisher ? (
               <div class="qr-informationPage-publisher-container">
@@ -68,7 +57,7 @@ export class InformationPage {
             ) : null}
             <div class="qr-informationPage-questions-container">
               <span class="qr-informationPage-questions"> {this.strings.numberOfQuestions}:</span>
-              <span class="qr-informationPage-questions-number">{this.numberOfQuestions()}</span>
+              <span class="qr-informationPage-questions-number">{questionnaireController.getNumberOfQuestions(null,this.filteredItemList)}</span>
             </div>
           </div>
         

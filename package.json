@@ -1,6 +1,6 @@
 {
   "name": "@molit/questionnaire-renderer",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "private": false,
   "description": "Stencil Component for questionnaire-renderer",
   "main": "dist/index.cjs.js",
@@ -27,6 +27,7 @@
     "@molit/fhir-api": "^1.0.35",
     "@molit/fhir-util": "^1.0.22",
     "@stencil/core": "^2.14.2",
+    "dompurify": "^2.3.6",
     "moment": "^2.29.1"
   },
   "license": "Apache-2.0",

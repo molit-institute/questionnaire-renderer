@@ -39,11 +39,6 @@ export class VasQuestion {
   }
 
   render() {
-    console.log('====================================');
-    console.log('vasVertical: ' + this.vasVertical);
-    console.log('vasShowSelectedValue: ' + this.vasShowSelectedValue);
-    console.log("vasSelectedValueLabel: " + this.vasSelectedValueLabel);    
-    console.log('====================================');
     return (
       <div class={!this.vasVertical ? 'qr-vasQuestion-container' : 'qr-vasQuestion-container qr-vasQuestion-container-vertical'}>
         {this.variant === 'touch' ? (

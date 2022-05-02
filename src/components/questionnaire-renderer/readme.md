@@ -13,7 +13,9 @@
 | `basicAuth`                       | `basic-auth`                         | If basicAuth is true, the authorization header in server requests will be set to "Basic "                                       | `boolean` | `false`                   |
 | `danger`                          | `danger`                             | Color used to symbolise danger                                                                                                  | `string`  | `undefined`               |
 | `editMode`                        | `edit-mode`                          | If true the render will show the button to exit the renderer                                                                    | `boolean` | `false`                   |
+| `enableExpand`                    | `enable-expand`                      |                                                                                                                                 | `boolean` | `true`                    |
 | `enableFullQuestionnaireResponse` | `enable-full-questionnaire-response` | If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen | `boolean` | `false`                   |
+| `enableGroupDescription`          | `enable-group-description`           |                                                                                                                                 | `boolean` | `true`                    |
 | `enableInformalLocale`            | `enable-informal-locale`             |                                                                                                                                 | `boolean` | `false`                   |
 | `enableInformationPage`           | `enable-information-page`            |                                                                                                                                 | `boolean` | `false`                   |
 | `enableNext`                      | `enable-next`                        | Enable the button that can be used to show the summary or end the questionnaire                                                 | `boolean` | `true`                    |
@@ -36,6 +38,7 @@
 | `summaryText`                     | `summary-text`                       |                                                                                                                                 | `string`  | `null`                    |
 | `task`                            | `task`                               | FHIR-Resource Task                                                                                                              | `any`     | `null`                    |
 | `token`                           | `token`                              | A token that can be send with server-requests                                                                                   | `string`  | `undefined`               |
+| `trademarkText`                   | `trademark-text`                     |                                                                                                                                 | `string`  | `null`                    |
 | `valueSets`                       | --                                   | List of ValueSets that are needed to display the given questionnaire                                                            | `any[]`   | `null`                    |
 | `variant`                         | `variant`                            |                                                                                                                                 | `any`     | `'Touch'`                 |
 | `vasSelectedValueLabel`           | `vas-selected-value-label`           |                                                                                                                                 | `string`  | `null`                    |
@@ -72,6 +75,7 @@ graph TD;
   questionnaire-renderer --> questionnaire-summary
   questionnaire-renderer --> information-page
   questionnaire-summary --> simple-spinner
+  questionnaire-summary --> display-question
   test-ui --> questionnaire-renderer
   style questionnaire-renderer fill:#f9f,stroke:#333,stroke-width:4px
 ```

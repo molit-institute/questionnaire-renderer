@@ -25,7 +25,7 @@ export class QuestionnaireRenderer {
   async watchCurrentQuestionnaireResponse() {
     await this.filterItemList();
     this.handleAnsweredQuestionsList();
-    this.updated.emit(this.currentQuestionnaireResponse);
+    this.updated.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
   }
   @State() spinner: Object = {
     loading: true,
@@ -226,8 +226,9 @@ export class QuestionnaireRenderer {
   }
 
   /* methods */
-  filterQuestionnaireResponse() {
-    let filteredQuestionnaireResponse = cloneDeep(this.currentQuestionnaireResponse);
+  filterQuestionnaireResponse(questionnaireResponse) {
+    let filteredQuestionnaireResponse = cloneDeep(questionnaireResponse);
+    questionnaireResponseController.removeQuestionnaireResponseDisplayQuestions(filteredQuestionnaireResponse.item)
     this.filterQuestionnaireResponseItems(this.filteredItemList, filteredQuestionnaireResponse.item);
     return filteredQuestionnaireResponse;
   }
@@ -306,7 +307,7 @@ export class QuestionnaireRenderer {
   /**
    * Emits an Event wich includes the finished Questionnaire Response
    */
-  finishQuestionnaire(questionnaireResponse) {
+  async finishQuestionnaire(questionnaireResponse) {
     if (this.enableFullQuestionnaireResponse) {
       if (this.enableSummary) {
         this.edit_mode = false;
@@ -322,7 +323,8 @@ export class QuestionnaireRenderer {
         this.show_summary = true;
         this.start_question = null;
       }
-      this.finished.emit(this.filterQuestionnaireResponse());
+      questionnaireResponse.status="completed"
+      this.finished.emit(await this.filterQuestionnaireResponse(questionnaireResponse));
     }
   }
 
@@ -434,8 +436,10 @@ export class QuestionnaireRenderer {
       for (let i = 0; i < this.currentQuestionnaire.item.length; i++) {
         if (this.currentQuestionnaire.item[i].type === 'group') {
           this.addGroupIdToItems(this.currentQuestionnaire.item[i].item, this.currentQuestionnaire.item[i].linkId);
+          await this.putDisplayQuestionsIntoGroups(this.currentQuestionnaire.item[i]);
         }
       }
+      await this.removeGroupedDisplayQuestions(this.currentQuestionnaire.item);
     } else if (this.questionnaireUrl) {
       try {
         this.currentQuestionnaire = await fhirApi.fetchByUrl(this.questionnaireUrl, null, this.token, this.basicAuth);
@@ -443,13 +447,49 @@ export class QuestionnaireRenderer {
         for (let i = 0; i < this.currentQuestionnaire.item.length; i++) {
           if (this.currentQuestionnaire.item[i].type === 'group') {
             this.addGroupIdToItems(this.currentQuestionnaire.item[i].item, this.currentQuestionnaire.item[i].linkId);
+            await this.putDisplayQuestionsIntoGroups(this.currentQuestionnaire.item[i]);
           }
         }
+        await this.removeGroupedDisplayQuestions(this.currentQuestionnaire.item);
       } catch (error) {
         //TODO Errorhandling
       }
     } else {
       //TODO handle missing Questionnaire | Spinner, info ...
+    }
+  }
+
+  /**
+   * Removes questions of the type "display" from the list. Does not remove display-questions containing a groupId  
+   */
+  async removeGroupedDisplayQuestions(list){
+    await list.reduceRight((_acc,question,index,object) => {
+      if(question.type === "display" && question.groupId){
+        object.splice(index,1)
+      }
+      if(question.type === "group"){
+        this.removeGroupedDisplayQuestions(question.item)
+      }
+    }, []);
+  }
+
+  /**
+   * 
+   */  
+  async putDisplayQuestionsIntoGroups(group){
+    let displayQuestions = [];
+    group.displays=[]
+    let item = group.item;
+    for (let i = 0; i < item.length; i++) {
+      if(item[i].type ==="display" && item[i].groupId){
+        displayQuestions.push(item[i])
+      }
+      if (item[i].type === 'group') {
+        await this.putDisplayQuestionsIntoGroups(item[i]);
+      }
+    }
+    for (let a = 0; a < displayQuestions.length; a++){
+      group.displays.push(displayQuestions[a]);
     }
   }
 
@@ -678,7 +718,7 @@ export class QuestionnaireRenderer {
       this.show_questionnaire = false;
       this.show_informationPage = true;
     } else {
-      this.exit.emit(this.currentQuestionnaireResponse);
+      this.exit.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
     }
   }
 
@@ -793,7 +833,7 @@ export class QuestionnaireRenderer {
               task={this.task}
               summary_text={this.summaryText}
               questionnaire={this.questionnaire}
-              questionnaireResponse={this.enableFullQuestionnaireResponse ? this.currentQuestionnaireResponse : this.filterQuestionnaireResponse()}
+              questionnaireResponse={this.enableFullQuestionnaireResponse ? this.currentQuestionnaireResponse : this.filterQuestionnaireResponse(this.currentQuestionnaireResponse)}
               onToQuestionnaireRenderer={() => this.toQuestionnaire(true)}
               onEditQuestion={question => this.editQuestion(question)}
               onFinishQuestionnaire={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
