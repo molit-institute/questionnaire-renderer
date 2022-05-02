@@ -27,6 +27,7 @@
 | `secondary`                  | `secondary`                | Secondary color                                                            | `string`  | `undefined` |
 | `spinner`                    | `spinner`                  |                                                                            | `any`     | `undefined` |
 | `startCount`                 | `start-count`              |                                                                            | `number`  | `undefined` |
+| `trademarkText`              | `trademark-text`           |                                                                            | `string`  | `null`      |
 | `valueSets`                  | --                         |                                                                            | `any[]`   | `undefined` |
 | `variant`                    | `variant`                  |                                                                            | `any`     | `null`      |
 | `vasSelectedValueLabel`      | `vas-selected-value-label` |                                                                            | `string`  | `undefined` |

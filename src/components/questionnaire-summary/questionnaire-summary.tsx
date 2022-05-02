@@ -7,6 +7,7 @@ import questionnaireResponseController from '../../utils/questionnaireResponseCo
 import * as fhirApi from '@molit/fhir-api';
 import questionnaireController from '../../utils/questionnaireController';
 import { cloneDeep } from 'lodash';
+import { textToHtml } from '../../utils/textToHtml';
 
 @Component({
   tag: 'questionnaire-summary',
@@ -359,7 +360,7 @@ export class QuestionnaireSummary {
                       <div class="qr-summary-item-prefix">
                         {!item.item ? this.strings.question : this.strings.group} {this.getPrefix(item.linkId)}{' '}
                       </div>
-                      <div class="qr-summary-item-text">{item.text}</div>
+                      <div class="qr-summary-item-text" innerHTML={textToHtml(item.text)}></div>
                       {item && item.item ? (
                         <div class="qr-summary-group-container">
                           {this.getGroupDisplayQuestionsFromQuestionnaire(item).map(display => {
