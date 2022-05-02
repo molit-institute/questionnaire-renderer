@@ -25,7 +25,7 @@ export class QuestionnaireRenderer {
   async watchCurrentQuestionnaireResponse() {
     await this.filterItemList();
     this.handleAnsweredQuestionsList();
-    this.updated.emit(this.filterQuestionnaireResponse());
+    this.updated.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
   }
   @State() spinner: Object = {
     loading: true,
@@ -226,8 +226,8 @@ export class QuestionnaireRenderer {
   }
 
   /* methods */
-  filterQuestionnaireResponse() {
-    let filteredQuestionnaireResponse = cloneDeep(this.currentQuestionnaireResponse);
+  filterQuestionnaireResponse(questionnaireResponse) {
+    let filteredQuestionnaireResponse = cloneDeep(questionnaireResponse);
     questionnaireResponseController.removeQuestionnaireResponseDisplayQuestions(filteredQuestionnaireResponse.item)
     this.filterQuestionnaireResponseItems(this.filteredItemList, filteredQuestionnaireResponse.item);
     return filteredQuestionnaireResponse;
@@ -307,7 +307,7 @@ export class QuestionnaireRenderer {
   /**
    * Emits an Event wich includes the finished Questionnaire Response
    */
-  finishQuestionnaire(questionnaireResponse) {
+  async finishQuestionnaire(questionnaireResponse) {
     if (this.enableFullQuestionnaireResponse) {
       if (this.enableSummary) {
         this.edit_mode = false;
@@ -323,7 +323,8 @@ export class QuestionnaireRenderer {
         this.show_summary = true;
         this.start_question = null;
       }
-      this.finished.emit(this.filterQuestionnaireResponse());
+      questionnaireResponse.status="completed"
+      this.finished.emit(await this.filterQuestionnaireResponse(questionnaireResponse));
     }
   }
 
@@ -717,7 +718,7 @@ export class QuestionnaireRenderer {
       this.show_questionnaire = false;
       this.show_informationPage = true;
     } else {
-      this.exit.emit(this.filterQuestionnaireResponse());
+      this.exit.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
     }
   }
 
@@ -832,7 +833,7 @@ export class QuestionnaireRenderer {
               task={this.task}
               summary_text={this.summaryText}
               questionnaire={this.questionnaire}
-              questionnaireResponse={this.enableFullQuestionnaireResponse ? this.currentQuestionnaireResponse : this.filterQuestionnaireResponse()}
+              questionnaireResponse={this.enableFullQuestionnaireResponse ? this.currentQuestionnaireResponse : this.filterQuestionnaireResponse(this.currentQuestionnaireResponse)}
               onToQuestionnaireRenderer={() => this.toQuestionnaire(true)}
               onEditQuestion={question => this.editQuestion(question)}
               onFinishQuestionnaire={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
