@@ -74,6 +74,12 @@ export class IntegerQuestion {
     this.allow_events = true;
   }
   /**
+   * Options for Visual Analog Scale
+   */
+  @Prop() vasVertical: boolean;
+  @Prop() vasShowSelectedValue: boolean;
+  @Prop() vasSelectedValueLabel: string;
+  /**
    * Primary color
    */
   @Prop() primary: string;
@@ -221,7 +227,18 @@ export class IntegerQuestion {
             </div>
             <hr />
             {this.isVasQuestion() === true ? (
-              <vas-question min={this.minVas()} max={this.maxVas()} step={this.stepVas()} selected={this.selected} labelLower={this.labelLowerVas()} labelUpper={this.labelUpperVas()} />
+              <vas-question
+                min={this.minVas()}
+                max={this.maxVas()}
+                step={this.stepVas()}
+                selected={this.selected}
+                labelLower={this.labelLowerVas()}
+                labelUpper={this.labelUpperVas()}
+                variant={this.variant}
+                vasVertical={this.vasVertical}
+                vasShowSelectedValue={this.vasShowSelectedValue}
+                vasSelectedValueLabel={this.vasSelectedValueLabel}
+              />
             ) : (
               <div class="qr-question-optionCard">
                 <div class="form-row">
