@@ -34,19 +34,18 @@ const enableQuestionnaire = {
       item: [
         {
           linkId: '123.2',
-          prefix: '1',
-          text: 'Dies ist eine Display-Frage 1',
+          text: '<b>Dies</b> ist eine Display-Frage 1',
           type: 'display',
         },
         {
           linkId: '2.22',
           prefix: '2.22',
-          text: 'Test gruppenfrage',
-          type: 'integer',
+          text: '<u>Test</u> gruppenfrage',
+          type: 'choice',
+          answerValueSet: "http://molit.eu/fhir/lion/ValueSet/eq-5d-5l-answers1-vs"
         },
         {
           linkId: '11231.2',
-          prefix: '1',
           text: 'Dies ist eine Display-Frage 2',
           type: 'display',
         },

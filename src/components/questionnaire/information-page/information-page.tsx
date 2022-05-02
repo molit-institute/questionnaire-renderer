@@ -1,6 +1,7 @@
 import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '@stencil/core';
 import { getLocaleComponentStrings } from '../../../utils/locale';
 import questionnaireController from '../../../utils/questionnaireController';
+import { textToHtml } from '../../../utils/textToHtml';
 
 @Component({
   tag: 'information-page',
@@ -40,13 +41,20 @@ export class InformationPage {
       console.error(e);
     }
   }
+  async parseTextFromMarkdown(text){
+    document.getElementById('informationPage-text').innerHTML= await textToHtml(text,false);
+  }
+
+  componentDidLoad(){
+    this.parseTextFromMarkdown(this.informationPageText)
+  }
   render() {
     return (
       <div class="qr-informationPage-container">
         <div class="qr-informationPage-title">{this.questionnaire.title}</div>
         <div class="qr-informationPage-info">
           <div class="qr-informationPage-description">{this.questionnaire.description}</div>
-          <div class="qr-informationPage-text">{this.informationPageText}</div>
+          <div class="qr-informationPage-text" id="informationPage-text"></div>
           <div class="qr-informatonPage-info-section">
             {this.questionnaire && this.questionnaire.publisher ? (
               <div class="qr-informationPage-publisher-container">

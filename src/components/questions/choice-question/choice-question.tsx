@@ -5,6 +5,7 @@ import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '
 import questionnaireController from '../../../utils/questionnaireController';
 import questionnaireResponseController from '../../../utils/questionnaireResponseController';
 import { getLocaleComponentStrings } from '../../../utils/locale';
+import { textToHtml } from '../../../utils/textToHtml';
 
 @Component({
   tag: 'choice-question',
@@ -223,8 +224,10 @@ export class ChoiceQuestion {
     this.repeats = this.question.repeats;
     // this.removeQuestionFromRequiredAnsweredQuestionsList(this.question);
     this.emitRemoveRequiredAnswer.emit(this.question); //TODO passt das?
-    this.allow_events = true;
+    this.allow_events = true
+
   }
+  
   render() {
     return (
       <div class="qr-question-container">
@@ -234,7 +237,7 @@ export class ChoiceQuestion {
               <div class="qr-question-title">
                 <div class={this.reset ? 'qr-question-hidden' : ''}>
                   <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
-                  <span class="qr-question-text">{this.question.text}</span>
+                  <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
                 </div>
               </div>
               <div class="qr-question-mandatoryQuestion">

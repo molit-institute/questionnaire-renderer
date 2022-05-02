@@ -364,7 +364,7 @@ export class QuestionnaireSummary {
                       {item && item.item ? (
                         <div class="qr-summary-group-container">
                           {this.getGroupDisplayQuestionsFromQuestionnaire(item).map(display => {
-                            return <div class="qr-summary-display-text">{display.text}</div>;
+                            return <display-question class="qr-groupQuestion-display-text" question={display} locale={this.locale} enableInformalLocale={this.enableInformalLocale}></display-question>;
                           })}
                         </div>
                       ) : null}

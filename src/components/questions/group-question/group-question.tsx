@@ -3,6 +3,7 @@
  */
 import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '@stencil/core';
 import { getLocaleComponentStrings } from '../../../utils/locale';
+import { textToHtml } from '../../../utils/textToHtml';
 
 @Component({
   tag: 'group-question',
@@ -106,13 +107,12 @@ export class GroupQuestion {
                 {this.strings.questionGroup} {this.question.prefix}
               </div>
             ) : null}
-            <div class="qr-groupQuestion-title">
-              {this.question.prefix} {this.question.text}
-            </div>
+            {this.question.prefix ? <div class="qr-groupQuestion-title" innerHTML={textToHtml(this.question.prefix + ' ' + this.question.text)}></div> : <div class="qr-groupQuestion-title" innerHTML={textToHtml(this.question.text)}></div>}
+
             {/* TODO Liste mit allen Displayfragen in dieser Gruppe anzeigen */}
             <div class="qr-groupQuestion-display-container">
               {this.question.displays.map(question => {
-                return <div class="qr-groupQuestion-display-text">{question.text}</div>;
+                return <display-question class="qr-groupQuestion-display-text" question={question} locale={this.locale} enableInformalLocale={this.enableInformalLocale}></display-question>;
               })}
             </div>
           </div>
