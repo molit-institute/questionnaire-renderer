@@ -14,7 +14,7 @@ const enableQuestionnaire = {
   title: 'Fragebogen Lang',
   publisher: 'SLK-Kliniken Heilbronn',
   status: 'active',
-  description: ' ',
+  description: '<b>Huhu</b> <br> dies ist ein Test',
   date: '2017-08-23T00:00:00+02:00',
   subjectType: ['Patient'],
   item: [

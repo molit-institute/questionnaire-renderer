@@ -1,8 +1,8 @@
 import DOMPurify from 'dompurify';
 /**
- * Creates safe HTML from markdown by using DOMPurify and marked.js.
+ * Creates safe HTML from a given text by using DOMPurify.
  *
- * @param {String} markdown - the markdown text
+ * @param {String} text - the string text
  * @param {boolean} [openLinksInNewTab=false] - whether to open generated links in new tab
  * @returns {String} - the generated HTML
  */

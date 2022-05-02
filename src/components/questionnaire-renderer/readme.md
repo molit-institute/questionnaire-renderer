@@ -72,6 +72,7 @@ graph TD;
   questionnaire-renderer --> questionnaire-summary
   questionnaire-renderer --> information-page
   questionnaire-summary --> simple-spinner
+  questionnaire-summary --> display-question
   test-ui --> questionnaire-renderer
   style questionnaire-renderer fill:#f9f,stroke:#333,stroke-width:4px
 ```

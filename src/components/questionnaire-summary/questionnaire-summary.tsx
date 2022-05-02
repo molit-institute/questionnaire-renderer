@@ -310,7 +310,6 @@ export class QuestionnaireSummary {
   }
 
   checkIfGroupQuestion(item){
-    console.log(this.questionnaire)
     let list = questionnaireResponseController.createItemList(this.questionnaire)
     for(let i = 0; i < list.length;i++){
       if(item.linkId === list[i].linkId){
