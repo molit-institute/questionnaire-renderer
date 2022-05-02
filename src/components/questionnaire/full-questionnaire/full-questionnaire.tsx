@@ -28,7 +28,13 @@ export class FullQuestionnaire {
   @Prop() valueSets: Array<any>;
   @Prop() baseUrl: string;
   @Prop() startCount: number;
-  @Prop() enableInformalLocale: boolean; 
+  @Prop() enableInformalLocale: boolean;
+  /**
+   * Options for Visual Analog Scale
+   */
+  @Prop() vasVertical: boolean;
+  @Prop() vasShowSelectedValue: boolean;
+  @Prop() vasSelectedValueLabel: string;
   /**
    * Primary color
    */
@@ -146,7 +152,7 @@ export class FullQuestionnaire {
                     <div id={index.toString()} class="card card-basic-margins">
                       {this.strings ? (
                         <div class="card-body">
-                          {question.type !== 'group' && this.variant !== "form" && this.variant !== "compact" ? (
+                          {question.type !== 'group' && this.variant !== 'form' && this.variant !== 'compact' ? (
                             <div>
                               {this.strings.question} {this.getQuestionIndex(question) + 1} {this.strings.of} {this.questionsList().length}
                             </div>
@@ -163,7 +169,10 @@ export class FullQuestionnaire {
                             danger={this.danger}
                             locale={this.locale}
                             variant={this.variant}
-                            enableInformalLocale = {this.enableInformalLocale}
+                            vasVertical={this.vasVertical}
+                            vasShowSelectedValue={this.vasShowSelectedValue}
+                            vasSelectedValueLabel={this.vasSelectedValueLabel}
+                            enableInformalLocale={this.enableInformalLocale}
                           ></Tag>
                         </div>
                       ) : null}

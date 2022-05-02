@@ -67,6 +67,12 @@ export class StepperQuestionnaire {
   @Prop() startCount: number;
   @Prop() lastQuestion: boolean = false;
   /**
+   * Options for Visual Analog Scale 
+   */
+  @Prop() vasVertical: boolean;
+  @Prop() vasShowSelectedValue: boolean;
+  @Prop() vasSelectedValueLabel: string;
+  /**
    * Primary color
    */
   @Prop() primary: string;
@@ -376,8 +382,11 @@ export class StepperQuestionnaire {
               locale={this.locale}
               onEmitNext={() => this.countUp()}
               variant={this.variant}
-              enableInformalLocale={this.enableInformalLocale}
-            ></Tag>
+              enableInformalLocale = {this.enableInformalLocale}
+              vasVertical={this.vasVertical}
+              vasShowSelectedValue={this.vasShowSelectedValue}
+              vasSelectedValueLabel={this.vasSelectedValueLabel}
+              ></Tag>
           </div>
         ) : null}
         {!this.spinner.loading ? <div class="qr-stepperQuestionnaire-spacer"></div> : null}

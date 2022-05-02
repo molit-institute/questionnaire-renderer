@@ -137,6 +137,13 @@ export class QuestionnaireRenderer {
     }
   }
 
+  /**
+   * Options for Visual Analog Scale
+   */
+  @Prop() vasVertical: boolean = false;
+  @Prop() vasShowSelectedValue: boolean = false;
+  @Prop() vasSelectedValueLabel: string = null;
+
   @Prop() summaryText: string = null;
   @Prop() informationPageText: string = null;
   @Prop() showSummaryRemarks: boolean = false;
@@ -282,7 +289,6 @@ export class QuestionnaireRenderer {
     this.show_summary = false;
     this.show_questionnaire = true;
   }
-
 
   /**
    *
@@ -750,6 +756,9 @@ export class QuestionnaireRenderer {
               spinner={this.spinner}
               enableSummary={this.enableSummary}
               enableInformalLocale={this.enableInformalLocale}
+              vasVertical={this.vasVertical}
+              vasShowSelectedValue={this.vasShowSelectedValue}
+              vasSelectedValueLabel={this.vasSelectedValueLabel}
               trademarkText={this.trademarkText}
               enableGroupDescription = {this.enableGroupDescription}
               onSummary={() => this.backToSummary()}

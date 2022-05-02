@@ -7,15 +7,18 @@
 
 ## Properties
 
-| Property     | Attribute  | Description | Type     | Default         |
-| ------------ | ---------- | ----------- | -------- | --------------- |
-| `labelLower` | --         |             | `String` | `'Lower-bound'` |
-| `labelUpper` | --         |             | `String` | `'Upper-bound'` |
-| `max`        | `max`      |             | `number` | `100`           |
-| `min`        | `min`      |             | `number` | `0`             |
-| `selected`   | `selected` |             | `number` | `0`             |
-| `step`       | `step`     |             | `number` | `1`             |
-| `variant`    | `variant`  |             | `any`    | `null`          |
+| Property                | Attribute                  | Description                     | Type      | Default         |
+| ----------------------- | -------------------------- | ------------------------------- | --------- | --------------- |
+| `labelLower`            | --                         |                                 | `String`  | `'Lower-bound'` |
+| `labelUpper`            | --                         |                                 | `String`  | `'Upper-bound'` |
+| `max`                   | `max`                      |                                 | `number`  | `100`           |
+| `min`                   | `min`                      |                                 | `number`  | `0`             |
+| `selected`              | `selected`                 |                                 | `number`  | `0`             |
+| `step`                  | `step`                     |                                 | `number`  | `1`             |
+| `variant`               | `variant`                  |                                 | `any`     | `null`          |
+| `vasSelectedValueLabel` | `vas-selected-value-label` |                                 | `string`  | `null`          |
+| `vasShowSelectedValue`  | `vas-show-selected-value`  |                                 | `boolean` | `false`         |
+| `vasVertical`           | `vas-vertical`             | Options for Visual Analog Scale | `boolean` | `false`         |
 
 
 ## Events
