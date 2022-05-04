@@ -16,7 +16,7 @@ export function createQuestionnaireResponse(questionnaire, subject) {
   if (questionnaire) {
     const questResp = QuestionnaireResponse.create();
     //QUESTIONNAIRE
-    questResp.questionnaire = 'Questionnaire/' + questionnaire.id;
+    questResp.questionnaire = questionnaire.url;
     //STATUS
     questResp.status = 'in-progress';
     //SOURCE
