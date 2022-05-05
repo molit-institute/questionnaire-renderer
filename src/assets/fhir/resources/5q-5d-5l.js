@@ -22,7 +22,7 @@ export default {
   description: "Gesundheitsfragebogen der Euro QoL Research Foundation.",
   item: [
     {
-      linkId: "1",
+      linkId: "0",
       text: "Bitte tippen Sie DAS Kästchen an, das Ihre Gesundheit HEUTE am besten beschreibt.",
       type: "group",
       item: [

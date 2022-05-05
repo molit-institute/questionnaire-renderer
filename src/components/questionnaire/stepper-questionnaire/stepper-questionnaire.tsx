@@ -397,7 +397,7 @@ export class StepperQuestionnaire {
                 {this.strings.back}
               </button>
             ) : null}
-            {this.editMode || (this.count === 0 && !this.enableReturn) ? (
+            {(this.count === 0 && !this.enableReturn) ? (
               <button type="button" class="btn button btn-outline-secondary btn-lg qr-button-outline-secondary" disabled>
                 {this.strings.back}
               </button>
