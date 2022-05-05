@@ -358,7 +358,7 @@ export class QuestionnaireSummary {
                   item.hasOwnProperty('extension') ? null : (
                     <div class={!this.checkIfGroupQuestion(item) ? 'qr-summary-item ' : 'qr-summary-group-item'}>
                       <div class="qr-summary-item-prefix">
-                        {!item.item ? this.strings.question : this.strings.group} {this.getPrefix(item.linkId)}{' '}
+                        {!item.item ? this.strings.question : ""} {this.getPrefix(item.linkId)}{' '}
                       </div>
                       <div class="qr-summary-item-text" innerHTML={textToHtml(item.text)}></div>
                       {item && item.item ? (

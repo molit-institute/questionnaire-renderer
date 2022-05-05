@@ -564,11 +564,12 @@ export class QuestionnaireRenderer {
     if (this.questionnaireResponse) {
       let split = this.questionnaireResponse.questionnaire.split('/');
       let id = split[1];
-      if (id === this.questionnaire.id) {
+      if(this.questionnaireResponse.questionnaire === this.questionnaire.url || id === this.questionnaire.id){
         this.createQuestionnaireResponse();
         let questionaireResponseItems = questionnaireResponseController.createItemList(this.questionnaireResponse);
         this.transferQuestionnaireResponseAnswers(this.currentQuestionnaireResponse, questionaireResponseItems);
       } else {
+        console.info("QuestionnaireRenderer | Info: Created new QuestionnaireResponse because neither QuestionnaireResponse and Questionnaire url or id matched")
         this.createQuestionnaireResponse();
       }
     } else {

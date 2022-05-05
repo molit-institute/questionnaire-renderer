@@ -54,7 +54,7 @@ export class VasQuestion {
                 )}
                 <p class="qr-vasQuestion-upper-label">{this.labelUpper}</p>
               </div>
-              <input name="vas" type="range" min={this.min} max={this.max} step={this.step} class={!this.vasVertical ? 'qr-vasQuestion-input' : 'qr-vasQuestion-input qr-vasQuestion-input-vertical'} onInput={ev => this.emitHandler(ev)} />
+              <input name="vas" type="range" value={this.selected} min={this.min} max={this.max} step={this.step} class={!this.vasVertical ? 'qr-vasQuestion-input' : 'qr-vasQuestion-input qr-vasQuestion-input-vertical'} onInput={ev => this.emitHandler(ev)} />
               <div class={!this.vasVertical ? 'qr-vasQuestion-slider-ticks' : 'qr-vasQuestion-slider-ticks qr-vasQuestion-slider-ticks-vertical'}>
                 {this.range().map(n => (
                   <p>{n}</p>
