@@ -371,9 +371,9 @@ export function getAnswerType(answer) {
   if (answer && answer.length !== 0) {
     if (answer[0].valueBoolean || answer[0].valueBoolean === false) {
       return valueTypes.BOOLEAN;
-    } else if (answer[0].valueDecimal) {
+    } else if (answer[0].valueDecimal || answer[0].valueDecimal === 0) {
       return valueTypes.DECIMAL;
-    } else if (answer[0].valueInteger) {
+    } else if (answer[0].valueInteger || answer[0].valueInteger === 0) {
       return valueTypes.INTEGER;
     } else if (answer[0].valueDate) {
       return valueTypes.DATE;

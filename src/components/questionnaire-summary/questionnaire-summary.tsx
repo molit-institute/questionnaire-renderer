@@ -243,15 +243,15 @@ export class QuestionnaireSummary {
   /**
    * Adds answers with type display to the questionnaireResponse
    */
-  async addDisplaysToQuestionnaireResponse(){
+  async addDisplaysToQuestionnaireResponse() {
     let itemList = this.questionnaire.item;
-    let questRespList = this.questionnaireResponse.item
-    for(let i=0;i < itemList.length; i++ ){
-      if(itemList[i].type === "display"){
-        let idBefore = itemList[i-1].linkId
-        await questRespList.reduceRight((_acc,answer,index,object) => {
-          if(answer.linkId===idBefore){
-            object.splice(index+1,0,{linkId:itemList[i].linkId,text:itemList[i].text,answer:[],type:"display"})
+    let questRespList = this.questionnaireResponse.item;
+    for (let i = 0; i < itemList.length; i++) {
+      if (itemList[i].type === 'display') {
+        let idBefore = itemList[i - 1].linkId;
+        await questRespList.reduceRight((_acc, answer, index, object) => {
+          if (answer.linkId === idBefore) {
+            object.splice(index + 1, 0, { linkId: itemList[i].linkId, text: itemList[i].text, answer: [], type: 'display' });
           }
         }, []);
       }
@@ -270,7 +270,7 @@ export class QuestionnaireSummary {
       let task = this.task;
 
       questionnaireResponseController.removeQuestionnaireResponseDisplayQuestions(questResp.item);
-      
+
       // Handle QuestionnaireResponse
       if (this.baseUrl && this.enableSendQuestionnaireResponse) {
         try {
@@ -310,13 +310,13 @@ export class QuestionnaireSummary {
     this.closeSummary.emit('closeSummary');
   }
 
-  checkIfGroupQuestion(item){
-    let list = questionnaireResponseController.createItemList(this.questionnaire)
-    for(let i = 0; i < list.length;i++){
-      if(item.linkId === list[i].linkId){
-        if(list[i].groupId){
+  checkIfGroupQuestion(item) {
+    let list = questionnaireResponseController.createItemList(this.questionnaire);
+    for (let i = 0; i < list.length; i++) {
+      if (item.linkId === list[i].linkId) {
+        if (list[i].groupId) {
           return true;
-        }else{
+        } else {
           return false;
         }
       }
@@ -358,7 +358,7 @@ export class QuestionnaireSummary {
                   item.hasOwnProperty('extension') ? null : (
                     <div class={!this.checkIfGroupQuestion(item) ? 'qr-summary-item ' : 'qr-summary-group-item'}>
                       <div class="qr-summary-item-prefix">
-                        {!item.item ? this.strings.question : ""} {this.getPrefix(item.linkId)}{' '}
+                        {!item.item ? this.strings.question : ''} {this.getPrefix(item.linkId)}{' '}
                       </div>
                       <div class="qr-summary-item-text" innerHTML={textToHtml(item.text)}></div>
                       {item && item.item ? (
@@ -374,7 +374,7 @@ export class QuestionnaireSummary {
                             <span class="qr-summary-item-yourAnswer">{this.strings.summary.yourAnswer}:&nbsp;</span>
                             <span class="qr-summary-item-answer">{this.getAnswer(item)} &nbsp;</span>
 
-                            {this.editable && item.type !== 'group'  ? (
+                            {this.editable && item.type !== 'group' ? (
                               <span style={{ cursor: 'pointer' }} class="qr-summary-item-editIcon" onClick={() => this.editSelectedQuestion(item)}>
                                 <svg class="material-design-icon__svg" style={{ width: '30px', height: '30px' }} viewBox="0 0 24 24">
                                   <path fill="#000000" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"></path>

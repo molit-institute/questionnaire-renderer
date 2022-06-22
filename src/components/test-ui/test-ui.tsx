@@ -24,8 +24,8 @@ export class TestUi {
   lastQuestion: boolean = false;
   edit: boolean = false;
   indexQuestion: Object = null;
-  // baseUrl: string = 'https://fhir.molit.eu/fhir';
-  baseUrl: string = 'https://dev.lion-app.de/fhir';
+  baseUrl: string = 'https://fhir.molit.eu/fhir';
+  // baseUrl: string = 'https://dev.lion-app.de/fhir';
   questionnaireUrl: string =this.baseUrl+'/Questionnaire/56'
   questionnaire: any = null;
   questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30, q_5d_5l];
@@ -146,7 +146,7 @@ export class TestUi {
               enableNext={true}
               variant={this.questionnaireVariant}
               enableInformalLocale= {true}
-              showOnlySummary= {false}
+              showOnlySummary= {true}
               enableExpand={true}
               enableGroupDescription={false}
               summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
