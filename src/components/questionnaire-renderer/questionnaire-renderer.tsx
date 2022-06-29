@@ -152,7 +152,7 @@ export class QuestionnaireRenderer {
   @Prop() enableInformationPage: boolean = false;
   @Prop() trademarkText: string = null;
   @Prop() enableGroupDescription: boolean = true;
-  @Prop() enableExpand: boolean=true;
+  @Prop() enableExpand: boolean = true;
   /**
    * Primary color
    */
@@ -228,7 +228,7 @@ export class QuestionnaireRenderer {
   /* methods */
   filterQuestionnaireResponse(questionnaireResponse) {
     let filteredQuestionnaireResponse = cloneDeep(questionnaireResponse);
-    questionnaireResponseController.removeQuestionnaireResponseDisplayQuestions(filteredQuestionnaireResponse.item)
+    questionnaireResponseController.removeQuestionnaireResponseDisplayQuestions(filteredQuestionnaireResponse.item);
     this.filterQuestionnaireResponseItems(this.filteredItemList, filteredQuestionnaireResponse.item);
     return filteredQuestionnaireResponse;
   }
@@ -323,7 +323,7 @@ export class QuestionnaireRenderer {
         this.show_summary = true;
         this.start_question = null;
       }
-      questionnaireResponse.status="completed"
+      questionnaireResponse.status = 'completed';
       this.finished.emit(await this.filterQuestionnaireResponse(questionnaireResponse));
     }
   }
@@ -460,35 +460,35 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   * Removes questions of the type "display" from the list. Does not remove display-questions containing a groupId  
+   * Removes questions of the type "display" from the list. Does not remove display-questions containing a groupId
    */
-  async removeGroupedDisplayQuestions(list){
-    await list.reduceRight((_acc,question,index,object) => {
-      if(question.type === "display" && question.groupId){
-        object.splice(index,1)
+  async removeGroupedDisplayQuestions(list) {
+    await list.reduceRight((_acc, question, index, object) => {
+      if (question.type === 'display' && question.groupId) {
+        object.splice(index, 1);
       }
-      if(question.type === "group"){
-        this.removeGroupedDisplayQuestions(question.item)
+      if (question.type === 'group') {
+        this.removeGroupedDisplayQuestions(question.item);
       }
     }, []);
   }
 
   /**
-   * 
-   */  
-  async putDisplayQuestionsIntoGroups(group){
+   *
+   */
+  async putDisplayQuestionsIntoGroups(group) {
     let displayQuestions = [];
-    group.displays=[]
+    group.displays = [];
     let item = group.item;
     for (let i = 0; i < item.length; i++) {
-      if(item[i].type ==="display" && item[i].groupId){
-        displayQuestions.push(item[i])
+      if (item[i].type === 'display' && item[i].groupId) {
+        displayQuestions.push(item[i]);
       }
       if (item[i].type === 'group') {
         await this.putDisplayQuestionsIntoGroups(item[i]);
       }
     }
-    for (let a = 0; a < displayQuestions.length; a++){
+    for (let a = 0; a < displayQuestions.length; a++) {
       group.displays.push(displayQuestions[a]);
     }
   }
@@ -564,12 +564,12 @@ export class QuestionnaireRenderer {
     if (this.questionnaireResponse) {
       let split = this.questionnaireResponse.questionnaire.split('/');
       let id = split[1];
-      if(this.questionnaireResponse.questionnaire === this.questionnaire.url || id === this.questionnaire.id){
+      if (this.questionnaireResponse.questionnaire === this.questionnaire.url || id === this.questionnaire.id) {
         this.createQuestionnaireResponse();
         let questionaireResponseItems = questionnaireResponseController.createItemList(this.questionnaireResponse);
         this.transferQuestionnaireResponseAnswers(this.currentQuestionnaireResponse, questionaireResponseItems);
       } else {
-        console.info("QuestionnaireRenderer | Info: Created new QuestionnaireResponse because neither QuestionnaireResponse and Questionnaire url or id matched")
+        console.info('QuestionnaireRenderer | Info: Created new QuestionnaireResponse because neither QuestionnaireResponse and Questionnaire url or id matched');
         this.createQuestionnaireResponse();
       }
     } else {
@@ -586,10 +586,11 @@ export class QuestionnaireRenderer {
     baseList.item.forEach((element, index) => {
       let result = answeredItemList.find(item => item.linkId === element.linkId);
       if (result) {
-        baseList.item[index].answer = result.answer;
-      }
-      if (element.item && element.item.length > 0) {
-        this.transferQuestionnaireResponseAnswers(element, answeredItemList);
+        if (element.item && element.item.length > 0) {
+          this.transferQuestionnaireResponseAnswers(element, answeredItemList);
+        } else {
+          baseList.item[index].answer = result.answer;
+        }
       }
     });
   }
@@ -801,7 +802,7 @@ export class QuestionnaireRenderer {
               vasShowSelectedValue={this.vasShowSelectedValue}
               vasSelectedValueLabel={this.vasSelectedValueLabel}
               trademarkText={this.trademarkText}
-              enableGroupDescription = {this.enableGroupDescription}
+              enableGroupDescription={this.enableGroupDescription}
               onSummary={() => this.backToSummary()}
               onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
               onReturn={() => this.leaveQuestionnaireRenderer()}
