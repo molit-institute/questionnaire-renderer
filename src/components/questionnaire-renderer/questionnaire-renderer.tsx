@@ -141,17 +141,49 @@ export class QuestionnaireRenderer {
    * Options for Visual Analog Scale
    */
   @Prop() vasVertical: boolean = false;
+  /**
+   * If true shows the selected value for the vas scale
+   */
   @Prop() vasShowSelectedValue: boolean = false;
+  /**
+   * Text for the label of the selected value
+   */
   @Prop() vasSelectedValueLabel: string = null;
-
+  /**
+   * Text shown in the top half of the Summary
+   */
   @Prop() summaryText: string = null;
+  /**
+   * Text shown in the top half of the information page
+   */
   @Prop() informationPageText: string = null;
+  /**
+   * if true shows the remarks at the bottom of the summary
+   */
   @Prop() showSummaryRemarks: boolean = false;
+  /**
+   * If true, enables the summary to send QuestionnaireResponses to the FHIR Server
+   */
   @Prop() enableSendQuestionnaireResponse: boolean = true;
+  /**
+   * If true enables the use of the informalLocal - only available for german translation
+   */
   @Prop() enableInformalLocale: boolean = false;
+  /**
+   * If true enables the renderer to show the informationPage
+   */
   @Prop() enableInformationPage: boolean = false;
+  /**
+   * Shows a trademark/copyright text at the bottom of the renderer
+   */
   @Prop() trademarkText: string = null;
+  /**
+   * If true, shows the description of the group for every question thats part of the group
+   */
   @Prop() enableGroupDescription: boolean = true;
+  /**
+   * If true, 
+   */
   @Prop() enableExpand: boolean = true;
   /**
    * Primary color
@@ -329,7 +361,7 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   *
+   * Shows InformationPage if showOnlySummary is false and enableInformationPage is true
    */
   handleInformationPage() {
     if (!this.showOnlySummary) {
@@ -423,7 +455,8 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   * load Questionnaire if questionnaire is null and questionnaireUrl is given
+   * load Questionnaire if questionnaire is null and questionnaireUrl is given. Adds GroupIds to items and restructures the groups so they contain their display
+   * questions.
    */
   async handleQuestionnaire() {
     if (this.questionnaire) {
@@ -474,7 +507,7 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   *
+   * Looks for all the questions of type "display" and pushes them into a new List in the group
    */
   async putDisplayQuestionsIntoGroups(group) {
     let displayQuestions = [];
@@ -505,6 +538,9 @@ export class QuestionnaireRenderer {
     }
   }
 
+  /**
+   * 
+   */
   handleVariants() {
     // if (this.variant.toLowerCase() === 'form') {
     //   if (this.currentMode === 'stepper-questionnaire' || this.mode === 'stepper-questionnaire') {
