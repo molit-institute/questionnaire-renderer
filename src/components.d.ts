@@ -299,13 +299,25 @@ export namespace Components {
           * If true the render will show the button to exit the renderer
          */
         "editMode": boolean;
+        /**
+          * If true,
+         */
         "enableExpand": boolean;
         /**
           * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
          */
         "enableFullQuestionnaireResponse": boolean;
+        /**
+          * If true, shows the description of the group for every question thats part of the group
+         */
         "enableGroupDescription": boolean;
+        /**
+          * If true enables the use of the informalLocal - only available for german translation
+         */
         "enableInformalLocale": boolean;
+        /**
+          * If true enables the renderer to show the informationPage
+         */
         "enableInformationPage": boolean;
         /**
           * Enable the button that can be used to show the summary or end the questionnaire
@@ -315,11 +327,17 @@ export namespace Components {
           * Enable the return-button to exit the render-view
          */
         "enableReturn": boolean;
+        /**
+          * If true, enables the summary to send QuestionnaireResponses to the FHIR Server
+         */
         "enableSendQuestionnaireResponse": boolean;
         /**
           * Enable the summary. The summary will be shown if enableSummary is true
          */
         "enableSummary": boolean;
+        /**
+          * Text shown in the top half of the information page
+         */
         "informationPageText": string;
         /**
           * If true, the Renderer will show the last question
@@ -357,6 +375,9 @@ export namespace Components {
           * If showOnlySummary is true, the questionnaire-renderer will only show the summary
          */
         "showOnlySummary": boolean;
+        /**
+          * if true shows the remarks at the bottom of the summary
+         */
         "showSummaryRemarks": boolean;
         /**
           * ID of the question in the ItemList where in the list of questions the renderer should start
@@ -366,6 +387,9 @@ export namespace Components {
           * FHIR-Resource Patient
          */
         "subject": any;
+        /**
+          * Text shown in the top half of the Summary
+         */
         "summaryText": string;
         /**
           * FHIR-Resource Task
@@ -375,13 +399,22 @@ export namespace Components {
           * A token that can be send with server-requests
          */
         "token": string;
+        /**
+          * Shows a trademark/copyright text at the bottom of the renderer
+         */
         "trademarkText": string;
         /**
           * List of ValueSets that are needed to display the given questionnaire
          */
         "valueSets": Array<any>;
         "variant": any;
+        /**
+          * Text for the label of the selected value
+         */
         "vasSelectedValueLabel": string;
+        /**
+          * If true shows the selected value for the vas scale
+         */
         "vasShowSelectedValue": boolean;
         /**
           * Options for Visual Analog Scale
@@ -954,6 +987,10 @@ declare namespace LocalJSX {
         "lastQuestion"?: boolean;
         "locale"?: string;
         /**
+          * Emits an error-event
+         */
+        "onError"?: (event: CustomEvent<any>) => void;
+        /**
           * Counts up the Question-Number
          */
         "onFinish"?: (event: CustomEvent<any>) => void;
@@ -1047,13 +1084,25 @@ declare namespace LocalJSX {
           * If true the render will show the button to exit the renderer
          */
         "editMode"?: boolean;
+        /**
+          * If true,
+         */
         "enableExpand"?: boolean;
         /**
           * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
          */
         "enableFullQuestionnaireResponse"?: boolean;
+        /**
+          * If true, shows the description of the group for every question thats part of the group
+         */
         "enableGroupDescription"?: boolean;
+        /**
+          * If true enables the use of the informalLocal - only available for german translation
+         */
         "enableInformalLocale"?: boolean;
+        /**
+          * If true enables the renderer to show the informationPage
+         */
         "enableInformationPage"?: boolean;
         /**
           * Enable the button that can be used to show the summary or end the questionnaire
@@ -1063,11 +1112,17 @@ declare namespace LocalJSX {
           * Enable the return-button to exit the render-view
          */
         "enableReturn"?: boolean;
+        /**
+          * If true, enables the summary to send QuestionnaireResponses to the FHIR Server
+         */
         "enableSendQuestionnaireResponse"?: boolean;
         /**
           * Enable the summary. The summary will be shown if enableSummary is true
          */
         "enableSummary"?: boolean;
+        /**
+          * Text shown in the top half of the information page
+         */
         "informationPageText"?: string;
         /**
           * If true, the Renderer will show the last question
@@ -1117,6 +1172,9 @@ declare namespace LocalJSX {
           * If showOnlySummary is true, the questionnaire-renderer will only show the summary
          */
         "showOnlySummary"?: boolean;
+        /**
+          * if true shows the remarks at the bottom of the summary
+         */
         "showSummaryRemarks"?: boolean;
         /**
           * ID of the question in the ItemList where in the list of questions the renderer should start
@@ -1126,6 +1184,9 @@ declare namespace LocalJSX {
           * FHIR-Resource Patient
          */
         "subject"?: any;
+        /**
+          * Text shown in the top half of the Summary
+         */
         "summaryText"?: string;
         /**
           * FHIR-Resource Task
@@ -1135,13 +1196,22 @@ declare namespace LocalJSX {
           * A token that can be send with server-requests
          */
         "token"?: string;
+        /**
+          * Shows a trademark/copyright text at the bottom of the renderer
+         */
         "trademarkText"?: string;
         /**
           * List of ValueSets that are needed to display the given questionnaire
          */
         "valueSets"?: Array<any>;
         "variant"?: any;
+        /**
+          * Text for the label of the selected value
+         */
         "vasSelectedValueLabel"?: string;
+        /**
+          * If true shows the selected value for the vas scale
+         */
         "vasShowSelectedValue"?: boolean;
         /**
           * Options for Visual Analog Scale
@@ -1332,6 +1402,10 @@ declare namespace LocalJSX {
          */
         "onEmitNext"?: (event: CustomEvent<any>) => void;
         "onEmitRemoveRequiredAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onError"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */

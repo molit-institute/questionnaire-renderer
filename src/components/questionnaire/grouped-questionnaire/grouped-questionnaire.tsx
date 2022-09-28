@@ -293,6 +293,14 @@ export class GroupedQuestionnaire {
     }
   }
 
+  /**
+   * Emits an error-event
+   */
+   @Event() error: EventEmitter;
+   emitError(error) {
+     this.error.emit(error);
+   }
+
   /* Lifecycle Methods */
   componentDidUpdate() {
     //TODO Is this the correct lifecycle hook?
@@ -371,6 +379,7 @@ export class GroupedQuestionnaire {
                     vasShowSelectedValue={this.vasShowSelectedValue}
                     vasSelectedValueLabel={this.vasSelectedValueLabel}
                     enableInformalLocale={this.enableInformalLocale}
+                    onError={event => this.emitError(event)}
                   ></Tag>
                 </div>
               </div>
