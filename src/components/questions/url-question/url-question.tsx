@@ -117,8 +117,13 @@ export class UrlQuestion {
   }
 
   setSelected() {
-    this.selected = '';
-    this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'url');
+    try {
+      this.selected = '';
+      this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'url');
+      
+    } catch (error) {
+      this.emitError(error)
+    }
   }
 
   /**
@@ -133,6 +138,14 @@ export class UrlQuestion {
     }
   }
 
+  /**
+   * Emits an error-event
+   */
+   @Event() error: EventEmitter;
+   emitError(error) {
+     this.error.emit(error);
+   }
+   
   /* Lifecycle Methods */
   @Event() emitRemoveRequiredAnswer: EventEmitter;
   async componentWillLoad(): Promise<void> {
