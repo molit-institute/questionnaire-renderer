@@ -107,7 +107,6 @@ export class DecimalQuestion {
   /**
    *  Handles KeyPresses by adding Eventlisteners
    */
-
   @Event() emitNext: EventEmitter;
   @Listen('keyup')
   handleKeyPress(ev: KeyboardEvent) {
@@ -120,7 +119,12 @@ export class DecimalQuestion {
    *
    */
   setSelected() {
-    this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'decimal');
+    try {
+      this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'decimal');
+
+    } catch (error) {
+      this.emitError(error);
+    }
   }
 
   checkInput(input) {
@@ -129,6 +133,14 @@ export class DecimalQuestion {
 
   handleChange(event) {
     this.selected = event.target.value;
+  }
+
+  /**
+   * Emits an error-event
+   */
+  @Event() error: EventEmitter;
+  emitError(error) {
+    this.error.emit(error);
   }
 
   /* Lifecycle Methods */

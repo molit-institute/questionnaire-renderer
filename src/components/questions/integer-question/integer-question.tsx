@@ -185,7 +185,12 @@ export class IntegerQuestion {
     }
   }
   setSelected() {
-    this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'integer');
+    try {
+      this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'integer');
+
+    } catch (error) {
+      this.emitError(error);
+    }
   }
   /**
    * Parses a String into a integer
@@ -194,6 +199,13 @@ export class IntegerQuestion {
     return parseInt(value);
   }
 
+  /**
+  * Emits an error-event
+  */
+  @Event() error: EventEmitter;
+  emitError(error) {
+    this.error.emit(error);
+  }
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
@@ -268,8 +280,8 @@ export class IntegerQuestion {
                           this.validate() !== false
                             ? 'qr-question-hidden qr-integerQuestion-hidden my-invalid-feedback'
                             : this.selected === null
-                            ? 'qr-question-hidden qr-integerQuestion-hidden my-invalid-feedback'
-                            : 'qr-question-visible qr-integerQuestion-visible my-invalid-feedback'
+                              ? 'qr-question-hidden qr-integerQuestion-hidden my-invalid-feedback'
+                              : 'qr-question-visible qr-integerQuestion-visible my-invalid-feedback'
                         }
                       >
                         {this.strings.integer.invalid}

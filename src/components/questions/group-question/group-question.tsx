@@ -92,6 +92,14 @@ export class GroupQuestion {
     this.addRequiredAnswer.emit(question);
   }
 
+  /**
+   * Emits an error-event
+   */
+   @Event() error: EventEmitter;
+   emitError(error) {
+     this.error.emit(error);
+   }
+
   /* Lifecycle Methods */
   async componentWillLoad(): Promise<void> {}
   render() {
@@ -174,6 +182,7 @@ export class GroupQuestion {
                             danger={this.danger}
                             locale={this.locale}
                             enableInformalLocale={this.enableInformalLocale}
+                            onError={event => this.emitError(event)}
                           ></Tag>
                         </div>
                       </div>

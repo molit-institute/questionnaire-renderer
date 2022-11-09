@@ -35,6 +35,7 @@
 
 | Event     | Description                     | Type               |
 | --------- | ------------------------------- | ------------------ |
+| `error`   | Emits an error-event            | `CustomEvent<any>` |
 | `finish`  | Counts up the Question-Number   | `CustomEvent<any>` |
 | `return`  | Counts down the Question-Number | `CustomEvent<any>` |
 | `summary` |                                 | `CustomEvent<any>` |

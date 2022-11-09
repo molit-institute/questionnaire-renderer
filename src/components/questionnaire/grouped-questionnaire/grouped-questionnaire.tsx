@@ -358,6 +358,7 @@ export class GroupedQuestionnaire {
                   danger={this.danger}
                   locale={this.locale}
                   enableInformalLocale={this.enableInformalLocale}
+                  onError={event => this.emitError(event)}
                 ></Tag>
               </div>
             ) : (

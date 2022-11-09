@@ -122,7 +122,12 @@ export class DateTimeQuestion {
 
   /* methods */
   getAnswer() {
-    return questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'dateTime');
+    try {
+      return questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'dateTime');
+      
+    } catch (error) {
+      this.emitError(error)
+    }
   }
 
   getDateAndTime() {
@@ -143,6 +148,14 @@ export class DateTimeQuestion {
         this.time = event.target.value;
         break;
     }
+  }
+
+  /**
+     * Emits an error-event
+     */
+  @Event() error: EventEmitter;
+  emitError(error) {
+    this.error.emit(error);
   }
 
   /* Lifecycle Methods */

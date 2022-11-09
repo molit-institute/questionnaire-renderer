@@ -87,6 +87,7 @@ export class ChoiceQuestion {
     try {
       this.optionsList = await this.getChoiceOptions();
     } catch (error) {
+      this.emitError(error)
       alert(error);
     }
   }
@@ -185,11 +186,16 @@ export class ChoiceQuestion {
    * Sets the value of the variable selected.
    */
   setSelected() {
-    let data = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'coding');
-    if (this.question.repeats) {
-      this.selected = data;
-    } else {
-      this.selected = data[0];
+    try {
+      let data = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'coding');
+      if (this.question.repeats) {
+        this.selected = data;
+      } else {
+        this.selected = data[0];
+      }
+
+    } catch (error) {
+      this.emitError(error)
     }
   }
 
@@ -211,6 +217,14 @@ export class ChoiceQuestion {
     return false;
   }
 
+  /**
+   * Emits an error-event
+   */
+  @Event() error: EventEmitter;
+  emitError(error) {
+    this.error.emit(error);
+  }
+
   /* Lifecycle Methods */
   @Event() emitRemoveRequiredAnswer: EventEmitter;
   async componentWillLoad(): Promise<void> {
@@ -218,6 +232,7 @@ export class ChoiceQuestion {
     try {
       this.optionsList = await this.getChoiceOptions();
     } catch (e) {
+      this.emitError(e)
       console.error(e);
     }
     await this.setSelected();
@@ -227,7 +242,7 @@ export class ChoiceQuestion {
     this.allow_events = true
 
   }
-  
+
   render() {
     return (
       <div class="qr-question-container">

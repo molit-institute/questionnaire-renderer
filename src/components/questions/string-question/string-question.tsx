@@ -104,7 +104,11 @@ export class StringQuestion {
   }
 
   setSelected() {
-    this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'string');
+    try {
+      this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'string');
+    } catch (error) {
+      this.emitError(error)
+    }
   }
   /**
    *  Handles KeyPresses by adding Eventlisteners
@@ -117,6 +121,15 @@ export class StringQuestion {
       this.emitNext.emit('next');
     }
   }
+
+  /**
+  * Emits an error-event
+  */
+  @Event() error: EventEmitter;
+  emitError(error) {
+    this.error.emit(error);
+  }
+
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {

@@ -98,11 +98,23 @@ export class TimeQuestion {
 
   /* methods */
   setSelected() {
-    this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'time');
+    try {
+      this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'time');
+    } catch (error) {
+      this.emitError(error)
+    }
   }
   handleChange(event) {
     this.selected = event.target.value;
   }
+
+   /**
+   * Emits an error-event
+   */
+    @Event() error: EventEmitter;
+    emitError(error) {
+      this.error.emit(error);
+    }
 
   /* Lifecycle Methods */
   async componentWillLoad(): Promise<void> {

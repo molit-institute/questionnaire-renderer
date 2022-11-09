@@ -116,16 +116,27 @@ export class BooleanQuestion {
     return false;
   }
   setSelected() {
-    let value = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'boolean');
-    if (value === true) {
-      this.selected = 'yes';
-    } else if (value === false) {
-      this.selected = 'no';
-    } else {
-      this.selected = null;
+    try {
+      let value = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'boolean');
+      if (value === true) {
+        this.selected = 'yes';
+      } else if (value === false) {
+        this.selected = 'no';
+      } else {
+        this.selected = null;
+      }
+    } catch (error) {
+      this.emitError(error)
     }
   }
 
+  /**
+   * Emits an error-event
+   */
+   @Event() error: EventEmitter;
+   emitError(error) {
+     this.error.emit(error);
+   }
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {

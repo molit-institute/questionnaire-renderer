@@ -115,6 +115,14 @@ export class FullQuestionnaire {
     return this.questionsList().indexOf(question);
   }
 
+  /**
+   * Emits an error-event
+   */
+   @Event() error: EventEmitter;
+   emitError(error) {
+     this.error.emit(error);
+   }
+
   /* Lifecycle Methods */
   componentDidUpdate() {
     //TODO Is this the correct lifecycle hook?
@@ -173,6 +181,7 @@ export class FullQuestionnaire {
                             vasShowSelectedValue={this.vasShowSelectedValue}
                             vasSelectedValueLabel={this.vasSelectedValueLabel}
                             enableInformalLocale={this.enableInformalLocale}
+                            onError={event => this.emitError(event)}
                           ></Tag>
                         </div>
                       ) : null}

@@ -765,6 +765,10 @@ declare namespace LocalJSX {
         "mode"?: string;
         "onEmitAnswer"?: (event: CustomEvent<any>) => void;
         /**
+          * Emits an error-event
+         */
+        "onError"?: (event: CustomEvent<any>) => void;
+        /**
           * Primary color
          */
         "primary"?: string;
@@ -793,6 +797,10 @@ declare namespace LocalJSX {
         "mode"?: string;
         "onEmitAnswer"?: (event: CustomEvent<any>) => void;
         "onEmitRemoveRequiredAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onError"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -844,6 +852,10 @@ declare namespace LocalJSX {
         "mode"?: string;
         "onEmitAnswer"?: (event: CustomEvent<any>) => void;
         /**
+          * Emits an error-event
+         */
+        "onError"?: (event: CustomEvent<any>) => void;
+        /**
           * Primary color
          */
         "primary"?: string;
@@ -871,6 +883,10 @@ declare namespace LocalJSX {
           * Handles KeyPresses by adding Eventlisteners
          */
         "onEmitNext"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onError"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -904,6 +920,10 @@ declare namespace LocalJSX {
         "enableReturn"?: boolean;
         "filteredItemList"?: Array<any>;
         "locale"?: string;
+        /**
+          * Emits an error-event
+         */
+        "onError"?: (event: CustomEvent<any>) => void;
         "onReturn"?: (event: CustomEvent<any>) => void;
         "onSummary"?: (event: CustomEvent<any>) => void;
         /**
@@ -955,6 +975,10 @@ declare namespace LocalJSX {
           * Emits new Event to give the required Question to Parent-Component to be removed from the List of answered Questions
          */
         "onEmitRemoveRequiredAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onError"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -1049,6 +1073,10 @@ declare namespace LocalJSX {
           * Handles KeyPresses by adding Eventlisteners
          */
         "onEmitNext"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onError"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -1277,6 +1305,10 @@ declare namespace LocalJSX {
         "filteredItemList"?: Array<any>;
         "lastQuestion"?: boolean;
         "locale"?: string;
+        /**
+          * Emits an error-event
+         */
+        "onError"?: (event: CustomEvent<any>) => void;
         "onFinish"?: (event: CustomEvent<any>) => void;
         "onReturn"?: (event: CustomEvent<any>) => void;
         "onSummary"?: (event: CustomEvent<any>) => void;
@@ -1320,6 +1352,10 @@ declare namespace LocalJSX {
          */
         "onEmitNext"?: (event: CustomEvent<any>) => void;
         /**
+          * Emits an error-event
+         */
+        "onError"?: (event: CustomEvent<any>) => void;
+        /**
           * Primary color
          */
         "primary"?: string;
@@ -1350,6 +1386,10 @@ declare namespace LocalJSX {
          */
         "onEmitNext"?: (event: CustomEvent<any>) => void;
         /**
+          * Emits an error-event
+         */
+        "onError"?: (event: CustomEvent<any>) => void;
+        /**
           * Primary color
          */
         "primary"?: string;
@@ -1373,6 +1413,10 @@ declare namespace LocalJSX {
         "locale"?: string;
         "mode"?: string;
         "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onError"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
