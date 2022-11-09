@@ -21,6 +21,7 @@ export class TextQuestion {
   @State() strings: any;
 
   @Prop() question: any;
+  @Prop() enableErrorConsoleLogging:boolean;
   @State() reset: Boolean = false;
   @Watch('question')
   watchQuestion() {
@@ -107,7 +108,10 @@ export class TextQuestion {
     try {
       this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'text');
     } catch (error) {
-      this.emitError(error)
+      if (this.enableErrorConsoleLogging) {
+        console.error(error);
+      }
+      this.emitError(error);
     }
   }
   /**

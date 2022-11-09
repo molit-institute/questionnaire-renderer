@@ -31,6 +31,7 @@ export class StringQuestion {
   }
 
   @Prop() mode: string;
+  @Prop() enableErrorConsoleLogging:boolean;
   @Prop() questionnaireResponse: Object = null;
   @Watch('questionnaireResponse')
   async watchQuestionnaireResponse() {

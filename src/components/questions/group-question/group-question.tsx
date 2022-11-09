@@ -38,6 +38,7 @@ export class GroupQuestion {
   @Prop() enableReturn: boolean = true;
   @Prop() mode: string;
   @Prop() enableInformalLocale: boolean;
+  @Prop() enableErrorConsoleLogging:boolean;
   /**
    * Primary color
    */
@@ -182,6 +183,7 @@ export class GroupQuestion {
                             danger={this.danger}
                             locale={this.locale}
                             enableInformalLocale={this.enableInformalLocale}
+                            enableErrorConsoleLogging={this.enableErrorConsoleLogging}
                             onError={event => this.emitError(event)}
                           ></Tag>
                         </div>

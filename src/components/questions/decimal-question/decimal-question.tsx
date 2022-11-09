@@ -16,6 +16,7 @@ export class DecimalQuestion {
   @Element() element: HTMLElement;
   decimalInput!: HTMLInputElement;
   @Prop() variant: any = null;
+  @Prop() enableErrorConsoleLogging: boolean;
   /**
    *  String containing the translations for the current locale
    */
@@ -123,7 +124,10 @@ export class DecimalQuestion {
       this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'decimal');
 
     } catch (error) {
-      this.emitError(error);
+      if (this.enableErrorConsoleLogging) {
+        console.error(e);
+      }
+      this.emitError(e);
     }
   }
 
@@ -151,7 +155,10 @@ export class DecimalQuestion {
       await this.setSelected();
       this.allow_events = true;
     } catch (e) {
-      console.error(e);
+      if (this.enableErrorConsoleLogging) {
+        console.error(e);
+      }
+      this.emitError(e);
     }
   }
 

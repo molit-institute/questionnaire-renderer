@@ -45,6 +45,7 @@ export class QuestionnaireSummary {
   @Prop() enableSendQuestionnaireResponse: boolean;
   @Prop() enableInformalLocale: boolean;
   @Prop() trademarkText: string = null;
+  @Prop() enableErrorConsoleLogging: boolean;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]

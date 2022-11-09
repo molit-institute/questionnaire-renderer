@@ -15,6 +15,7 @@ import { textToHtml } from '../../../utils/textToHtml';
 export class UrlQuestion {
   @Element() element: HTMLElement;
   @Prop() variant: any = null;
+  @Prop() enableErrorConsoleLogging:boolean;
   /**
    *  String containing the translations for the current locale
    */
@@ -122,7 +123,10 @@ export class UrlQuestion {
       this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'url');
       
     } catch (error) {
-      this.emitError(error)
+      if (this.enableErrorConsoleLogging) {
+        console.error(error);
+      }
+      this.emitError(error);
     }
   }
 

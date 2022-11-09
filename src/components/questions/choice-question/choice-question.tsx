@@ -116,6 +116,7 @@ export class ChoiceQuestion {
    * Currently suported: [de, en, es]
    */
   @Prop() locale: string = 'en';
+  @Prop() enableErrorConsoleLogging:boolean;
   @Watch('locale')
   async watchLocale(newValue: string) {
     this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);

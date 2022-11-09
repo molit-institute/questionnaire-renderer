@@ -16,6 +16,7 @@ import { textToHtml } from '../../../utils/textToHtml';
 export class DateTimeQuestion {
   @Element() element: HTMLElement;
   @Prop() variant: any = null;
+  @Prop() enableErrorConsoleLogging: boolean;
   /**
    *  String containing the translations for the current locale
    */
@@ -124,9 +125,12 @@ export class DateTimeQuestion {
   getAnswer() {
     try {
       return questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'dateTime');
-      
+
     } catch (error) {
-      this.emitError(error)
+      if (this.enableErrorConsoleLogging) {
+        console.error(error);
+      }
+      this.emitError(error);
     }
   }
 
@@ -166,7 +170,10 @@ export class DateTimeQuestion {
       this.getDateAndTime();
       this.allow_events = true;
     } catch (e) {
-      console.error(e);
+      if (this.enableErrorConsoleLogging) {
+        console.error(e);
+      }
+      this.emitError(e);
     }
   }
 

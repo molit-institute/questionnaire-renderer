@@ -79,6 +79,7 @@ export class BooleanQuestion {
    * Currently suported: [de, en, es]
    */
   @Prop() locale: string = 'en';
+  @Prop() enableErrorConsoleLogging:boolean;
   @Watch('locale')
   async watchLocale(newValue: string) {
     this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
@@ -126,7 +127,10 @@ export class BooleanQuestion {
         this.selected = null;
       }
     } catch (error) {
-      this.emitError(error)
+      if(this.enableErrorConsoleLogging){
+        console.error(error);
+      }
+      this.emitError(error);
     }
   }
 
@@ -145,7 +149,10 @@ export class BooleanQuestion {
       await this.setSelected();
       this.allow_events = true;
     } catch (e) {
-      console.error(e);
+      if(this.enableErrorConsoleLogging){
+        console.error(e);
+      }
+      this.emitError(e);
     }
   }
 

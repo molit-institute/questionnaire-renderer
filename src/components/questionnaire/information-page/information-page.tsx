@@ -19,6 +19,7 @@ export class InformationPage {
   @Prop() enableInformalLocale: boolean = false;
   @Prop() filteredItemList: Array<any>;
   @Prop() trademarkText: string = null;
+  @Prop() enableErrorConsoleLogging: boolean;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]

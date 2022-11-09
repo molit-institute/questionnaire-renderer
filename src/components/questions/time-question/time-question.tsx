@@ -76,6 +76,7 @@ export class TimeQuestion {
    */
   @Prop() danger: string;
   @Prop() enableInformalLocale: boolean;
+  @Prop() enableErrorConsoleLogging:boolean;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]

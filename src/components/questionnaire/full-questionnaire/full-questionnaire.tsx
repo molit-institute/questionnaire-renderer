@@ -53,6 +53,7 @@ export class FullQuestionnaire {
    */
   @Prop() spinner: any;
   @Prop() locale: string = 'en';
+  @Prop() enableErrorConsoleLogging: boolean;
   @Watch('locale')
   async watchLocale(newValue: string) {
     this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
@@ -118,10 +119,10 @@ export class FullQuestionnaire {
   /**
    * Emits an error-event
    */
-   @Event() error: EventEmitter;
-   emitError(error) {
-     this.error.emit(error);
-   }
+  @Event() error: EventEmitter;
+  emitError(error) {
+    this.error.emit(error);
+  }
 
   /* Lifecycle Methods */
   componentDidUpdate() {
@@ -136,7 +137,10 @@ export class FullQuestionnaire {
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
     } catch (e) {
-      console.error(e);
+      if (this.enableErrorConsoleLogging) {
+        console.error(e);
+      }
+      this.emitError(e);
     }
   }
 
@@ -181,6 +185,7 @@ export class FullQuestionnaire {
                             vasShowSelectedValue={this.vasShowSelectedValue}
                             vasSelectedValueLabel={this.vasSelectedValueLabel}
                             enableInformalLocale={this.enableInformalLocale}
+                            enableErrorConsoleLogging={this.enableErrorConsoleLogging}
                             onError={event => this.emitError(event)}
                           ></Tag>
                         </div>

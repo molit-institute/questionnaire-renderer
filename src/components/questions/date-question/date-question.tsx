@@ -15,6 +15,7 @@ import { textToHtml } from '../../../utils/textToHtml';
 export class DateQuestion {
   @Element() element: HTMLElement;
   @Prop() variant: any = null;
+  @Prop() enableErrorConsoleLogging: boolean;
   /**
    *  String containing the translations for the current locale
    */
@@ -107,6 +108,14 @@ export class DateQuestion {
     this.selected = event.target.value;
   }
 
+  /**
+     * Emits an error-event
+     */
+  @Event() error: EventEmitter;
+  emitError(error) {
+    this.error.emit(error);
+  }
+
   /* Lifecycle Methods */
   async componentWillLoad(): Promise<void> {
     try {
@@ -114,7 +123,10 @@ export class DateQuestion {
       await this.setSelected();
       this.allow_events = true;
     } catch (e) {
-      console.error(e);
+      if (this.enableErrorConsoleLogging) {
+        console.error(e);
+      }
+      this.emitError(e);
     }
   }
 

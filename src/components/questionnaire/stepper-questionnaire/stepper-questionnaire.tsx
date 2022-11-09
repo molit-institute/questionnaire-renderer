@@ -96,6 +96,7 @@ export class StepperQuestionnaire {
   @Prop() enableInformalLocale: boolean;
   @Prop() trademarkText: string = null;
   @Prop() enableGroupDescription: boolean;
+  @Prop() enableErrorConsoleLogging: boolean;
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
@@ -320,8 +321,10 @@ export class StepperQuestionnaire {
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
     } catch (e) {
-      console.error(e);
-      this.emitError(e)
+      if(this.enableErrorConsoleLogging){
+        console.error(e);
+      }
+      this.emitError(e);
     }
     //sets count if startcount was given from the summarypage through the questionnaire.view
     if (this.startCount && this.filteredItemList && this.filteredItemList.length > 0) {
@@ -394,6 +397,7 @@ export class StepperQuestionnaire {
               vasVertical={this.vasVertical}
               vasShowSelectedValue={this.vasShowSelectedValue}
               vasSelectedValueLabel={this.vasSelectedValueLabel}
+              enableErrorConsoleLogging={this.enableErrorConsoleLogging}
               onError={event => this.emitError(event)}
             ></Tag>
           </div>

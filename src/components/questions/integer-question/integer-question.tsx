@@ -18,6 +18,7 @@ export class IntegerQuestion {
   integerInput!: HTMLInputElement;
   @State() reset: Boolean = false;
   @Prop() variant: any = null;
+  @Prop() enableErrorConsoleLogging:boolean;
   /**
    *  String containing the translations for the current locale
    */
