@@ -776,9 +776,9 @@ export class QuestionnaireRenderer {
   /**
    * Emits an error-event
    */
-  @Event() error: EventEmitter;
+  @Event() errorLog: EventEmitter;
   emitError(error) {
-    this.error.emit(error);
+    this.errorLog.emit(error);
   }
 
   @Event() addRemarks: EventEmitter;
@@ -893,7 +893,7 @@ export class QuestionnaireRenderer {
               onToQuestionnaireRenderer={() => this.toQuestionnaire(true)}
               onEditQuestion={question => this.editQuestion(question)}
               onFinishQuestionnaire={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
-              onError={error => this.emitError(error)}
+              // onErrorLog={error => this.emitError(error)}
               onCloseSummary={() => this.closesSummary()}
               token={this.token}
               basicAuth={this.basicAuth}
@@ -917,6 +917,7 @@ export class QuestionnaireRenderer {
               locale={this.locale}
               onStartQuestionnaire={() => this.toQuestionnaire(false)}
               trademarkText={this.trademarkText}
+              // onErrorLog={error => this.emitError(error)}
             ></information-page>
           </div>
         ) : null}

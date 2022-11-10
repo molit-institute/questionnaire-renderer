@@ -116,7 +116,7 @@ export class ChoiceQuestion {
    * Currently suported: [de, en, es]
    */
   @Prop() locale: string = 'en';
-  @Prop() enableErrorConsoleLogging:boolean;
+  @Prop() enableErrorConsoleLogging: boolean;
   @Watch('locale')
   async watchLocale(newValue: string) {
     this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
@@ -196,7 +196,10 @@ export class ChoiceQuestion {
       }
 
     } catch (error) {
-      this.emitError(error)
+      if (this.enableErrorConsoleLogging) {
+        console.error(error);
+      }
+      this.emitError(error);
     }
   }
 
@@ -221,9 +224,9 @@ export class ChoiceQuestion {
   /**
    * Emits an error-event
    */
-  @Event() error: EventEmitter;
+  @Event() errorLog: EventEmitter;
   emitError(error) {
-    this.error.emit(error);
+    this.errorLog.emit(error);
   }
 
   /* Lifecycle Methods */
@@ -233,8 +236,10 @@ export class ChoiceQuestion {
     try {
       this.optionsList = await this.getChoiceOptions();
     } catch (e) {
-      this.emitError(e)
-      console.error(e);
+      if (this.enableErrorConsoleLogging) {
+        console.error(e);
+      }
+      this.emitError(e);
     }
     await this.setSelected();
     this.repeats = this.question.repeats;

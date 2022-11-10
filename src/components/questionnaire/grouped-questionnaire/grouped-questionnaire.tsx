@@ -297,9 +297,9 @@ export class GroupedQuestionnaire {
   /**
    * Emits an error-event
    */
-  @Event() error: EventEmitter;
+  @Event() errorLog: EventEmitter;
   emitError(error) {
-    this.error.emit(error);
+    this.errorLog.emit(error);
   }
 
   /* Lifecycle Methods */
@@ -363,7 +363,7 @@ export class GroupedQuestionnaire {
                   locale={this.locale}
                   enableInformalLocale={this.enableInformalLocale}
                   enableErrorConsoleLogging={this.enableErrorConsoleLogging}
-                  onError={event => this.emitError(event)}
+                  onErrorLog={event => this.emitError(event)}
                 ></Tag>
               </div>
             ) : (
@@ -386,7 +386,7 @@ export class GroupedQuestionnaire {
                     vasSelectedValueLabel={this.vasSelectedValueLabel}
                     enableInformalLocale={this.enableInformalLocale}
                     enableErrorConsoleLogging={this.enableErrorConsoleLogging}
-                    onError={event => this.emitError(event)}
+                    onErrorLog={event => this.emitError(event)}
                   ></Tag>
                 </div>
               </div>

@@ -76,7 +76,7 @@ export class TimeQuestion {
    */
   @Prop() danger: string;
   @Prop() enableInformalLocale: boolean;
-  @Prop() enableErrorConsoleLogging:boolean;
+  @Prop() enableErrorConsoleLogging: boolean;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -102,20 +102,23 @@ export class TimeQuestion {
     try {
       this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'time');
     } catch (error) {
-      this.emitError(error)
+      if (this.enableErrorConsoleLogging) {
+        console.error(error);
+      }
+      this.emitError(error);
     }
   }
   handleChange(event) {
     this.selected = event.target.value;
   }
 
-   /**
-   * Emits an error-event
-   */
-    @Event() error: EventEmitter;
-    emitError(error) {
-      this.error.emit(error);
-    }
+  /**
+  * Emits an error-event
+  */
+  @Event() errorLog: EventEmitter;
+  emitError(error) {
+    this.errorLog.emit(error);
+  }
 
   /* Lifecycle Methods */
   async componentWillLoad(): Promise<void> {
@@ -124,7 +127,10 @@ export class TimeQuestion {
       await this.setSelected();
       this.allow_events = true;
     } catch (e) {
-      console.error(e);
+      if (this.enableErrorConsoleLogging) {
+        console.error(e);
+      }
+      this.emitError(e);
     }
   }
 

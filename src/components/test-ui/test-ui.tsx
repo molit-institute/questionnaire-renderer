@@ -28,10 +28,10 @@ export class TestUi {
   indexQuestion: Object = null;
   baseUrl: string = 'https://fhir.molit.eu/fhir';
   // baseUrl: string = 'https://dev.lion-app.de/fhir';
-  questionnaireUrl: string =this.baseUrl+'/Questionnaire/56'
+  questionnaireUrl: string = this.baseUrl + '/Questionnaire/56'
   questionnaire: any = null;
   questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30, q_5d_5l, vomit, movement];
-  token:string='eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJWUkFjb0VJV2JNTlkwNzJLMGFyaTFpUkxqM1dmVUhuWHpWRmd3bDAyVkdzIn0.eyJleHAiOjE2NTIwODc2MzMsImlhdCI6MTY1MTY1NTYzMywiYXV0aF90aW1lIjoxNjUxNDkyNDUzLCJqdGkiOiJmN2EwZjczMS0zOWI2LTQ0NmItODU2Ni1hMDkyOGY2NmFkNjIiLCJpc3MiOiJodHRwczovL2Rldi5saW9uLWFwcC5kZS9hdXRoL3JlYWxtcy9saW9uLXJlYWxtIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjVjMWRiZWQxLTg5YWEtNGM1MS1iZTkxLWM0YTA5NGIxYWIwYiIsInR5cCI6IkJlYXJlciIsImF6cCI6Imxpb24tYXBwIiwibm9uY2UiOiJHOVdaMTBkakFRRWRZY0ZuMWlQTmhnIiwic2Vzc2lvbl9zdGF0ZSI6IjA3MDI3NTQxLTg4ZDItNDY0ZC1iOGZhLTE4MGZiZWI0NzBkOCIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJkZWZhdWx0LXJvbGVzLWxpb24tcmVhbG0iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJzaWQiOiIwNzAyNzU0MS04OGQyLTQ2NGQtYjhmYS0xODBmYmViNDcwZDgiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZ2VuZGVyIjoiZmVtYWxlIiwicGF0aWVudElkIjoiMTkiLCJuYW1lIjoiS2F0aGFyaW5hcyBUZXN0bnV0emVyIiwicHJlZmVycmVkX3VzZXJuYW1lIjoia2F0aGFyaW5hLnplbGxlckBtb2xpdC5ldSIsImdpdmVuX25hbWUiOiJLYXRoYXJpbmFzIiwiZmFtaWx5X25hbWUiOiJUZXN0bnV0emVyIiwiZW1haWwiOiJrYXRoYXJpbmEuemVsbGVyQG1vbGl0LmV1In0.k6JVgOwPG65MROEDhNrFB8NUYPfBDFF-0TXSAwTaUS12ySSf6h6A68Gdm0znD8p7WP_llcG_j9zyYKp1lMGZBiHfA_Q4gj6pqQ0ssABMI-jpi2UrHwo3anzRnu0ntJRhrbkX1wRFbiGXvYtXV7QKXBB5nGwrXFkDxn9Mz414Tid6fAkZQNja_DzNpCb7L6cQ2hmIpNe9rEYwcQXOymvXJW0PN_PeaeIk6WZToXxmHxrM3TDuK7S4Jbm-kab4Bc0pycV7tth1GqRBQCI0_3i0r1_Z9JOKY547JyCCJWcdYO-aQGYv7zZtKMooKIyNTmHzbWSoB_iUkBQjk4LgzBk9bA'
+  token: string = 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJWUkFjb0VJV2JNTlkwNzJLMGFyaTFpUkxqM1dmVUhuWHpWRmd3bDAyVkdzIn0.eyJleHAiOjE2NTIwODc2MzMsImlhdCI6MTY1MTY1NTYzMywiYXV0aF90aW1lIjoxNjUxNDkyNDUzLCJqdGkiOiJmN2EwZjczMS0zOWI2LTQ0NmItODU2Ni1hMDkyOGY2NmFkNjIiLCJpc3MiOiJodHRwczovL2Rldi5saW9uLWFwcC5kZS9hdXRoL3JlYWxtcy9saW9uLXJlYWxtIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjVjMWRiZWQxLTg5YWEtNGM1MS1iZTkxLWM0YTA5NGIxYWIwYiIsInR5cCI6IkJlYXJlciIsImF6cCI6Imxpb24tYXBwIiwibm9uY2UiOiJHOVdaMTBkakFRRWRZY0ZuMWlQTmhnIiwic2Vzc2lvbl9zdGF0ZSI6IjA3MDI3NTQxLTg4ZDItNDY0ZC1iOGZhLTE4MGZiZWI0NzBkOCIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJkZWZhdWx0LXJvbGVzLWxpb24tcmVhbG0iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJzaWQiOiIwNzAyNzU0MS04OGQyLTQ2NGQtYjhmYS0xODBmYmViNDcwZDgiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZ2VuZGVyIjoiZmVtYWxlIiwicGF0aWVudElkIjoiMTkiLCJuYW1lIjoiS2F0aGFyaW5hcyBUZXN0bnV0emVyIiwicHJlZmVycmVkX3VzZXJuYW1lIjoia2F0aGFyaW5hLnplbGxlckBtb2xpdC5ldSIsImdpdmVuX25hbWUiOiJLYXRoYXJpbmFzIiwiZmFtaWx5X25hbWUiOiJUZXN0bnV0emVyIiwiZW1haWwiOiJrYXRoYXJpbmEuemVsbGVyQG1vbGl0LmV1In0.k6JVgOwPG65MROEDhNrFB8NUYPfBDFF-0TXSAwTaUS12ySSf6h6A68Gdm0znD8p7WP_llcG_j9zyYKp1lMGZBiHfA_Q4gj6pqQ0ssABMI-jpi2UrHwo3anzRnu0ntJRhrbkX1wRFbiGXvYtXV7QKXBB5nGwrXFkDxn9Mz414Tid6fAkZQNja_DzNpCb7L6cQ2hmIpNe9rEYwcQXOymvXJW0PN_PeaeIk6WZToXxmHxrM3TDuK7S4Jbm-kab4Bc0pycV7tth1GqRBQCI0_3i0r1_Z9JOKY547JyCCJWcdYO-aQGYv7zZtKMooKIyNTmHzbWSoB_iUkBQjk4LgzBk9bA'
 
   /* computed */
   examplePatient() {
@@ -119,10 +119,10 @@ export class TestUi {
 
           {this.show_questionnaire_list
             ? this.questionnaires.map(questionnaire => (
-                <div onClick={() => this.openSelectedQuestionnaire(questionnaire)}>
-                  <div class="padding">{questionnaire.title}</div>
-                </div>
-              ))
+              <div onClick={() => this.openSelectedQuestionnaire(questionnaire)}>
+                <div class="padding">{questionnaire.title}</div>
+              </div>
+            ))
             : null}
           {this.show_renderer ? (
             <questionnaire-renderer
@@ -130,10 +130,10 @@ export class TestUi {
               // onUpdated={event => this.updateQR(event)}
               // onExit={() => this.toQuestionnaireList()}
               // trademarkText='Dont copy meeeeee'
-              enableInformationPage = {true}
-              informationPageText ="<u>Test</u> Information <br> PageText"
+              enableInformationPage={true}
+              informationPageText="<u>Test</u> Information <br> PageText"
               // questionnaireResponse={this.questionnaireResponse}
-              questionnaire={this.questionnaire}
+              // questionnaire={this.questionnaire}
               // questionnaireUrl={this.questionnaireUrl}
               baseUrl={this.baseUrl}
               // lastQuestion={this.lastQuestion}
@@ -155,6 +155,8 @@ export class TestUi {
               // vasVertical={true}
               // vasShowSelectedValue={true}
               // token={this.token}
+              enableErrorConsoleLogging={false}
+              onErrorLog={error => console.info(error)}
             ></questionnaire-renderer>
           ) : null}
           {this.show_summary ? (

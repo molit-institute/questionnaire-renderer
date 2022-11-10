@@ -125,9 +125,9 @@ export class DecimalQuestion {
 
     } catch (error) {
       if (this.enableErrorConsoleLogging) {
-        console.error(e);
+        console.error(error);
       }
-      this.emitError(e);
+      this.emitError(error);
     }
   }
 
@@ -142,9 +142,9 @@ export class DecimalQuestion {
   /**
    * Emits an error-event
    */
-  @Event() error: EventEmitter;
+  @Event() errorLog: EventEmitter;
   emitError(error) {
-    this.error.emit(error);
+    this.errorLog.emit(error);
   }
 
   /* Lifecycle Methods */

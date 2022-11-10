@@ -297,9 +297,9 @@ export class StepperQuestionnaire {
   /**
      * Emits an error-event
      */
-  @Event() error: EventEmitter;
+  @Event() errorLog: EventEmitter;
   emitError(error) {
-    this.error.emit(error);
+    this.errorLog.emit(error);
   }
   
   /* Lifecycle Methods */
@@ -398,7 +398,7 @@ export class StepperQuestionnaire {
               vasShowSelectedValue={this.vasShowSelectedValue}
               vasSelectedValueLabel={this.vasSelectedValueLabel}
               enableErrorConsoleLogging={this.enableErrorConsoleLogging}
-              onError={event => this.emitError(event)}
+              onErrorLog={event => this.emitError(event)}
             ></Tag>
           </div>
         ) : null}
