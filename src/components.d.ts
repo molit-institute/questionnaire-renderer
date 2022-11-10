@@ -789,7 +789,7 @@ declare namespace LocalJSX {
         /**
           * Emits an error-event
          */
-        "onError"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
