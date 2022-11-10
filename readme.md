@@ -5,29 +5,23 @@
 ![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@molit/questionnaire-renderer)
 ![npm license](https://img.shields.io/npm/l/@molit/questionnaire-renderer.svg)
 
-### Installation
+# Stencil
 
-Install like a normal npm dependency.
+Stencil is a compiler for building fast web apps using Web Components.
+
+Stencil combines the best concepts of the most popular frontend frameworks into a compile-time rather than run-time tool.  Stencil takes TypeScript, JSX, a tiny virtual DOM layer, efficient one-way data binding, an asynchronous rendering pipeline (similar to React Fiber), and lazy-loading out of the box, and generates 100% standards-based Web Components that run in any browser supporting the Custom Elements v1 spec.
+
+Stencil components are just Web Components, so they work in any major framework or with no framework at all.
+
+## Getting Started
+
+To start building a new web component using Stencil, clone this repo to a new directory:
+git clone https://github.com/ionic-team/stencil-component-starter.git my-component
+cd my-component
+git remote rm origin
+and run:
 
 ```bash
-npm i @molit/fhir-api
+npm install
+npm start
 ```
-
-### Usage
-
-//TODO Nutzung beschreiben
-Import the library and use the functions of the library.
-
-```js
-import * as fhirApi from "@molit/fhir-api";
-
-let List = fhirApi.fetchQuestionnaires(fhirBaseUrl);
-```
-
-### Browser Example
-//TODO 
-An example for browser usage can be seen here: https://jsfiddle.net/molitinstitut/nzwd917L/latest/
-
-### Documentation
-//TODO docu für props
-See full documentation here: https://docs.molit.eu/fhir-api/
