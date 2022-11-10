@@ -16,6 +16,7 @@ export class DecimalQuestion {
   @Element() element: HTMLElement;
   decimalInput!: HTMLInputElement;
   @Prop() variant: any = null;
+  @Prop() enableErrorConsoleLogging: boolean;
   /**
    *  String containing the translations for the current locale
    */
@@ -107,7 +108,6 @@ export class DecimalQuestion {
   /**
    *  Handles KeyPresses by adding Eventlisteners
    */
-
   @Event() emitNext: EventEmitter;
   @Listen('keyup')
   handleKeyPress(ev: KeyboardEvent) {
@@ -120,7 +120,15 @@ export class DecimalQuestion {
    *
    */
   setSelected() {
-    this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'decimal');
+    try {
+      this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'decimal');
+
+    } catch (error) {
+      if (this.enableErrorConsoleLogging) {
+        console.error(error);
+      }
+      this.emitError(error);
+    }
   }
 
   checkInput(input) {
@@ -131,6 +139,14 @@ export class DecimalQuestion {
     this.selected = event.target.value;
   }
 
+  /**
+   * Emits an error-event
+   */
+  @Event() errorLog: EventEmitter;
+  emitError(error) {
+    this.errorLog.emit(error);
+  }
+
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
@@ -139,7 +155,10 @@ export class DecimalQuestion {
       await this.setSelected();
       this.allow_events = true;
     } catch (e) {
-      console.error(e);
+      if (this.enableErrorConsoleLogging) {
+        console.error(e);
+      }
+      this.emitError(e);
     }
   }
 

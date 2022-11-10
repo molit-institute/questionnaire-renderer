@@ -79,6 +79,7 @@ export class BooleanQuestion {
    * Currently suported: [de, en, es]
    */
   @Prop() locale: string = 'en';
+  @Prop() enableErrorConsoleLogging:boolean;
   @Watch('locale')
   async watchLocale(newValue: string) {
     this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
@@ -116,16 +117,30 @@ export class BooleanQuestion {
     return false;
   }
   setSelected() {
-    let value = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'boolean');
-    if (value === true) {
-      this.selected = 'yes';
-    } else if (value === false) {
-      this.selected = 'no';
-    } else {
-      this.selected = null;
+    try {
+      let value = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'boolean');
+      if (value === true) {
+        this.selected = 'yes';
+      } else if (value === false) {
+        this.selected = 'no';
+      } else {
+        this.selected = null;
+      }
+    } catch (error) {
+      if(this.enableErrorConsoleLogging){
+        console.error(error);
+      }
+      this.emitError(error);
     }
   }
 
+  /**
+   * Emits an error-event
+   */
+   @Event() errorLog: EventEmitter;
+   emitError(error) {
+     this.errorLog.emit(error);
+   }
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
@@ -134,7 +149,10 @@ export class BooleanQuestion {
       await this.setSelected();
       this.allow_events = true;
     } catch (e) {
-      console.error(e);
+      if(this.enableErrorConsoleLogging){
+        console.error(e);
+      }
+      this.emitError(e);
     }
   }
 

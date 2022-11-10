@@ -16,6 +16,7 @@ import { textToHtml } from '../../../utils/textToHtml';
 export class DateTimeQuestion {
   @Element() element: HTMLElement;
   @Prop() variant: any = null;
+  @Prop() enableErrorConsoleLogging: boolean;
   /**
    *  String containing the translations for the current locale
    */
@@ -122,7 +123,15 @@ export class DateTimeQuestion {
 
   /* methods */
   getAnswer() {
-    return questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'dateTime');
+    try {
+      return questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'dateTime');
+
+    } catch (error) {
+      if (this.enableErrorConsoleLogging) {
+        console.error(error);
+      }
+      this.emitError(error);
+    }
   }
 
   getDateAndTime() {
@@ -145,6 +154,14 @@ export class DateTimeQuestion {
     }
   }
 
+  /**
+     * Emits an error-event
+     */
+  @Event() errorLog: EventEmitter;
+  emitError(error) {
+    this.errorLog.emit(error);
+  }
+
   /* Lifecycle Methods */
   async componentWillLoad(): Promise<void> {
     try {
@@ -153,7 +170,10 @@ export class DateTimeQuestion {
       this.getDateAndTime();
       this.allow_events = true;
     } catch (e) {
-      console.error(e);
+      if (this.enableErrorConsoleLogging) {
+        console.error(e);
+      }
+      this.emitError(e);
     }
   }
 

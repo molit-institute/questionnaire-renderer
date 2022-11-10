@@ -87,6 +87,7 @@ export class ChoiceQuestion {
     try {
       this.optionsList = await this.getChoiceOptions();
     } catch (error) {
+      this.emitError(error)
       alert(error);
     }
   }
@@ -115,6 +116,7 @@ export class ChoiceQuestion {
    * Currently suported: [de, en, es]
    */
   @Prop() locale: string = 'en';
+  @Prop() enableErrorConsoleLogging: boolean;
   @Watch('locale')
   async watchLocale(newValue: string) {
     this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
@@ -185,11 +187,19 @@ export class ChoiceQuestion {
    * Sets the value of the variable selected.
    */
   setSelected() {
-    let data = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'coding');
-    if (this.question.repeats) {
-      this.selected = data;
-    } else {
-      this.selected = data[0];
+    try {
+      let data = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'coding');
+      if (this.question.repeats) {
+        this.selected = data;
+      } else {
+        this.selected = data[0];
+      }
+
+    } catch (error) {
+      if (this.enableErrorConsoleLogging) {
+        console.error(error);
+      }
+      this.emitError(error);
     }
   }
 
@@ -211,6 +221,14 @@ export class ChoiceQuestion {
     return false;
   }
 
+  /**
+   * Emits an error-event
+   */
+  @Event() errorLog: EventEmitter;
+  emitError(error) {
+    this.errorLog.emit(error);
+  }
+
   /* Lifecycle Methods */
   @Event() emitRemoveRequiredAnswer: EventEmitter;
   async componentWillLoad(): Promise<void> {
@@ -218,7 +236,10 @@ export class ChoiceQuestion {
     try {
       this.optionsList = await this.getChoiceOptions();
     } catch (e) {
-      console.error(e);
+      if (this.enableErrorConsoleLogging) {
+        console.error(e);
+      }
+      this.emitError(e);
     }
     await this.setSelected();
     this.repeats = this.question.repeats;
@@ -227,7 +248,7 @@ export class ChoiceQuestion {
     this.allow_events = true
 
   }
-  
+
   render() {
     return (
       <div class="qr-question-container">

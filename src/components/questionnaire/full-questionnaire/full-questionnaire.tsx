@@ -53,6 +53,7 @@ export class FullQuestionnaire {
    */
   @Prop() spinner: any;
   @Prop() locale: string = 'en';
+  @Prop() enableErrorConsoleLogging: boolean;
   @Watch('locale')
   async watchLocale(newValue: string) {
     this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
@@ -115,6 +116,14 @@ export class FullQuestionnaire {
     return this.questionsList().indexOf(question);
   }
 
+  /**
+   * Emits an error-event
+   */
+  @Event() errorLog: EventEmitter;
+  emitError(error) {
+    this.errorLog.emit(error);
+  }
+
   /* Lifecycle Methods */
   componentDidUpdate() {
     //TODO Is this the correct lifecycle hook?
@@ -128,7 +137,10 @@ export class FullQuestionnaire {
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
     } catch (e) {
-      console.error(e);
+      if (this.enableErrorConsoleLogging) {
+        console.error(e);
+      }
+      this.emitError(e);
     }
   }
 
@@ -173,6 +185,8 @@ export class FullQuestionnaire {
                             vasShowSelectedValue={this.vasShowSelectedValue}
                             vasSelectedValueLabel={this.vasSelectedValueLabel}
                             enableInformalLocale={this.enableInformalLocale}
+                            enableErrorConsoleLogging={this.enableErrorConsoleLogging}
+                            onErrorLog={event => this.emitError(event)}
                           ></Tag>
                         </div>
                       ) : null}

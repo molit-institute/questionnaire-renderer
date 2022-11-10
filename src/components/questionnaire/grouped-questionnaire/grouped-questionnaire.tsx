@@ -93,6 +93,7 @@ export class GroupedQuestionnaire {
   @Prop() spinner: any;
   @Prop() locale: string = 'en';
   @Prop() enableInformalLocale: boolean;
+  @Prop() enableErrorConsoleLogging: boolean;
   @Watch('locale')
   async watchLocale(newValue: string) {
     this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
@@ -296,10 +297,10 @@ export class GroupedQuestionnaire {
   /**
    * Emits an error-event
    */
-   @Event() error: EventEmitter;
-   emitError(error) {
-     this.error.emit(error);
-   }
+  @Event() errorLog: EventEmitter;
+  emitError(error) {
+    this.errorLog.emit(error);
+  }
 
   /* Lifecycle Methods */
   componentDidUpdate() {
@@ -318,7 +319,10 @@ export class GroupedQuestionnaire {
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
     } catch (e) {
-      console.error(e);
+      if (this.enableErrorConsoleLogging) {
+        console.error(e);
+      }
+      this.emitError(e);
     }
     this.filteredList = this.getFilteredList();
     if (this.startCount && this.filteredList && this.filteredList.length > 0) {
@@ -358,6 +362,8 @@ export class GroupedQuestionnaire {
                   danger={this.danger}
                   locale={this.locale}
                   enableInformalLocale={this.enableInformalLocale}
+                  enableErrorConsoleLogging={this.enableErrorConsoleLogging}
+                  onErrorLog={event => this.emitError(event)}
                 ></Tag>
               </div>
             ) : (
@@ -379,7 +385,8 @@ export class GroupedQuestionnaire {
                     vasShowSelectedValue={this.vasShowSelectedValue}
                     vasSelectedValueLabel={this.vasSelectedValueLabel}
                     enableInformalLocale={this.enableInformalLocale}
-                    onError={event => this.emitError(event)}
+                    enableErrorConsoleLogging={this.enableErrorConsoleLogging}
+                    onErrorLog={event => this.emitError(event)}
                   ></Tag>
                 </div>
               </div>

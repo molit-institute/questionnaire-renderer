@@ -1,4 +1,4 @@
-import { Component, h, Prop, Watch, State, Element } from '@stencil/core';
+import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '@stencil/core';
 
 import { getLocaleComponentStrings } from '../../../utils/locale';
 import { textToHtml } from '../../../utils/textToHtml';
@@ -16,6 +16,7 @@ export class DisplayQuestion {
   @Prop() question: any;
   @Prop() mode: string;
   @Prop() enableInformalLocale: boolean;
+  @Prop() enableErrorConsoleLogging:boolean;
 
   /**
    * Language property of the component. </br>
@@ -27,13 +28,24 @@ export class DisplayQuestion {
     this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
 
+  /**
+   * Emits an error-event
+   */
+   @Event() errorLog: EventEmitter;
+   emitError(error) {
+     this.errorLog.emit(error);
+   }
+
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
     } catch (e) {
-      console.error(e);
+      if(this.enableErrorConsoleLogging){
+        console.error(e);
+      }
+      this.emitError(e);
     }
   }
 

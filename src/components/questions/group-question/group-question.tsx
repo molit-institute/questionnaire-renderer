@@ -38,6 +38,7 @@ export class GroupQuestion {
   @Prop() enableReturn: boolean = true;
   @Prop() mode: string;
   @Prop() enableInformalLocale: boolean;
+  @Prop() enableErrorConsoleLogging:boolean;
   /**
    * Primary color
    */
@@ -91,6 +92,14 @@ export class GroupQuestion {
   addRequiredQuestionEvent(question) {
     this.addRequiredAnswer.emit(question);
   }
+
+  /**
+   * Emits an error-event
+   */
+   @Event() errorLog: EventEmitter;
+   emitError(error) {
+     this.errorLog.emit(error);
+   }
 
   /* Lifecycle Methods */
   async componentWillLoad(): Promise<void> {}
@@ -174,6 +183,8 @@ export class GroupQuestion {
                             danger={this.danger}
                             locale={this.locale}
                             enableInformalLocale={this.enableInformalLocale}
+                            enableErrorConsoleLogging={this.enableErrorConsoleLogging}
+                            onError={event => this.emitError(event)}
                           ></Tag>
                         </div>
                       </div>

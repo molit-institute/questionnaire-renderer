@@ -27,6 +27,7 @@
 | `emitAnswer`               |                                             | `CustomEvent<any>` |
 | `emitNext`                 | Handles KeyPresses by adding Eventlisteners | `CustomEvent<any>` |
 | `emitRemoveRequiredAnswer` |                                             | `CustomEvent<any>` |
+| `error`                    | Emits an error-event                        | `CustomEvent<any>` |
 
 
 ----------------------------------------------

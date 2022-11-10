@@ -96,6 +96,7 @@ export class StepperQuestionnaire {
   @Prop() enableInformalLocale: boolean;
   @Prop() trademarkText: string = null;
   @Prop() enableGroupDescription: boolean;
+  @Prop() enableErrorConsoleLogging: boolean;
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
@@ -292,7 +293,15 @@ export class StepperQuestionnaire {
       return false;
     }
   }
-
+  
+  /**
+     * Emits an error-event
+     */
+  @Event() errorLog: EventEmitter;
+  emitError(error) {
+    this.errorLog.emit(error);
+  }
+  
   /* Lifecycle Methods */
   componentDidUpdate() {
     //TODO Is this the correct lifecycle hook?
@@ -312,7 +321,10 @@ export class StepperQuestionnaire {
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
     } catch (e) {
-      console.error(e);
+      if(this.enableErrorConsoleLogging){
+        console.error(e);
+      }
+      this.emitError(e);
     }
     //sets count if startcount was given from the summarypage through the questionnaire.view
     if (this.startCount && this.filteredItemList && this.filteredItemList.length > 0) {
@@ -381,11 +393,13 @@ export class StepperQuestionnaire {
               locale={this.locale}
               onEmitNext={() => this.countUp()}
               variant={this.variant}
-              enableInformalLocale = {this.enableInformalLocale}
+              enableInformalLocale={this.enableInformalLocale}
               vasVertical={this.vasVertical}
               vasShowSelectedValue={this.vasShowSelectedValue}
               vasSelectedValueLabel={this.vasSelectedValueLabel}
-              ></Tag>
+              enableErrorConsoleLogging={this.enableErrorConsoleLogging}
+              onErrorLog={event => this.emitError(event)}
+            ></Tag>
           </div>
         ) : null}
         {!this.spinner.loading ? <div class="qr-stepperQuestionnaire-spacer"></div> : null}

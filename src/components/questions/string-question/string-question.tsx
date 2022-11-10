@@ -31,6 +31,7 @@ export class StringQuestion {
   }
 
   @Prop() mode: string;
+  @Prop() enableErrorConsoleLogging:boolean;
   @Prop() questionnaireResponse: Object = null;
   @Watch('questionnaireResponse')
   async watchQuestionnaireResponse() {
@@ -104,7 +105,11 @@ export class StringQuestion {
   }
 
   setSelected() {
-    this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'string');
+    try {
+      this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'string');
+    } catch (error) {
+      this.emitError(error)
+    }
   }
   /**
    *  Handles KeyPresses by adding Eventlisteners
@@ -117,6 +122,15 @@ export class StringQuestion {
       this.emitNext.emit('next');
     }
   }
+
+  /**
+  * Emits an error-event
+  */
+  @Event() errorLog: EventEmitter;
+  emitError(error) {
+    this.errorLog.emit(error);
+  }
+
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {

@@ -15,6 +15,7 @@ import { textToHtml } from '../../../utils/textToHtml';
 export class UrlQuestion {
   @Element() element: HTMLElement;
   @Prop() variant: any = null;
+  @Prop() enableErrorConsoleLogging: boolean;
   /**
    *  String containing the translations for the current locale
    */
@@ -120,9 +121,12 @@ export class UrlQuestion {
     try {
       this.selected = '';
       this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'url');
-      
+
     } catch (error) {
-      this.emitError(error)
+      if (this.enableErrorConsoleLogging) {
+        console.error(error);
+      }
+      this.emitError(error);
     }
   }
 
@@ -141,11 +145,11 @@ export class UrlQuestion {
   /**
    * Emits an error-event
    */
-   @Event() error: EventEmitter;
-   emitError(error) {
-     this.error.emit(error);
-   }
-   
+  @Event() errorLog: EventEmitter;
+  emitError(error) {
+    this.errorLog.emit(error);
+  }
+
   /* Lifecycle Methods */
   @Event() emitRemoveRequiredAnswer: EventEmitter;
   async componentWillLoad(): Promise<void> {
@@ -155,7 +159,10 @@ export class UrlQuestion {
       await this.setSelected();
       this.allow_events = true;
     } catch (e) {
-      console.error(e);
+      if (this.enableErrorConsoleLogging) {
+        console.error(e);
+      }
+      this.emitError(e);
     }
   }
 

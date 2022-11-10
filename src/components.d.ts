@@ -11,6 +11,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -37,6 +38,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
         "key": string;
         /**
@@ -63,6 +65,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -86,6 +89,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -109,6 +113,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -128,6 +133,7 @@ export namespace Components {
         "variant": any;
     }
     interface DisplayQuestion {
+        "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -143,6 +149,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
         "enableNext": boolean;
         "enableReturn": boolean;
@@ -180,6 +187,7 @@ export namespace Components {
          */
         "danger": string;
         "editMode": boolean;
+        "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
         "enableReturn": boolean;
         "filteredItemList": Array<any>;
@@ -212,6 +220,7 @@ export namespace Components {
          */
         "danger": string;
         "editMode": boolean;
+        "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -243,6 +252,7 @@ export namespace Components {
         "vasVertical": boolean;
     }
     interface InformationPage {
+        "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
         "filteredItemList": Array<any>;
         "informationPageText": String;
@@ -258,6 +268,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -299,6 +310,10 @@ export namespace Components {
           * If true the render will show the button to exit the renderer
          */
         "editMode": boolean;
+        /**
+          * Allows the renderer to show errors in the console while emitting error-events
+         */
+        "enableErrorConsoleLogging": boolean;
         /**
           * If true,
          */
@@ -426,6 +441,7 @@ export namespace Components {
         "basicAuth": boolean;
         "demoMode": Boolean;
         "editable": boolean;
+        "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
         "enableSendQuestionnaireResponse": boolean;
         /**
@@ -456,6 +472,7 @@ export namespace Components {
          */
         "danger": string;
         "editMode": boolean;
+        "enableErrorConsoleLogging": boolean;
         "enableGroupDescription": boolean;
         "enableInformalLocale": boolean;
         "enableNext": boolean;
@@ -495,6 +512,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -520,6 +538,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -543,6 +562,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -566,6 +586,7 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -757,6 +778,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -764,6 +786,10 @@ declare namespace LocalJSX {
         "locale"?: string;
         "mode"?: string;
         "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -784,6 +810,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
         "key"?: string;
         /**
@@ -793,6 +820,10 @@ declare namespace LocalJSX {
         "mode"?: string;
         "onEmitAnswer"?: (event: CustomEvent<any>) => void;
         "onEmitRemoveRequiredAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -812,6 +843,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -819,6 +851,10 @@ declare namespace LocalJSX {
         "locale"?: string;
         "mode"?: string;
         "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -836,6 +872,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -843,6 +880,10 @@ declare namespace LocalJSX {
         "locale"?: string;
         "mode"?: string;
         "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -860,6 +901,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -871,6 +913,10 @@ declare namespace LocalJSX {
           * Handles KeyPresses by adding Eventlisteners
          */
         "onEmitNext"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -884,12 +930,17 @@ declare namespace LocalJSX {
         "variant"?: any;
     }
     interface DisplayQuestion {
+        "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale"?: string;
         "mode"?: string;
+        /**
+          * Emits an error-event
+         */
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         "question"?: any;
         "variant"?: any;
     }
@@ -899,11 +950,16 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
         "enableNext"?: boolean;
         "enableReturn"?: boolean;
         "filteredItemList"?: Array<any>;
         "locale"?: string;
+        /**
+          * Emits an error-event
+         */
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         "onReturn"?: (event: CustomEvent<any>) => void;
         "onSummary"?: (event: CustomEvent<any>) => void;
         /**
@@ -938,6 +994,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         "editMode"?: boolean;
+        "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
         "enableReturn"?: boolean;
         "filteredItemList"?: Array<any>;
@@ -955,6 +1012,10 @@ declare namespace LocalJSX {
           * Emits new Event to give the required Question to Parent-Component to be removed from the List of answered Questions
          */
         "onEmitRemoveRequiredAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -978,6 +1039,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         "editMode"?: boolean;
+        "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -989,7 +1051,7 @@ declare namespace LocalJSX {
         /**
           * Emits an error-event
          */
-        "onError"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         /**
           * Counts up the Question-Number
          */
@@ -1022,6 +1084,7 @@ declare namespace LocalJSX {
         "vasVertical"?: boolean;
     }
     interface InformationPage {
+        "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
         "filteredItemList"?: Array<any>;
         "informationPageText"?: String;
@@ -1038,6 +1101,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -1049,6 +1113,10 @@ declare namespace LocalJSX {
           * Handles KeyPresses by adding Eventlisteners
          */
         "onEmitNext"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -1084,6 +1152,10 @@ declare namespace LocalJSX {
           * If true the render will show the button to exit the renderer
          */
         "editMode"?: boolean;
+        /**
+          * Allows the renderer to show errors in the console while emitting error-events
+         */
+        "enableErrorConsoleLogging"?: boolean;
         /**
           * If true,
          */
@@ -1141,7 +1213,7 @@ declare namespace LocalJSX {
         /**
           * Emits an error-event
          */
-        "onError"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         /**
           * Emits an Event to exit the Renderer
          */
@@ -1223,6 +1295,7 @@ declare namespace LocalJSX {
         "basicAuth"?: boolean;
         "demoMode"?: Boolean;
         "editable"?: boolean;
+        "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
         "enableSendQuestionnaireResponse"?: boolean;
         /**
@@ -1236,7 +1309,10 @@ declare namespace LocalJSX {
           * Emits an event to return to the questionnaire renderer to edit a question
          */
         "onEditQuestion"?: (event: CustomEvent<any>) => void;
-        "onError"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         "onFinishQuestionnaire"?: (event: CustomEvent<any>) => void;
         "onFinishTask"?: (event: CustomEvent<any>) => void;
         /**
@@ -1266,6 +1342,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         "editMode"?: boolean;
+        "enableErrorConsoleLogging"?: boolean;
         "enableGroupDescription"?: boolean;
         "enableInformalLocale"?: boolean;
         "enableNext"?: boolean;
@@ -1277,6 +1354,10 @@ declare namespace LocalJSX {
         "filteredItemList"?: Array<any>;
         "lastQuestion"?: boolean;
         "locale"?: string;
+        /**
+          * Emits an error-event
+         */
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         "onFinish"?: (event: CustomEvent<any>) => void;
         "onReturn"?: (event: CustomEvent<any>) => void;
         "onSummary"?: (event: CustomEvent<any>) => void;
@@ -1308,6 +1389,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -1319,6 +1401,10 @@ declare namespace LocalJSX {
           * Handles KeyPresses by adding Eventlisteners
          */
         "onEmitNext"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -1338,6 +1424,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -1349,6 +1436,10 @@ declare namespace LocalJSX {
           * Handles KeyPresses by adding Eventlisteners
          */
         "onEmitNext"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -1366,6 +1457,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -1373,6 +1465,10 @@ declare namespace LocalJSX {
         "locale"?: string;
         "mode"?: string;
         "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -1390,6 +1486,7 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
@@ -1405,7 +1502,7 @@ declare namespace LocalJSX {
         /**
           * Emits an error-event
          */
-        "onError"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */

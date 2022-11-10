@@ -211,6 +211,11 @@ export class QuestionnaireRenderer {
    */
   @Prop() basicAuth: boolean = false;
   /**
+   * Allows the renderer to show errors in the console while emitting error-events
+   */
+  @Prop() enableErrorConsoleLogging: boolean = false;
+  
+  /**
    * Text for back-button
    */
   back: string;
@@ -485,10 +490,17 @@ export class QuestionnaireRenderer {
         }
         await this.removeGroupedDisplayQuestions(this.currentQuestionnaire.item);
       } catch (error) {
-        //TODO Errorhandling
+        this.emitError(error);
+        if(this.enableErrorConsoleLogging){
+          console.error(error);
+        }
       }
     } else {
-      //TODO handle missing Questionnaire | Spinner, info ...
+      let error = new Error("No questionnaire found, please check that the questionnaire property is properly used")
+      this.emitError(error);
+      if(this.enableErrorConsoleLogging){
+        console.error(error);
+      }
     }
   }
 
@@ -527,7 +539,7 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   * Adds GroupId to all Questions inside a Group.
+   * Adds a GroupId to all Questions inside a Group.
    */
   addGroupIdToItems(item, linkId) {
     for (let i = 0; i < item.length; i++) {
@@ -664,11 +676,12 @@ export class QuestionnaireRenderer {
       }
     } else {
       try {
-        // if (this.currentQuestionnaire && this.baseUrl) {
         this.currentValueSets = await valueSetController.getNewValueSets([this.currentQuestionnaire], this.baseUrl, this.token, this.basicAuth, this.enableExpand);
-        // }
       } catch (error) {
-        // console.error(error);
+        this.emitError(error);
+        if(this.enableErrorConsoleLogging){
+          console.error(error);
+        }
       }
     }
   }
@@ -763,9 +776,9 @@ export class QuestionnaireRenderer {
   /**
    * Emits an error-event
    */
-  @Event() error: EventEmitter;
+  @Event() errorLog: EventEmitter;
   emitError(error) {
-    this.error.emit(error);
+    this.errorLog.emit(error);
   }
 
   @Event() addRemarks: EventEmitter;
@@ -804,7 +817,11 @@ export class QuestionnaireRenderer {
         this.spinner = { ...this.spinner, loading: false };
       }, 250);
     } catch (e) {
-      console.error(e);
+      if(this.enableErrorConsoleLogging){
+        console.error(e);
+      }
+      this.emitError(e);
+
     }
   }
   render() {
@@ -839,6 +856,7 @@ export class QuestionnaireRenderer {
               vasSelectedValueLabel={this.vasSelectedValueLabel}
               trademarkText={this.trademarkText}
               enableGroupDescription={this.enableGroupDescription}
+              enableErrorConsoleLogging={this.enableErrorConsoleLogging}
               onSummary={() => this.backToSummary()}
               onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
               onReturn={() => this.leaveQuestionnaireRenderer()}
@@ -875,13 +893,14 @@ export class QuestionnaireRenderer {
               onToQuestionnaireRenderer={() => this.toQuestionnaire(true)}
               onEditQuestion={question => this.editQuestion(question)}
               onFinishQuestionnaire={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
-              onError={error => this.emitError(error)}
+              onErrorLog={error => this.emitError(error)}
               onCloseSummary={() => this.closesSummary()}
               token={this.token}
               basicAuth={this.basicAuth}
               editable={!this.showOnlySummary}
               showSummaryRemarks={this.showSummaryRemarks}
               enableSendQuestionnaireResponse={this.enableSendQuestionnaireResponse}
+              enableErrorConsoleLogging={this.enableErrorConsoleLogging}
               enableInformalLocale={this.enableInformalLocale}
               trademarkText={this.trademarkText}
             ></questionnaire-summary>
@@ -894,9 +913,11 @@ export class QuestionnaireRenderer {
               questionnaire={this.questionnaire}
               filteredItemList={this.filteredItemList}
               enableInformalLocale={this.enableInformalLocale}
+              enableErrorConsoleLogging={this.enableErrorConsoleLogging}
               locale={this.locale}
               onStartQuestionnaire={() => this.toQuestionnaire(false)}
               trademarkText={this.trademarkText}
+              // onErrorLog={error => this.emitError(error)}
             ></information-page>
           </div>
         ) : null}

@@ -21,6 +21,7 @@ export class TextQuestion {
   @State() strings: any;
 
   @Prop() question: any;
+  @Prop() enableErrorConsoleLogging:boolean;
   @State() reset: Boolean = false;
   @Watch('question')
   watchQuestion() {
@@ -104,7 +105,14 @@ export class TextQuestion {
   }
 
   setSelected() {
-    this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'text');
+    try {
+      this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'text');
+    } catch (error) {
+      if (this.enableErrorConsoleLogging) {
+        console.error(error);
+      }
+      this.emitError(error);
+    }
   }
   /**
    *  Handles KeyPresses by adding Eventlisteners
@@ -117,6 +125,15 @@ export class TextQuestion {
       this.emitNext.emit('next');
     }
   }
+
+  /**
+    * Emits an error-event
+    */
+  @Event() errorLog: EventEmitter;
+  emitError(error) {
+    this.errorLog.emit(error);
+  }
+
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
