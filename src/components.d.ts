@@ -940,7 +940,7 @@ declare namespace LocalJSX {
         /**
           * Emits an error-event
          */
-        "onError"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         "question"?: any;
         "variant"?: any;
     }
@@ -1015,7 +1015,7 @@ declare namespace LocalJSX {
         /**
           * Emits an error-event
          */
-        "onError"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -1309,7 +1309,10 @@ declare namespace LocalJSX {
           * Emits an event to return to the questionnaire renderer to edit a question
          */
         "onEditQuestion"?: (event: CustomEvent<any>) => void;
-        "onError"?: (event: CustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onErrorLog"?: (event: CustomEvent<any>) => void;
         "onFinishQuestionnaire"?: (event: CustomEvent<any>) => void;
         "onFinishTask"?: (event: CustomEvent<any>) => void;
         /**

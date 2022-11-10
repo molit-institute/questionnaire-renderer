@@ -261,7 +261,6 @@ export class QuestionnaireSummary {
 
   @Event() finishQuestionnaire: EventEmitter;
   @Event() finishTask: EventEmitter;
-  @Event() error: EventEmitter;
   async completeQuestionnaireResponse() {
     if (this.questionnaireResponse) {
       this.spinner = { ...this.spinner, loading: true };
@@ -277,8 +276,11 @@ export class QuestionnaireSummary {
         try {
           let output = await fhirApi.submitResource(this.baseUrl, questResp, this.token, this.basicAuth);
           console.info('Questionnaire Response ID: ' + output.data.id, 'Url: ' + output.config.url + '/' + output.data.id);
-        } catch (e) {
-          this.error.emit(e);
+        } catch (error) {
+          this.emitError(error);
+          if (this.enableErrorConsoleLogging) {
+            console.error(error);
+          }
         }
       }
       // Handle Task
@@ -289,8 +291,11 @@ export class QuestionnaireSummary {
         if (this.baseUrl) {
           try {
             await fhirApi.updateResource(this.baseUrl, task, this.token, this.basicAuth);
-          } catch (e) {
-            this.error.emit(e);
+          } catch (error) {
+            this.emitError(error);
+            if (this.enableErrorConsoleLogging) {
+              console.error(error);
+            }
           }
         }
       }
@@ -324,6 +329,15 @@ export class QuestionnaireSummary {
     }
     return false;
   }
+
+  /**
+   * Emits an error-event
+   */
+  @Event() errorLog: EventEmitter;
+  emitError(error) {
+    this.errorLog.emit(error);
+  }
+
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
@@ -331,8 +345,11 @@ export class QuestionnaireSummary {
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
       this.addDisplaysToQuestionnaireResponse();
       // this.itemList = questionnaireResponseController.createItemList(this.questionnaireResponse);
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      this.emitError(error);
+      if (this.enableErrorConsoleLogging) {
+        console.error(error);
+      }
     }
   }
 

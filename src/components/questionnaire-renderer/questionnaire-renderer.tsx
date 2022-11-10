@@ -893,7 +893,7 @@ export class QuestionnaireRenderer {
               onToQuestionnaireRenderer={() => this.toQuestionnaire(true)}
               onEditQuestion={question => this.editQuestion(question)}
               onFinishQuestionnaire={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
-              // onErrorLog={error => this.emitError(error)}
+              onErrorLog={error => this.emitError(error)}
               onCloseSummary={() => this.closesSummary()}
               token={this.token}
               basicAuth={this.basicAuth}

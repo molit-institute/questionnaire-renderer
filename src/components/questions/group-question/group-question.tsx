@@ -96,9 +96,9 @@ export class GroupQuestion {
   /**
    * Emits an error-event
    */
-   @Event() error: EventEmitter;
+   @Event() errorLog: EventEmitter;
    emitError(error) {
-     this.error.emit(error);
+     this.errorLog.emit(error);
    }
 
   /* Lifecycle Methods */
