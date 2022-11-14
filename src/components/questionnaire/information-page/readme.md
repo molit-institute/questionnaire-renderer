@@ -7,14 +7,15 @@
 
 ## Properties
 
-| Property               | Attribute                | Description                                                                | Type      | Default     |
-| ---------------------- | ------------------------ | -------------------------------------------------------------------------- | --------- | ----------- |
-| `enableInformalLocale` | `enable-informal-locale` |                                                                            | `boolean` | `false`     |
-| `filteredItemList`     | --                       |                                                                            | `any[]`   | `undefined` |
-| `informationPageText`  | --                       |                                                                            | `String`  | `''`        |
-| `locale`               | `locale`                 | Language property of the component. </br> Currently suported: [de, en, es] | `string`  | `'en'`      |
-| `questionnaire`        | `questionnaire`          |                                                                            | `any`     | `null`      |
-| `trademarkText`        | `trademark-text`         |                                                                            | `string`  | `null`      |
+| Property                    | Attribute                      | Description                                                                | Type      | Default     |
+| --------------------------- | ------------------------------ | -------------------------------------------------------------------------- | --------- | ----------- |
+| `enableErrorConsoleLogging` | `enable-error-console-logging` |                                                                            | `boolean` | `undefined` |
+| `enableInformalLocale`      | `enable-informal-locale`       |                                                                            | `boolean` | `false`     |
+| `filteredItemList`          | --                             |                                                                            | `any[]`   | `undefined` |
+| `informationPageText`       | --                             |                                                                            | `String`  | `''`        |
+| `locale`                    | `locale`                       | Language property of the component. </br> Currently suported: [de, en, es] | `string`  | `'en'`      |
+| `questionnaire`             | `questionnaire`                |                                                                            | `any`     | `null`      |
+| `trademarkText`             | `trademark-text`               |                                                                            | `string`  | `null`      |
 
 
 ## Events

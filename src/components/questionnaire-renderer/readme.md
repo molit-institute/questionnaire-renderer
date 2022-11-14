@@ -13,6 +13,7 @@
 | `basicAuth`                       | `basic-auth`                         | If basicAuth is true, the authorization header in server requests will be set to "Basic "                                       | `boolean` | `false`                   |
 | `danger`                          | `danger`                             | Color used to symbolise danger                                                                                                  | `string`  | `undefined`               |
 | `editMode`                        | `edit-mode`                          | If true the render will show the button to exit the renderer                                                                    | `boolean` | `false`                   |
+| `enableErrorConsoleLogging`       | `enable-error-console-logging`       | Allows the renderer to show errors in the console while emitting error-events                                                   | `boolean` | `false`                   |
 | `enableExpand`                    | `enable-expand`                      | If true,                                                                                                                        | `boolean` | `true`                    |
 | `enableFullQuestionnaireResponse` | `enable-full-questionnaire-response` | If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen | `boolean` | `false`                   |
 | `enableGroupDescription`          | `enable-group-description`           | If true, shows the description of the group for every question thats part of the group                                          | `boolean` | `true`                    |
@@ -52,7 +53,7 @@
 | -------------- | ----------------------------------- | ------------------ |
 | `addRemarks`   |                                     | `CustomEvent<any>` |
 | `closeSummary` |                                     | `CustomEvent<any>` |
-| `error`        | Emits an error-event                | `CustomEvent<any>` |
+| `errorLog`     | Emits an error-event                | `CustomEvent<any>` |
 | `exit`         | Emits an Event to exit the Renderer | `CustomEvent<any>` |
 | `finished`     |                                     | `CustomEvent<any>` |
 | `updated`      |                                     | `CustomEvent<any>` |

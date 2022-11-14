@@ -621,6 +621,82 @@ export namespace Components {
         "vasVertical": boolean;
     }
 }
+export interface BooleanQuestionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLBooleanQuestionElement;
+}
+export interface ChoiceQuestionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLChoiceQuestionElement;
+}
+export interface DateQuestionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDateQuestionElement;
+}
+export interface DateTimeQuestionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDateTimeQuestionElement;
+}
+export interface DecimalQuestionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDecimalQuestionElement;
+}
+export interface DisplayQuestionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDisplayQuestionElement;
+}
+export interface FullQuestionnaireCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFullQuestionnaireElement;
+}
+export interface GroupQuestionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLGroupQuestionElement;
+}
+export interface GroupedQuestionnaireCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLGroupedQuestionnaireElement;
+}
+export interface InformationPageCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLInformationPageElement;
+}
+export interface IntegerQuestionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLIntegerQuestionElement;
+}
+export interface QuestionnaireRendererCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLQuestionnaireRendererElement;
+}
+export interface QuestionnaireSummaryCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLQuestionnaireSummaryElement;
+}
+export interface StepperQuestionnaireCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLStepperQuestionnaireElement;
+}
+export interface StringQuestionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLStringQuestionElement;
+}
+export interface TextQuestionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLTextQuestionElement;
+}
+export interface TimeQuestionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLTimeQuestionElement;
+}
+export interface UrlQuestionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLUrlQuestionElement;
+}
+export interface VasQuestionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLVasQuestionElement;
+}
 declare global {
     interface HTMLBooleanQuestionElement extends Components.BooleanQuestion, HTMLStencilElement {
     }
@@ -785,11 +861,11 @@ declare namespace LocalJSX {
          */
         "locale"?: string;
         "mode"?: string;
-        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        "onEmitAnswer"?: (event: BooleanQuestionCustomEvent<any>) => void;
         /**
           * Emits an error-event
          */
-        "onErrorLog"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: BooleanQuestionCustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -818,12 +894,12 @@ declare namespace LocalJSX {
          */
         "locale"?: string;
         "mode"?: string;
-        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
-        "onEmitRemoveRequiredAnswer"?: (event: CustomEvent<any>) => void;
+        "onEmitAnswer"?: (event: ChoiceQuestionCustomEvent<any>) => void;
+        "onEmitRemoveRequiredAnswer"?: (event: ChoiceQuestionCustomEvent<any>) => void;
         /**
           * Emits an error-event
          */
-        "onErrorLog"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: ChoiceQuestionCustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -850,11 +926,11 @@ declare namespace LocalJSX {
          */
         "locale"?: string;
         "mode"?: string;
-        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        "onEmitAnswer"?: (event: DateQuestionCustomEvent<any>) => void;
         /**
           * Emits an error-event
          */
-        "onErrorLog"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: DateQuestionCustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -879,11 +955,11 @@ declare namespace LocalJSX {
          */
         "locale"?: string;
         "mode"?: string;
-        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        "onEmitAnswer"?: (event: DateTimeQuestionCustomEvent<any>) => void;
         /**
           * Emits an error-event
          */
-        "onErrorLog"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: DateTimeQuestionCustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -908,15 +984,15 @@ declare namespace LocalJSX {
          */
         "locale"?: string;
         "mode"?: string;
-        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        "onEmitAnswer"?: (event: DecimalQuestionCustomEvent<any>) => void;
         /**
           * Handles KeyPresses by adding Eventlisteners
          */
-        "onEmitNext"?: (event: CustomEvent<any>) => void;
+        "onEmitNext"?: (event: DecimalQuestionCustomEvent<any>) => void;
         /**
           * Emits an error-event
          */
-        "onErrorLog"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: DecimalQuestionCustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -940,7 +1016,7 @@ declare namespace LocalJSX {
         /**
           * Emits an error-event
          */
-        "onErrorLog"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: DisplayQuestionCustomEvent<any>) => void;
         "question"?: any;
         "variant"?: any;
     }
@@ -959,9 +1035,9 @@ declare namespace LocalJSX {
         /**
           * Emits an error-event
          */
-        "onErrorLog"?: (event: CustomEvent<any>) => void;
-        "onReturn"?: (event: CustomEvent<any>) => void;
-        "onSummary"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: FullQuestionnaireCustomEvent<any>) => void;
+        "onReturn"?: (event: FullQuestionnaireCustomEvent<any>) => void;
+        "onSummary"?: (event: FullQuestionnaireCustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -1007,15 +1083,15 @@ declare namespace LocalJSX {
         /**
           * Emits new Event to give the required Question to Parent-Component to be added to the List of answered Questions
          */
-        "onAddRequiredAnswer"?: (event: CustomEvent<any>) => void;
+        "onAddRequiredAnswer"?: (event: GroupQuestionCustomEvent<any>) => void;
         /**
           * Emits new Event to give the required Question to Parent-Component to be removed from the List of answered Questions
          */
-        "onEmitRemoveRequiredAnswer"?: (event: CustomEvent<any>) => void;
+        "onEmitRemoveRequiredAnswer"?: (event: GroupQuestionCustomEvent<any>) => void;
         /**
           * Emits an error-event
          */
-        "onErrorLog"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: GroupQuestionCustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -1051,16 +1127,16 @@ declare namespace LocalJSX {
         /**
           * Emits an error-event
          */
-        "onErrorLog"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: GroupedQuestionnaireCustomEvent<any>) => void;
         /**
           * Counts up the Question-Number
          */
-        "onFinish"?: (event: CustomEvent<any>) => void;
+        "onFinish"?: (event: GroupedQuestionnaireCustomEvent<any>) => void;
         /**
           * Counts down the Question-Number
          */
-        "onReturn"?: (event: CustomEvent<any>) => void;
-        "onSummary"?: (event: CustomEvent<any>) => void;
+        "onReturn"?: (event: GroupedQuestionnaireCustomEvent<any>) => void;
+        "onSummary"?: (event: GroupedQuestionnaireCustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -1092,7 +1168,7 @@ declare namespace LocalJSX {
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
         "locale"?: string;
-        "onStartQuestionnaire"?: (event: CustomEvent<any>) => void;
+        "onStartQuestionnaire"?: (event: InformationPageCustomEvent<any>) => void;
         "questionnaire"?: any;
         "trademarkText"?: string;
     }
@@ -1108,15 +1184,15 @@ declare namespace LocalJSX {
          */
         "locale"?: string;
         "mode"?: string;
-        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        "onEmitAnswer"?: (event: IntegerQuestionCustomEvent<any>) => void;
         /**
           * Handles KeyPresses by adding Eventlisteners
          */
-        "onEmitNext"?: (event: CustomEvent<any>) => void;
+        "onEmitNext"?: (event: IntegerQuestionCustomEvent<any>) => void;
         /**
           * Emits an error-event
          */
-        "onErrorLog"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: IntegerQuestionCustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -1208,18 +1284,18 @@ declare namespace LocalJSX {
           * Current type of Questionnaire-Style to display Available: stepper-questionnaire, grouped-questionnaire, full-questionnaire
          */
         "mode"?: string;
-        "onAddRemarks"?: (event: CustomEvent<any>) => void;
-        "onCloseSummary"?: (event: CustomEvent<any>) => void;
+        "onAddRemarks"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
+        "onCloseSummary"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
         /**
           * Emits an error-event
          */
-        "onErrorLog"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
         /**
           * Emits an Event to exit the Renderer
          */
-        "onExit"?: (event: CustomEvent<any>) => void;
-        "onFinished"?: (event: CustomEvent<any>) => void;
-        "onUpdated"?: (event: CustomEvent<any>) => void;
+        "onExit"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
+        "onFinished"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
+        "onUpdated"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -1303,22 +1379,22 @@ declare namespace LocalJSX {
          */
         "locale"?: string;
         "mode"?: string;
-        "onAddRemarks"?: (event: CustomEvent<any>) => void;
-        "onCloseSummary"?: (event: CustomEvent<any>) => void;
+        "onAddRemarks"?: (event: QuestionnaireSummaryCustomEvent<any>) => void;
+        "onCloseSummary"?: (event: QuestionnaireSummaryCustomEvent<any>) => void;
         /**
           * Emits an event to return to the questionnaire renderer to edit a question
          */
-        "onEditQuestion"?: (event: CustomEvent<any>) => void;
+        "onEditQuestion"?: (event: QuestionnaireSummaryCustomEvent<any>) => void;
         /**
           * Emits an error-event
          */
-        "onErrorLog"?: (event: CustomEvent<any>) => void;
-        "onFinishQuestionnaire"?: (event: CustomEvent<any>) => void;
-        "onFinishTask"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: QuestionnaireSummaryCustomEvent<any>) => void;
+        "onFinishQuestionnaire"?: (event: QuestionnaireSummaryCustomEvent<any>) => void;
+        "onFinishTask"?: (event: QuestionnaireSummaryCustomEvent<any>) => void;
         /**
           * Emits an event to return to the questionnaire renderer
          */
-        "onToQuestionnaireRenderer"?: (event: CustomEvent<any>) => void;
+        "onToQuestionnaireRenderer"?: (event: QuestionnaireSummaryCustomEvent<any>) => void;
         "questionnaire"?: any;
         "questionnaireResponse"?: any;
         "showSummaryRemarks"?: boolean;
@@ -1357,10 +1433,10 @@ declare namespace LocalJSX {
         /**
           * Emits an error-event
          */
-        "onErrorLog"?: (event: CustomEvent<any>) => void;
-        "onFinish"?: (event: CustomEvent<any>) => void;
-        "onReturn"?: (event: CustomEvent<any>) => void;
-        "onSummary"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: StepperQuestionnaireCustomEvent<any>) => void;
+        "onFinish"?: (event: StepperQuestionnaireCustomEvent<any>) => void;
+        "onReturn"?: (event: StepperQuestionnaireCustomEvent<any>) => void;
+        "onSummary"?: (event: StepperQuestionnaireCustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -1396,15 +1472,15 @@ declare namespace LocalJSX {
          */
         "locale"?: string;
         "mode"?: string;
-        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        "onEmitAnswer"?: (event: StringQuestionCustomEvent<any>) => void;
         /**
           * Handles KeyPresses by adding Eventlisteners
          */
-        "onEmitNext"?: (event: CustomEvent<any>) => void;
+        "onEmitNext"?: (event: StringQuestionCustomEvent<any>) => void;
         /**
           * Emits an error-event
          */
-        "onErrorLog"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: StringQuestionCustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -1431,15 +1507,15 @@ declare namespace LocalJSX {
          */
         "locale"?: string;
         "mode"?: string;
-        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        "onEmitAnswer"?: (event: TextQuestionCustomEvent<any>) => void;
         /**
           * Handles KeyPresses by adding Eventlisteners
          */
-        "onEmitNext"?: (event: CustomEvent<any>) => void;
+        "onEmitNext"?: (event: TextQuestionCustomEvent<any>) => void;
         /**
           * Emits an error-event
          */
-        "onErrorLog"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: TextQuestionCustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -1464,11 +1540,11 @@ declare namespace LocalJSX {
          */
         "locale"?: string;
         "mode"?: string;
-        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        "onEmitAnswer"?: (event: TimeQuestionCustomEvent<any>) => void;
         /**
           * Emits an error-event
          */
-        "onErrorLog"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: TimeQuestionCustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -1493,16 +1569,16 @@ declare namespace LocalJSX {
          */
         "locale"?: string;
         "mode"?: string;
-        "onEmitAnswer"?: (event: CustomEvent<any>) => void;
+        "onEmitAnswer"?: (event: UrlQuestionCustomEvent<any>) => void;
         /**
           * Handles KeyPresses by adding Eventlisteners
          */
-        "onEmitNext"?: (event: CustomEvent<any>) => void;
-        "onEmitRemoveRequiredAnswer"?: (event: CustomEvent<any>) => void;
+        "onEmitNext"?: (event: UrlQuestionCustomEvent<any>) => void;
+        "onEmitRemoveRequiredAnswer"?: (event: UrlQuestionCustomEvent<any>) => void;
         /**
           * Emits an error-event
          */
-        "onErrorLog"?: (event: CustomEvent<any>) => void;
+        "onErrorLog"?: (event: UrlQuestionCustomEvent<any>) => void;
         /**
           * Primary color
          */
@@ -1520,7 +1596,7 @@ declare namespace LocalJSX {
         "labelUpper"?: String;
         "max"?: number;
         "min"?: number;
-        "onEmitSelected"?: (event: CustomEvent<any>) => void;
+        "onEmitSelected"?: (event: VasQuestionCustomEvent<any>) => void;
         "selected"?: number;
         "step"?: number;
         "variant"?: any;

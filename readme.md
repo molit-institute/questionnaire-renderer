@@ -53,4 +53,4 @@ Using unpkg in html
 
 ### Documentation
 
-See documentation about properties
+You can find a more detailed documentation for every component
