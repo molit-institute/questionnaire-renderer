@@ -862,6 +862,7 @@ export class QuestionnaireRenderer {
               onReturn={() => this.leaveQuestionnaireRenderer()}
               onEmitAnswer={ev => this.handleQuestionnaireResponseEvent(ev)}
               onAddRemarks={() => this.addAdditionalRemarks()}
+              onErrorLog={error => this.emitError(error.detail)}
             ></Tag>
           </div>
         ) : null}
@@ -893,7 +894,7 @@ export class QuestionnaireRenderer {
               onToQuestionnaireRenderer={() => this.toQuestionnaire(true)}
               onEditQuestion={question => this.editQuestion(question)}
               onFinishQuestionnaire={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
-              onErrorLog={error => this.emitError(error)}
+              onErrorLog={error => this.emitError(error.detail)}
               onCloseSummary={() => this.closesSummary()}
               token={this.token}
               basicAuth={this.basicAuth}

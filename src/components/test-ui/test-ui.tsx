@@ -125,35 +125,35 @@ export class TestUi {
             : null}
           {this.show_renderer ? (
             <questionnaire-renderer
-              // onFinished={event => this.toSummary(event)}
-              // onUpdated={event => this.updateQR(event)}
-              // onExit={() => this.toQuestionnaireList()}
-              // trademarkText='Dont copy meeeeee'
+              onFinished={event => this.toSummary(event)}
+              onUpdated={event => this.updateQR(event)}
+              onExit={() => this.toQuestionnaireList()}
+              trademarkText='Dont copy meeeeee'
               enableInformationPage={true}
               informationPageText="<u>Test</u> Information <br> PageText"
-              // questionnaireResponse={this.questionnaireResponse}
-              // questionnaire={this.questionnaire}
+              questionnaireResponse={this.questionnaireResponse}
+              questionnaire={this.questionnaire}
               // questionnaireUrl={this.questionnaireUrl}
               baseUrl={this.baseUrl}
               // lastQuestion={this.lastQuestion}
               locale="de"
               // danger="red"
-              // mode={this.questionnaireMode}
+              mode={this.questionnaireMode}
               // editMode={this.edit}
               // startQuestion={this.indexQuestion}
               enableFullQuestionnaireResponse={false}
               enableSummary={true}
               enableReturn={false}
-              // enableNext={true}
+              enableNext={true}
               // variant={this.questionnaireVariant}
-              // enableInformalLocale= {true}
-              // showOnlySummary= {false}
-              // enableExpand={true}
-              // enableGroupDescription={false}
-              // summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
-              // vasVertical={true}
-              // vasShowSelectedValue={true}
-              // token={this.token}
+              enableInformalLocale= {true}
+              showOnlySummary= {false}
+              enableExpand={true}
+              enableGroupDescription={false}
+              summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
+              vasVertical={true}
+              vasShowSelectedValue={true}
+              token={this.token}
               enableErrorConsoleLogging={false}
               onErrorLog={error => console.info(error)}
             ></questionnaire-renderer>

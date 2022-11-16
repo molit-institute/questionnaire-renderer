@@ -398,7 +398,7 @@ export class StepperQuestionnaire {
               vasShowSelectedValue={this.vasShowSelectedValue}
               vasSelectedValueLabel={this.vasSelectedValueLabel}
               enableErrorConsoleLogging={this.enableErrorConsoleLogging}
-              onErrorLog={event => this.emitError(event)}
+              onErrorLog={event => this.emitError(event.detail)}
             ></Tag>
           </div>
         ) : null}
