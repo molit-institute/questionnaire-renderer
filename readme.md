@@ -2,7 +2,6 @@
 
 ![build](https://github.com/molit-institute/questionnaire-renderer/workflows/Build/badge.svg)
 ![publish](https://github.com/molit-institute/questionnaire-renderer/workflows/Publish/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/molitinstitute/questionnaire-renderer/badge.svg?branch=master)](https://coveralls.io/github/molitinstitute/questionnaire-renderer?branch=master)
 ![npm version](https://img.shields.io/npm/v/@molit/questionnaire-renderer.svg)
 ![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@molit/questionnaire-renderer)
 ![npm license](https://img.shields.io/npm/l/@molit/questionnaire-renderer.svg)
@@ -19,10 +18,6 @@ Using npm:
 npm i @molit/questionnaire-renderer
 ```
 
-Using unpkg:
-
-you can use the following link: https://unpkg.com/@molit/questionnaire-renderer@1.0.14/dist/questionnaire-renderer/questionnaire-renderer.esm.js 
-
 ### Usage
 
 Using npm:
@@ -38,19 +33,10 @@ initQuestionnaireRenderer()
 });
 ```
 
-Using unpkg in html
-
-```html
-<head>
-    <script type="module" src="https://unpkg.com/@molit/questionnaire-renderer@1.0.14/dist/questionnaire-renderer/questionnaire-renderer.esm.js"></script>
-</head>
-
-<body>
-    <questionnaire-renderer id="questionnaire-renderer"></questionnaire-renderer>
-</body>
-
-```
-
 ### Documentation
 
-You can find a more detailed documentation for every component
+You can find more documentation here: https://github.com/molit-institute/questionnaire-renderer/blob/master/src/components/questionnaire-renderer/readme.md
+
+### Example project
+
+You can find a demo project using vue.js here: https://github.com/molit-institute/questionnaire-renderer-example-vue
