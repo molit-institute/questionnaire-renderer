@@ -13,6 +13,7 @@
 | `basicAuth`                       | `basic-auth`                         |                                                                            | `boolean` | `undefined` |
 | `demoMode`                        | --                                   |                                                                            | `Boolean` | `undefined` |
 | `editable`                        | `editable`                           |                                                                            | `boolean` | `undefined` |
+| `enableErrorConsoleLogging`       | `enable-error-console-logging`       |                                                                            | `boolean` | `undefined` |
 | `enableInformalLocale`            | `enable-informal-locale`             |                                                                            | `boolean` | `undefined` |
 | `enableSendQuestionnaireResponse` | `enable-send-questionnaire-response` |                                                                            | `boolean` | `undefined` |
 | `locale`                          | `locale`                             | Language property of the component. </br> Currently suported: [de, en, es] | `string`  | `'en'`      |
@@ -34,7 +35,7 @@
 | `addRemarks`              |                                                                           | `CustomEvent<any>` |
 | `closeSummary`            |                                                                           | `CustomEvent<any>` |
 | `editQuestion`            | Emits an event to return to the questionnaire renderer to edit a question | `CustomEvent<any>` |
-| `error`                   |                                                                           | `CustomEvent<any>` |
+| `errorLog`                | Emits an error-event                                                      | `CustomEvent<any>` |
 | `finishQuestionnaire`     |                                                                           | `CustomEvent<any>` |
 | `finishTask`              |                                                                           | `CustomEvent<any>` |
 | `toQuestionnaireRenderer` | Emits an event to return to the questionnaire renderer                    | `CustomEvent<any>` |

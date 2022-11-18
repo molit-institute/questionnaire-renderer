@@ -20,6 +20,9 @@ export class QuestionnaireRenderer {
    */
   @State() strings: any;
   @State() currentQuestionnaireResponse: any = null;
+  /**
+   * The "updated"-event is thrown everytime if the internal questionnaireResponse changes (every time an answer value has changed) and contains the current questionnaireResponse with status "in-progress"
+   */
   @Event() updated: EventEmitter;
   @Watch('currentQuestionnaireResponse')
   async watchCurrentQuestionnaireResponse() {
@@ -77,7 +80,7 @@ export class QuestionnaireRenderer {
    */
   @Prop() task: any = null;
   /**
-   * List of ValueSets that are needed to display the given questionnaire
+   * Array of ValueSets that are needed to display the given questionnaire
    */
   @Prop() valueSets: Array<any> = null;
   /**
@@ -97,7 +100,7 @@ export class QuestionnaireRenderer {
    */
   @Prop() questionnaireUrl: string = null;
   /**
-   * ID of the question in the ItemList where in the list of questions the renderer should start
+   * The question where in the list of questions the renderer should start. Expects the question as an object.
    */
   @Prop() startQuestion: Object = null;
   @Watch('startQuestion')
@@ -107,7 +110,7 @@ export class QuestionnaireRenderer {
     }
   }
   /**
-   * If true the render will show the button to exit the renderer
+   * If true the render will show the button to exit the renderer. It can be used in combination with the summary to edit answers.
    */
   @Prop() editMode: boolean = false;
   @Watch('editMode')
@@ -117,17 +120,17 @@ export class QuestionnaireRenderer {
     }
   }
   /**
-   * Enable the return-button to exit the render-view
+   * Enable the return-button to exit the render-view. This will also enable the "exit"-Event to be thrown if the information-page is deactivated.
    */
   @Prop() enableReturn: boolean = true;
 
   /**
-   * Enable the button that can be used to show the summary or end the questionnaire
+   * Enable the button that can be used to show the summary or end the questionnaire. 
    */
   @Prop() enableNext: boolean = true;
 
   /**
-   * If true, the Renderer will show the last question
+   * If true, the Renderer will start with the last question
    */
   @Prop() lastQuestion: boolean = false;
   @Watch('lastQuestion')
@@ -150,7 +153,7 @@ export class QuestionnaireRenderer {
    */
   @Prop() vasSelectedValueLabel: string = null;
   /**
-   * Text shown in the top half of the Summary
+   * The text shown in the top half of the Summary
    */
   @Prop() summaryText: string = null;
   /**
@@ -162,7 +165,7 @@ export class QuestionnaireRenderer {
    */
   @Prop() showSummaryRemarks: boolean = false;
   /**
-   * If true, enables the summary to send QuestionnaireResponses to the FHIR Server
+   * If true, enables the summary to send QuestionnaireResponses to the FHIR Server. Needs the fhir-base url to be able send to the server
    */
   @Prop() enableSendQuestionnaireResponse: boolean = true;
   /**
@@ -182,7 +185,7 @@ export class QuestionnaireRenderer {
    */
   @Prop() enableGroupDescription: boolean = true;
   /**
-   * If true, 
+   * If true, enables the renderer to expand valueSets to also load included code systems
    */
   @Prop() enableExpand: boolean = true;
   /**
@@ -288,7 +291,7 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   *
+   * The "finished"-event is thrown once the next button is pressed or in case of the summary the save-button. It contains the current questionnaireResponse with the status "completed"
    */
   @Event() finished: EventEmitter;
   // backToSummary(questionnaireResponse) {
@@ -760,7 +763,7 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   * Emits an Event to exit the Renderer
+   * Emits an Event to exit the Renderer. Contains the current questionnaireResponse
    */
   @Event() exit: EventEmitter;
   leaveQuestionnaireRenderer() {
@@ -781,11 +784,17 @@ export class QuestionnaireRenderer {
     this.errorLog.emit(error);
   }
 
+  /**
+   * Emits the addRemarks if the "remarks"-button in the summary as been pressed.
+   */
   @Event() addRemarks: EventEmitter;
   addAdditionalRemarks() {
     this.addRemarks.emit('addRemarks');
   }
 
+  /**
+   * Emits an event to close the summary
+   */
   @Event() closeSummary: EventEmitter;
   closesSummary() {
     this.closeSummary.emit('closeSummary');

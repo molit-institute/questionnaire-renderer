@@ -7,13 +7,21 @@
 
 ## Properties
 
-| Property               | Attribute                | Description                                                                | Type      | Default     |
-| ---------------------- | ------------------------ | -------------------------------------------------------------------------- | --------- | ----------- |
-| `enableInformalLocale` | `enable-informal-locale` |                                                                            | `boolean` | `undefined` |
-| `locale`               | `locale`                 | Language property of the component. </br> Currently suported: [de, en, es] | `string`  | `'en'`      |
-| `mode`                 | `mode`                   |                                                                            | `string`  | `undefined` |
-| `question`             | `question`               |                                                                            | `any`     | `undefined` |
-| `variant`              | `variant`                |                                                                            | `any`     | `null`      |
+| Property                    | Attribute                      | Description                                                                | Type      | Default     |
+| --------------------------- | ------------------------------ | -------------------------------------------------------------------------- | --------- | ----------- |
+| `enableErrorConsoleLogging` | `enable-error-console-logging` |                                                                            | `boolean` | `undefined` |
+| `enableInformalLocale`      | `enable-informal-locale`       |                                                                            | `boolean` | `undefined` |
+| `locale`                    | `locale`                       | Language property of the component. </br> Currently suported: [de, en, es] | `string`  | `'en'`      |
+| `mode`                      | `mode`                         |                                                                            | `string`  | `undefined` |
+| `question`                  | `question`                     |                                                                            | `any`     | `undefined` |
+| `variant`                   | `variant`                      |                                                                            | `any`     | `null`      |
+
+
+## Events
+
+| Event      | Description          | Type               |
+| ---------- | -------------------- | ------------------ |
+| `errorLog` | Emits an error-event | `CustomEvent<any>` |
 
 
 ## Dependencies
