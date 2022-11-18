@@ -3,7 +3,6 @@
 ![build](https://github.com/molit-institute/questionnaire-renderer/workflows/Build/badge.svg)
 ![publish](https://github.com/molit-institute/questionnaire-renderer/workflows/Publish/badge.svg)
 ![npm version](https://img.shields.io/npm/v/@molit/questionnaire-renderer.svg)
-![npm bundle size (scoped)](https://img.shields.io/bundlephobia/min/@molit/questionnaire-renderer)
 ![npm license](https://img.shields.io/npm/l/@molit/questionnaire-renderer.svg)
 
 ### About
