@@ -35,8 +35,10 @@ initQuestionnaireRenderer()
 
 ### Documentation
 
-You can find more documentation here: https://github.com/molit-institute/questionnaire-renderer/blob/master/src/components/questionnaire-renderer/readme.md
+You can find more documentation here: 
+https://github.com/molit-institute/questionnaire-renderer/blob/master/src/components/questionnaire-renderer/readme.md
 
 ### Example project
 
-You can find a demo project using vue.js here: https://github.com/molit-institute/questionnaire-renderer-example-vue
+You can find a demo project using vue.js here: 
+https://github.com/molit-institute/questionnaire-renderer-example-vue

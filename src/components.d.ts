@@ -307,7 +307,7 @@ export namespace Components {
          */
         "danger": string;
         /**
-          * If true the render will show the button to exit the renderer
+          * If true the render will show the button to exit the renderer. It can be used in combination with the summary to edit answers.
          */
         "editMode": boolean;
         /**
@@ -315,7 +315,7 @@ export namespace Components {
          */
         "enableErrorConsoleLogging": boolean;
         /**
-          * If true,
+          * If true, enables the renderer to expand valueSets to also load included code systems
          */
         "enableExpand": boolean;
         /**
@@ -335,15 +335,15 @@ export namespace Components {
          */
         "enableInformationPage": boolean;
         /**
-          * Enable the button that can be used to show the summary or end the questionnaire
+          * Enable the button that can be used to show the summary or end the questionnaire.
          */
         "enableNext": boolean;
         /**
-          * Enable the return-button to exit the render-view
+          * Enable the return-button to exit the render-view. This will also enable the "exit"-Event to be thrown if the information-page is deactivated.
          */
         "enableReturn": boolean;
         /**
-          * If true, enables the summary to send QuestionnaireResponses to the FHIR Server
+          * If true, enables the summary to send QuestionnaireResponses to the FHIR Server. Needs the fhir-base url to be able send to the server
          */
         "enableSendQuestionnaireResponse": boolean;
         /**
@@ -355,7 +355,7 @@ export namespace Components {
          */
         "informationPageText": string;
         /**
-          * If true, the Renderer will show the last question
+          * If true, the Renderer will start with the last question
          */
         "lastQuestion": boolean;
         /**
@@ -395,7 +395,7 @@ export namespace Components {
          */
         "showSummaryRemarks": boolean;
         /**
-          * ID of the question in the ItemList where in the list of questions the renderer should start
+          * The question where in the list of questions the renderer should start. Expects the question as an object.
          */
         "startQuestion": Object;
         /**
@@ -403,7 +403,7 @@ export namespace Components {
          */
         "subject": any;
         /**
-          * Text shown in the top half of the Summary
+          * The text shown in the top half of the Summary
          */
         "summaryText": string;
         /**
@@ -419,7 +419,7 @@ export namespace Components {
          */
         "trademarkText": string;
         /**
-          * List of ValueSets that are needed to display the given questionnaire
+          * Array of ValueSets that are needed to display the given questionnaire
          */
         "valueSets": Array<any>;
         "variant": any;
@@ -1225,7 +1225,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         /**
-          * If true the render will show the button to exit the renderer
+          * If true the render will show the button to exit the renderer. It can be used in combination with the summary to edit answers.
          */
         "editMode"?: boolean;
         /**
@@ -1233,7 +1233,7 @@ declare namespace LocalJSX {
          */
         "enableErrorConsoleLogging"?: boolean;
         /**
-          * If true,
+          * If true, enables the renderer to expand valueSets to also load included code systems
          */
         "enableExpand"?: boolean;
         /**
@@ -1253,15 +1253,15 @@ declare namespace LocalJSX {
          */
         "enableInformationPage"?: boolean;
         /**
-          * Enable the button that can be used to show the summary or end the questionnaire
+          * Enable the button that can be used to show the summary or end the questionnaire.
          */
         "enableNext"?: boolean;
         /**
-          * Enable the return-button to exit the render-view
+          * Enable the return-button to exit the render-view. This will also enable the "exit"-Event to be thrown if the information-page is deactivated.
          */
         "enableReturn"?: boolean;
         /**
-          * If true, enables the summary to send QuestionnaireResponses to the FHIR Server
+          * If true, enables the summary to send QuestionnaireResponses to the FHIR Server. Needs the fhir-base url to be able send to the server
          */
         "enableSendQuestionnaireResponse"?: boolean;
         /**
@@ -1273,7 +1273,7 @@ declare namespace LocalJSX {
          */
         "informationPageText"?: string;
         /**
-          * If true, the Renderer will show the last question
+          * If true, the Renderer will start with the last question
          */
         "lastQuestion"?: boolean;
         /**
@@ -1284,17 +1284,29 @@ declare namespace LocalJSX {
           * Current type of Questionnaire-Style to display Available: stepper-questionnaire, grouped-questionnaire, full-questionnaire
          */
         "mode"?: string;
+        /**
+          * Emits the addRemarks if the "remarks"-button in the summary as been pressed.
+         */
         "onAddRemarks"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
+        /**
+          * Emits an event to close the summary
+         */
         "onCloseSummary"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
         /**
           * Emits an error-event
          */
         "onErrorLog"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
         /**
-          * Emits an Event to exit the Renderer
+          * Emits an Event to exit the Renderer. Contains the current questionnaireResponse
          */
         "onExit"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
+        /**
+          * The "finished"-event is thrown once the next button is pressed or in case of the summary the save-button. It contains the current questionnaireResponse with the status "completed"
+         */
         "onFinished"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
+        /**
+          * The "updated"-event is thrown everytime if the internal questionnaireResponse changes (every time an answer value has changed) and contains the current questionnaireResponse with status "in-progress"
+         */
         "onUpdated"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
         /**
           * Primary color
@@ -1325,7 +1337,7 @@ declare namespace LocalJSX {
          */
         "showSummaryRemarks"?: boolean;
         /**
-          * ID of the question in the ItemList where in the list of questions the renderer should start
+          * The question where in the list of questions the renderer should start. Expects the question as an object.
          */
         "startQuestion"?: Object;
         /**
@@ -1333,7 +1345,7 @@ declare namespace LocalJSX {
          */
         "subject"?: any;
         /**
-          * Text shown in the top half of the Summary
+          * The text shown in the top half of the Summary
          */
         "summaryText"?: string;
         /**
@@ -1349,7 +1361,7 @@ declare namespace LocalJSX {
          */
         "trademarkText"?: string;
         /**
-          * List of ValueSets that are needed to display the given questionnaire
+          * Array of ValueSets that are needed to display the given questionnaire
          */
         "valueSets"?: Array<any>;
         "variant"?: any;
