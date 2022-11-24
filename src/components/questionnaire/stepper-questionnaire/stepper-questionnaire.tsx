@@ -157,7 +157,9 @@ export class StepperQuestionnaire {
     if (this.filteredItemList) {
       for (let i = 0; i < this.filteredItemList.length; i++) {
         if (this.filteredItemList[i].required) {
-          totalNumber++;
+          if(!this.filteredItemList[i].hidden){
+            totalNumber++;
+          }
         }
       }
     }

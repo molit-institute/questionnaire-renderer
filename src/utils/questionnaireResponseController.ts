@@ -11,10 +11,16 @@ import * as fhirApi from '@molit/fhir-util';
  * return QuestionnaireResponse
  *
  * @param {Object} questionnaire The Questionnaire
+ * @param {Object} subject FHIR patient
+ * @param {Object} questionnaireResponse FHIR questionnaireResponse
  */
-export function createQuestionnaireResponse(questionnaire, subject) {
+export function createQuestionnaireResponse(questionnaire, subject, questionnaireResponse) {
   if (questionnaire) {
     const questResp = QuestionnaireResponse.create();
+    //ID
+    if(questionnaireResponse && questionnaireResponse.id){
+      questResp.id = questionnaireResponse.id;
+    }
     //QUESTIONNAIRE
     questResp.questionnaire = questionnaire.url;
     //STATUS
@@ -41,7 +47,11 @@ export function createQuestionnaireResponse(questionnaire, subject) {
     }
 
     //AUTHORED date when response created
-    questResp.authored = dateTimeController.getTimestamp();
+    if(questionnaireResponse && questionnaireResponse.authored){
+      questResp.authored = questionnaireResponse.authored;
+    }else{
+      questResp.authored = dateTimeController.getTimestamp();
+    }
     //ITEMS | filling item with items
     if (questionnaire.item) {
       questResp.item = createItemArray(questionnaire.item);

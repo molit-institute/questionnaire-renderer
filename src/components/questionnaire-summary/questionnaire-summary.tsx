@@ -274,8 +274,14 @@ export class QuestionnaireSummary {
       // Handle QuestionnaireResponse
       if (this.baseUrl && this.enableSendQuestionnaireResponse) {
         try {
-          let output = await fhirApi.submitResource(this.baseUrl, questResp, this.token, this.basicAuth);
-          console.info('Questionnaire Response ID: ' + output.data.id, 'Url: ' + output.config.url + '/' + output.data.id);
+          if (questResp && questResp.id) {
+            let output = await fhirApi.updateResource(this.baseUrl, questResp, this.token, this.basicAuth);
+            console.info('Updated Questionnaire Response with ID: ' + output.data.id, 'Url: ' + output.config.url + '/' + output.data.id);
+          } else {
+            let output = await fhirApi.submitResource(this.baseUrl, questResp, this.token, this.basicAuth);
+            console.info('Questionnaire Response ID: ' + output.data.id, 'Url: ' + output.config.url + '/' + output.data.id);
+          }
+
         } catch (error) {
           this.emitError(error);
           if (this.enableErrorConsoleLogging) {

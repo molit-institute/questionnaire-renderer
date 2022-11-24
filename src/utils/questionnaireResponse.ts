@@ -7,6 +7,7 @@ export class QuestionnaireResponse {
   static create() {
     return {
       resourceType: "QuestionnaireResponse",
+      id:null,
       questionnaire: null,
       status: null,
       subject: null,

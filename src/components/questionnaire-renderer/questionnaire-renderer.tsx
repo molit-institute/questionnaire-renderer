@@ -269,6 +269,7 @@ export class QuestionnaireRenderer {
   filterQuestionnaireResponse(questionnaireResponse) {
     let filteredQuestionnaireResponse = cloneDeep(questionnaireResponse);
     questionnaireResponseController.removeQuestionnaireResponseDisplayQuestions(filteredQuestionnaireResponse.item);
+    //TODO REMOVE HIDDEN QUESTIONS
     this.filterQuestionnaireResponseItems(this.filteredItemList, filteredQuestionnaireResponse.item);
     return filteredQuestionnaireResponse;
   }
@@ -398,7 +399,7 @@ export class QuestionnaireRenderer {
    * Creates a new QuestionnaireResponse
    */
   createQuestionnaireResponse() {
-    this.currentQuestionnaireResponse = questionnaireResponseController.createQuestionnaireResponse(this.questionnaire, this.subject);
+    this.currentQuestionnaireResponse = questionnaireResponseController.createQuestionnaireResponse(this.questionnaire, this.subject, this.questionnaireResponse);
   }
 
   /**
@@ -757,8 +758,10 @@ export class QuestionnaireRenderer {
   async filterItemList() {
     let newList = [];
     if (this.currentQuestionnaireResponse && this.currentQuestionnaire) {
+      console.log("",this.currentQuestionnaire)
       newList = await questionnaireController.handleEnableWhen(this.currentQuestionnaireResponse, this.currentQuestionnaire.item);
     }
+    //TODO Maaaaybe filter out hidden questions here
     this.filteredItemList = newList;
   }
 

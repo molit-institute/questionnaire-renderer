@@ -11,7 +11,12 @@ const vomitQuestionnaire = {
       prefix: "1.",
       text: "Have you ever worked with HL7 FHIR?",
       type: "string",
-      hidden: true
+      extension: [
+        {
+          url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          hidden: true
+        }
+      ],
     },
     {
       linkId: "2",

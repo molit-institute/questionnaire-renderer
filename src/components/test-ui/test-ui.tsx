@@ -58,6 +58,7 @@ export class TestUi {
   }
   updateQR(newqr) {
     this.questionnaireResponse = newqr.detail;
+    console.log(this.questionnaireResponse)
   }
   editQuestion(question) {
     this.show_summary = false;
@@ -91,6 +92,7 @@ export class TestUi {
   render() {
     return (
       <div>
+
         <div class="container-fluid">
           {/* QUESTIONNAIRE RENDERER */}
           <div class="flex">
@@ -146,8 +148,8 @@ export class TestUi {
               enableReturn={false}
               enableNext={true}
               // variant={this.questionnaireVariant}
-              enableInformalLocale= {true}
-              showOnlySummary= {false}
+              enableInformalLocale={true}
+              showOnlySummary={false}
               enableExpand={true}
               enableGroupDescription={false}
               summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
@@ -193,6 +195,7 @@ export class TestUi {
           ) : null}
         </div>
       </div>
+
     );
   }
 }
