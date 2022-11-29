@@ -217,7 +217,7 @@ export class QuestionnaireRenderer {
    * Allows the renderer to show errors in the console while emitting error-events
    */
   @Prop() enableErrorConsoleLogging: boolean = false;
-  
+
   /**
    * Text for back-button
    */
@@ -270,6 +270,7 @@ export class QuestionnaireRenderer {
     let filteredQuestionnaireResponse = cloneDeep(questionnaireResponse);
     questionnaireResponseController.removeQuestionnaireResponseDisplayQuestions(filteredQuestionnaireResponse.item);
     //TODO REMOVE HIDDEN QUESTIONS
+
     this.filterQuestionnaireResponseItems(this.filteredItemList, filteredQuestionnaireResponse.item);
     return filteredQuestionnaireResponse;
   }
@@ -295,7 +296,6 @@ export class QuestionnaireRenderer {
    * The "finished"-event is thrown once the next button is pressed or in case of the summary the save-button. It contains the current questionnaireResponse with the status "completed"
    */
   @Event() finished: EventEmitter;
-  // backToSummary(questionnaireResponse) {
   backToSummary() {
     if (this.enableFullQuestionnaireResponse) {
       if (this.enableSummary) {
@@ -305,7 +305,6 @@ export class QuestionnaireRenderer {
         this.edit_mode = false;
         this.start_question = null;
       }
-      // this.finished.emit(questionnaireResponse);
     } else {
       if (this.enableSummary) {
         this.show_questionnaire = false;
@@ -314,7 +313,6 @@ export class QuestionnaireRenderer {
         this.edit_mode = false;
         this.start_question = null;
       }
-      // this.finished.emit(this.filterQuestionnaireResponse());
     }
   }
 
@@ -495,14 +493,14 @@ export class QuestionnaireRenderer {
         await this.removeGroupedDisplayQuestions(this.currentQuestionnaire.item);
       } catch (error) {
         this.emitError(error);
-        if(this.enableErrorConsoleLogging){
+        if (this.enableErrorConsoleLogging) {
           console.error(error);
         }
       }
     } else {
       let error = new Error("No questionnaire found, please check that the questionnaire property is properly used")
       this.emitError(error);
-      if(this.enableErrorConsoleLogging){
+      if (this.enableErrorConsoleLogging) {
         console.error(error);
       }
     }
@@ -614,19 +612,30 @@ export class QuestionnaireRenderer {
    */
   handleQuestionnaireResponse() {
     if (this.questionnaireResponse) {
-      let split = this.questionnaireResponse.questionnaire.split('/');
-      let id = split[1];
-      if (this.questionnaireResponse.questionnaire === this.questionnaire.url || id === this.questionnaire.id) {
-        this.createQuestionnaireResponse();
-        let questionaireResponseItems = questionnaireResponseController.createItemList(this.questionnaireResponse);
-        this.transferQuestionnaireResponseAnswers(this.currentQuestionnaireResponse, questionaireResponseItems);
+      if (this.questionnaireResponse.questionnaire) {
+        let split = this.questionnaireResponse.questionnaire.split('/');
+        let id = split[1];
+        if (this.questionnaireResponse.questionnaire === this.questionnaire.url || id && id === this.questionnaire.id) {
+          this.createQuestionnaireResponse();
+          let questionaireResponseItems = questionnaireResponseController.createItemList(this.questionnaireResponse);
+          this.transferQuestionnaireResponseAnswers(this.currentQuestionnaireResponse, questionaireResponseItems);
+        } else {
+          if (this.enableErrorConsoleLogging) {
+            console.info('QuestionnaireRenderer | Info: Created new questionnaireResponse because neither questionnaireResponse and Questionnaire url or id matched');
+          }
+          this.createQuestionnaireResponse();
+        }
       } else {
-        console.info('QuestionnaireRenderer | Info: Created new QuestionnaireResponse because neither QuestionnaireResponse and Questionnaire url or id matched');
+        if (this.enableErrorConsoleLogging) {
+          console.info('QuestionnaireRenderer | Info: Created new questionnaireResponse because the given questionnaireResponse did not contain a valid reference to the questionnaire');
+        }
         this.createQuestionnaireResponse();
       }
     } else {
       this.createQuestionnaireResponse();
     }
+
+
   }
 
   /**
@@ -683,7 +692,7 @@ export class QuestionnaireRenderer {
         this.currentValueSets = await valueSetController.getNewValueSets([this.currentQuestionnaire], this.baseUrl, this.token, this.basicAuth, this.enableExpand);
       } catch (error) {
         this.emitError(error);
-        if(this.enableErrorConsoleLogging){
+        if (this.enableErrorConsoleLogging) {
           console.error(error);
         }
       }
@@ -758,10 +767,15 @@ export class QuestionnaireRenderer {
   async filterItemList() {
     let newList = [];
     if (this.currentQuestionnaireResponse && this.currentQuestionnaire) {
-      console.log("",this.currentQuestionnaire)
       newList = await questionnaireController.handleEnableWhen(this.currentQuestionnaireResponse, this.currentQuestionnaire.item);
     }
-    //TODO Maaaaybe filter out hidden questions here
+    newList.forEach(element => {
+      let extension = questionnaireController.lookForExtension("http://hl7.org/fhir/StructureDefinition/questionnaire-hidden", element)
+      if (extension && extension.hidden) {
+        let index = newList.indexOf(element)
+        newList.splice(index, 1);
+      }
+    });
     this.filteredItemList = newList;
   }
 
@@ -829,7 +843,7 @@ export class QuestionnaireRenderer {
         this.spinner = { ...this.spinner, loading: false };
       }, 250);
     } catch (e) {
-      if(this.enableErrorConsoleLogging){
+      if (this.enableErrorConsoleLogging) {
         console.error(e);
       }
       this.emitError(e);
@@ -930,7 +944,7 @@ export class QuestionnaireRenderer {
               locale={this.locale}
               onStartQuestionnaire={() => this.toQuestionnaire(false)}
               trademarkText={this.trademarkText}
-              // onErrorLog={error => this.emitError(error)}
+            // onErrorLog={error => this.emitError(error)}
             ></information-page>
           </div>
         ) : null}

@@ -31,7 +31,43 @@ export class TestUi {
   questionnaire: any = null;
   questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30, q_5d_5l, vomit];
   token: string = 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJWUkFjb0VJV2JNTlkwNzJLMGFyaTFpUkxqM1dmVUhuWHpWRmd3bDAyVkdzIn0.eyJleHAiOjE2NTIwODc2MzMsImlhdCI6MTY1MTY1NTYzMywiYXV0aF90aW1lIjoxNjUxNDkyNDUzLCJqdGkiOiJmN2EwZjczMS0zOWI2LTQ0NmItODU2Ni1hMDkyOGY2NmFkNjIiLCJpc3MiOiJodHRwczovL2Rldi5saW9uLWFwcC5kZS9hdXRoL3JlYWxtcy9saW9uLXJlYWxtIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjVjMWRiZWQxLTg5YWEtNGM1MS1iZTkxLWM0YTA5NGIxYWIwYiIsInR5cCI6IkJlYXJlciIsImF6cCI6Imxpb24tYXBwIiwibm9uY2UiOiJHOVdaMTBkakFRRWRZY0ZuMWlQTmhnIiwic2Vzc2lvbl9zdGF0ZSI6IjA3MDI3NTQxLTg4ZDItNDY0ZC1iOGZhLTE4MGZiZWI0NzBkOCIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJkZWZhdWx0LXJvbGVzLWxpb24tcmVhbG0iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJzaWQiOiIwNzAyNzU0MS04OGQyLTQ2NGQtYjhmYS0xODBmYmViNDcwZDgiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZ2VuZGVyIjoiZmVtYWxlIiwicGF0aWVudElkIjoiMTkiLCJuYW1lIjoiS2F0aGFyaW5hcyBUZXN0bnV0emVyIiwicHJlZmVycmVkX3VzZXJuYW1lIjoia2F0aGFyaW5hLnplbGxlckBtb2xpdC5ldSIsImdpdmVuX25hbWUiOiJLYXRoYXJpbmFzIiwiZmFtaWx5X25hbWUiOiJUZXN0bnV0emVyIiwiZW1haWwiOiJrYXRoYXJpbmEuemVsbGVyQG1vbGl0LmV1In0.k6JVgOwPG65MROEDhNrFB8NUYPfBDFF-0TXSAwTaUS12ySSf6h6A68Gdm0znD8p7WP_llcG_j9zyYKp1lMGZBiHfA_Q4gj6pqQ0ssABMI-jpi2UrHwo3anzRnu0ntJRhrbkX1wRFbiGXvYtXV7QKXBB5nGwrXFkDxn9Mz414Tid6fAkZQNja_DzNpCb7L6cQ2hmIpNe9rEYwcQXOymvXJW0PN_PeaeIk6WZToXxmHxrM3TDuK7S4Jbm-kab4Bc0pycV7tth1GqRBQCI0_3i0r1_Z9JOKY547JyCCJWcdYO-aQGYv7zZtKMooKIyNTmHzbWSoB_iUkBQjk4LgzBk9bA'
+  testResp: object = {
+    "resourceType": "QuestionnaireResponse",
+    "id": null,
+    "status": "completed",
 
+    "subject": null,
+    "authored": "2022-11-28T17:45:28+01:00",
+    "questionnaire":"http://fhir.molit.eu/fhir/Questionnaire/test",
+    "source": null,
+    "item": [
+      {
+        "linkId": "1",
+        "text": "Have you ever worked with HL7 FHIR?",
+        "answer": [
+          {
+            "valueBoolean": true
+          }
+        ],
+        "item": null,
+        "type": ""
+      },
+      {
+        "linkId": "2",
+        "text": "Have you ever worked with HL7 FHIR?",
+        "answer": [],
+        "item": null,
+        "type": ""
+      },
+      {
+        "linkId": "3",
+        "text": "Have you ever worked with HL7 FHIR?",
+        "answer": [],
+        "item": null,
+        "type": ""
+      }
+    ]
+  }
   /* computed */
   examplePatient() {
     return examplePatient;
@@ -134,6 +170,7 @@ export class TestUi {
               enableInformationPage={true}
               informationPageText="<u>Test</u> Information <br> PageText"
               questionnaireResponse={this.questionnaireResponse}
+              // questionnaireResponse={this.testResp}
               questionnaire={this.questionnaire}
               // questionnaireUrl={this.questionnaireUrl}
               baseUrl={this.baseUrl}

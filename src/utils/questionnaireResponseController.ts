@@ -163,7 +163,9 @@ export function createAnswer(data, type) {
         value = Object.assign({ valueCoding: coding });
         break;
       case valueTypes.INTEGER:
-        value = Object.assign({ valueInteger: '' + data });
+        //TODO Check if number causes issues in Integer and Decimal
+        // value = Object.assign({ valueInteger: '' + data });
+        value = Object.assign({ valueInteger: data });
         break;
       case valueTypes.DECIMAL:
         value = Object.assign({ valueDecimal: '' + data });
