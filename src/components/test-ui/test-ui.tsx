@@ -100,7 +100,6 @@ export class TestUi {
   }
   updateQR(newqr) {
     this.questionnaireResponse = newqr.detail;
-    console.log(this.questionnaireResponse)
   }
   editQuestion(question) {
     this.show_summary = false;
