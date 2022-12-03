@@ -419,7 +419,7 @@ export class QuestionnaireRenderer {
       if (question.required) {
         let addQuestion = true;
         for (let i = 0; i < requiredAnsweredQuestionsList.length; i++) {
-          if (JSON.stringify(requiredAnsweredQuestionsList[i]) === JSON.stringify(question)) {
+          if (JSON.stringify(requiredAnsweredQuestionsList[i]) === JSON.stringify(question) || question.type === "group") {
             addQuestion = false;
           }
         }
@@ -428,6 +428,7 @@ export class QuestionnaireRenderer {
         }
       }
       this.answeredRequiredQuestionsList = requiredAnsweredQuestionsList;
+      console.log(this.answeredRequiredQuestionsList)
     } else {
       throw new Error('The given Question was ' + question);
     }

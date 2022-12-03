@@ -263,7 +263,7 @@ export class StepperQuestionnaire {
       }
       this.disabled = false;
       let currentQuestion: any = this.getQuestion();
-      if (currentQuestion && currentQuestion.required) {
+      if (currentQuestion && currentQuestion.required && currentQuestion.type !== "group") {
         this.disabled = true;
         for (let i = 0; i < this.requiredQuestionList.length; i++) {
           if (
@@ -293,7 +293,7 @@ export class StepperQuestionnaire {
       return false;
     }
   }
-  
+
   /**
      * Emits an error-event
      */
@@ -301,7 +301,7 @@ export class StepperQuestionnaire {
   emitError(error) {
     this.errorLog.emit(error);
   }
-  
+
   /* Lifecycle Methods */
   componentDidUpdate() {
     //TODO Is this the correct lifecycle hook?
@@ -321,7 +321,7 @@ export class StepperQuestionnaire {
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
     } catch (e) {
-      if(this.enableErrorConsoleLogging){
+      if (this.enableErrorConsoleLogging) {
         console.error(e);
       }
       this.emitError(e);
