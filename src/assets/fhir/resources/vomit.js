@@ -11,31 +11,37 @@ const vomitQuestionnaire = {
       linkId: "1",
       prefix: "1.",
       text: "Have you ever worked with HL7 FHIR?",
-      type: "integer",
-      // extension: [
-      //   {
-      //     url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
-      //     hidden: true
-      //   }
-      // ],
+      type: "boolean",
+      extension: [
+        {
+          url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          hidden: true
+        }
+      ],
     },
     {
       linkId: "1.1",
       prefix: "1.1",
       text: "Have you ever",
       type: "boolean",
-      // extension: [
-      //   {
-      //     url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
-      //     hidden: true
-      //   }
-      // ],
+      extension: [
+        {
+          url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          hidden: true
+        }
+      ],
     },
     {
       linkId: "2",
       prefix: "2.",
       text: "Have you ever worked with HL7 FHIR?",
-      type: "string"
+      type: "string",
+      extension: [
+        {
+          url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+          hidden: true
+        }
+      ],
     },
     {
       linkId: "3",
@@ -49,11 +55,11 @@ const vomitQuestionnaire = {
           operator: "=",
           answerInteger: 22
         },
-        {
-          question: "1.1",
-          operator: "=",
-          answerBoolean: true
-        }
+        // {
+        //   question: "1.1",
+        //   operator: "=",
+        //   answerBoolean: true
+        // }
       ],
     },
 

@@ -766,16 +766,29 @@ export class QuestionnaireRenderer {
    */
   async filterItemList() {
     let newList = [];
+    let indexesToRemove = [];
     if (this.currentQuestionnaireResponse && this.currentQuestionnaire) {
       newList = await questionnaireController.handleEnableWhen(this.currentQuestionnaireResponse, this.currentQuestionnaire.item);
     }
     newList.forEach(element => {
+      console.log("element",element)
+      //schaut ob extension da ist
       let extension = questionnaireController.lookForExtension("http://hl7.org/fhir/StructureDefinition/questionnaire-hidden", element)
+      //wenn extension da und hidden true, dann weg splicen
       if (extension && extension.hidden) {
-        let index = newList.indexOf(element)
-        newList.splice(index, 1);
+        indexesToRemove.push(newList.indexOf(element))
+        // let index = newList.indexOf(element)
+        // console.log("---splice---")
+        // console.log("index: ", index, newList.length)
+        // newList.splice(index, 1);
+        // console.log("newList", newList, newList.length)
       }
     });
+    indexesToRemove.reverse();
+    console.log(indexesToRemove)
+    for(let i = 0; i < indexesToRemove.length; i++){
+      newList.splice(indexesToRemove[i], 1);
+    }
     this.filteredItemList = newList;
   }
 

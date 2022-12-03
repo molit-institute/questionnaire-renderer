@@ -143,12 +143,12 @@ function addItemToList(answersList, itemList, newItemList) {
           }
         }
       }
-      console.log("results",results)
+      // console.log("results",results)
       if (itemList[i].enableBehavior) {
         switch (itemList[i].enableBehavior) {
           //TODO FIX ENABLE LOGIC!!!
           case 'All':
-            console.log("All")
+            // console.log("All")
             if (results.length === itemList[i].enableWhen.length) {
               newItemList.push(itemList[i]);
               if (itemList[i].type === 'group') {
@@ -157,7 +157,7 @@ function addItemToList(answersList, itemList, newItemList) {
             }
             break;
           case 'Any':
-            console.log("Any")
+            // console.log("Any")
             if (results.length > 0) {
               newItemList.push(itemList[i]);
               if (itemList[i].type === 'group') {

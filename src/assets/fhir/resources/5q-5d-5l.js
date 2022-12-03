@@ -25,6 +25,7 @@ export default {
       linkId: "0",
       text: "Bitte tippen Sie DAS Kästchen an, das Ihre Gesundheit HEUTE am besten beschreibt.",
       type: "group",
+      required: true,
       item: [
         {
           extension: [
