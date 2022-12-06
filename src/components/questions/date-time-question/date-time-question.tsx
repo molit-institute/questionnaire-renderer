@@ -118,7 +118,7 @@ export class DateTimeQuestion {
   /* computed */
   validate() {
     let regex = new RegExp(this.dateRegex);
-    return (this.dateTime || this.dateTime === []) && regex.test(this.date);
+    return this.dateTime && regex.test(this.date);
   }
 
   /* methods */

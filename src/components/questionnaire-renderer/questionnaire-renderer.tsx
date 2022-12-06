@@ -785,10 +785,11 @@ export class QuestionnaireRenderer {
       }
     });
     indexesToRemove.reverse();
-    console.log(indexesToRemove)
+    console.log("indexesToRemove",indexesToRemove)
     for(let i = 0; i < indexesToRemove.length; i++){
       newList.splice(indexesToRemove[i], 1);
     }
+    console.log("newList",newList)
     this.filteredItemList = newList;
   }
 

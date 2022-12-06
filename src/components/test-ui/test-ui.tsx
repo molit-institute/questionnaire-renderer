@@ -7,8 +7,7 @@ import repeatedQuestionnaire from '../../assets/fhir/resources/questionnaire-rep
 import qlq_c30 from '../../assets/fhir/resources/qlq-c30.js';
 import q_5d_5l from '../../assets/fhir/resources/5q-5d-5l.js';
 import vomit from '../../assets/fhir/resources/vomit.js';
-import lion from '../../assets/fhir/resources/lion_questionnaire.js'
-import lion_response from '../../assets/fhir/resources/lion_questionnaire_response2.js'
+import lion from '../../assets/fhir/resources/lion_questionnaire.js';
 // import qlq30_response from '../../assets/fhir/resources/qlq30_response.js';
 
 @Component({
@@ -55,7 +54,7 @@ export class TestUi {
         "type": ""
       },
       {
-        "linkId": "21.1",
+        "linkId": "1.1",
         "text": "Have you ever worked with HL7 FHIR?",
         "answer": [],
         "item": null,

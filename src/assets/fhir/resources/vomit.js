@@ -39,7 +39,7 @@ const vomitQuestionnaire = {
       extension: [
         {
           url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
-          hidden: true
+          hidden: false
         }
       ],
     },
@@ -62,6 +62,7 @@ const vomitQuestionnaire = {
         // }
       ],
     },
+
 
   ]
 };
