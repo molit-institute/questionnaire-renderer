@@ -40,8 +40,8 @@ jobs:
           npm run build
 
       # Test
-      - name: E2E Test
-        run: npm run test-e2e
+      # - name: E2E Test
+        # run: npm run test-e2e
 
       # Publish if all previous steps run through
       - name: Publish 🚀
