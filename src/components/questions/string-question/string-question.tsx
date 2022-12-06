@@ -95,7 +95,7 @@ export class StringQuestion {
 
   /* computed */
   validate() {
-    return this.selected || this.selected === [];
+    return this.selected ? true : false;
     // return false;
   }
 

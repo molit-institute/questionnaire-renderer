@@ -75,7 +75,7 @@ export class FullQuestionnaire {
     let totalNumber = 0;
     if (this.filteredItemList) {
       for (let i = 0; i < this.filteredItemList.length; i++) {
-        if (this.filteredItemList[i].required) {
+        if (this.filteredItemList[i].required && this.filteredItemList[i].type !=="group") {
           totalNumber++;
         }
       }

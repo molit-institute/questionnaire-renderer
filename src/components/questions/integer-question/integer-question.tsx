@@ -117,7 +117,7 @@ export class IntegerQuestion {
 
   /* computed */
   validate() {
-    return this.selected || this.selected === [];
+    return this.selected ? true : false;
   }
   isVasQuestion() {
     const vas = fhirpath.evaluate(this.question, this.FHIRPATH_SLIDER);
