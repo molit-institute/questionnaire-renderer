@@ -94,7 +94,7 @@ export class TimeQuestion {
 
   /* computed */
   validate() {
-    return this.selected || this.selected === [];
+    return this.selected ? true : false;
   }
 
   /* methods */
