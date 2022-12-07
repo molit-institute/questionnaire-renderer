@@ -761,36 +761,36 @@ export class QuestionnaireRenderer {
     return parentQuestion;
   }
 
+  // Daniel
   /**
-   * Filters the itemlist of the current questionnaire. Removes questions that are not active
+   * Filters the itemlist of the current questionnaire. Removes questions that are hidden and not active
    */
   async filterItemList() {
-    let newList = [];
+    let newItemList = [];
     let indexesToRemove = [];
+
+    //erstellt neue Liste mit Fragen nach Filterung durch Enable-When
     if (this.currentQuestionnaireResponse && this.currentQuestionnaire) {
-      newList = await questionnaireController.handleEnableWhen(this.currentQuestionnaireResponse, this.currentQuestionnaire.item);
+      newItemList = await questionnaireController.handleEnableWhen(this.currentQuestionnaireResponse, this.currentQuestionnaire.item);
     }
-    newList.forEach(element => {
-      console.log("element",element)
-      //schaut ob extension da ist
+
+    newItemList.forEach(element => {
+      // schaut ob extension da ist
       let extension = questionnaireController.lookForExtension("http://hl7.org/fhir/StructureDefinition/questionnaire-hidden", element)
-      //wenn extension da und hidden true, dann weg splicen
+      //wenn extension da und hidden true, dann index in liste
       if (extension && extension.hidden) {
-        indexesToRemove.push(newList.indexOf(element))
-        // let index = newList.indexOf(element)
-        // console.log("---splice---")
-        // console.log("index: ", index, newList.length)
-        // newList.splice(index, 1);
-        // console.log("newList", newList, newList.length)
+        indexesToRemove.push(newItemList.indexOf(element))
       }
     });
+    // index-liste reversen um Fragen von hinten beginnend aus newList zu löschen
     indexesToRemove.reverse();
     console.log("indexesToRemove",indexesToRemove)
+
     for(let i = 0; i < indexesToRemove.length; i++){
-      newList.splice(indexesToRemove[i], 1);
+      newItemList.splice(indexesToRemove[i], 1);
     }
-    console.log("newList",newList)
-    this.filteredItemList = newList;
+    console.log("filterItemList | newList",newItemList)
+    this.filteredItemList = newItemList;
   }
 
   /**

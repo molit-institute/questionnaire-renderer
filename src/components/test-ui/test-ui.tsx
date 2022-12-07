@@ -8,6 +8,7 @@ import qlq_c30 from '../../assets/fhir/resources/qlq-c30.js';
 import q_5d_5l from '../../assets/fhir/resources/5q-5d-5l.js';
 import vomit from '../../assets/fhir/resources/vomit.js';
 import lion from '../../assets/fhir/resources/lion_questionnaire.js';
+import lion_response from '../../assets/fhir/resources/lion_questionnaire_response2.js';
 // import qlq30_response from '../../assets/fhir/resources/qlq30_response.js';
 
 @Component({
@@ -178,8 +179,8 @@ export class TestUi {
               enableInformationPage={true}
               informationPageText="<u>Test</u> Information <br> PageText"
               // questionnaireResponse={this.questionnaireResponse}
-              //questionnaireResponse={lion_response}
-              questionnaireResponse={this.testResp}
+              questionnaireResponse={lion_response}
+              // questionnaireResponse={this.testResp}
               questionnaire={this.questionnaire}
               // questionnaireUrl={this.questionnaireUrl}
               baseUrl={this.baseUrl}

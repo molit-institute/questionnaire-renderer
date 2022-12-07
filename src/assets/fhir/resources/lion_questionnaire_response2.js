@@ -11,7 +11,7 @@ const lion_response2 = {
             linkId: "0.1",
             text: "Fragebogen bedingte Fragen anzeigen?",
             answer: [{
-                valueBoolean: false
+                valueBoolean: true
             }]
         },
         {

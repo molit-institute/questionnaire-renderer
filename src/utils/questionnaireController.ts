@@ -122,6 +122,7 @@ export function handleEnableWhen(currentQuestionnaireResponse, itemList) {
   return newItemList;
 }
 
+// Daniel
 /**
  * This Method adds Items to the given List by checking every question for an enable-when, then checking if there are answers for this question and if so, will run
  * the Logic-Method. If the Logic-Method returns true, the question will be added to the new List.
@@ -143,12 +144,9 @@ function addItemToList(answersList, itemList, newItemList) {
           }
         }
       }
-      // console.log("results",results)
       if (itemList[i].enableBehavior) {
         switch (itemList[i].enableBehavior) {
-          //TODO FIX ENABLE LOGIC!!!
           case 'All':
-            // console.log("All")
             if (results.length === itemList[i].enableWhen.length) {
               newItemList.push(itemList[i]);
               if (itemList[i].type === 'group') {
@@ -157,7 +155,6 @@ function addItemToList(answersList, itemList, newItemList) {
             }
             break;
           case 'Any':
-            // console.log("Any")
             if (results.length > 0) {
               newItemList.push(itemList[i]);
               if (itemList[i].type === 'group') {
@@ -190,6 +187,7 @@ function addItemToList(answersList, itemList, newItemList) {
     }
   }
 }
+
 
 /**
  * Compares the given answers with the given enableWhen-value using the operator
@@ -306,6 +304,7 @@ function handleEnableWhenAnswerType(value) {
   }
 }
 
+// Daniel
 /**
  * Counts all Questions from ItemList excluding Groups
  * @param object Can be a questionnaire or a questionnaireResponse
@@ -328,6 +327,7 @@ function getNumberOfQuestions(object, list) {
       }
     }
   } else {
+    //Zählt alle Fragen die keine Gruppen, Display-Fragen oder Fragen mit aktiver Hidden Extension sind
     for (let i = 0; i < itemList.length; i++) {
       let hiddenUrl = "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden"
       let hiddenExtension = lookForExtension(hiddenUrl,itemList[i])
@@ -343,6 +343,7 @@ function getNumberOfQuestions(object, list) {
   return number;
 }
 
+// Daniel
 /**
  * Looks for a specific extension in the given question, based on a given String
  * @return returns the extension

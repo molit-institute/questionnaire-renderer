@@ -39,7 +39,7 @@ const vomitQuestionnaire = {
       extension: [
         {
           url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
-          hidden: false
+          hidden: true
         }
       ],
     },
@@ -49,18 +49,18 @@ const vomitQuestionnaire = {
       text: "Have you ever worked with HL7 FHIR?",
       type: "string",
       enableBehavior: "Any",
-      enableWhen: [
-        {
-          question: "1",
-          operator: "=",
-          answerInteger: 22
-        },
+      // enableWhen: [
+      //   {
+      //     question: "1",
+      //     operator: "=",
+      //     answerInteger: 22
+      //   },
         // {
         //   question: "1.1",
         //   operator: "=",
         //   answerBoolean: true
         // }
-      ],
+      // ],
     },
 
 
