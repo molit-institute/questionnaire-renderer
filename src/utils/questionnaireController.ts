@@ -122,7 +122,6 @@ export function handleEnableWhen(currentQuestionnaireResponse, itemList) {
   return newItemList;
 }
 
-// Daniel
 /**
  * This Method adds Items to the given List by checking every question for an enable-when, then checking if there are answers for this question and if so, will run
  * the Logic-Method. If the Logic-Method returns true, the question will be added to the new List.
@@ -304,7 +303,6 @@ function handleEnableWhenAnswerType(value) {
   }
 }
 
-// Daniel
 /**
  * Counts all Questions from ItemList excluding Groups
  * @param object Can be a questionnaire or a questionnaireResponse
@@ -343,7 +341,6 @@ function getNumberOfQuestions(object, list) {
   return number;
 }
 
-// Daniel
 /**
  * Looks for a specific extension in the given question, based on a given String
  * @return returns the extension

@@ -26,7 +26,7 @@ export class QuestionnaireRenderer {
   @Event() updated: EventEmitter;
   @Watch('currentQuestionnaireResponse')
   async watchCurrentQuestionnaireResponse() {
-    await this.filterItemList();
+    this.filterItemList();
     this.handleAnsweredQuestionsList();
     this.updated.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
   }
@@ -761,35 +761,24 @@ export class QuestionnaireRenderer {
     return parentQuestion;
   }
 
-  // Daniel
   /**
    * Filters the itemlist of the current questionnaire. Removes questions that are hidden and not active
    */
-  async filterItemList() {
+  filterItemList() {
+    const URL_QUESTIONNAIRE_HIDDEN = "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden"
+
     let newItemList = [];
-    let indexesToRemove = [];
 
     //erstellt neue Liste mit Fragen nach Filterung durch Enable-When
     if (this.currentQuestionnaireResponse && this.currentQuestionnaire) {
-      newItemList = await questionnaireController.handleEnableWhen(this.currentQuestionnaireResponse, this.currentQuestionnaire.item);
+      newItemList = questionnaireController.handleEnableWhen(this.currentQuestionnaireResponse, this.currentQuestionnaire.item);
     }
 
-    newItemList.forEach(element => {
-      // schaut ob extension da ist
-      let extension = questionnaireController.lookForExtension("http://hl7.org/fhir/StructureDefinition/questionnaire-hidden", element)
-      //wenn extension da und hidden true, dann index in liste
-      if (extension && extension.hidden) {
-        indexesToRemove.push(newItemList.indexOf(element))
-      }
+     newItemList = newItemList.filter(item => {
+      let hiddenExtension = questionnaireController.lookForExtension(URL_QUESTIONNAIRE_HIDDEN, item);
+      return hiddenExtension == null || !hiddenExtension.hidden;
     });
-    // index-liste reversen um Fragen von hinten beginnend aus newList zu löschen
-    indexesToRemove.reverse();
-    console.log("indexesToRemove",indexesToRemove)
 
-    for(let i = 0; i < indexesToRemove.length; i++){
-      newItemList.splice(indexesToRemove[i], 1);
-    }
-    console.log("filterItemList | newList",newItemList)
     this.filteredItemList = newItemList;
   }
 
