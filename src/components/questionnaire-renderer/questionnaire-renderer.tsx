@@ -270,8 +270,10 @@ export class QuestionnaireRenderer {
     let filteredQuestionnaireResponse = cloneDeep(questionnaireResponse);
     questionnaireResponseController.removeQuestionnaireResponseDisplayQuestions(filteredQuestionnaireResponse.item);
     //TODO REMOVE HIDDEN QUESTIONS
-
+    console.log("filteredItemList",this.filteredItemList)
+    // MÖGLICHES PROBLEM!!
     this.filterQuestionnaireResponseItems(this.filteredItemList, filteredQuestionnaireResponse.item);
+    console.log("fQR",filteredQuestionnaireResponse)
     return filteredQuestionnaireResponse;
   }
 
