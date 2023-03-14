@@ -166,7 +166,7 @@ export class FullQuestionnaire {
                         <div class="card-body">
                           {question.type !== 'group' && this.variant !== 'form' && this.variant !== 'compact' ? (
                             <div>
-                              {this.strings.question} {this.getQuestionIndex(question) + 1} {this.strings.of} {this.questionsList().length}
+                              <a class="qr-fullQuestionnaire-questionIndex"></a>{this.strings.question} {this.getQuestionIndex(question) + 1} <a class="qr-fullQuestionnaire-numberOfQuestions">{this.strings.of} {this.questionsList().length}</a>
                             </div>
                           ) : null}
                           {question.groupId && !question.item ? <div class="question-group-text">{this.getGroupText(question)}</div> : null}

@@ -266,32 +266,35 @@ export class QuestionnaireRenderer {
   }
 
   /* methods */
+
+  /**
+   * Removes all disabled and hidden Questions, aswell as Questions of type display
+   * @param questionnaireResponse 
+   * @returns 
+   */
   filterQuestionnaireResponse(questionnaireResponse) {
     let filteredQuestionnaireResponse = cloneDeep(questionnaireResponse);
     questionnaireResponseController.removeQuestionnaireResponseDisplayQuestions(filteredQuestionnaireResponse.item);
-    //TODO REMOVE HIDDEN QUESTIONS
-    console.log("filteredItemList",this.filteredItemList)
-    // MÖGLICHES PROBLEM!!
-    this.filterQuestionnaireResponseItems(this.filteredItemList, filteredQuestionnaireResponse.item);
-    console.log("fQR",filteredQuestionnaireResponse)
+    filteredQuestionnaireResponse.item = this.filterQuestionnaireResponseItems(this.filteredItemList, filteredQuestionnaireResponse.item);
     return filteredQuestionnaireResponse;
   }
 
   /**
    * Compares and removes all Items from a given ItemList, that are not in the filteredList
-   * @param filteredList
+   * @param filteredQuestionnaireItemList - the itemList created from questionnaire.item
    * @param itemList
    */
-  filterQuestionnaireResponseItems(filteredList, itemList) {
-    itemList.forEach((element, index) => {
-      let result = filteredList.find(item => item.linkId === element.linkId);
-      if (result === undefined) {
-        itemList.splice(index, 1);
-      }
+  filterQuestionnaireResponseItems(filteredQuestionnaireItemList, itemList) {
+    itemList = itemList.filter(element => {
+      return filteredQuestionnaireItemList.find(item => item.linkId === element.linkId)
+    })
+    itemList.forEach((element) => {
       if (element.item && element.item.length > 0) {
-        this.filterQuestionnaireResponseItems(filteredList, element.item);
+        element.item = this.filterQuestionnaireResponseItems(filteredQuestionnaireItemList, element.item);
       }
-    });
+    })
+
+    return itemList;
   }
 
   /**
@@ -776,7 +779,7 @@ export class QuestionnaireRenderer {
       newItemList = questionnaireController.handleEnableWhen(this.currentQuestionnaireResponse, this.currentQuestionnaire.item);
     }
 
-     newItemList = newItemList.filter(item => {
+    newItemList = newItemList.filter(item => {
       let hiddenExtension = questionnaireController.lookForExtension(URL_QUESTIONNAIRE_HIDDEN, item);
       return hiddenExtension == null || !hiddenExtension.hidden;
     });

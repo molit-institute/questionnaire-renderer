@@ -367,10 +367,10 @@ export class StepperQuestionnaire {
             {/* Progress Counter */}
             {this.strings ? (
               <div class={this.isGroupQuestion() ? 'qr-question-hidden progress-counter qr-stepperQuestionnaire-title' : 'progress-counter qr-stepperQuestionnaire-title'}>
-                <span style={{ color: this.primary }}>
+                <span class="qr-stepperQuestionnaire-questionIndex" style={{ color: this.primary }}>
                   {this.strings.question} {this.questionCount} &nbsp;
                 </span>
-                <span class="color-grey">
+                <span class="color-grey qr-stepperQuestionnaire-numberOfQuestions">
                   {this.strings.of} {questionnaireController.getNumberOfQuestions(null, this.filteredItemList)}
                 </span>
               </div>

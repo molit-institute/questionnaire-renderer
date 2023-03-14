@@ -185,6 +185,8 @@ export function createAnswer(data, type) {
       case valueTypes.URI:
         value = Object.assign({ valueUri: data });
         break;
+      case valueTypes.QUANTITY:
+        value = Object.assign({ valueQuantity:{value: data.value,unit: data.unit, code: data.code, system: data.system}})
       default:
     }
   }
@@ -320,6 +322,8 @@ export function getAnswersFromQuestionnaireResponse(questionnaireResponse, linkI
             case valueTypes.URI:
               answerValue = itemList[i].answer[0].valueUri;
               break;
+            case valueTypes.QUANTITY:
+              answerValue = itemList[i].answer[0].valueQuantity;
             default:
           }
         }
