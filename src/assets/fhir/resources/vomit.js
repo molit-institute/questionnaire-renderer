@@ -19,48 +19,43 @@ const vomitQuestionnaire = {
         }
       ],
     },
-    {
-      linkId: "1.1",
-      prefix: "1.1",
-      text: "Have you ever",
-      type: "boolean",
-      extension: [
-        {
-          url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
-          hidden: true
-        }
-      ],
-    },
+    // {
+    //   linkId: "1.1",
+    //   prefix: "1.1",
+    //   text: "Have you ever",
+    //   type: "boolean",
+    //   extension: [
+    //     {
+    //       url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+    //       hidden: true
+    //     }
+    //   ],
+    // },
     {
       linkId: "2",
       prefix: "2.",
-      text: "Have you ever worked with HL7 FHIR?",
+      text: "Frage 2",
       type: "string",
-      extension: [
-        {
-          url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
-          hidden: true
-        }
-      ],
+      // extension: [
+      //   {
+      //     url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+      //     hidden: true
+      //   }
+      // ],
     },
     {
       linkId: "3",
       prefix: "3.",
-      text: "Have you ever worked with HL7 FHIR?",
+      text: "Fraaaaage 3",
       type: "string",
       enableBehavior: "Any",
-      // enableWhen: [
-      //   {
-      //     question: "1",
-      //     operator: "=",
-      //     answerInteger: 22
-      //   },
-        // {
-        //   question: "1.1",
-        //   operator: "=",
-        //   answerBoolean: true
-        // }
-      // ],
+      enableWhen: [
+        {
+          question: "1",
+          operator: "=",
+          answerBoolean: true
+        },
+      ],
     },
 
 

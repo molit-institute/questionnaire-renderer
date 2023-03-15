@@ -190,9 +190,10 @@ export class TestUi {
               // editMode={this.edit}
               // startQuestion={this.indexQuestion}
               enableFullQuestionnaireResponse={false}
-              enableSummary={true}
+              enableSummary={false}
               enableReturn={false}
               enableNext={true}
+              enableFinishButton={true}
               // variant={this.questionnaireVariant}
               enableInformalLocale={true}
               showOnlySummary={false}

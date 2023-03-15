@@ -25,7 +25,7 @@ const lion_response2 = {
             linkId: "0.3",
             text: "Fragebogen Gewichtsabnahme anzeigen?",
             answer: [{
-                valueBoolean: true
+                valueBoolean: false
             }]
         },
         {
@@ -43,7 +43,7 @@ const lion_response2 = {
                     linkId: "1.1",
                     text: "Bedingte Fragen für Bewegung anzeigen?",
                     answer: [{
-                        valueBoolean: false
+                        valueBoolean: true
                     }]
                 },
                 {
@@ -92,7 +92,7 @@ const lion_response2 = {
                     linkId: "1.8",
                     text: "Bedingte Fragen für Schmerz anzeigen?",
                     answer: [{
-                        valueBoolean: true
+                        valueBoolean: false
                     }]
                 },
                 {
@@ -122,46 +122,6 @@ const lion_response2 = {
                     answer: [{
                         valueBoolean: false
                     }]
-                }
-            ]
-        },
-        {
-            linkId: "3",
-            text: "Gewichtsabnahme",
-            item: [
-                {
-                    linkId: "3.1",
-                    text: "Bedingte Fragen für Appetitlosigkeit anzeigen?",
-                    answer: [{
-                        valueBoolean: false
-                    }]
-                },
-                {
-                    linkId: "3.2",
-                    text: "Bedingte Fragen für Durchfall anzeigen?",
-                    answer: [{
-                        valueBoolean: true
-                    }]
-                },
-                {
-                    linkId: "3.3",
-                    text: "Bedingte Fragen für Erbrechen anzeigen?",
-                    answer: [{
-                        valueBoolean: true
-                    }]
-                },
-                {
-                    linkId: "3.2.1",
-                    text: "Fragen zu Durchfall",
-                    item: [
-                        {
-                            linkId: "3.2.1.1",
-                            text: "Leidest Du aufgrund Deiner Erkrankung unter Durchfall?",
-                            answer: [{
-                                valueBoolean: true
-                            }]
-                        },
-                    ]
                 }
             ]
         }

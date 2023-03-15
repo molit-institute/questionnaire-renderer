@@ -12,6 +12,7 @@ export default {
   back: "Zurück",
   next: "Weiter",
   yes: "Ja",
+  finish: "Abschließen",
   no: "Nein",
   group: "Gruppe",
 

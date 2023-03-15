@@ -13,6 +13,7 @@ export default {
   next: "Weiter",
   yes: "Ja",
   no: "Nein",
+  finish: "Fertig",
   group: "Gruppe",
 
   numberOfQuestions:"Anzahl der Fragen",

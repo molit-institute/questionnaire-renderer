@@ -217,6 +217,10 @@ export class QuestionnaireRenderer {
    * Allows the renderer to show errors in the console while emitting error-events
    */
   @Prop() enableErrorConsoleLogging: boolean = false;
+  /**
+   * Shows a finish-button instead of next at the last question
+   */
+  @Prop() enableFinishButton: boolean = false;
 
   /**
    * Text for back-button
@@ -891,6 +895,7 @@ export class QuestionnaireRenderer {
               trademarkText={this.trademarkText}
               enableGroupDescription={this.enableGroupDescription}
               enableErrorConsoleLogging={this.enableErrorConsoleLogging}
+              enableFinishButton={this.enableFinishButton}
               onSummary={() => this.backToSummary()}
               onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
               onReturn={() => this.leaveQuestionnaireRenderer()}

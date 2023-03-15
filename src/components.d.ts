@@ -150,6 +150,7 @@ export namespace Components {
          */
         "danger": string;
         "enableErrorConsoleLogging": boolean;
+        "enableFinishButton": boolean;
         "enableInformalLocale": boolean;
         "enableNext": boolean;
         "enableReturn": boolean;
@@ -319,6 +320,10 @@ export namespace Components {
          */
         "enableExpand": boolean;
         /**
+          * Shows a finish-button instead of next at the last question
+         */
+        "enableFinishButton": boolean;
+        /**
           * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
          */
         "enableFullQuestionnaireResponse": boolean;
@@ -473,6 +478,7 @@ export namespace Components {
         "danger": string;
         "editMode": boolean;
         "enableErrorConsoleLogging": boolean;
+        "enableFinishButton": boolean;
         "enableGroupDescription": boolean;
         "enableInformalLocale": boolean;
         "enableNext": boolean;
@@ -951,6 +957,7 @@ declare namespace LocalJSX {
          */
         "danger"?: string;
         "enableErrorConsoleLogging"?: boolean;
+        "enableFinishButton"?: boolean;
         "enableInformalLocale"?: boolean;
         "enableNext"?: boolean;
         "enableReturn"?: boolean;
@@ -1161,6 +1168,10 @@ declare namespace LocalJSX {
          */
         "enableExpand"?: boolean;
         /**
+          * Shows a finish-button instead of next at the last question
+         */
+        "enableFinishButton"?: boolean;
+        /**
           * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
          */
         "enableFullQuestionnaireResponse"?: boolean;
@@ -1355,6 +1366,7 @@ declare namespace LocalJSX {
         "danger"?: string;
         "editMode"?: boolean;
         "enableErrorConsoleLogging"?: boolean;
+        "enableFinishButton"?: boolean;
         "enableGroupDescription"?: boolean;
         "enableInformalLocale"?: boolean;
         "enableNext"?: boolean;

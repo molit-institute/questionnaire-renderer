@@ -97,6 +97,7 @@ export class StepperQuestionnaire {
   @Prop() trademarkText: string = null;
   @Prop() enableGroupDescription: boolean;
   @Prop() enableErrorConsoleLogging: boolean;
+  @Prop() enableFinishButton:boolean;
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
@@ -421,14 +422,30 @@ export class StepperQuestionnaire {
 
             {/* Button Next */}
             <span>
-              {this.count <= this.filteredItemList.length - 1 && !this.disabled && !this.editMode ? (
+              {(this.count < this.filteredItemList.length - 1 && !this.disabled && !this.editMode) || (this.count == this.filteredItemList.length - 1 && !this.disabled && !this.editMode && !this.enableFinishButton) ? (
                 <button id="next-button" type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.countUp()}>
                   {this.strings.next}
                 </button>
               ) : null}
-              {this.count < this.filteredItemList.length && this.disabled ? (
+              {this.count == this.filteredItemList.length - 1 && !this.disabled && !this.editMode && this.enableFinishButton ? (
+                <button id="next-button" type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.countUp()}>
+                  {this.strings.finish}
+                </button>
+              ) : null}
+              {(this.count < this.filteredItemList.length -1 && this.disabled) || (this.count == this.filteredItemList.length && this.disabled && !this.enableFinishButton)? (
                 <button id="disabled-next-button" type="button" class="btn button btn-secondary btn-lg qr-button-secondary" disabled>
                   {this.strings.next}
+                </button>
+              ) : null}
+              {this.count == this.filteredItemList.length -1 && this.disabled && this.enableFinishButton ? (
+                <button id="disabled-next-button" type="button" class="btn button btn-secondary btn-lg qr-button-secondary" disabled>
+                  {this.strings.finish}
+                </button>
+              ) : null}
+          
+              {this.editMode && !this.disabled ? (
+                <button id="summary-button" type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.goToSummary()}>
+                  {this.strings.accept}
                 </button>
               ) : null}
               {this.editMode && !this.disabled ? (
