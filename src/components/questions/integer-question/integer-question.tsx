@@ -36,8 +36,10 @@ export class IntegerQuestion {
         object = {
           type: 'integer',
           question: this.question,
-          value: [this.selected],
+          //TODO: parse to integer
+          value: [this.toInteger(this.selected)],
         };
+        console.log("parsed", this.toInteger(this.selected),this.selected)
       } else {
         object = {
           type: 'integer',

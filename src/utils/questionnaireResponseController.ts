@@ -11,10 +11,16 @@ import * as fhirApi from '@molit/fhir-util';
  * return QuestionnaireResponse
  *
  * @param {Object} questionnaire The Questionnaire
+ * @param {Object} subject FHIR patient
+ * @param {Object} questionnaireResponse FHIR questionnaireResponse
  */
-export function createQuestionnaireResponse(questionnaire, subject) {
+export function createQuestionnaireResponse(questionnaire, subject, questionnaireResponse) {
   if (questionnaire) {
     const questResp = QuestionnaireResponse.create();
+    //ID
+    if(questionnaireResponse && questionnaireResponse.id){
+      questResp.id = questionnaireResponse.id;
+    }
     //QUESTIONNAIRE
     questResp.questionnaire = questionnaire.url;
     //STATUS
@@ -41,7 +47,11 @@ export function createQuestionnaireResponse(questionnaire, subject) {
     }
 
     //AUTHORED date when response created
-    questResp.authored = dateTimeController.getTimestamp();
+    if(questionnaireResponse && questionnaireResponse.authored){
+      questResp.authored = questionnaireResponse.authored;
+    }else{
+      questResp.authored = dateTimeController.getTimestamp();
+    }
     //ITEMS | filling item with items
     if (questionnaire.item) {
       questResp.item = createItemArray(questionnaire.item);
@@ -153,7 +163,9 @@ export function createAnswer(data, type) {
         value = Object.assign({ valueCoding: coding });
         break;
       case valueTypes.INTEGER:
-        value = Object.assign({ valueInteger: '' + data });
+        //TODO Check if number causes issues in Integer and Decimal
+        // value = Object.assign({ valueInteger: '' + data });
+        value = Object.assign({ valueInteger: data });
         break;
       case valueTypes.DECIMAL:
         value = Object.assign({ valueDecimal: '' + data });
@@ -173,6 +185,8 @@ export function createAnswer(data, type) {
       case valueTypes.URI:
         value = Object.assign({ valueUri: data });
         break;
+      case valueTypes.QUANTITY:
+        value = Object.assign({ valueQuantity:{value: data.value,unit: data.unit, code: data.code, system: data.system}})
       default:
     }
   }
@@ -308,6 +322,8 @@ export function getAnswersFromQuestionnaireResponse(questionnaireResponse, linkI
             case valueTypes.URI:
               answerValue = itemList[i].answer[0].valueUri;
               break;
+            case valueTypes.QUANTITY:
+              answerValue = itemList[i].answer[0].valueQuantity;
             default:
           }
         }

@@ -97,6 +97,7 @@ export class StepperQuestionnaire {
   @Prop() trademarkText: string = null;
   @Prop() enableGroupDescription: boolean;
   @Prop() enableErrorConsoleLogging: boolean;
+  @Prop() enableFinishButton:boolean;
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
@@ -157,7 +158,9 @@ export class StepperQuestionnaire {
     if (this.filteredItemList) {
       for (let i = 0; i < this.filteredItemList.length; i++) {
         if (this.filteredItemList[i].required) {
-          totalNumber++;
+          if(!this.filteredItemList[i].hidden){
+            totalNumber++;
+          }
         }
       }
     }
@@ -365,10 +368,10 @@ export class StepperQuestionnaire {
             {/* Progress Counter */}
             {this.strings ? (
               <div class={this.isGroupQuestion() ? 'qr-question-hidden progress-counter qr-stepperQuestionnaire-title' : 'progress-counter qr-stepperQuestionnaire-title'}>
-                <span style={{ color: this.primary }}>
+                <span class="qr-stepperQuestionnaire-questionIndex" style={{ color: this.primary }}>
                   {this.strings.question} {this.questionCount} &nbsp;
                 </span>
-                <span class="color-grey">
+                <span class="color-grey qr-stepperQuestionnaire-numberOfQuestions">
                   {this.strings.of} {questionnaireController.getNumberOfQuestions(null, this.filteredItemList)}
                 </span>
               </div>
@@ -398,7 +401,7 @@ export class StepperQuestionnaire {
               vasShowSelectedValue={this.vasShowSelectedValue}
               vasSelectedValueLabel={this.vasSelectedValueLabel}
               enableErrorConsoleLogging={this.enableErrorConsoleLogging}
-              onErrorLog={event => this.emitError(event)}
+              onErrorLog={event => this.emitError(event.detail)}
             ></Tag>
           </div>
         ) : null}
@@ -419,16 +422,27 @@ export class StepperQuestionnaire {
 
             {/* Button Next */}
             <span>
-              {this.count <= this.filteredItemList.length - 1 && !this.disabled && !this.editMode ? (
+              {(this.count < this.filteredItemList.length - 1 && !this.disabled && !this.editMode) || (this.count == this.filteredItemList.length - 1 && !this.disabled && !this.editMode && !this.enableFinishButton) ? (
                 <button id="next-button" type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.countUp()}>
                   {this.strings.next}
                 </button>
               ) : null}
-              {this.count < this.filteredItemList.length && this.disabled ? (
+              {this.count == this.filteredItemList.length - 1 && !this.disabled && !this.editMode && this.enableFinishButton ? (
+                <button id="next-button" type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.countUp()}>
+                  {this.strings.finish}
+                </button>
+              ) : null}
+              {(this.count < this.filteredItemList.length -1 && this.disabled) || (this.count == this.filteredItemList.length && this.disabled && !this.enableFinishButton)? (
                 <button id="disabled-next-button" type="button" class="btn button btn-secondary btn-lg qr-button-secondary" disabled>
                   {this.strings.next}
                 </button>
               ) : null}
+              {this.count == this.filteredItemList.length -1 && this.disabled && this.enableFinishButton ? (
+                <button id="disabled-next-button" type="button" class="btn button btn-secondary btn-lg qr-button-secondary" disabled>
+                  {this.strings.finish}
+                </button>
+              ) : null}
+          
               {this.editMode && !this.disabled ? (
                 <button id="summary-button" type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.goToSummary()}>
                   {this.strings.accept}

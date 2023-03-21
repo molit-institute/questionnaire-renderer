@@ -74,3 +74,14 @@ pre {
   font-size: 87.5%;
   color: #212529;
 }
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+}
+
+.render{
+  width: 500px;
+}

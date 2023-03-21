@@ -26,7 +26,7 @@ export class QuestionnaireRenderer {
   @Event() updated: EventEmitter;
   @Watch('currentQuestionnaireResponse')
   async watchCurrentQuestionnaireResponse() {
-    await this.filterItemList();
+    this.filterItemList();
     this.handleAnsweredQuestionsList();
     this.updated.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
   }
@@ -217,7 +217,11 @@ export class QuestionnaireRenderer {
    * Allows the renderer to show errors in the console while emitting error-events
    */
   @Prop() enableErrorConsoleLogging: boolean = false;
-  
+  /**
+   * Shows a finish-button instead of next at the last question
+   */
+  @Prop() enableFinishButton: boolean = false;
+
   /**
    * Text for back-button
    */
@@ -266,35 +270,41 @@ export class QuestionnaireRenderer {
   }
 
   /* methods */
+
+  /**
+   * Removes all disabled and hidden Questions, aswell as Questions of type display
+   * @param questionnaireResponse 
+   * @returns 
+   */
   filterQuestionnaireResponse(questionnaireResponse) {
     let filteredQuestionnaireResponse = cloneDeep(questionnaireResponse);
     questionnaireResponseController.removeQuestionnaireResponseDisplayQuestions(filteredQuestionnaireResponse.item);
-    this.filterQuestionnaireResponseItems(this.filteredItemList, filteredQuestionnaireResponse.item);
+    filteredQuestionnaireResponse.item = this.filterQuestionnaireResponseItems(this.filteredItemList, filteredQuestionnaireResponse.item);
     return filteredQuestionnaireResponse;
   }
 
   /**
    * Compares and removes all Items from a given ItemList, that are not in the filteredList
-   * @param filteredList
+   * @param filteredQuestionnaireItemList - the itemList created from questionnaire.item
    * @param itemList
    */
-  filterQuestionnaireResponseItems(filteredList, itemList) {
-    itemList.forEach((element, index) => {
-      let result = filteredList.find(item => item.linkId === element.linkId);
-      if (result === undefined) {
-        itemList.splice(index, 1);
-      }
+  filterQuestionnaireResponseItems(filteredQuestionnaireItemList, itemList) {
+    itemList = itemList.filter(element => {
+      return filteredQuestionnaireItemList.find(item => item.linkId === element.linkId)
+    })
+    itemList.forEach((element) => {
       if (element.item && element.item.length > 0) {
-        this.filterQuestionnaireResponseItems(filteredList, element.item);
+        element.item = this.filterQuestionnaireResponseItems(filteredQuestionnaireItemList, element.item);
       }
-    });
+    })
+
+    return itemList;
   }
 
   /**
    * The "finished"-event is thrown once the next button is pressed or in case of the summary the save-button. It contains the current questionnaireResponse with the status "completed"
    */
   @Event() finished: EventEmitter;
-  // backToSummary(questionnaireResponse) {
   backToSummary() {
     if (this.enableFullQuestionnaireResponse) {
       if (this.enableSummary) {
@@ -304,7 +314,6 @@ export class QuestionnaireRenderer {
         this.edit_mode = false;
         this.start_question = null;
       }
-      // this.finished.emit(questionnaireResponse);
     } else {
       if (this.enableSummary) {
         this.show_questionnaire = false;
@@ -313,7 +322,6 @@ export class QuestionnaireRenderer {
         this.edit_mode = false;
         this.start_question = null;
       }
-      // this.finished.emit(this.filterQuestionnaireResponse());
     }
   }
 
@@ -398,7 +406,7 @@ export class QuestionnaireRenderer {
    * Creates a new QuestionnaireResponse
    */
   createQuestionnaireResponse() {
-    this.currentQuestionnaireResponse = questionnaireResponseController.createQuestionnaireResponse(this.questionnaire, this.subject);
+    this.currentQuestionnaireResponse = questionnaireResponseController.createQuestionnaireResponse(this.questionnaire, this.subject, this.questionnaireResponse);
   }
 
   /**
@@ -494,14 +502,14 @@ export class QuestionnaireRenderer {
         await this.removeGroupedDisplayQuestions(this.currentQuestionnaire.item);
       } catch (error) {
         this.emitError(error);
-        if(this.enableErrorConsoleLogging){
+        if (this.enableErrorConsoleLogging) {
           console.error(error);
         }
       }
     } else {
       let error = new Error("No questionnaire found, please check that the questionnaire property is properly used")
       this.emitError(error);
-      if(this.enableErrorConsoleLogging){
+      if (this.enableErrorConsoleLogging) {
         console.error(error);
       }
     }
@@ -613,19 +621,30 @@ export class QuestionnaireRenderer {
    */
   handleQuestionnaireResponse() {
     if (this.questionnaireResponse) {
-      let split = this.questionnaireResponse.questionnaire.split('/');
-      let id = split[1];
-      if (this.questionnaireResponse.questionnaire === this.questionnaire.url || id === this.questionnaire.id) {
-        this.createQuestionnaireResponse();
-        let questionaireResponseItems = questionnaireResponseController.createItemList(this.questionnaireResponse);
-        this.transferQuestionnaireResponseAnswers(this.currentQuestionnaireResponse, questionaireResponseItems);
+      if (this.questionnaireResponse.questionnaire) {
+        let split = this.questionnaireResponse.questionnaire.split('/');
+        let id = split[1];
+        if (this.questionnaireResponse.questionnaire === this.questionnaire.url || id && id === this.questionnaire.id) {
+          this.createQuestionnaireResponse();
+          let questionaireResponseItems = questionnaireResponseController.createItemList(this.questionnaireResponse);
+          this.transferQuestionnaireResponseAnswers(this.currentQuestionnaireResponse, questionaireResponseItems);
+        } else {
+          if (this.enableErrorConsoleLogging) {
+            console.info('QuestionnaireRenderer | Info: Created new questionnaireResponse because neither questionnaireResponse and Questionnaire url or id matched');
+          }
+          this.createQuestionnaireResponse();
+        }
       } else {
-        console.info('QuestionnaireRenderer | Info: Created new QuestionnaireResponse because neither QuestionnaireResponse and Questionnaire url or id matched');
+        if (this.enableErrorConsoleLogging) {
+          console.info('QuestionnaireRenderer | Info: Created new questionnaireResponse because the given questionnaireResponse did not contain a valid reference to the questionnaire');
+        }
         this.createQuestionnaireResponse();
       }
     } else {
       this.createQuestionnaireResponse();
     }
+
+
   }
 
   /**
@@ -682,7 +701,7 @@ export class QuestionnaireRenderer {
         this.currentValueSets = await valueSetController.getNewValueSets([this.currentQuestionnaire], this.baseUrl, this.token, this.basicAuth, this.enableExpand);
       } catch (error) {
         this.emitError(error);
-        if(this.enableErrorConsoleLogging){
+        if (this.enableErrorConsoleLogging) {
           console.error(error);
         }
       }
@@ -752,14 +771,24 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   * Filters the itemlist of the current questionnaire. Removes questions that are not active
+   * Filters the itemlist of the current questionnaire. Removes questions that are hidden and not active
    */
-  async filterItemList() {
-    let newList = [];
+  filterItemList() {
+    const URL_QUESTIONNAIRE_HIDDEN = "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden"
+
+    let newItemList = [];
+
+    //erstellt neue Liste mit Fragen nach Filterung durch Enable-When
     if (this.currentQuestionnaireResponse && this.currentQuestionnaire) {
-      newList = await questionnaireController.handleEnableWhen(this.currentQuestionnaireResponse, this.currentQuestionnaire.item);
+      newItemList = questionnaireController.handleEnableWhen(this.currentQuestionnaireResponse, this.currentQuestionnaire.item);
     }
-    this.filteredItemList = newList;
+
+    newItemList = newItemList.filter(item => {
+      let hiddenExtension = questionnaireController.lookForExtension(URL_QUESTIONNAIRE_HIDDEN, item);
+      return hiddenExtension == null || !hiddenExtension.hidden;
+    });
+
+    this.filteredItemList = newItemList;
   }
 
   /**
@@ -826,7 +855,7 @@ export class QuestionnaireRenderer {
         this.spinner = { ...this.spinner, loading: false };
       }, 250);
     } catch (e) {
-      if(this.enableErrorConsoleLogging){
+      if (this.enableErrorConsoleLogging) {
         console.error(e);
       }
       this.emitError(e);
@@ -866,11 +895,13 @@ export class QuestionnaireRenderer {
               trademarkText={this.trademarkText}
               enableGroupDescription={this.enableGroupDescription}
               enableErrorConsoleLogging={this.enableErrorConsoleLogging}
+              enableFinishButton={this.enableFinishButton}
               onSummary={() => this.backToSummary()}
               onFinish={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
               onReturn={() => this.leaveQuestionnaireRenderer()}
               onEmitAnswer={ev => this.handleQuestionnaireResponseEvent(ev)}
               onAddRemarks={() => this.addAdditionalRemarks()}
+              onErrorLog={error => this.emitError(error.detail)}
             ></Tag>
           </div>
         ) : null}
@@ -902,7 +933,7 @@ export class QuestionnaireRenderer {
               onToQuestionnaireRenderer={() => this.toQuestionnaire(true)}
               onEditQuestion={question => this.editQuestion(question)}
               onFinishQuestionnaire={() => this.finishQuestionnaire(this.currentQuestionnaireResponse)}
-              onErrorLog={error => this.emitError(error)}
+              onErrorLog={error => this.emitError(error.detail)}
               onCloseSummary={() => this.closesSummary()}
               token={this.token}
               basicAuth={this.basicAuth}
@@ -926,7 +957,7 @@ export class QuestionnaireRenderer {
               locale={this.locale}
               onStartQuestionnaire={() => this.toQuestionnaire(false)}
               trademarkText={this.trademarkText}
-              // onErrorLog={error => this.emitError(error)}
+            // onErrorLog={error => this.emitError(error)}
             ></information-page>
           </div>
         ) : null}

@@ -12,6 +12,7 @@ export default {
   next: 'Siguiente',
   yes: 'sí',
   no: 'no',
+  finish: 'Abschließen',
   group: "Grupo",
 
   summary: {

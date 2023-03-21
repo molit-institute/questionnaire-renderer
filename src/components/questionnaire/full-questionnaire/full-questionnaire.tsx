@@ -35,6 +35,7 @@ export class FullQuestionnaire {
   @Prop() vasVertical: boolean;
   @Prop() vasShowSelectedValue: boolean;
   @Prop() vasSelectedValueLabel: string;
+  @Prop() enableFinishButton: boolean;
   /**
    * Primary color
    */
@@ -166,7 +167,7 @@ export class FullQuestionnaire {
                         <div class="card-body">
                           {question.type !== 'group' && this.variant !== 'form' && this.variant !== 'compact' ? (
                             <div>
-                              {this.strings.question} {this.getQuestionIndex(question) + 1} {this.strings.of} {this.questionsList().length}
+                              <a class="qr-fullQuestionnaire-questionIndex"></a>{this.strings.question} {this.getQuestionIndex(question) + 1} <a class="qr-fullQuestionnaire-numberOfQuestions">{this.strings.of} {this.questionsList().length}</a>
                             </div>
                           ) : null}
                           {question.groupId && !question.item ? <div class="question-group-text">{this.getGroupText(question)}</div> : null}
@@ -204,9 +205,14 @@ export class FullQuestionnaire {
                       {this.strings.back}
                     </button>
                   ) : null}
-                  {this.enableNext ? (
+                  {this.enableNext && !this.enableFinishButton ? (
                     <button type="button" class="btn button btn-primary btn-lg qr-button-primary" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
                       {this.strings.next}
+                    </button>
+                  ) : null}
+                  {this.enableNext && this.enableFinishButton ? (
+                    <button type="button" class="btn button btn-primary btn-lg qr-button-primary" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
+                      {this.strings.finish}
                     </button>
                   ) : null}
                 </div>

@@ -187,6 +187,7 @@ function addItemToList(answersList, itemList, newItemList) {
   }
 }
 
+
 /**
  * Compares the given answers with the given enableWhen-value using the operator
  * @param {Object} item Contains the answer to question that is referenced in the logicQuestion
@@ -304,6 +305,7 @@ function handleEnableWhenAnswerType(value) {
 
 /**
  * Counts all Questions from ItemList excluding Groups
+ * @param object Can be a questionnaire or a questionnaireResponse
  * @returns number - integer value
  */
 function getNumberOfQuestions(object, list) {
@@ -314,7 +316,7 @@ function getNumberOfQuestions(object, list) {
   if (list) {
     itemList = list;
   }
-
+  
   let number = 0;
   if (object && object.resourceType === 'QuestionnaireResponse') {
     for (let i = 0; i < itemList.length; i++) {
@@ -323,8 +325,14 @@ function getNumberOfQuestions(object, list) {
       }
     }
   } else {
+    //Zählt alle Fragen die keine Gruppen, Display-Fragen oder Fragen mit aktiver Hidden Extension sind
     for (let i = 0; i < itemList.length; i++) {
-      if (itemList[i].type !== 'group' && itemList[i].type !== 'display') {
+      let hiddenUrl = "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden"
+      let hiddenExtension = lookForExtension(hiddenUrl,itemList[i])
+      if (itemList[i].type !== 'group' && itemList[i].type !== 'display' && hiddenExtension && !hiddenExtension.hidden) {
+        number++;
+      }
+      if (itemList[i].type !== 'group' && itemList[i].type !== 'display' && !hiddenExtension) {
         number++;
       }
     }
@@ -333,4 +341,19 @@ function getNumberOfQuestions(object, list) {
   return number;
 }
 
-export default { handleEnableWhen, getChoiceOptions, getNumberOfQuestions };
+/**
+ * Looks for a specific extension in the given question, based on a given String
+ * @return returns the extension
+ */
+function lookForExtension(extensionUrl, question) {
+  if (question.extension) {
+    for (let i = 0; i < question.extension.length; i++) {
+      if (question.extension[i].url && question.extension[i].url === extensionUrl) {
+        return question.extension[i]
+      }
+    }
+  }
+  return null;
+}
+
+export default { handleEnableWhen, getChoiceOptions, getNumberOfQuestions, lookForExtension };
