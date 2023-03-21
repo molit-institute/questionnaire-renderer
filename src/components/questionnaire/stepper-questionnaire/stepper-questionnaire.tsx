@@ -448,11 +448,6 @@ export class StepperQuestionnaire {
                   {this.strings.accept}
                 </button>
               ) : null}
-              {this.editMode && !this.disabled ? (
-                <button id="summary-button" type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.goToSummary()}>
-                  {this.strings.accept}
-                </button>
-              ) : null}
             </span>
           </div>
         ) : null}
