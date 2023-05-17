@@ -46,6 +46,7 @@ export class QuestionnaireSummary {
   @Prop() enableInformalLocale: boolean;
   @Prop() trademarkText: string = null;
   @Prop() enableErrorConsoleLogging: boolean;
+  @Prop() questionnaireResponseStatus: string;
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -265,7 +266,11 @@ export class QuestionnaireSummary {
     if (this.questionnaireResponse) {
       this.spinner = { ...this.spinner, loading: true };
       this.spinner = { ...this.spinner, message: this.strings.summary.saveQuestionnaire };
-      this.questionnaireResponse.status = 'completed';
+      if(this.questionnaireResponseStatus){
+        this.questionnaireResponse.status = this.questionnaireResponseStatus;
+      }else{
+        this.questionnaireResponse.status = 'completed';
+      }
       let questResp = cloneDeep(this.questionnaireResponse);
       let task = this.task;
 

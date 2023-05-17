@@ -221,6 +221,10 @@ export class QuestionnaireRenderer {
    * Shows a finish-button instead of next at the last question
    */
   @Prop() enableFinishButton: boolean = false;
+  /**
+   * If set, will change the status of the questionnaireResponse to the given string value
+   */
+  @Prop() questionnaireResponseStatus: string;
 
   /**
    * Text for back-button
@@ -371,7 +375,12 @@ export class QuestionnaireRenderer {
         this.show_summary = true;
         this.start_question = null;
       }
-      questionnaireResponse.status = 'completed';
+
+      if(this.questionnaireResponseStatus){
+        questionnaireResponse.status = this.questionnaireResponseStatus
+      }else{
+        questionnaireResponse.status = 'completed';
+      }
       this.finished.emit(await this.filterQuestionnaireResponse(questionnaireResponse));
     }
   }
@@ -943,6 +952,7 @@ export class QuestionnaireRenderer {
               enableErrorConsoleLogging={this.enableErrorConsoleLogging}
               enableInformalLocale={this.enableInformalLocale}
               trademarkText={this.trademarkText}
+              questionnaireResponseStatus={this.questionnaireResponseStatus}
             ></questionnaire-summary>
           </div>
         ) : null}

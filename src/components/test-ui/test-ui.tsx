@@ -204,6 +204,7 @@ export class TestUi {
               vasShowSelectedValue={true}
               token={this.token}
               enableErrorConsoleLogging={false}
+              questionnaireResponseStatus="amended"
               onErrorLog={error => console.info(error)}
             ></questionnaire-renderer>
           ) : null}
