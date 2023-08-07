@@ -295,8 +295,10 @@ export class QuestionnaireSummary {
         }
       }
       // Handle Task
-      if (this.task) {
-        task.executionPeriod.end = new Date().toISOString();
+      if (this.task ) {
+        if(task.executionPeriod){
+          task.executionPeriod.end = new Date().toISOString();
+        }
         task.status = 'completed';
         this.finishTask.emit(task);
         if (this.baseUrl) {

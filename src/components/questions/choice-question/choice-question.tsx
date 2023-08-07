@@ -257,7 +257,7 @@ export class ChoiceQuestion {
             <div class="card">
               <div class="qr-question-title">
                 <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
+                  <span class="qr-question-prefix">{this.question.prefix}</span>
                   <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
                 </div>
               </div>
@@ -305,7 +305,7 @@ export class ChoiceQuestion {
                 {/* <!-- MULTIPLE CHOICE --> */}
                 {this.optionsList.map(answer => (
                   <div id={answer.code} class="card qr-choiceQuestion-radioButtonCard" style={{ background: this.checkIfSelected(answer) ? '#e8f4fd' : 'white' }}>
-                    <div class="form-check" onClick={() => this.onBoxClickedMultipleChoice(answer.display, answer.code)}>
+                    <div class="form-check qr-choiceQuestion-answer" onClick={() => this.onBoxClickedMultipleChoice(answer.display, answer.code)}>
                       {this.checkIfSelected(answer) ? (
                         <input class="form-check-input qr-choiceQuestion-radioButton" type="checkbox" name={'Checkbox' + this.question.linkId} id={answer.code} checked />
                       ) : (

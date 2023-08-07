@@ -138,7 +138,7 @@ export class DateQuestion {
             <div class="card">
               <div class="qr-question-title">
                 <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  <span class="qr-question-prefix">{this.question.prefix}</span>&nbsp;
+                  <span class="qr-question-prefix">{this.question.prefix}</span>
                   <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
                 </div>
               </div>
