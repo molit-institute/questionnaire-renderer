@@ -1048,6 +1048,7 @@ declare namespace LocalJSX {
           * Emits an error-event
          */
         "onErrorLog"?: (event: FullQuestionnaireCustomEvent<any>) => void;
+        "onFinish"?: (event: FullQuestionnaireCustomEvent<any>) => void;
         "onReturn"?: (event: FullQuestionnaireCustomEvent<any>) => void;
         "onSummary"?: (event: FullQuestionnaireCustomEvent<any>) => void;
         /**

@@ -65,6 +65,8 @@ export class FullQuestionnaire {
   disabled: boolean = true;
   scrollToQuestion: boolean = true;
 
+  @Event() finish: EventEmitter;
+
   /* computed */
   questionsList() {
     return this.filteredItemList.filter(question => question.type !== 'group');
@@ -212,6 +214,11 @@ export class FullQuestionnaire {
                   ) : null}
                   {this.enableNext && this.enableFinishButton ? (
                     <button type="button" class="btn button btn-primary btn-lg qr-button-primary" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
+                      {this.strings.finish}
+                    </button>
+                  ) : null}
+                  {!this.enableNext && this.enableFinishButton ? (
+                    <button type="button" class="btn button btn-primary btn-lg qr-button-primary" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() =>  this.finish.emit('finish')}>
                       {this.strings.finish}
                     </button>
                   ) : null}
