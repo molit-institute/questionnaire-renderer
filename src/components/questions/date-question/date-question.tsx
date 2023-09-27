@@ -97,7 +97,7 @@ export class DateQuestion {
   /* computed */
   validate() {
     let regex = new RegExp(this.dateRegex);
-    return ( this.selected ? true : false) && regex.test(this.selected);
+    return (this.selected ? true : false) && regex.test(this.selected);
   }
 
   /* methods */
@@ -138,7 +138,9 @@ export class DateQuestion {
             <div class="card">
               <div class="qr-question-title">
                 <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  <span class="qr-question-prefix">{this.question.prefix}</span>
+                  {this.question.prefix && this.question.prefix != "" ? (
+                    <span class="qr-question-prefix">{this.question.prefix}</span>
+                  ) : null}
                   <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
                 </div>
               </div>

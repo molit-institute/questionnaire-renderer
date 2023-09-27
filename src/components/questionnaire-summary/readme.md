@@ -20,6 +20,7 @@
 | `mode`                            | `mode`                               |                                                                            | `string`  | `undefined` |
 | `questionnaire`                   | `questionnaire`                      |                                                                            | `any`     | `null`      |
 | `questionnaireResponse`           | `questionnaire-response`             |                                                                            | `any`     | `null`      |
+| `questionnaireResponseStatus`     | `questionnaire-response-status`      |                                                                            | `string`  | `undefined` |
 | `showSummaryRemarks`              | `show-summary-remarks`               |                                                                            | `boolean` | `undefined` |
 | `subject`                         | --                                   | FHIR Patient-Resource                                                      | `Object`  | `undefined` |
 | `summary_text`                    | `summary_text`                       |                                                                            | `string`  | `undefined` |

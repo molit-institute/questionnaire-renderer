@@ -12,6 +12,7 @@
 | `baseUrl`                    | `base-url`                     |                                                                            | `string`  | `undefined` |
 | `danger`                     | `danger`                       | Color used to symbolise danger                                             | `string`  | `undefined` |
 | `enableErrorConsoleLogging`  | `enable-error-console-logging` |                                                                            | `boolean` | `undefined` |
+| `enableFinishButton`         | `enable-finish-button`         |                                                                            | `boolean` | `undefined` |
 | `enableInformalLocale`       | `enable-informal-locale`       |                                                                            | `boolean` | `undefined` |
 | `enableNext`                 | `enable-next`                  |                                                                            | `boolean` | `true`      |
 | `enableReturn`               | `enable-return`                |                                                                            | `boolean` | `true`      |
@@ -36,6 +37,7 @@
 | Event      | Description          | Type               |
 | ---------- | -------------------- | ------------------ |
 | `errorLog` | Emits an error-event | `CustomEvent<any>` |
+| `finish`   |                      | `CustomEvent<any>` |
 | `return`   |                      | `CustomEvent<any>` |
 | `summary`  |                      | `CustomEvent<any>` |
 

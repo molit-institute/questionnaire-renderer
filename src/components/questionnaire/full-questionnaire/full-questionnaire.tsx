@@ -168,8 +168,8 @@ export class FullQuestionnaire {
                       {this.strings ? (
                         <div class="card-body">
                           {question.type !== 'group' && this.variant !== 'form' && this.variant !== 'compact' ? (
-                            <div>
-                              <a class="qr-fullQuestionnaire-questionIndex"></a>{this.strings.question} {this.getQuestionIndex(question) + 1} <a class="qr-fullQuestionnaire-numberOfQuestions">{this.strings.of} {this.questionsList().length}</a>
+                            <div class="qr-fullQuestionnaire-progress-counter">
+                              <span class="qr-fullQuestionnaire-questionIndex">{this.strings.question} {this.getQuestionIndex(question) + 1}</span> <span class="qr-fullQuestionnaire-numberOfQuestions">{this.strings.of} {this.questionsList().length}</span>
                             </div>
                           ) : null}
                           {question.groupId && !question.item ? <div class="question-group-text">{this.getGroupText(question)}</div> : null}
@@ -203,22 +203,22 @@ export class FullQuestionnaire {
               {this.strings ? (
                 <div class="summary-button">
                   {this.enableReturn ? (
-                    <button type="button" class="btn button btn-outline-primary btn-lg qr-button-outline-primary" onClick={() => this.backToQuestionnaireList()}>
+                    <button id="returnButton" type="button" class="btn button btn-outline-primary btn-lg qr-button-outline-primary" onClick={() => this.backToQuestionnaireList()}>
                       {this.strings.back}
                     </button>
                   ) : null}
                   {this.enableNext && !this.enableFinishButton ? (
-                    <button type="button" class="btn button btn-primary btn-lg qr-button-primary" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
+                    <button id="toSummaryNextButton" type="button" class="btn button btn-primary btn-lg qr-button-primary" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
                       {this.strings.next}
                     </button>
                   ) : null}
                   {this.enableNext && this.enableFinishButton ? (
-                    <button type="button" class="btn button btn-primary btn-lg qr-button-primary" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
+                    <button id="toSummaryFinishButton" type="button" class="btn button btn-primary btn-lg qr-button-primary" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
                       {this.strings.finish}
                     </button>
                   ) : null}
                   {!this.enableNext && this.enableFinishButton ? (
-                    <button type="button" class="btn button btn-primary btn-lg qr-button-primary" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() =>  this.finish.emit('finish')}>
+                    <button id="finishButton" type="button" class="btn button btn-primary btn-lg qr-button-primary" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() =>  this.finish.emit('finish')}>
                       {this.strings.finish}
                     </button>
                   ) : null}

@@ -31,7 +31,7 @@ export class StringQuestion {
   }
 
   @Prop() mode: string;
-  @Prop() enableErrorConsoleLogging:boolean;
+  @Prop() enableErrorConsoleLogging: boolean;
   @Prop() questionnaireResponse: Object = null;
   @Watch('questionnaireResponse')
   async watchQuestionnaireResponse() {
@@ -152,7 +152,9 @@ export class StringQuestion {
             <div class="">
               <div class="qr-question-title">
                 <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  <span class="qr-question-prefix">{this.question.prefix}</span>
+                  {this.question.prefix && this.question.prefix != "" ? (
+                    <span class="qr-question-prefix">{this.question.prefix}</span>
+                  ) : null}
                   <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
                 </div>
               </div>
