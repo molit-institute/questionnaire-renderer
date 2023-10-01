@@ -199,26 +199,26 @@ export class FullQuestionnaire {
               })}
             </transition-group>
             {/* BUTTONS */}
-            <div class="card-margin-bottom qr-fullQuestionnaire-buttonContainer">
+            <div class="card-margin-bottom ">
               {this.strings ? (
-                <div class="summary-button">
+                <div class="qr-fullQuestionnaire-buttonContainer">
                   {this.enableReturn ? (
-                    <button id="returnButton" type="button" class="btn button btn-outline-primary btn-lg qr-button-outline-primary" onClick={() => this.backToQuestionnaireList()}>
+                    <button id="returnButton" type="button" class="btn button btn-outline-primary btn-lg qr-button-outline-primary qr-fullQuestionnaire-button-back" onClick={() => this.backToQuestionnaireList()}>
                       {this.strings.back}
                     </button>
                   ) : null}
                   {this.enableNext && !this.enableFinishButton ? (
-                    <button id="toSummaryNextButton" type="button" class="btn button btn-primary btn-lg qr-button-primary" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
+                    <button id="toSummaryNextButton" type="button" class="btn button btn-primary btn-lg qr-button-primary qr-fullQuestionnaire-button-next" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
                       {this.strings.next}
                     </button>
                   ) : null}
                   {this.enableNext && this.enableFinishButton ? (
-                    <button id="toSummaryFinishButton" type="button" class="btn button btn-primary btn-lg qr-button-primary" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
+                    <button id="toSummaryFinishButton" type="button" class="btn button btn-primary btn-lg qr-button-primary qr-fullQuestionnaire-button-finish" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
                       {this.strings.finish}
                     </button>
                   ) : null}
                   {!this.enableNext && this.enableFinishButton ? (
-                    <button id="finishButton" type="button" class="btn button btn-primary btn-lg qr-button-primary" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() =>  this.finish.emit('finish')}>
+                    <button id="finishButton" type="button" class="btn button btn-primary btn-lg qr-button-primary qr-fullQuestionnaire-button-finish" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() =>  this.finish.emit('finish')}>
                       {this.strings.finish}
                     </button>
                   ) : null}
