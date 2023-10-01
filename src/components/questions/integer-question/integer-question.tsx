@@ -18,7 +18,7 @@ export class IntegerQuestion {
   integerInput!: HTMLInputElement;
   @State() reset: Boolean = false;
   @Prop() variant: any = null;
-  @Prop() enableErrorConsoleLogging:boolean;
+  @Prop() enableErrorConsoleLogging: boolean;
   /**
    *  String containing the translations for the current locale
    */
@@ -227,7 +227,9 @@ export class IntegerQuestion {
           <div>
             <div class="qr-question-title">
               <div class={this.reset ? 'qr-question-hidden' : ''}>
-                <span class="qr-question-prefix">{this.question.prefix}</span>
+                {this.question.prefix && this.question.prefix != "" ? (
+                  <span class="qr-question-prefix">{this.question.prefix}</span>
+                ) : null}
                 <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
               </div>
             </div>

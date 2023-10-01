@@ -13,6 +13,7 @@
 | `danger`                     | `danger`                       | Color used to symbolise danger                                             | `string`  | `undefined` |
 | `editMode`                   | `edit-mode`                    |                                                                            | `boolean` | `false`     |
 | `enableErrorConsoleLogging`  | `enable-error-console-logging` |                                                                            | `boolean` | `undefined` |
+| `enableFinishButton`         | `enable-finish-button`         |                                                                            | `boolean` | `undefined` |
 | `enableGroupDescription`     | `enable-group-description`     |                                                                            | `boolean` | `undefined` |
 | `enableInformalLocale`       | `enable-informal-locale`       |                                                                            | `boolean` | `undefined` |
 | `enableNext`                 | `enable-next`                  |                                                                            | `boolean` | `true`      |

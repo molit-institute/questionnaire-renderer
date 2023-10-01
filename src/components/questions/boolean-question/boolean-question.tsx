@@ -79,7 +79,7 @@ export class BooleanQuestion {
    * Currently suported: [de, en, es]
    */
   @Prop() locale: string = 'en';
-  @Prop() enableErrorConsoleLogging:boolean;
+  @Prop() enableErrorConsoleLogging: boolean;
   @Watch('locale')
   async watchLocale(newValue: string) {
     this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
@@ -127,7 +127,7 @@ export class BooleanQuestion {
         this.selected = null;
       }
     } catch (error) {
-      if(this.enableErrorConsoleLogging){
+      if (this.enableErrorConsoleLogging) {
         console.error(error);
       }
       this.emitError(error);
@@ -137,10 +137,10 @@ export class BooleanQuestion {
   /**
    * Emits an error-event
    */
-   @Event() errorLog: EventEmitter;
-   emitError(error) {
-     this.errorLog.emit(error);
-   }
+  @Event() errorLog: EventEmitter;
+  emitError(error) {
+    this.errorLog.emit(error);
+  }
   /* Lifecycle Methods */
 
   async componentWillLoad(): Promise<void> {
@@ -149,7 +149,7 @@ export class BooleanQuestion {
       await this.setSelected();
       this.allow_events = true;
     } catch (e) {
-      if(this.enableErrorConsoleLogging){
+      if (this.enableErrorConsoleLogging) {
         console.error(e);
       }
       this.emitError(e);
@@ -168,7 +168,9 @@ export class BooleanQuestion {
             <div class="">
               <div class="qr-question-title">
                 <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  <span class="qr-question-prefix">{this.question.prefix}</span>
+                  {this.question.prefix && this.question.prefix != "" ? (
+                    <span class="qr-question-prefix">{this.question.prefix}</span>
+                  ) : null} 
                   <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
                 </div>
               </div>
