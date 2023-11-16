@@ -82,7 +82,6 @@ function getReferencesFromValueSets(questionsValueSetList) {
  * @param {*} referenceList List of valueSet-references
  */
 async function getValueSetsWithReferences(FHIR_URL, referenceList, token, basicAuth, expand) {
-  console.log("getValueSetsWithReferences")
   let list = [];
   try {
     for (let o = 0; o < referenceList.length; o++) {
@@ -105,7 +104,6 @@ async function getValueSetsWithReferences(FHIR_URL, referenceList, token, basicA
 
       //fetch codesystem if concept in the valueSet is empty/null
       if (!valueSet.valueSet.compose.include[0].concept && valueSet.valueSet.compose.include[0].system && !expand) {
-        console.log("fetch codesystem")
         let codesystem = await getCodeSystem(FHIR_URL,valueSet.valueSet.compose.include[0].system,token,basicAuth)
         valueSet.valueSet = addCodeSystemToValueSet(valueSet.valueSet, codesystem)
       }
@@ -125,7 +123,6 @@ function addCodeSystemToValueSet(valueSet, codesystem) {
   let newValueSet = valueSet;
   let concepts = codesystem.concept;
   newValueSet.expansion = { contains: [] }
-  console.log("newValueSet: ",newValueSet)
   for (let i = 0; i < concepts.length; i++) {
     let concept = {
       system: codesystem.url,
@@ -147,10 +144,8 @@ function addCodeSystemToValueSet(valueSet, codesystem) {
  */
 async function getCodeSystem(FHIR_URL, reference, token, basicAuth) {
   let codesystem = null;
-  console.log("reference: ",reference);
   try {
     codesystem = await fhirApi.fetchByUrl(FHIR_URL + '/CodeSystem?url=' + reference, null, token, basicAuth);
-    console.log("codeSystem: ",codesystem.data.entry[0].resource)
   } catch (error) {
     throw new Error(error.message);
   }
