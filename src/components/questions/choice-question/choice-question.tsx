@@ -306,8 +306,8 @@ export class ChoiceQuestion {
               <div class="form-group">
                 {/* <!-- MULTIPLE CHOICE --> */}
                 {this.optionsList.map(answer => (
-                  <div id={answer.code} class="card qr-choiceQuestion-radioButtonCard" style={{ background: this.checkIfSelected(answer) ? '#e8f4fd' : 'white' }}>
-                    <div class="form-check qr-choiceQuestion-answer" onClick={() => this.onBoxClickedMultipleChoice(answer.display, answer.code)}>
+                  <div id={answer.code} class="card qr-choiceQuestion-radioButtonCard" onClick={() => this.onBoxClickedMultipleChoice(answer.display, answer.code)} style={{ background: this.checkIfSelected(answer) ? '#e8f4fd' : 'white' }}>
+                    <div class="form-check qr-choiceQuestion-answer">
                       {this.checkIfSelected(answer) ? (
                         <input class="form-check-input qr-choiceQuestion-radioButton" type="checkbox" name={'Checkbox' + this.question.linkId} id={answer.code} checked />
                       ) : (
