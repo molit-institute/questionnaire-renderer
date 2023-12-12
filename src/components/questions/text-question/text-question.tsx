@@ -150,8 +150,8 @@ export class TextQuestion {
     return (
       <div class="qr-question-container">
         {this.variant === 'touch' ? (
-          <div>
-            <div class="">
+          <div class="qr-question qr-question-text">
+            <div class="qr-question-head">
               <div class="qr-question-title">
                 <div class={this.reset ? 'qr-question-hidden' : ''}>
                   {this.question.prefix && this.question.prefix != "" ? (

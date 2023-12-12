@@ -224,23 +224,25 @@ export class IntegerQuestion {
     return (
       <div class="qr-question-container">
         {this.variant === 'touch' ? (
-          <div>
-            <div class="qr-question-title">
-              <div class={this.reset ? 'qr-question-hidden' : ''}>
-                {this.question.prefix && this.question.prefix != "" ? (
-                  <span class="qr-question-prefix">{this.question.prefix}</span>
+          <div class="qr-question qr-question-boolean">
+            <div class="qr-question-head">
+              <div class="qr-question-title">
+                <div class={this.reset ? 'qr-question-hidden' : ''}>
+                  {this.question.prefix && this.question.prefix != "" ? (
+                    <span class="qr-question-prefix">{this.question.prefix}</span>
+                  ) : null}
+                  <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
+                </div>
+              </div>
+              <div class="qr-question-mandatoryQuestion">
+                {this.strings ? (
+                  <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
+                    {this.strings.mandatory_question}
+                  </div>
                 ) : null}
-                <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
               </div>
             </div>
 
-            <div class="qr-question-mandatoryQuestion">
-              {this.strings ? (
-                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
-                  {this.strings.mandatory_question}
-                </div>
-              ) : null}
-            </div>
             <hr />
             {this.isVasQuestion() === true ? (
               <vas-question
