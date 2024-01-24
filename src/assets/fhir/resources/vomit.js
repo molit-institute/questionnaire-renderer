@@ -24,6 +24,22 @@ const vomitQuestionnaire = {
       required: true,
       answerValueSet: "https://molit.eu/fhir/ValueSet/QLQC30-VS-answers7"
     },
+    {
+      linkId:"3",
+      text:"Dies ist eine gruppe",
+      type:"group",
+      item:[
+        {
+          linkId: "3.1",
+          prefix: "3.1 ",
+          text: "Wählen sie was aus",
+          type: "choice",
+          repeats:true,
+          required: true,
+          answerValueSet: "https://molit.eu/fhir/ValueSet/QLQC30-VS-answers7"
+        }
+      ]
+    }
     // {
     //   linkId: "3",
     //   prefix: "3. ",
