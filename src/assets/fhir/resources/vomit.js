@@ -12,30 +12,6 @@ const vomitQuestionnaire = {
       prefix: "1.",
       text: "Have you ever worked with HL7 FHIR?",
       type: "boolean",
-      extension: [
-        {
-          url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
-          hidden: true
-        }
-      ],
-    },
-    // {
-    //   linkId: "1.1",
-    //   prefix: "1.1",
-    //   text: "Have you ever",
-    //   type: "boolean",
-    //   extension: [
-    //     {
-    //       url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
-    //       hidden: true
-    //     }
-    //   ],
-    // },
-    {
-      linkId: "2",
-      prefix: "2.",
-      text: "Frage 2",
-      type: "string",
       // extension: [
       //   {
       //     url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
@@ -44,16 +20,43 @@ const vomitQuestionnaire = {
       // ],
     },
     {
+      linkId: "1.1",
+      prefix: "1.1",
+      text: "Have you ever",
+      type: "choice",
+      //   extension: [
+      //     {
+      //       url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+      //       hidden: true
+      //     }
+      //   ],
+      answerValueSet: "https://molit.eu/fhir/ValueSet/vkh-VS-ecog"
+    },
+    // {
+    //   linkId: "2",
+    //   prefix: "2.",
+    //   text: "Frage 2",
+    //   type: "string",
+    // extension: [
+    //   {
+    //     url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+    //     hidden: true
+    //   }
+    // ],
+    // },
+    {
       linkId: "3",
       prefix: "3.",
       text: "Fraaaaage 3",
       type: "string",
-      enableBehavior: "Any",
       enableWhen: [
         {
-          question: "1",
+          question: "1.1",
           operator: "=",
-          answerBoolean: true
+          answerCoding: {
+            code: "A2",
+            display: "2"
+        }
         },
       ],
     },

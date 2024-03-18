@@ -875,6 +875,7 @@ export class QuestionnaireRenderer {
     const Tag = this.currentMode;
     return (
       <div class="qr-questionnaireRenderer-container">
+        {this.questionnaireResponse}
         {this.show_questionnaire && !this.showOnlySummary ? (
           <div class="qr-questionnaireRenderer-questions">
             <Tag
