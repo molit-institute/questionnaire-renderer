@@ -18,4 +18,8 @@ export const config: Config = {
       serviceWorker: null, // disable service workers
     },
   ],
+  extras: {
+    // depricated in newer stencil versions, once updated use enableImportInjection: true
+    experimentalImportInjection: true
+  }
 };

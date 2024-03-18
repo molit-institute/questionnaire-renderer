@@ -163,8 +163,8 @@ export class FullQuestionnaire {
               {this.filteredItemList.map((question, index) => {
                 const Tag = question.type + '-question';
                 return (
-                  <span class="list-complete-item">
-                    <div id={index.toString()} class="card card-basic-margins">
+                  <span class="list-complete-item" >
+                    <div id={index.toString()} class={question.groupId?"card card-basic-margins qr-group-item":"card card-basic-margins"}>
                       {this.strings ? (
                         <div class="card-body">
                           {question.type !== 'group' && this.variant !== 'form' && this.variant !== 'compact' ? (

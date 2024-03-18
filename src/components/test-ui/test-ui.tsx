@@ -199,13 +199,13 @@ export class TestUi {
               // variant={this.questionnaireVariant}
               enableInformalLocale={true}
               showOnlySummary={false}
-              enableExpand={true}
+              enableExpand={false}
               enableGroupDescription={false}
               summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
               vasVertical={true}
               vasShowSelectedValue={true}
               token={this.token}
-              enableErrorConsoleLogging={false}
+              enableErrorConsoleLogging={true}
               questionnaireResponseStatus="amended"
               onErrorLog={error => console.info(error)}
             ></questionnaire-renderer>
