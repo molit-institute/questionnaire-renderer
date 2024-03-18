@@ -637,6 +637,8 @@ export class QuestionnaireRenderer {
           this.createQuestionnaireResponse();
           let questionaireResponseItems = questionnaireResponseController.createItemList(this.questionnaireResponse);
           this.transferQuestionnaireResponseAnswers(this.currentQuestionnaireResponse, questionaireResponseItems);
+          //filtern?
+          this.filterItemList();
         } else {
           if (this.enableErrorConsoleLogging) {
             console.info('QuestionnaireRenderer | Info: Created new questionnaireResponse because neither questionnaireResponse and Questionnaire url or id matched');
@@ -875,7 +877,6 @@ export class QuestionnaireRenderer {
     const Tag = this.currentMode;
     return (
       <div class="qr-questionnaireRenderer-container">
-        {this.questionnaireResponse}
         {this.show_questionnaire && !this.showOnlySummary ? (
           <div class="qr-questionnaireRenderer-questions">
             <Tag
