@@ -60,8 +60,8 @@ export class TestUi {
         "answer":[
           {
             "valueCoding": {
-                "code": "A1",
-                "display": "1"
+                "code": "A2",
+                "display": "2"
             }
         }
         ]
