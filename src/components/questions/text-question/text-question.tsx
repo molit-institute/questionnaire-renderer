@@ -101,6 +101,7 @@ export class TextQuestion {
 
   /* methods */
   handleChange(event) {
+    event.srcElement.parentNode.dataset.replicatedValue = event.target.value;
     this.selected = event.target.value;
   }
 
@@ -127,8 +128,8 @@ export class TextQuestion {
   }
 
   /**
-    * Emits an error-event
-    */
+   * Emits an error-event
+   */
   @Event() errorLog: EventEmitter;
   emitError(error) {
     this.errorLog.emit(error);
@@ -154,9 +155,7 @@ export class TextQuestion {
             <div class="qr-question-head">
               <div class="qr-question-title">
                 <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  {this.question.prefix && this.question.prefix != "" ? (
-                    <span class="qr-question-prefix">{this.question.prefix}</span>
-                  ) : null}
+                  {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
                   <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
                 </div>
               </div>
@@ -176,7 +175,9 @@ export class TextQuestion {
                   {this.strings.text.text}:
                 </label>
               ) : null}
-              <textarea id="textarea" class="form-control qr-question-input qr-textQuestion-input" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
+              <div class="grow-wrap">
+                <textarea id="textarea" class="form-control qr-question-input qr-textQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} />
+              </div>
             </div>
             <br />
           </div>
@@ -189,7 +190,9 @@ export class TextQuestion {
                   {this.question.text}
                 </label>
               ) : null}
-              <textarea id="textarea" class="form-control" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
+              <div class="grow-wrap">
+                <textarea id="textarea" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
+              </div>
             </div>
           </div>
         ) : null}
@@ -201,7 +204,9 @@ export class TextQuestion {
                   {this.question.text}
                 </label>
               ) : null}
-              <textarea id="textarea" class="form-control" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
+              <div class="grow-wrap">
+                <textarea id="textarea" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
+              </div>
             </div>
           </div>
         ) : null}
