@@ -1544,10 +1544,6 @@ declare namespace LocalJSX {
         "mode"?: string;
         "onEmitAnswer"?: (event: TextQuestionCustomEvent<any>) => void;
         /**
-          * Handles KeyPresses by adding Eventlisteners
-         */
-        "onEmitNext"?: (event: TextQuestionCustomEvent<any>) => void;
-        /**
           * Emits an error-event
          */
         "onErrorLog"?: (event: TextQuestionCustomEvent<any>) => void;

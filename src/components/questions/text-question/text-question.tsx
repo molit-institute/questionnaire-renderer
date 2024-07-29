@@ -1,7 +1,7 @@
 /**
  * This Component adds a Text-Question and reacts to the users input
  */
-import { Component, h, Prop, Watch, State, Element, Event, EventEmitter, Listen } from '@stencil/core';
+import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '@stencil/core';
 import questionnaireResponseController from '../../../utils/questionnaireResponseController';
 import { getLocaleComponentStrings } from '../../../utils/locale';
 import { textToHtml } from '../../../utils/textToHtml';
@@ -113,17 +113,6 @@ export class TextQuestion {
         console.error(error);
       }
       this.emitError(error);
-    }
-  }
-  /**
-   *  Handles KeyPresses by adding Eventlisteners
-   */
-  @Event() emitNext: EventEmitter;
-  @Listen('keyup')
-  handleKeyPress(ev: KeyboardEvent) {
-    if (ev.keyCode === 13) {
-      ev.preventDefault();
-      this.emitNext.emit('next');
     }
   }
 
