@@ -116,6 +116,11 @@ export class TextQuestion {
     }
   }
 
+  setReplicatedValue() {
+    let autogrow = [...Array.from(document.querySelectorAll('.grow-wrap'))];
+    for (let field of autogrow) field.setAttribute('data-replicated-value', this.selected);
+  }
+
   /**
    * Emits an error-event
    */
@@ -126,10 +131,11 @@ export class TextQuestion {
 
   /* Lifecycle Methods */
 
-  async componentWillLoad(): Promise<void> {
+  async componentDidLoad(): Promise<void> {
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
       await this.setSelected();
+      if (this.selected) this.setReplicatedValue();
       this.allow_events = true;
     } catch (e) {
       console.error(e);
