@@ -1,7 +1,7 @@
 /**
  * This Component adds a Text-Question and reacts to the users input
  */
-import { Component, h, Prop, Watch, State, Element, Event, EventEmitter, Listen } from '@stencil/core';
+import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '@stencil/core';
 import questionnaireResponseController from '../../../utils/questionnaireResponseController';
 import { getLocaleComponentStrings } from '../../../utils/locale';
 import { textToHtml } from '../../../utils/textToHtml';
@@ -101,6 +101,7 @@ export class TextQuestion {
 
   /* methods */
   handleChange(event) {
+    event.srcElement.parentNode.dataset.replicatedValue = event.target.value;
     this.selected = event.target.value;
   }
 
@@ -114,21 +115,15 @@ export class TextQuestion {
       this.emitError(error);
     }
   }
-  /**
-   *  Handles KeyPresses by adding Eventlisteners
-   */
-  @Event() emitNext: EventEmitter;
-  @Listen('keyup')
-  handleKeyPress(ev: KeyboardEvent) {
-    if (ev.keyCode === 13) {
-      ev.preventDefault();
-      this.emitNext.emit('next');
-    }
+
+  setReplicatedValue() {
+    let autogrow = [...Array.from(document.querySelectorAll('.grow-wrap'))];
+    for (let field of autogrow) field.setAttribute('data-replicated-value', this.selected);
   }
 
   /**
-    * Emits an error-event
-    */
+   * Emits an error-event
+   */
   @Event() errorLog: EventEmitter;
   emitError(error) {
     this.errorLog.emit(error);
@@ -136,10 +131,11 @@ export class TextQuestion {
 
   /* Lifecycle Methods */
 
-  async componentWillLoad(): Promise<void> {
+  async componentDidLoad(): Promise<void> {
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
       await this.setSelected();
+      if (this.selected) this.setReplicatedValue();
       this.allow_events = true;
     } catch (e) {
       console.error(e);
@@ -154,9 +150,7 @@ export class TextQuestion {
             <div class="qr-question-head">
               <div class="qr-question-title">
                 <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  {this.question.prefix && this.question.prefix != "" ? (
-                    <span class="qr-question-prefix">{this.question.prefix}</span>
-                  ) : null}
+                  {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
                   <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
                 </div>
               </div>
@@ -176,7 +170,9 @@ export class TextQuestion {
                   {this.strings.text.text}:
                 </label>
               ) : null}
-              <textarea id="textarea" class="form-control qr-question-input qr-textQuestion-input" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
+              <div class="grow-wrap">
+                <textarea id="textarea" class="form-control qr-question-input qr-textQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} />
+              </div>
             </div>
             <br />
           </div>
@@ -189,7 +185,9 @@ export class TextQuestion {
                   {this.question.text}
                 </label>
               ) : null}
-              <textarea id="textarea" class="form-control" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
+              <div class="grow-wrap">
+                <textarea id="textarea" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
+              </div>
             </div>
           </div>
         ) : null}
@@ -201,7 +199,9 @@ export class TextQuestion {
                   {this.question.text}
                 </label>
               ) : null}
-              <textarea id="textarea" class="form-control" rows={3} value={this.selected} onInput={e => this.handleChange(e)} />
+              <div class="grow-wrap">
+                <textarea id="textarea" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
+              </div>
             </div>
           </div>
         ) : null}
