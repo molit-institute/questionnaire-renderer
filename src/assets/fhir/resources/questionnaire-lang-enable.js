@@ -92,7 +92,7 @@ const enableQuestionnaire = {
     //   type: 'integer',
     //   required: true,
     // },{
-    //   linkId: '1.2',
+    //   linkId: '1.23',
     //   prefix: '1.2',
     //   text: 'Funktioniert die Variante?',
     //   type: 'boolean',
@@ -146,7 +146,7 @@ const enableQuestionnaire = {
     //       required: true,
     //     },
     //     {
-    //       linkId: '2.1',
+    //       linkId: '2.11',
     //       prefix: '2.1',
     //       text: 'Enable when display',
     //       type: 'display',
