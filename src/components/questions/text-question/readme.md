@@ -23,11 +23,10 @@
 
 ## Events
 
-| Event        | Description                                 | Type               |
-| ------------ | ------------------------------------------- | ------------------ |
-| `emitAnswer` |                                             | `CustomEvent<any>` |
-| `emitNext`   | Handles KeyPresses by adding Eventlisteners | `CustomEvent<any>` |
-| `errorLog`   | Emits an error-event                        | `CustomEvent<any>` |
+| Event        | Description          | Type               |
+| ------------ | -------------------- | ------------------ |
+| `emitAnswer` |                      | `CustomEvent<any>` |
+| `errorLog`   | Emits an error-event | `CustomEvent<any>` |
 
 
 ----------------------------------------------
