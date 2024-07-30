@@ -37,13 +37,13 @@ const enableQuestionnaire = {
     //       text: '<b>Dies</b> ist eine Display-Frage 1',
     //       type: 'display',
     //     },
-    //     {
-    //       linkId: '2.22',
-    //       prefix: '2.22',
-    //       text: '<u>Test</u> gruppenfrage',
-    //       type: 'choice',
-    //       answerValueSet: "http://molit.eu/fhir/lion/ValueSet/eq-5d-5l-answers1-vs"
-    //     },
+    //     //     {
+    //     //       linkId: '2.22',
+    //     //       prefix: '2.22',
+    //     //       text: '<u>Test</u> gruppenfrage',
+    //     //       type: 'choice',
+    //     //       answerValueSet: "http://molit.eu/fhir/lion/ValueSet/eq-5d-5l-answers1-vs"
+    //     //     },
     //     {
     //       linkId: '11231.2',
     //       text: 'Dies ist eine Display-Frage 2',
@@ -57,20 +57,20 @@ const enableQuestionnaire = {
     //   text: 'Dies ist eine Display-Frage',
     //   type: 'display',
     // },
-    // {
-    //   linkId: '1.3',
-    //   prefix: '1.3',
-    //   text: 'dateTime',
-    //   type: 'dateTime',
-    //   required: true,
-    // },
-    // {
-    //   linkId: '1.4',
-    //   prefix: '1.4',
-    //   text: 'time',
-    //   type: 'time',
-    //   required: true,
-    // },
+    {
+      linkId: '1.3',
+      prefix: '1.3',
+      text: 'dateTime',
+      type: 'dateTime',
+      required: true,
+    },
+    {
+      linkId: '1.4',
+      prefix: '1.4',
+      text: 'time',
+      type: 'time',
+      required: true,
+    },
     // {
     //   linkId: '1.5',
     //   prefix: '1.5',
@@ -91,8 +91,9 @@ const enableQuestionnaire = {
     //   text: 'Geben sie die Zahl 2 ein',
     //   type: 'integer',
     //   required: true,
-    // },{
-    //   linkId: '1.2',
+    // },
+    // {
+    //   linkId: '1.23',
     //   prefix: '1.2',
     //   text: 'Funktioniert die Variante?',
     //   type: 'boolean',
@@ -146,46 +147,44 @@ const enableQuestionnaire = {
     //       required: true,
     //     },
     //     {
-    //       linkId: '2.1',
+    //       linkId: '2.11',
     //       prefix: '2.1',
     //       text: 'Enable when display',
     //       type: 'display',
     //     },
     //   ],
     // },
+    // {
+    //   linkId: '2.2',
+    //   prefix: '2.2',
+    //   text: 'Alter',
+    //   type: 'integer',
+    //   required: true,
+    // },
+    // {
+    //   linkId: '2.3',
+    //   prefix: '2.3',
+    //   text: 'Haare',
+    //   type: 'group',
+    //   item: [
     //     {
-    //       linkId: '2.2',
-    //       prefix: '2.2',
-    //       text: 'Alter',
-    //       type: 'integer',
+    //       linkId: '2.3.1',
+    //       prefix: '2.3.1',
+    //       text: 'Haben sie Haare auf dem Kopf',
+    //       type: 'boolean',
     //       required: true,
     //     },
     //     {
-    //       linkId: '2.3',
-    //       prefix: '2.3',
-    //       text: 'Haare',
-    //       type: 'group',
-    //       item: [
+    //       linkId: '2.3.2',
+    //       prefix: '2.3.2',
+    //       text: 'Wieviele Haare?',
+    //       type: 'integer',
+    //       required: true,
+    //       enableWhen: [
     //         {
-    //           linkId: '2.3.1',
-    //           prefix: '2.3.1',
-    //           text: 'Haben sie Haare auf dem Kopf',
-    //           type: 'boolean',
-    //           required: true,
-    //         },
-    //         {
-    //           linkId: '2.3.2',
-    //           prefix: '2.3.2',
-    //           text: 'Wieviele Haare?',
-    //           type: 'integer',
-    //           required: true,
-    //           enableWhen: [
-    //             {
-    //               question: '2.3.1',
-    //               operator: '=',
-    //               answerBoolean: true,
-    //             },
-    //           ],
+    //           question: '2.3.1',
+    //           operator: '=',
+    //           answerBoolean: true,
     //         },
     //       ],
     //     },

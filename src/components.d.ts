@@ -709,79 +709,250 @@ export interface VasQuestionCustomEvent<T> extends CustomEvent<T> {
     target: HTMLVasQuestionElement;
 }
 declare global {
+    interface HTMLBooleanQuestionElementEventMap {
+        "emitAnswer": any;
+        "errorLog": any;
+    }
     interface HTMLBooleanQuestionElement extends Components.BooleanQuestion, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLBooleanQuestionElementEventMap>(type: K, listener: (this: HTMLBooleanQuestionElement, ev: BooleanQuestionCustomEvent<HTMLBooleanQuestionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLBooleanQuestionElementEventMap>(type: K, listener: (this: HTMLBooleanQuestionElement, ev: BooleanQuestionCustomEvent<HTMLBooleanQuestionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLBooleanQuestionElement: {
         prototype: HTMLBooleanQuestionElement;
         new (): HTMLBooleanQuestionElement;
     };
+    interface HTMLChoiceQuestionElementEventMap {
+        "emitAnswer": any;
+        "errorLog": any;
+        "emitRemoveRequiredAnswer": any;
+    }
     interface HTMLChoiceQuestionElement extends Components.ChoiceQuestion, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLChoiceQuestionElementEventMap>(type: K, listener: (this: HTMLChoiceQuestionElement, ev: ChoiceQuestionCustomEvent<HTMLChoiceQuestionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLChoiceQuestionElementEventMap>(type: K, listener: (this: HTMLChoiceQuestionElement, ev: ChoiceQuestionCustomEvent<HTMLChoiceQuestionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLChoiceQuestionElement: {
         prototype: HTMLChoiceQuestionElement;
         new (): HTMLChoiceQuestionElement;
     };
+    interface HTMLDateQuestionElementEventMap {
+        "emitAnswer": any;
+        "errorLog": any;
+    }
     interface HTMLDateQuestionElement extends Components.DateQuestion, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDateQuestionElementEventMap>(type: K, listener: (this: HTMLDateQuestionElement, ev: DateQuestionCustomEvent<HTMLDateQuestionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDateQuestionElementEventMap>(type: K, listener: (this: HTMLDateQuestionElement, ev: DateQuestionCustomEvent<HTMLDateQuestionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLDateQuestionElement: {
         prototype: HTMLDateQuestionElement;
         new (): HTMLDateQuestionElement;
     };
+    interface HTMLDateTimeQuestionElementEventMap {
+        "emitAnswer": any;
+        "errorLog": any;
+    }
     interface HTMLDateTimeQuestionElement extends Components.DateTimeQuestion, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDateTimeQuestionElementEventMap>(type: K, listener: (this: HTMLDateTimeQuestionElement, ev: DateTimeQuestionCustomEvent<HTMLDateTimeQuestionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDateTimeQuestionElementEventMap>(type: K, listener: (this: HTMLDateTimeQuestionElement, ev: DateTimeQuestionCustomEvent<HTMLDateTimeQuestionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLDateTimeQuestionElement: {
         prototype: HTMLDateTimeQuestionElement;
         new (): HTMLDateTimeQuestionElement;
     };
+    interface HTMLDecimalQuestionElementEventMap {
+        "emitAnswer": any;
+        "emitNext": any;
+        "errorLog": any;
+    }
     interface HTMLDecimalQuestionElement extends Components.DecimalQuestion, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDecimalQuestionElementEventMap>(type: K, listener: (this: HTMLDecimalQuestionElement, ev: DecimalQuestionCustomEvent<HTMLDecimalQuestionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDecimalQuestionElementEventMap>(type: K, listener: (this: HTMLDecimalQuestionElement, ev: DecimalQuestionCustomEvent<HTMLDecimalQuestionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLDecimalQuestionElement: {
         prototype: HTMLDecimalQuestionElement;
         new (): HTMLDecimalQuestionElement;
     };
+    interface HTMLDisplayQuestionElementEventMap {
+        "errorLog": any;
+    }
     interface HTMLDisplayQuestionElement extends Components.DisplayQuestion, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDisplayQuestionElementEventMap>(type: K, listener: (this: HTMLDisplayQuestionElement, ev: DisplayQuestionCustomEvent<HTMLDisplayQuestionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDisplayQuestionElementEventMap>(type: K, listener: (this: HTMLDisplayQuestionElement, ev: DisplayQuestionCustomEvent<HTMLDisplayQuestionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLDisplayQuestionElement: {
         prototype: HTMLDisplayQuestionElement;
         new (): HTMLDisplayQuestionElement;
     };
+    interface HTMLFullQuestionnaireElementEventMap {
+        "finish": any;
+        "summary": any;
+        "return": any;
+        "errorLog": any;
+    }
     interface HTMLFullQuestionnaireElement extends Components.FullQuestionnaire, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLFullQuestionnaireElementEventMap>(type: K, listener: (this: HTMLFullQuestionnaireElement, ev: FullQuestionnaireCustomEvent<HTMLFullQuestionnaireElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLFullQuestionnaireElementEventMap>(type: K, listener: (this: HTMLFullQuestionnaireElement, ev: FullQuestionnaireCustomEvent<HTMLFullQuestionnaireElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLFullQuestionnaireElement: {
         prototype: HTMLFullQuestionnaireElement;
         new (): HTMLFullQuestionnaireElement;
     };
+    interface HTMLGroupQuestionElementEventMap {
+        "emitRemoveRequiredAnswer": any;
+        "addRequiredAnswer": any;
+        "errorLog": any;
+    }
     interface HTMLGroupQuestionElement extends Components.GroupQuestion, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLGroupQuestionElementEventMap>(type: K, listener: (this: HTMLGroupQuestionElement, ev: GroupQuestionCustomEvent<HTMLGroupQuestionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLGroupQuestionElementEventMap>(type: K, listener: (this: HTMLGroupQuestionElement, ev: GroupQuestionCustomEvent<HTMLGroupQuestionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLGroupQuestionElement: {
         prototype: HTMLGroupQuestionElement;
         new (): HTMLGroupQuestionElement;
     };
+    interface HTMLGroupedQuestionnaireElementEventMap {
+        "summary": any;
+        "finish": any;
+        "return": any;
+        "errorLog": any;
+    }
     interface HTMLGroupedQuestionnaireElement extends Components.GroupedQuestionnaire, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLGroupedQuestionnaireElementEventMap>(type: K, listener: (this: HTMLGroupedQuestionnaireElement, ev: GroupedQuestionnaireCustomEvent<HTMLGroupedQuestionnaireElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLGroupedQuestionnaireElementEventMap>(type: K, listener: (this: HTMLGroupedQuestionnaireElement, ev: GroupedQuestionnaireCustomEvent<HTMLGroupedQuestionnaireElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLGroupedQuestionnaireElement: {
         prototype: HTMLGroupedQuestionnaireElement;
         new (): HTMLGroupedQuestionnaireElement;
     };
+    interface HTMLInformationPageElementEventMap {
+        "startQuestionnaire": any;
+    }
     interface HTMLInformationPageElement extends Components.InformationPage, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLInformationPageElementEventMap>(type: K, listener: (this: HTMLInformationPageElement, ev: InformationPageCustomEvent<HTMLInformationPageElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLInformationPageElementEventMap>(type: K, listener: (this: HTMLInformationPageElement, ev: InformationPageCustomEvent<HTMLInformationPageElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLInformationPageElement: {
         prototype: HTMLInformationPageElement;
         new (): HTMLInformationPageElement;
     };
+    interface HTMLIntegerQuestionElementEventMap {
+        "emitAnswer": any;
+        "emitNext": any;
+        "errorLog": any;
+    }
     interface HTMLIntegerQuestionElement extends Components.IntegerQuestion, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLIntegerQuestionElementEventMap>(type: K, listener: (this: HTMLIntegerQuestionElement, ev: IntegerQuestionCustomEvent<HTMLIntegerQuestionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLIntegerQuestionElementEventMap>(type: K, listener: (this: HTMLIntegerQuestionElement, ev: IntegerQuestionCustomEvent<HTMLIntegerQuestionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLIntegerQuestionElement: {
         prototype: HTMLIntegerQuestionElement;
         new (): HTMLIntegerQuestionElement;
     };
+    interface HTMLQuestionnaireRendererElementEventMap {
+        "updated": any;
+        "finished": any;
+        "exit": any;
+        "errorLog": any;
+        "addRemarks": any;
+        "closeSummary": any;
+    }
     interface HTMLQuestionnaireRendererElement extends Components.QuestionnaireRenderer, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLQuestionnaireRendererElementEventMap>(type: K, listener: (this: HTMLQuestionnaireRendererElement, ev: QuestionnaireRendererCustomEvent<HTMLQuestionnaireRendererElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLQuestionnaireRendererElementEventMap>(type: K, listener: (this: HTMLQuestionnaireRendererElement, ev: QuestionnaireRendererCustomEvent<HTMLQuestionnaireRendererElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLQuestionnaireRendererElement: {
         prototype: HTMLQuestionnaireRendererElement;
         new (): HTMLQuestionnaireRendererElement;
     };
+    interface HTMLQuestionnaireSummaryElementEventMap {
+        "toQuestionnaireRenderer": any;
+        "editQuestion": any;
+        "finishQuestionnaire": any;
+        "finishTask": any;
+        "addRemarks": any;
+        "closeSummary": any;
+        "errorLog": any;
+    }
     interface HTMLQuestionnaireSummaryElement extends Components.QuestionnaireSummary, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLQuestionnaireSummaryElementEventMap>(type: K, listener: (this: HTMLQuestionnaireSummaryElement, ev: QuestionnaireSummaryCustomEvent<HTMLQuestionnaireSummaryElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLQuestionnaireSummaryElementEventMap>(type: K, listener: (this: HTMLQuestionnaireSummaryElement, ev: QuestionnaireSummaryCustomEvent<HTMLQuestionnaireSummaryElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLQuestionnaireSummaryElement: {
         prototype: HTMLQuestionnaireSummaryElement;
@@ -793,13 +964,40 @@ declare global {
         prototype: HTMLSimpleSpinnerElement;
         new (): HTMLSimpleSpinnerElement;
     };
+    interface HTMLStepperQuestionnaireElementEventMap {
+        "return": any;
+        "finish": any;
+        "summary": any;
+        "errorLog": any;
+    }
     interface HTMLStepperQuestionnaireElement extends Components.StepperQuestionnaire, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLStepperQuestionnaireElementEventMap>(type: K, listener: (this: HTMLStepperQuestionnaireElement, ev: StepperQuestionnaireCustomEvent<HTMLStepperQuestionnaireElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLStepperQuestionnaireElementEventMap>(type: K, listener: (this: HTMLStepperQuestionnaireElement, ev: StepperQuestionnaireCustomEvent<HTMLStepperQuestionnaireElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLStepperQuestionnaireElement: {
         prototype: HTMLStepperQuestionnaireElement;
         new (): HTMLStepperQuestionnaireElement;
     };
+    interface HTMLStringQuestionElementEventMap {
+        "emitAnswer": any;
+        "emitNext": any;
+        "errorLog": any;
+    }
     interface HTMLStringQuestionElement extends Components.StringQuestion, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLStringQuestionElementEventMap>(type: K, listener: (this: HTMLStringQuestionElement, ev: StringQuestionCustomEvent<HTMLStringQuestionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLStringQuestionElementEventMap>(type: K, listener: (this: HTMLStringQuestionElement, ev: StringQuestionCustomEvent<HTMLStringQuestionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLStringQuestionElement: {
         prototype: HTMLStringQuestionElement;
@@ -811,25 +1009,74 @@ declare global {
         prototype: HTMLTestUiElement;
         new (): HTMLTestUiElement;
     };
+    interface HTMLTextQuestionElementEventMap {
+        "emitAnswer": any;
+        "errorLog": any;
+    }
     interface HTMLTextQuestionElement extends Components.TextQuestion, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLTextQuestionElementEventMap>(type: K, listener: (this: HTMLTextQuestionElement, ev: TextQuestionCustomEvent<HTMLTextQuestionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLTextQuestionElementEventMap>(type: K, listener: (this: HTMLTextQuestionElement, ev: TextQuestionCustomEvent<HTMLTextQuestionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLTextQuestionElement: {
         prototype: HTMLTextQuestionElement;
         new (): HTMLTextQuestionElement;
     };
+    interface HTMLTimeQuestionElementEventMap {
+        "emitAnswer": any;
+        "errorLog": any;
+    }
     interface HTMLTimeQuestionElement extends Components.TimeQuestion, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLTimeQuestionElementEventMap>(type: K, listener: (this: HTMLTimeQuestionElement, ev: TimeQuestionCustomEvent<HTMLTimeQuestionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLTimeQuestionElementEventMap>(type: K, listener: (this: HTMLTimeQuestionElement, ev: TimeQuestionCustomEvent<HTMLTimeQuestionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLTimeQuestionElement: {
         prototype: HTMLTimeQuestionElement;
         new (): HTMLTimeQuestionElement;
     };
+    interface HTMLUrlQuestionElementEventMap {
+        "emitAnswer": any;
+        "emitNext": any;
+        "errorLog": any;
+        "emitRemoveRequiredAnswer": any;
+    }
     interface HTMLUrlQuestionElement extends Components.UrlQuestion, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLUrlQuestionElementEventMap>(type: K, listener: (this: HTMLUrlQuestionElement, ev: UrlQuestionCustomEvent<HTMLUrlQuestionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLUrlQuestionElementEventMap>(type: K, listener: (this: HTMLUrlQuestionElement, ev: UrlQuestionCustomEvent<HTMLUrlQuestionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLUrlQuestionElement: {
         prototype: HTMLUrlQuestionElement;
         new (): HTMLUrlQuestionElement;
     };
+    interface HTMLVasQuestionElementEventMap {
+        "emitSelected": any;
+    }
     interface HTMLVasQuestionElement extends Components.VasQuestion, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLVasQuestionElementEventMap>(type: K, listener: (this: HTMLVasQuestionElement, ev: VasQuestionCustomEvent<HTMLVasQuestionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLVasQuestionElementEventMap>(type: K, listener: (this: HTMLVasQuestionElement, ev: VasQuestionCustomEvent<HTMLVasQuestionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLVasQuestionElement: {
         prototype: HTMLVasQuestionElement;
