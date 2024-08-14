@@ -34,9 +34,7 @@
 .color-grey {
   color: #6a6a6a;
 }
-.card {
-  min-height: calc(100vh - 200px);
-}
+
 .column {
   display: flex;
   flex-direction: column;

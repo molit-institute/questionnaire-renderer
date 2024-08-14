@@ -182,7 +182,7 @@ export class DateTimeQuestion {
       <div class="qr-question-container">
         {this.variant === 'touch' ? (
           <div class="qr-question qr-question-dateTime">
-            <div class="card qr-question-head">
+            <div class="qr-question-head">
               <div class="qr-question-title">
                 <div class={this.reset ? 'qr-question-hidden' : ''}>
                   {this.question.prefix && this.question.prefix != "" ? (

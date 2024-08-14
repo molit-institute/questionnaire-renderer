@@ -254,7 +254,7 @@ export class ChoiceQuestion {
       <div class="qr-question-container">
         {this.variant === 'touch' && !this.reset ? (
           <div class="qr-question qr-question-choice">
-            <div class="card qr-question-head">
+            <div class="qr-question-head">
               <div class="qr-question-title">
                 <div class={this.reset ? 'qr-question-hidden' : ''}>
                   {this.question.prefix && this.question.prefix != "" ? (
