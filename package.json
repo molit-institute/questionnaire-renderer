@@ -24,7 +24,7 @@
     "generate": "stencil generate"
   },
   "dependencies": {
-    "@molit/fhir-api": "^1.0.43",
+    "@molit/fhir-api": "^1.0.44",
     "@molit/fhir-util": "^1.0.24",
     "@stencil/core": "^4.19.2",
     "dompurify": "^2.5.6",
