@@ -87,7 +87,7 @@ export class ChoiceQuestion {
     try {
       this.optionsList = await this.getChoiceOptions();
     } catch (error) {
-      this.emitError(error)
+      this.emitError(error);
       alert(error);
     }
   }
@@ -194,7 +194,6 @@ export class ChoiceQuestion {
       } else {
         this.selected = data[0];
       }
-
     } catch (error) {
       if (this.enableErrorConsoleLogging) {
         console.error(error);
@@ -245,8 +244,7 @@ export class ChoiceQuestion {
     this.repeats = this.question.repeats;
     // this.removeQuestionFromRequiredAnsweredQuestionsList(this.question);
     this.emitRemoveRequiredAnswer.emit(this.question); //TODO passt das?
-    this.allow_events = true
-
+    this.allow_events = true;
   }
 
   render() {
@@ -257,9 +255,7 @@ export class ChoiceQuestion {
             <div class="qr-question-head">
               <div class="qr-question-title">
                 <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  {this.question.prefix && this.question.prefix != "" ? (
-                    <span class="qr-question-prefix">{this.question.prefix}</span>
-                  ) : null}
+                  {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
                   <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
                 </div>
               </div>
@@ -285,8 +281,7 @@ export class ChoiceQuestion {
                 {this.optionsList.map(answer => (
                   <div
                     id={answer.code}
-                    class="card qr-choiceQuestion-radioButtonCard"
-                    style={{ background: this.selected && this.selected.code === answer.code ? '#e8f4fd' : 'white' }}
+                    class={this.selected && this.selected.code === answer.code ? 'card qr-choiceQuestion-radioButtonCard qr-choice-question-selected' : 'card qr-choiceQuestion-radioButtonCard'}
                     onClick={() => this.onBoxClickedSingleChoice(answer.display, answer.code)}
                   >
                     <div class="form-check qr-choiceQuestion-answer">
@@ -306,7 +301,11 @@ export class ChoiceQuestion {
               <div class="form-group">
                 {/* <!-- MULTIPLE CHOICE --> */}
                 {this.optionsList.map(answer => (
-                  <div id={answer.code} class="card qr-choiceQuestion-radioButtonCard" onClick={() => this.onBoxClickedMultipleChoice(answer.display, answer.code)} style={{ background: this.checkIfSelected(answer) ? '#e8f4fd' : 'white' }}>
+                  <div
+                    id={answer.code}
+                    class={this.selected && this.selected.code === answer.code ? 'card qr-choiceQuestion-radioButtonCard qr-choice-question-selected' : 'card qr-choiceQuestion-radioButtonCard'}
+                    onClick={() => this.onBoxClickedMultipleChoice(answer.display, answer.code)}
+                  >
                     <div class="form-check qr-choiceQuestion-answer">
                       {this.checkIfSelected(answer) ? (
                         <input class="form-check-input qr-choiceQuestion-radioButton" type="checkbox" name={'Checkbox' + this.question.linkId} id={answer.code} checked />

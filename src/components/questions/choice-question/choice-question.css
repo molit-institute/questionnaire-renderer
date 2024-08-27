@@ -44,10 +44,6 @@
   font-size: 1.15em;
   font-weight: 700;
 }
-.card-selected {
-  border-color: #1680d1;
-  background-color: #e8f4fd;
-}
 
 /*TODO This wasn't scoped */
 .custom-control-label::before {
