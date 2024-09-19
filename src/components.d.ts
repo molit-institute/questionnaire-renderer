@@ -471,6 +471,10 @@ export namespace Components {
         "token": string;
         "trademarkText": string;
     }
+    interface SelectElement {
+        "optionsList": any;
+        "selected": any;
+    }
     interface SimpleSpinner {
         "borderTopColor": string;
         "message": String;
@@ -958,6 +962,12 @@ declare global {
         prototype: HTMLQuestionnaireSummaryElement;
         new (): HTMLQuestionnaireSummaryElement;
     };
+    interface HTMLSelectElementElement extends Components.SelectElement, HTMLStencilElement {
+    }
+    var HTMLSelectElementElement: {
+        prototype: HTMLSelectElementElement;
+        new (): HTMLSelectElementElement;
+    };
     interface HTMLSimpleSpinnerElement extends Components.SimpleSpinner, HTMLStencilElement {
     }
     var HTMLSimpleSpinnerElement: {
@@ -1096,6 +1106,7 @@ declare global {
         "integer-question": HTMLIntegerQuestionElement;
         "questionnaire-renderer": HTMLQuestionnaireRendererElement;
         "questionnaire-summary": HTMLQuestionnaireSummaryElement;
+        "select-element": HTMLSelectElementElement;
         "simple-spinner": HTMLSimpleSpinnerElement;
         "stepper-questionnaire": HTMLStepperQuestionnaireElement;
         "string-question": HTMLStringQuestionElement;
@@ -1688,6 +1699,10 @@ declare namespace LocalJSX {
         "token"?: string;
         "trademarkText"?: string;
     }
+    interface SelectElement {
+        "optionsList"?: any;
+        "selected"?: any;
+    }
     interface SimpleSpinner {
         "borderTopColor"?: string;
         "message"?: String;
@@ -1899,6 +1914,7 @@ declare namespace LocalJSX {
         "integer-question": IntegerQuestion;
         "questionnaire-renderer": QuestionnaireRenderer;
         "questionnaire-summary": QuestionnaireSummary;
+        "select-element": SelectElement;
         "simple-spinner": SimpleSpinner;
         "stepper-questionnaire": StepperQuestionnaire;
         "string-question": StringQuestion;
@@ -1926,6 +1942,7 @@ declare module "@stencil/core" {
             "integer-question": LocalJSX.IntegerQuestion & JSXBase.HTMLAttributes<HTMLIntegerQuestionElement>;
             "questionnaire-renderer": LocalJSX.QuestionnaireRenderer & JSXBase.HTMLAttributes<HTMLQuestionnaireRendererElement>;
             "questionnaire-summary": LocalJSX.QuestionnaireSummary & JSXBase.HTMLAttributes<HTMLQuestionnaireSummaryElement>;
+            "select-element": LocalJSX.SelectElement & JSXBase.HTMLAttributes<HTMLSelectElementElement>;
             "simple-spinner": LocalJSX.SimpleSpinner & JSXBase.HTMLAttributes<HTMLSimpleSpinnerElement>;
             "stepper-questionnaire": LocalJSX.StepperQuestionnaire & JSXBase.HTMLAttributes<HTMLStepperQuestionnaireElement>;
             "string-question": LocalJSX.StringQuestion & JSXBase.HTMLAttributes<HTMLStringQuestionElement>;

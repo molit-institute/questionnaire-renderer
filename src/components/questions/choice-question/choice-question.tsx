@@ -6,7 +6,6 @@ import questionnaireController from '../../../utils/questionnaireController';
 import questionnaireResponseController from '../../../utils/questionnaireResponseController';
 import { getLocaleComponentStrings } from '../../../utils/locale';
 import { textToHtml } from '../../../utils/textToHtml';
-import 'choices.js/public/assets/styles/choices.css';
 import fhirpath from '../../../assets/js/fhirpath.min.js';
 
 @Component({
@@ -289,11 +288,7 @@ export class ChoiceQuestion {
             <hr />
             <div class={!this.repeats ? 'form-group qr-choiceQuestion-singleChoice-container' : 'form-group qr-choiceQuestion-multiChoice-container'}>
               {this.isDropDownQuestion() === true ? (
-                <select ref={el => (this.selectInput = el as HTMLSelectElement)}>
-                  {this.optionsList.map(answer => (
-                    <option value={answer.code}> {answer.display}</option>
-                  ))}
-                </select>
+                <select-element optionsList={this.optionsList} selected={this.selected} />
               ) : (
                 this.optionsList.map(answer => (
                   <div
