@@ -473,7 +473,9 @@ export namespace Components {
     }
     interface SelectElement {
         "optionsList": any;
+        "repeats": Boolean;
         "selected": any;
+        "translations": any;
     }
     interface SimpleSpinner {
         "borderTopColor": string;
@@ -687,6 +689,10 @@ export interface QuestionnaireRendererCustomEvent<T> extends CustomEvent<T> {
 export interface QuestionnaireSummaryCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLQuestionnaireSummaryElement;
+}
+export interface SelectElementCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSelectElementElement;
 }
 export interface StepperQuestionnaireCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -962,7 +968,18 @@ declare global {
         prototype: HTMLQuestionnaireSummaryElement;
         new (): HTMLQuestionnaireSummaryElement;
     };
+    interface HTMLSelectElementElementEventMap {
+        "emitSelectedChoices": any;
+    }
     interface HTMLSelectElementElement extends Components.SelectElement, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSelectElementElementEventMap>(type: K, listener: (this: HTMLSelectElementElement, ev: SelectElementCustomEvent<HTMLSelectElementElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSelectElementElementEventMap>(type: K, listener: (this: HTMLSelectElementElement, ev: SelectElementCustomEvent<HTMLSelectElementElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLSelectElementElement: {
         prototype: HTMLSelectElementElement;
@@ -1700,8 +1717,11 @@ declare namespace LocalJSX {
         "trademarkText"?: string;
     }
     interface SelectElement {
+        "onEmitSelectedChoices"?: (event: SelectElementCustomEvent<any>) => void;
         "optionsList"?: any;
+        "repeats"?: Boolean;
         "selected"?: any;
+        "translations"?: any;
     }
     interface SimpleSpinner {
         "borderTopColor"?: string;

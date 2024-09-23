@@ -1,15 +1,21 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Prop, Event, EventEmitter } from '@stencil/core';
 import Choices from 'choices.js';
 
 @Component({
   tag: 'select-element',
   styleUrl: 'select-element.css',
-  shadow: false,
-  scoped: true,
+  // shadow: false,
+  // scoped: true,
 })
 export class SelectElement {
+  @Prop() translations: any = {
+    placeholder: 'Please select',
+    noResults: 'No entries found',
+    loadingText: 'Loading...',
+  };
   @Prop() optionsList: any;
   @Prop() selected: any;
+  @Prop() repeats: Boolean = false;
   selectInput: HTMLSelectElement;
   choice;
   attributes: Object = {
@@ -20,16 +26,12 @@ export class SelectElement {
   config: Object;
 
   createSelectConfig() {
-    console.log('====================================');
-    console.log(this.selected);
-    console.log(this.optionsList);
-    //TODO Create new Array from Value set matching
     const choices = [];
     this.optionsList.forEach(option => {
       const temp = {
         value: option.code,
         label: option.display,
-        selected: this.selected != null && this.selected.code === option.code, //compare
+        selected: this.selected != null && this.checkIfSelected(option), //compare
         disabled: false,
         customProperties: option,
       };
@@ -38,10 +40,29 @@ export class SelectElement {
     this.config = {
       // items: this.selected != null ? [this.selected] : [],
       choices: choices,
+      placeholderValue: this.translations?.placeholder,
+      noResultsText: this.translations?.noResults,
+      loadingText: this.translations?.loadingText,
+      itemSelectText: '',
+      removeItemButton: this.repeats,
+      shouldSort: false,
     };
-    console.log(this.config);
+  }
 
-    console.log('====================================');
+  checkIfSelected(answer) {
+    if (!this.repeats) return this.selected.code === answer.code;
+    for (let i = 0; i < this.selected.length; i++) {
+      if (this.selected[i].code === answer.code) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @Event({ eventName: 'emitSelectedChoices', bubbles: false }) emitSelectedChoices: EventEmitter;
+  emitHandler(value) {
+    const temp = this.optionsList.find(el => el.code === value.detail.value);
+    this.emitSelectedChoices.emit(temp);
   }
 
   componentDidLoad() {
@@ -55,13 +76,10 @@ export class SelectElement {
   }
 
   render() {
-    return (
-      // data-placeholder="This is a placeholder"
-      <select id="selectInput" ref={el => (this.selectInput = el as HTMLSelectElement)} {...this.attributes}>
-        {/* {this.optionsList.map(answer => (
-          <option value={answer.code}> {answer.display}</option>
-        ))} */}
-      </select>
+    return this.repeats ? (
+      <select id="selectInput" ref={el => (this.selectInput = el as HTMLSelectElement)} multiple {...this.attributes} onChange={ev => this.emitHandler(ev)} />
+    ) : (
+      <select id="selectInput" ref={el => (this.selectInput = el as HTMLSelectElement)} {...this.attributes} onChange={ev => this.emitHandler(ev)} />
     );
   }
 }

@@ -26,6 +26,27 @@ const dropdown_test_questionnaire = {
       type: 'choice',
       answerValueSet: 'https://molit.eu/fhir/ValueSet/QLQC30-VS-answers4',
     },
+    {
+      extension: [
+        {
+          url: 'http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl',
+          valueCodeableConcept: {
+            coding: [
+              {
+                system: 'http://hl7.org/fhir/questionnaire-item-control',
+                code: 'drop-down',
+              },
+            ],
+          },
+        },
+      ],
+      linkId: '4',
+      prefix: '4',
+      text: 'DropDown Short',
+      type: 'choice',
+      repeats: true,
+      answerValueSet: 'https://molit.eu/fhir/ValueSet/QLQC30-VS-answers4',
+    },
     // {
     //   extension: [
     //     {
