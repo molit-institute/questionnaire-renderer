@@ -13,17 +13,17 @@ export default {
   yes: 'sí',
   no: 'no',
   finish: 'Abschließen',
-  group: "Grupo",
+  group: 'Grupo',
 
   summary: {
-    title: "Resumen",
-    yourAnswer: "Su respuesta",
-    noAnswer: "No hay respuesta",
-    youHave: "Usted tiene",
-    questionsAnswered: "Preguntas contestadas",
-    saveQuestionnaire: "Guardar el cuestionario",
-    remarks: "Observaciones adicionales",
-    remarksText: "Desea añadir observaciones adicionales al cuestionario?"
+    title: 'Resumen',
+    yourAnswer: 'Su respuesta',
+    noAnswer: 'No hay respuesta',
+    youHave: 'Usted tiene',
+    questionsAnswered: 'Preguntas contestadas',
+    saveQuestionnaire: 'Guardar el cuestionario',
+    remarks: 'Observaciones adicionales',
+    remarksText: 'Desea añadir observaciones adicionales al cuestionario?',
   },
 
   loading: {
@@ -53,5 +53,10 @@ export default {
   },
   date: {
     text: 'Ingrese la fecha aquí',
+  },
+  select: {
+    placeholder: 'Seleccione una opción',
+    noResults: 'No se han encontrado resultados',
+    loadingText: 'Cargando...',
   },
 };

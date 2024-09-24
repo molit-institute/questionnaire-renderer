@@ -471,6 +471,12 @@ export namespace Components {
         "token": string;
         "trademarkText": string;
     }
+    interface SelectElement {
+        "optionsList": any;
+        "repeats": Boolean;
+        "selected": any;
+        "translations": any;
+    }
     interface SimpleSpinner {
         "borderTopColor": string;
         "message": String;
@@ -683,6 +689,10 @@ export interface QuestionnaireRendererCustomEvent<T> extends CustomEvent<T> {
 export interface QuestionnaireSummaryCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLQuestionnaireSummaryElement;
+}
+export interface SelectElementCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLSelectElementElement;
 }
 export interface StepperQuestionnaireCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -958,6 +968,23 @@ declare global {
         prototype: HTMLQuestionnaireSummaryElement;
         new (): HTMLQuestionnaireSummaryElement;
     };
+    interface HTMLSelectElementElementEventMap {
+        "emitSelectedChoices": any;
+    }
+    interface HTMLSelectElementElement extends Components.SelectElement, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLSelectElementElementEventMap>(type: K, listener: (this: HTMLSelectElementElement, ev: SelectElementCustomEvent<HTMLSelectElementElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLSelectElementElementEventMap>(type: K, listener: (this: HTMLSelectElementElement, ev: SelectElementCustomEvent<HTMLSelectElementElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLSelectElementElement: {
+        prototype: HTMLSelectElementElement;
+        new (): HTMLSelectElementElement;
+    };
     interface HTMLSimpleSpinnerElement extends Components.SimpleSpinner, HTMLStencilElement {
     }
     var HTMLSimpleSpinnerElement: {
@@ -1096,6 +1123,7 @@ declare global {
         "integer-question": HTMLIntegerQuestionElement;
         "questionnaire-renderer": HTMLQuestionnaireRendererElement;
         "questionnaire-summary": HTMLQuestionnaireSummaryElement;
+        "select-element": HTMLSelectElementElement;
         "simple-spinner": HTMLSimpleSpinnerElement;
         "stepper-questionnaire": HTMLStepperQuestionnaireElement;
         "string-question": HTMLStringQuestionElement;
@@ -1688,6 +1716,13 @@ declare namespace LocalJSX {
         "token"?: string;
         "trademarkText"?: string;
     }
+    interface SelectElement {
+        "onEmitSelectedChoices"?: (event: SelectElementCustomEvent<any>) => void;
+        "optionsList"?: any;
+        "repeats"?: Boolean;
+        "selected"?: any;
+        "translations"?: any;
+    }
     interface SimpleSpinner {
         "borderTopColor"?: string;
         "message"?: String;
@@ -1899,6 +1934,7 @@ declare namespace LocalJSX {
         "integer-question": IntegerQuestion;
         "questionnaire-renderer": QuestionnaireRenderer;
         "questionnaire-summary": QuestionnaireSummary;
+        "select-element": SelectElement;
         "simple-spinner": SimpleSpinner;
         "stepper-questionnaire": StepperQuestionnaire;
         "string-question": StringQuestion;
@@ -1926,6 +1962,7 @@ declare module "@stencil/core" {
             "integer-question": LocalJSX.IntegerQuestion & JSXBase.HTMLAttributes<HTMLIntegerQuestionElement>;
             "questionnaire-renderer": LocalJSX.QuestionnaireRenderer & JSXBase.HTMLAttributes<HTMLQuestionnaireRendererElement>;
             "questionnaire-summary": LocalJSX.QuestionnaireSummary & JSXBase.HTMLAttributes<HTMLQuestionnaireSummaryElement>;
+            "select-element": LocalJSX.SelectElement & JSXBase.HTMLAttributes<HTMLSelectElementElement>;
             "simple-spinner": LocalJSX.SimpleSpinner & JSXBase.HTMLAttributes<HTMLSimpleSpinnerElement>;
             "stepper-questionnaire": LocalJSX.StepperQuestionnaire & JSXBase.HTMLAttributes<HTMLStepperQuestionnaireElement>;
             "string-question": LocalJSX.StringQuestion & JSXBase.HTMLAttributes<HTMLStringQuestionElement>;
