@@ -4,8 +4,6 @@ import Choices from 'choices.js';
 @Component({
   tag: 'select-element',
   styleUrl: 'select-element.css',
-  // shadow: false,
-  // scoped: true,
 })
 export class SelectElement {
   @Prop() translations: any = {
@@ -31,14 +29,13 @@ export class SelectElement {
       const temp = {
         value: option.code,
         label: option.display,
-        selected: this.selected != null && this.checkIfSelected(option), //compare
+        selected: this.selected != null && this.checkIfSelected(option),
         disabled: false,
         customProperties: option,
       };
       choices.push(temp);
     });
     this.config = {
-      // items: this.selected != null ? [this.selected] : [],
       choices: choices,
       placeholderValue: this.translations?.placeholder,
       noResultsText: this.translations?.noResults,
@@ -46,6 +43,7 @@ export class SelectElement {
       itemSelectText: '',
       removeItemButton: this.repeats,
       shouldSort: false,
+      searchResultLimit: -1,
     };
   }
 
@@ -66,11 +64,6 @@ export class SelectElement {
   }
 
   componentDidLoad() {
-    this.createSelectConfig();
-    this.choice = new Choices(this.selectInput, this.config);
-  }
-
-  componentDidUpdate() {
     this.createSelectConfig();
     this.choice = new Choices(this.selectInput, this.config);
   }

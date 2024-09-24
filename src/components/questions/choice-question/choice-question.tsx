@@ -1,7 +1,7 @@
 /**
  * This Component adds a single Multiple-Choice-Question and reacts to the users input
  */
-import { Component, h, Prop, Watch, State, Element, Event, EventEmitter, Listen } from '@stencil/core';
+import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '@stencil/core';
 import questionnaireController from '../../../utils/questionnaireController';
 import questionnaireResponseController from '../../../utils/questionnaireResponseController';
 import { getLocaleComponentStrings } from '../../../utils/locale';
@@ -304,7 +304,7 @@ export class ChoiceQuestion {
                       <div class="form-check qr-choiceQuestion-answer">
                         {!this.repeats && this.selected && this.selected.code === answer.code ? (
                           <input class="form-check-input qr-choiceQuestion-radioButton" type="radio" name={'Radio' + this.question.linkId} id={answer.code} checked />
-                        ) : this.checkIfSelected(answer) ? (
+                        ) : this.repeats && this.checkIfSelected(answer) ? (
                           <input class="form-check-input qr-choiceQuestion-radioButton" type="checkbox" name={'Checkbox' + this.question.linkId} id={answer.code} checked />
                         ) : (
                           <input class="form-check-input qr-choiceQuestion-radioButton" type={!this.repeats ? 'radio' : 'checkbox'} name={(!this.repeats ? 'Radio' : 'Checkbox') + this.question.linkId} id={answer.code} />

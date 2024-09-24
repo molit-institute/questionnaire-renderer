@@ -35,6 +35,19 @@
 | `errorLog`                 | Emits an error-event | `CustomEvent<any>` |
 
 
+## Dependencies
+
+### Depends on
+
+- [select-element](../../ui/select-element)
+
+### Graph
+```mermaid
+graph TD;
+  choice-question --> select-element
+  style choice-question fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
