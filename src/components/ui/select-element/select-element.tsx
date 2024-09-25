@@ -47,10 +47,10 @@ export class SelectElement {
     };
   }
 
-  checkIfSelected(answer) {
-    if (!this.repeats) return this.selected.code === answer.code;
+  checkIfSelected(option) {
+    if (!this.repeats) return this.selected.code === option.code;
     for (let i = 0; i < this.selected.length; i++) {
-      if (this.selected[i].code === answer.code) {
+      if (this.selected[i].code === option.code) {
         return true;
       }
     }

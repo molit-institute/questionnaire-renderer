@@ -18,7 +18,7 @@ export class ChoiceQuestion {
   @Element() element: HTMLElement;
   @Prop() variant: any = null;
   @Prop() key: string = null;
-  @State() reset: Boolean = false;
+  @State() keyReset: number = 0;
   /**
    *  String containing the translations for the current locale
    */
@@ -72,12 +72,9 @@ export class ChoiceQuestion {
     this.allow_events = false;
     this.setSelected();
     this.allow_events = true;
-    this.repeats = this.question.repeats;
+    this.repeats = this.question.repeats != null ? this.question.repeats : false;
 
-    this.reset = true;
-    setTimeout(() => {
-      this.reset = false;
-    }, 5);
+    this.keyReset++;
   }
   @Prop() answers: any;
   @Prop() mode: string;
@@ -266,12 +263,12 @@ export class ChoiceQuestion {
 
   render() {
     return (
-      <div class="qr-question-container">
-        {this.variant === 'touch' && !this.reset ? (
+      <div class="qr-question-container" key={this.keyReset}>
+        {this.variant === 'touch' ? (
           <div class="qr-question qr-question-choice">
             <div class="qr-question-head">
               <div class="qr-question-title">
-                <div class={this.reset ? 'qr-question-hidden' : ''}>
+                <div>
                   {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
                   <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
                 </div>
