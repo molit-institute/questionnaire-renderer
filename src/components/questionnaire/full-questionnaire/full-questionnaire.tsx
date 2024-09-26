@@ -78,7 +78,7 @@ export class FullQuestionnaire {
     let totalNumber = 0;
     if (this.filteredItemList) {
       for (let i = 0; i < this.filteredItemList.length; i++) {
-        if (this.filteredItemList[i].required && this.filteredItemList[i].type !=="group") {
+        if (this.filteredItemList[i].required && this.filteredItemList[i].type !== 'group') {
           totalNumber++;
         }
       }
@@ -127,6 +127,18 @@ export class FullQuestionnaire {
     this.errorLog.emit(error);
   }
 
+  /**
+   * Returns the Type of the current Question
+   */
+  getQuestionType(type) {
+    return (
+      type
+        .split(/(?=[A-Z])/)
+        .join('-')
+        .toLowerCase() + '-question'
+    );
+  }
+
   /* Lifecycle Methods */
   componentDidUpdate() {
     //TODO Is this the correct lifecycle hook?
@@ -161,15 +173,21 @@ export class FullQuestionnaire {
           <div>
             <transition-group name="list-complete" tag="p">
               {this.filteredItemList.map((question, index) => {
-                const Tag = question.type + '-question';
+                const Tag = this.getQuestionType(question.type);
+
                 return (
-                  <span class="list-complete-item" >
-                    <div id={index.toString()} class={question.groupId?"card card-basic-margins qr-group-item":"card card-basic-margins"}>
+                  <span class="list-complete-item">
+                    <div id={index.toString()} class={question.groupId ? 'card card-basic-margins qr-group-item' : 'card card-basic-margins'}>
                       {this.strings ? (
                         <div class="card-body">
                           {question.type !== 'group' && this.variant !== 'form' && this.variant !== 'compact' ? (
                             <div class="qr-fullQuestionnaire-progress-counter">
-                              <span class="qr-fullQuestionnaire-questionIndex">{this.strings.question} {this.getQuestionIndex(question) + 1}</span> <span class="qr-fullQuestionnaire-numberOfQuestions">{this.strings.of} {this.questionsList().length}</span>
+                              <span class="qr-fullQuestionnaire-questionIndex">
+                                {this.strings.question} {this.getQuestionIndex(question) + 1}
+                              </span>{' '}
+                              <span class="qr-fullQuestionnaire-numberOfQuestions">
+                                {this.strings.of} {this.questionsList().length}
+                              </span>
                             </div>
                           ) : null}
                           {question.groupId && !question.item ? <div class="question-group-text">{this.getGroupText(question)}</div> : null}
@@ -208,17 +226,35 @@ export class FullQuestionnaire {
                     </button>
                   ) : null}
                   {this.enableNext && !this.enableFinishButton ? (
-                    <button id="toSummaryNextButton" type="button" class="btn button btn-primary btn-lg qr-button-primary qr-fullQuestionnaire-button-next" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
+                    <button
+                      id="toSummaryNextButton"
+                      type="button"
+                      class="btn button btn-primary btn-lg qr-button-primary qr-fullQuestionnaire-button-next"
+                      disabled={this.notAllRequiredQuestionsCompleted()}
+                      onClick={() => this.goToSummary()}
+                    >
                       {this.strings.next}
                     </button>
                   ) : null}
                   {this.enableNext && this.enableFinishButton ? (
-                    <button id="toSummaryFinishButton" type="button" class="btn button btn-primary btn-lg qr-button-primary qr-fullQuestionnaire-button-finish" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
+                    <button
+                      id="toSummaryFinishButton"
+                      type="button"
+                      class="btn button btn-primary btn-lg qr-button-primary qr-fullQuestionnaire-button-finish"
+                      disabled={this.notAllRequiredQuestionsCompleted()}
+                      onClick={() => this.goToSummary()}
+                    >
                       {this.strings.finish}
                     </button>
                   ) : null}
                   {!this.enableNext && this.enableFinishButton ? (
-                    <button id="finishButton" type="button" class="btn button btn-primary btn-lg qr-button-primary qr-fullQuestionnaire-button-finish" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() =>  this.finish.emit('finish')}>
+                    <button
+                      id="finishButton"
+                      type="button"
+                      class="btn button btn-primary btn-lg qr-button-primary qr-fullQuestionnaire-button-finish"
+                      disabled={this.notAllRequiredQuestionsCompleted()}
+                      onClick={() => this.finish.emit('finish')}
+                    >
                       {this.strings.finish}
                     </button>
                   ) : null}
