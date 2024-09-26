@@ -289,10 +289,14 @@ export class ChoiceQuestion {
               </div>
             </div>
             <hr />
-            <div class={!this.repeats ? 'form-group qr-choiceQuestion-singleChoice-container' : 'form-group qr-choiceQuestion-multiChoice-container'}>
-              {this.isDropDownQuestion() === true
-                ? this.strings && <select-element optionsList={this.optionsList} selected={this.selected} translations={this.strings.select} repeats={this.repeats} onEmitSelectedChoices={ev => this.handleInputSelected(ev)} />
-                : this.optionsList.map(answer => (
+            {this.isDropDownQuestion() === true
+              ? this.strings && (
+                  <div class={'form-group qr-choiceQuestion-dropdownChoice-container'}>
+                    <select-element optionsList={this.optionsList} selected={this.selected} translations={this.strings.select} repeats={this.repeats} onEmitSelectedChoices={ev => this.handleInputSelected(ev)} />
+                  </div>
+                )
+              : this.optionsList.map(answer => (
+                  <div class={!this.repeats ? 'form-group qr-choiceQuestion-singleChoice-container' : 'form-group qr-choiceQuestion-multiChoice-container'}>
                     <div
                       id={answer.code}
                       class={this.selected && this.selected.code === answer.code ? 'card qr-choiceQuestion-radioButtonCard qr-choice-question-selected' : 'card qr-choiceQuestion-radioButtonCard'}
@@ -311,8 +315,8 @@ export class ChoiceQuestion {
                         </label>
                       </div>
                     </div>
-                  ))}
-            </div>
+                  </div>
+                ))}
           </div>
         ) : null}
         {this.variant === 'form' ? <div>{!this.compareOption() ? <div>erste</div> : <div>andere</div>}</div> : null}
