@@ -289,34 +289,36 @@ export class ChoiceQuestion {
               </div>
             </div>
             <hr />
-            {this.isDropDownQuestion() === true
-              ? this.strings && (
-                  <div class={'form-group qr-choiceQuestion-dropdownChoice-container'}>
-                    <select-element optionsList={this.optionsList} selected={this.selected} translations={this.strings.select} repeats={this.repeats} onEmitSelectedChoices={ev => this.handleInputSelected(ev)} />
-                  </div>
-                )
-              : this.optionsList.map(answer => (
-                  <div class={!this.repeats ? 'form-group qr-choiceQuestion-singleChoice-container' : 'form-group qr-choiceQuestion-multiChoice-container'}>
-                    <div
-                      id={answer.code}
-                      class={this.selected && this.selected.code === answer.code ? 'card qr-choiceQuestion-radioButtonCard qr-choice-question-selected' : 'card qr-choiceQuestion-radioButtonCard'}
-                      onClick={() => (!this.repeats ? this.onBoxClickedSingleChoice(answer.display, answer.code) : this.onBoxClickedMultipleChoice(answer.display, answer.code))}
-                    >
-                      <div class="form-check qr-choiceQuestion-answer">
-                        {!this.repeats && this.selected && this.selected.code === answer.code ? (
-                          <input class="form-check-input qr-choiceQuestion-radioButton" type="radio" name={'Radio' + this.question.linkId} id={answer.code} checked />
-                        ) : this.repeats && this.checkIfSelected(answer) ? (
-                          <input class="form-check-input qr-choiceQuestion-radioButton" type="checkbox" name={'Checkbox' + this.question.linkId} id={answer.code} checked />
-                        ) : (
-                          <input class="form-check-input qr-choiceQuestion-radioButton" type={!this.repeats ? 'radio' : 'checkbox'} name={(!this.repeats ? 'Radio' : 'Checkbox') + this.question.linkId} id={answer.code} />
-                        )}
-                        <label class="form-check-label qr-choiceQuestion-answerDisplay" htmlFor={answer.code}>
-                          {answer.display}
-                        </label>
-                      </div>
+            {this.isDropDownQuestion() === true ? (
+              this.strings && (
+                <div class={'form-group qr-choiceQuestion-dropdownChoice-container'}>
+                  <select-element optionsList={this.optionsList} selected={this.selected} translations={this.strings.select} repeats={this.repeats} onEmitSelectedChoices={ev => this.handleInputSelected(ev)} />
+                </div>
+              )
+            ) : (
+              <div class={!this.repeats ? 'form-group qr-choiceQuestion-singleChoice-container' : 'form-group qr-choiceQuestion-multiChoice-container'}>
+                {this.optionsList.map(answer => (
+                  <div
+                    id={answer.code}
+                    class={this.selected && this.selected.code === answer.code ? 'card qr-choiceQuestion-radioButtonCard qr-choice-question-selected' : 'card qr-choiceQuestion-radioButtonCard'}
+                    onClick={() => (!this.repeats ? this.onBoxClickedSingleChoice(answer.display, answer.code) : this.onBoxClickedMultipleChoice(answer.display, answer.code))}
+                  >
+                    <div class="form-check qr-choiceQuestion-answer">
+                      {!this.repeats && this.selected && this.selected.code === answer.code ? (
+                        <input class="form-check-input qr-choiceQuestion-radioButton" type="radio" name={'Radio' + this.question.linkId} id={answer.code} checked />
+                      ) : this.repeats && this.checkIfSelected(answer) ? (
+                        <input class="form-check-input qr-choiceQuestion-radioButton" type="checkbox" name={'Checkbox' + this.question.linkId} id={answer.code} checked />
+                      ) : (
+                        <input class="form-check-input qr-choiceQuestion-radioButton" type={!this.repeats ? 'radio' : 'checkbox'} name={(!this.repeats ? 'Radio' : 'Checkbox') + this.question.linkId} id={answer.code} />
+                      )}
+                      <label class="form-check-label qr-choiceQuestion-answerDisplay" htmlFor={answer.code}>
+                        {answer.display}
+                      </label>
                     </div>
                   </div>
                 ))}
+              </div>
+            )}
           </div>
         ) : null}
         {this.variant === 'form' ? <div>{!this.compareOption() ? <div>erste</div> : <div>andere</div>}</div> : null}

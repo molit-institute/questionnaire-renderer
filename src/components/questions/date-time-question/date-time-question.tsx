@@ -214,7 +214,7 @@ export class DateTimeQuestion {
                   </div>
                   <div class="col-sm-6">
                     {this.strings ? (
-                      <label class="" htmlFor="time">
+                      <label class="qr-question-inputLabel qr-dateTimeQuestion-inputLabel" htmlFor="time">
                         {this.strings.time.text}:
                       </label>
                     ) : null}
