@@ -15,6 +15,7 @@ export default {
   finish: 'Abschließen',
   no: 'Nein',
   group: 'Gruppe',
+  noAnswer: 'Keine Angabe',
 
   numberOfQuestions: 'Anzahl der Fragen',
   publisher: 'Herausgeber',

@@ -160,6 +160,7 @@ export class BooleanQuestion {
     const options: Array<any> = [
       { code: 'yes', display: this.strings.yes },
       { code: 'no', display: this.strings.no },
+      { code: 'noAnswer', display: this.strings.noAnswer },
     ];
     return (
       <div class="qr-question-container">
@@ -168,9 +169,7 @@ export class BooleanQuestion {
             <div class="qr-question-head">
               <div class="qr-question-title">
                 <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  {this.question.prefix && this.question.prefix != "" ? (
-                    <span class="qr-question-prefix">{this.question.prefix}</span>
-                  ) : null} 
+                  {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
                   <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
                 </div>
               </div>
