@@ -27,12 +27,22 @@ export class BooleanQuestion {
   @Watch('selected')
   watchSelected() {
     if (this.allow_events) {
+      let object = null
       if (this.selected !== null) {
-        let object = {
-          type: 'boolean',
-          question: this.question,
-          value: [this.selected],
-        };
+        if(this.selected === "noAnswer"){
+          object = {
+            type: 'boolean',
+            question: this.question,
+            value: [],
+          };
+        }else{
+          object = {
+            type: 'boolean',
+            question: this.question,
+            value: [this.selected],
+          };
+        }
+        console.log("emiting", object)
         this.emitAnswer.emit(object);
       }
     }
@@ -124,7 +134,7 @@ export class BooleanQuestion {
       } else if (value === false) {
         this.selected = 'no';
       } else {
-        this.selected = null;
+        this.selected = 'noAnswer';
       }
     } catch (error) {
       if (this.enableErrorConsoleLogging) {
@@ -146,7 +156,7 @@ export class BooleanQuestion {
   async componentWillLoad(): Promise<void> {
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
-      await this.setSelected();
+      // await this.setSelected();
       this.allow_events = true;
     } catch (e) {
       if (this.enableErrorConsoleLogging) {
@@ -164,6 +174,7 @@ export class BooleanQuestion {
     ];
     return (
       <div class="qr-question-container">
+      {this.selected}
         {this.variant === 'touch' ? (
           <div class="qr-question qr-question-boolean">
             <div class="qr-question-head">

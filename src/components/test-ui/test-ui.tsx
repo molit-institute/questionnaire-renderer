@@ -46,17 +46,14 @@ export class TestUi {
     questionnaire: 'http://fhir.molit.eu/fhir/Questionnaire/test',
     source: null,
     item: [
-      {
-        linkId: '1',
-        text: 'Have you ever worked with HL7 FHIR?',
-        answer: [
-          {
-            valueBoolean: false,
-          },
-        ],
-        item: null,
-        type: '',
-      },
+      // {
+      //   linkId: '1',
+      //   text: 'Have you ever worked with HL7 FHIR?',
+      //   answer: [
+      //   ],
+      //   item: null,
+      //   type: '',
+      // },
       {
         linkId: '1.1',
         text: 'Have you ever',

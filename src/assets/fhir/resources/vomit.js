@@ -12,12 +12,13 @@ const vomitQuestionnaire = {
       prefix: "1.",
       text: "Have you ever worked with HL7 FHIR?",
       type: "boolean",
-      // extension: [
-      //   {
-      //     url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
-      //     hidden: true
-      //   }
-      // ],
+      required:true
+    },
+    {
+      linkId: "2",
+      prefix: "12.",
+      text: "Integer?",
+      type: "integer",
     },
     // {
     //   linkId: "1.1",
