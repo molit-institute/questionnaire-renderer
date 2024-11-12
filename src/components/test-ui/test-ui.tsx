@@ -207,6 +207,7 @@ export class TestUi {
               enableErrorConsoleLogging={true}
               questionnaireResponseStatus="amended"
               onErrorLog={error => console.info(error)}
+              visibleBooleanNullOption={true}
             ></questionnaire-renderer>
           ) : null}
           {this.show_summary ? (

@@ -225,7 +225,10 @@ export class QuestionnaireRenderer {
    * If set, will change the status of the questionnaireResponse to the given string value
    */
   @Prop() questionnaireResponseStatus: string;
-
+  /**
+   * If true shows a third 'no Answer' option in boolean questions.
+   */
+  @Prop() visibleBooleanNullOption: boolean = true;
   /**
    * Text for back-button
    */
@@ -898,6 +901,7 @@ export class QuestionnaireRenderer {
               enableNext={this.enableNext}
               locale={this.locale}
               spinner={this.spinner}
+              visibleBooleanNullOption={this.visibleBooleanNullOption}
               enableSummary={this.enableSummary}
               enableInformalLocale={this.enableInformalLocale}
               vasVertical={this.vasVertical}

@@ -15,6 +15,12 @@ const vomitQuestionnaire = {
       required:true
     },
     {
+      linkId: "3",
+      prefix: "3.",
+      text: "Keine Pflichtfrage",
+      type: "boolean"
+    },
+    {
       linkId: "2",
       prefix: "12.",
       text: "Integer?",

@@ -30,6 +30,7 @@ export namespace Components {
          */
         "secondary": string;
         "variant": any;
+        "visibleBooleanNullOption": boolean;
     }
     interface ChoiceQuestion {
         "answers": any;
@@ -180,6 +181,7 @@ export namespace Components {
           * Options for Visual Analog Scale
          */
         "vasVertical": boolean;
+        "visibleBooleanNullOption": boolean;
     }
     interface GroupQuestion {
         "baseUrl": string;
@@ -444,6 +446,10 @@ export namespace Components {
           * Options for Visual Analog Scale
          */
         "vasVertical": boolean;
+        /**
+          * If true shows a third 'no Answer' option in boolean questions.
+         */
+        "visibleBooleanNullOption": boolean;
     }
     interface QuestionnaireSummary {
         "baseUrl": string;
@@ -523,6 +529,7 @@ export namespace Components {
           * Options for Visual Analog Scale
          */
         "vasVertical": boolean;
+        "visibleBooleanNullOption": boolean;
     }
     interface StringQuestion {
         /**
@@ -1164,6 +1171,7 @@ declare namespace LocalJSX {
          */
         "secondary"?: string;
         "variant"?: any;
+        "visibleBooleanNullOption"?: boolean;
     }
     interface ChoiceQuestion {
         "answers"?: any;
@@ -1350,6 +1358,7 @@ declare namespace LocalJSX {
           * Options for Visual Analog Scale
          */
         "vasVertical"?: boolean;
+        "visibleBooleanNullOption"?: boolean;
     }
     interface GroupQuestion {
         "baseUrl"?: string;
@@ -1673,6 +1682,10 @@ declare namespace LocalJSX {
           * Options for Visual Analog Scale
          */
         "vasVertical"?: boolean;
+        /**
+          * If true shows a third 'no Answer' option in boolean questions.
+         */
+        "visibleBooleanNullOption"?: boolean;
     }
     interface QuestionnaireSummary {
         "baseUrl"?: string;
@@ -1776,6 +1789,7 @@ declare namespace LocalJSX {
           * Options for Visual Analog Scale
          */
         "vasVertical"?: boolean;
+        "visibleBooleanNullOption"?: boolean;
     }
     interface StringQuestion {
         /**

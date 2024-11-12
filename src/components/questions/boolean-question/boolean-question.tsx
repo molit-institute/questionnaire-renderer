@@ -27,22 +27,22 @@ export class BooleanQuestion {
   @Watch('selected')
   watchSelected() {
     if (this.allow_events) {
-      let object = null
+      let object = null;
       if (this.selected !== null) {
-        if(this.selected === "noAnswer"){
+        if (this.selected === 'noAnswer') {
           object = {
             type: 'boolean',
             question: this.question,
             value: [],
           };
-        }else{
+        } else {
           object = {
             type: 'boolean',
             question: this.question,
             value: [this.selected],
           };
         }
-        console.log("emiting", object)
+        console.log('emiting', object);
         this.emitAnswer.emit(object);
       }
     }
@@ -55,6 +55,7 @@ export class BooleanQuestion {
   async watchQuestion() {
     this.allow_events = false;
     await this.setSelected();
+    this.setOptions();
     this.allow_events = true;
 
     this.reset = true;
@@ -90,10 +91,12 @@ export class BooleanQuestion {
    */
   @Prop() locale: string = 'en';
   @Prop() enableErrorConsoleLogging: boolean;
+  @Prop() visibleBooleanNullOption: boolean;
   @Watch('locale')
   async watchLocale(newValue: string) {
     this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
+  @State() options: Array<any>;
   /**
    * Allows events to be emitted if true
    */
@@ -126,6 +129,20 @@ export class BooleanQuestion {
     }
     return false;
   }
+  setOptions() {
+    if (this.question.required || !this.visibleBooleanNullOption) {
+      this.options = [
+        { code: 'yes', display: this.strings.yes },
+        { code: 'no', display: this.strings.no },
+      ];
+    } else {
+      this.options = [
+        { code: 'yes', display: this.strings.yes },
+        { code: 'no', display: this.strings.no },
+        { code: 'noAnswer', display: this.strings.noAnswer },
+      ];
+    }
+  }
   setSelected() {
     try {
       let value = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'boolean');
@@ -133,7 +150,7 @@ export class BooleanQuestion {
         this.selected = 'yes';
       } else if (value === false) {
         this.selected = 'no';
-      } else {
+      } else if (!this.question.required) {
         this.selected = 'noAnswer';
       }
     } catch (error) {
@@ -156,8 +173,9 @@ export class BooleanQuestion {
   async componentWillLoad(): Promise<void> {
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
-      // await this.setSelected();
+      await this.setSelected();
       this.allow_events = true;
+      this.setOptions();
     } catch (e) {
       if (this.enableErrorConsoleLogging) {
         console.error(e);
@@ -167,14 +185,8 @@ export class BooleanQuestion {
   }
 
   render() {
-    const options: Array<any> = [
-      { code: 'yes', display: this.strings.yes },
-      { code: 'no', display: this.strings.no },
-      { code: 'noAnswer', display: this.strings.noAnswer },
-    ];
     return (
       <div class="qr-question-container">
-      {this.selected}
         {this.variant === 'touch' ? (
           <div class="qr-question qr-question-boolean">
             <div class="qr-question-head">
@@ -196,7 +208,7 @@ export class BooleanQuestion {
             <div class="qr-question-optionCard">
               {this.question ? (
                 <div class="form-group" id={'radio-boolean-' + this.question.linkId}>
-                  {options.map(answer => (
+                  {this.options.map(answer => (
                     <div
                       class={this.selected && answer.code === this.selected ? 'qr-booleanQuestion-card qr-booleanQuestion-radio-button-card qr-booleanQuestion-card-selected' : 'qr-booleanQuestion-card qr-booleanQuestion-radio-button-card'}
                       onClick={() => this.onCardClick(answer.code)}
@@ -228,7 +240,7 @@ export class BooleanQuestion {
             {/*  */}
             {this.question ? (
               <span class="form-group" id={'radio-boolean-' + this.question.linkId}>
-                {options.map(answer => (
+                {this.options.map(answer => (
                   <div class={this.selected && answer.code === this.selected ? 'card radio-button-card card-selected' : 'card radio-button-card'} onClick={() => this.onCardClick(answer.code)}>
                     <div class="form-check">
                       {this.selected === answer.code ? (
