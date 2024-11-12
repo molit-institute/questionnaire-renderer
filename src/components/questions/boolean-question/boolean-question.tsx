@@ -42,7 +42,6 @@ export class BooleanQuestion {
             value: [this.selected],
           };
         }
-        console.log('emiting', object);
         this.emitAnswer.emit(object);
       }
     }
