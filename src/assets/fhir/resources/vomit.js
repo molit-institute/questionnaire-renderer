@@ -12,26 +12,33 @@ const vomitQuestionnaire = {
       prefix: "1.",
       text: "Have you ever worked with HL7 FHIR?",
       type: "boolean",
-      // extension: [
-      //   {
-      //     url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
-      //     hidden: true
-      //   }
-      // ],
+      required:true
     },
     {
-      linkId: "1.1",
-      prefix: "1.1",
-      text: "Have you ever",
-      type: "choice",
+      linkId: "3",
+      prefix: "3.",
+      text: "Keine Pflichtfrage",
+      type: "boolean"
+    },
+    {
+      linkId: "2",
+      prefix: "12.",
+      text: "Integer?",
+      type: "integer",
+    },
+    // {
+    //   linkId: "1.1",
+    //   prefix: "1.1",
+    //   text: "Have you ever",
+    //   type: "choice",
       //   extension: [
       //     {
       //       url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
       //       hidden: true
       //     }
       //   ],
-      answerValueSet: "https://molit.eu/fhir/ValueSet/vkh-VS-ecog"
-    },
+      // answerValueSet: "https://molit.eu/fhir/ValueSet/vkh-VS-ecog"
+    // },
     // {
     //   linkId: "2",
     //   prefix: "2.",
@@ -44,22 +51,22 @@ const vomitQuestionnaire = {
     //   }
     // ],
     // },
-    {
-      linkId: "3",
-      prefix: "3.",
-      text: "Fraaaaage 3",
-      type: "string",
-      enableWhen: [
-        {
-          question: "1.1",
-          operator: "=",
-          answerCoding: {
-            code: "A2",
-            display: "2"
-        }
-        },
-      ],
-    },
+    // {
+    //   linkId: "3",
+    //   prefix: "3.",
+    //   text: "Fraaaaage 3",
+    //   type: "string",
+    //   enableWhen: [
+    //     {
+    //       question: "1.1",
+    //       operator: "=",
+    //       answerCoding: {
+    //         code: "A2",
+    //         display: "2"
+    //     }
+    //     },
+    //   ],
+    // },
 
 
   ]

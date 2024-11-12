@@ -10,10 +10,11 @@ export default {
   accept: 'Aceptar el cambio',
   back: 'Atrás',
   next: 'Siguiente',
-  yes: 'sí',
-  no: 'no',
-  finish: 'Abschließen',
+  yes: 'Sí',
+  no: 'No',
+  finish: 'Finalizar',
   group: 'Grupo',
+  noAnswer: 'Sin respuesta',
 
   summary: {
     title: 'Resumen',

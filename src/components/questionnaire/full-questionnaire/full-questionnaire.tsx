@@ -62,6 +62,7 @@ export class FullQuestionnaire {
 
   @Prop() enableReturn: boolean = true;
   @Prop() enableNext: boolean = true;
+  @Prop() visibleBooleanNullOption: boolean;
   disabled: boolean = true;
   scrollToQuestion: boolean = true;
 
@@ -207,6 +208,7 @@ export class FullQuestionnaire {
                             vasSelectedValueLabel={this.vasSelectedValueLabel}
                             enableInformalLocale={this.enableInformalLocale}
                             enableErrorConsoleLogging={this.enableErrorConsoleLogging}
+                            visibleBooleanNullOption={this.visibleBooleanNullOption}
                             onErrorLog={event => this.emitError(event)}
                           ></Tag>
                         </div>

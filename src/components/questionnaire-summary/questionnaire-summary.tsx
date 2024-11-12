@@ -98,15 +98,6 @@ export class QuestionnaireSummary {
   }
 
   /**
-   *
-   */
-  formatDateTime(dateTime) {
-    if (dateTime) {
-      // return this.$d(new Date(dateTime), "long");
-    }
-  }
-
-  /**
    * Returns true if question has the type "display"
    * @param linkId
    * @returns
@@ -151,7 +142,7 @@ export class QuestionnaireSummary {
   getAnswer(question) {
     let answer = null;
     if (question.answer) {
-      if (this.checkIfDisplay(question.linkId) && question.answer.length === 0 && !question.item && !question.answer[0]) {
+      if (!this.checkIfDisplay(question.linkId) && question.answer.length === 0 && !question.item && !question.answer[0]) {
         answer = this.strings.summary.noAnswer;
         return answer;
       } else {

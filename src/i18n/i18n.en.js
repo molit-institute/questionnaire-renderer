@@ -18,8 +18,9 @@ export default {
   numberOfQuestions: 'Number of questions',
   publisher: 'Publisher',
   start: 'Start',
-
+  
   summary: {
+    nA: 'No Answer',
     title: 'Summary',
     yourAnswer: 'Your answer',
     noAnswer: 'No answer',

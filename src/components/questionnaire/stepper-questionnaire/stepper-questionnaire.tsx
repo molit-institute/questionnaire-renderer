@@ -98,6 +98,7 @@ export class StepperQuestionnaire {
   @Prop() enableGroupDescription: boolean;
   @Prop() enableErrorConsoleLogging: boolean;
   @Prop() enableFinishButton:boolean;
+  @Prop() visibleBooleanNullOption: boolean;
   @Prop() locale: string = 'en';
   @Watch('locale')
   async watchLocale(newValue: string) {
@@ -401,6 +402,7 @@ export class StepperQuestionnaire {
               vasShowSelectedValue={this.vasShowSelectedValue}
               vasSelectedValueLabel={this.vasSelectedValueLabel}
               enableErrorConsoleLogging={this.enableErrorConsoleLogging}
+              visibleBooleanNullOption={this.visibleBooleanNullOption}
               onErrorLog={event => this.emitError(event.detail)}
             ></Tag>
           </div>
