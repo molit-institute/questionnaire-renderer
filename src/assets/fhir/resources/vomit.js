@@ -21,10 +21,20 @@ const vomitQuestionnaire = {
       type: "boolean"
     },
     {
-      linkId: "2",
-      prefix: "12.",
-      text: "Integer?",
-      type: "integer",
+      extension : [
+        {
+          url : "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+          valueExpression : {
+            description : "maxDate",
+            language : "text/fhirpath",
+            expression : "today()"
+          }
+        }
+      ],
+      linkId : "2.7",
+      text : "Current Date:",
+      type : "date",
+      readOnly : true
     },
     // {
     //   linkId: "1.1",
