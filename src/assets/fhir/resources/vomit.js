@@ -11,20 +11,17 @@ const vomitQuestionnaire = {
       linkId: "1",
       prefix: "1.",
       text: "Have you ever worked with HL7 FHIR?",
-      type: "boolean",
-      required:true
-    },
-    {
-      linkId: "3",
-      prefix: "3.",
-      text: "Keine Pflichtfrage",
-      type: "boolean"
+      type: "date",
+      extension : [{
+        url : "http://molit-service.de/fhir/isMaxValueCurrentDate",
+        valueBoolean : true
+      }],
     },
     {
       linkId: "2",
-      prefix: "12.",
-      text: "Integer?",
-      type: "integer",
+      prefix: "2.",
+      text: "Another date?",
+      type: "date"
     },
     // {
     //   linkId: "1.1",
