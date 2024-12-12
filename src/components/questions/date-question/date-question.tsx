@@ -77,7 +77,7 @@ export class DateQuestion {
    */
   @Prop() danger: string;
   @Prop() enableInformalLocale: boolean;
-  @State() maxValue: string = "9999-12-31";
+  @State() maxValue: string = '9999-12-31';
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -111,20 +111,19 @@ export class DateQuestion {
     this.selected = event.target.value;
   }
 
-  preventKeyDown(event){
+  preventKeyDown(event) {
     event.preventDefault();
   }
 
   handleMaxValue() {
     let extension = questionnaireController.lookForExtension('http://molit-service.de/fhir/isMaxValueCurrentDate', this.question);
     if (extension && extension.valueBoolean) {
-      this.maxValue = moment(new Date()).format('YYYY-MM-DD');
-
-      //prevents any manual input with datepicker still being functional
       document.getElementById('dateInput').addEventListener('keydown', this.preventKeyDown);
-    } else{
-      this.maxValue = "9999-12-31"
+      this.maxValue = moment(new Date()).format('YYYY-MM-DD');
+      //prevents any manual input with datepicker still being functional
+    } else {
       document.getElementById('dateInput').removeEventListener('keydown', this.preventKeyDown);
+      this.maxValue = '9999-12-31';
     }
   }
   /**
@@ -149,7 +148,7 @@ export class DateQuestion {
     }
   }
 
-  componentDidRender(){
+  componentDidRender() {
     this.handleMaxValue();
   }
 
@@ -180,7 +179,7 @@ export class DateQuestion {
                   {this.strings.date.text}:
                 </label>
               ) : null}
-              <input id="dateInput" type="date" class="form-control qr-question-input qr-dateQuestion-input" max={this.maxValue} value={this.selected} onInput={e => this.handleChange(e)}/>
+              <input id="dateInput" type="date" class="form-control qr-question-input qr-dateQuestion-input" max={this.maxValue} value={this.selected} onInput={e => this.handleChange(e)} />
             </div>
             <br />
           </div>
