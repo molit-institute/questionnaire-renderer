@@ -3,6 +3,7 @@ import * as fhirApi from '@molit/fhir-api';
 import { getLocaleComponentStrings } from '../../utils/locale';
 import questionnaireController from '../../utils/questionnaireController';
 import questionnaireResponseController from '../../utils/questionnaireResponseController';
+import fhirpathController from '../../utils/fhirpathController';
 import valueSetController from '../../utils/valueSetController';
 import { cloneDeep } from 'lodash';
 
@@ -28,6 +29,7 @@ export class QuestionnaireRenderer {
   async watchCurrentQuestionnaireResponse() {
     this.filterItemList();
     this.handleAnsweredQuestionsList();
+    this.handleExpressionCheck()
     this.updated.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
   }
   @State() spinner: Object = {
@@ -784,6 +786,10 @@ export class QuestionnaireRenderer {
     return parentQuestion;
   }
 
+  handleExpressionCheck(){
+    //TODO Add check method
+  }
+
   /**
    * Filters the itemlist of the current questionnaire. Removes questions that are hidden and not active
    */
@@ -863,6 +869,7 @@ export class QuestionnaireRenderer {
       }
       this.currentMode = this.mode;
       this.handleVariants();
+      this.handleExpressionCheck()
       await this.handleStartQuestion(this.start_question);
       this.handleInformationPage();
       setTimeout(() => {
@@ -873,7 +880,6 @@ export class QuestionnaireRenderer {
         console.error(e);
       }
       this.emitError(e);
-
     }
   }
   render() {
