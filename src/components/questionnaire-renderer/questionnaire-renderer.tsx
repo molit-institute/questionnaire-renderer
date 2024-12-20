@@ -786,8 +786,11 @@ export class QuestionnaireRenderer {
     return parentQuestion;
   }
 
+  /**
+   * 
+   */
   handleExpressionCheck(){
-    //TODO Add check method
+    fhirpathController.handleCalculatedExpressions(this.currentQuestionnaire, this.currentQuestionnaireResponse, this.currentValueSets)
   }
 
   /**
@@ -869,9 +872,9 @@ export class QuestionnaireRenderer {
       }
       this.currentMode = this.mode;
       this.handleVariants();
-      this.handleExpressionCheck()
       await this.handleStartQuestion(this.start_question);
       this.handleInformationPage();
+      this.handleExpressionCheck()
       setTimeout(() => {
         this.spinner = { ...this.spinner, loading: false };
       }, 250);
