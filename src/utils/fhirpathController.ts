@@ -1,8 +1,7 @@
 import { evaluate } from 'fhirpath';
 import questionnaireController from './questionnaireController';
 
-export function handleCalculatedExpressions(questionnaire, questionnaireResponse, valueSets) {
-  console.log(questionnaire, questionnaireResponse, valueSets);
+export async function handleCalculatedExpressions(questionnaire, questionnaireResponse, valueSets) {
   if (questionnaire) {
     let questionnaireItems = questionnaire.item;
     if (questionnaireItems) {
@@ -12,9 +11,8 @@ export function handleCalculatedExpressions(questionnaire, questionnaireResponse
         if (calculatedExpression) {
           let expression = calculatedExpression.valueExpression.expression;
           let result = evaluate(questionnaireResponse, expression);
-          console.log("result",result[0])
           if(result){
-            addAnswersToQuestionnaireResponse(result, questionnaire, questionnaireItems[i], questionnaireResponse, valueSets);
+            await addAnswersToQuestionnaireResponse(result, questionnaire, questionnaireItems[i], questionnaireResponse, valueSets);
           }
         }
       }
@@ -28,15 +26,16 @@ async function addAnswersToQuestionnaireResponse(result, questionnaire, question
     case 'choice':
       if (valueSets.length !== 0) {
         let options = await questionnaireController.getChoiceOptions(questionnaire, question, valueSets);
-        console.log(options)
         let option = await options.find(option => option.code === result[0] || option.display === result[0]);
-        console.log("option", option)
-        // put valueSet in correct answer
-        questionnaireResponseItem.answer = [option];
+        if(!option){
+          console.error("The required option was not found in the available valueSet. The search result was: ", option)
+        }
+        questionnaireResponseItem.answer = [{valueCoding: option}];
+      }else {
+        console.error("The available valueSet-array was empty: ", valueSets)
       }
       break;
-    case 'integer':
-      questionnaireResponseItem.answer = [{ valueInteger: result }];
+      //TODO: Add more question-types
     default:
       break;
   }

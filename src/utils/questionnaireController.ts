@@ -7,10 +7,8 @@ import questionnaireResponseController from './questionnaireResponseController';
  * @param {Object} question
  */
 export function getChoiceOptions(questionnaire, question, valueSets) {
-  console.log("getChoiceOptions",questionnaire, question,valueSets )
   //check if reference or ValueSet
   if (questionnaire && question) {
-    console.log("check",questionnaire && question, question.answerValueSet)
     if (question.answerValueSet) {
       let reference = question.answerValueSet;
       if (reference.startsWith('#')) {
