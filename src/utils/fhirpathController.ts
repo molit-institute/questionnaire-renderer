@@ -6,12 +6,11 @@ export async function handleCalculatedExpressions(questionnaire, questionnaireRe
     let questionnaireItems = questionnaire.item;
     if (questionnaireItems) {
       for (let i = 0; i < questionnaireItems.length; i++) {
-
         let calculatedExpression = questionnaireController.lookForExtension('http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression', questionnaireItems[i]);
         if (calculatedExpression) {
           let expression = calculatedExpression.valueExpression.expression;
           let result = evaluate(questionnaireResponse, expression);
-          if(result){
+          if (result) {
             await addAnswersToQuestionnaireResponse(result, questionnaire, questionnaireItems[i], questionnaireResponse, valueSets);
           }
         }
@@ -27,15 +26,39 @@ async function addAnswersToQuestionnaireResponse(result, questionnaire, question
       if (valueSets.length !== 0) {
         let options = await questionnaireController.getChoiceOptions(questionnaire, question, valueSets);
         let option = await options.find(option => option.code === result[0] || option.display === result[0]);
-        if(!option){
-          console.error("The required option was not found in the available valueSet. The search result was: ", option)
+        if (!option) {
+          console.error('The required option was not found in the available valueSet. The search result was: ', option);
         }
-        questionnaireResponseItem.answer = [{valueCoding: option}];
-      }else {
-        console.error("The available valueSet-array was empty: ", valueSets)
+        questionnaireResponseItem.answer = [{ valueCoding: option }];
+      } else {
+        console.error('The available valueSet-array was empty: ', valueSets);
       }
       break;
-      //TODO: Add more question-types
+    case 'boolean':
+      questionnaireResponseItem.answer = [{ valueBoolean: result }];
+      break;
+    case 'integer':
+      questionnaireResponseItem.answer = [{ valueInteger: result }];
+      break;
+    case 'decimal':
+      questionnaireResponseItem.answer = [{ valueDecimal: result }];
+      break;
+    case 'date':
+      questionnaireResponseItem.answer = [{ valueDate: result }];
+      break;
+    case 'dateTime':
+      questionnaireResponseItem.answer = [{ valueDateTime: result }];
+      break;
+    case 'string':
+      questionnaireResponseItem.answer = [{ valueString: result }];
+      break;
+    case 'time':
+      questionnaireResponseItem.answer = [{ valueTime: result }];
+      break;
+    case 'url':
+      questionnaireResponseItem.answer = [{ valueUrl: result }];
+      break;
+    //TODO: Add more question-types
     default:
       break;
   }

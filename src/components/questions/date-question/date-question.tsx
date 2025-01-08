@@ -159,7 +159,7 @@ export class DateQuestion {
                   {this.strings.date.text}:
                 </label>
               ) : null}
-              <input id="date" type="date" class="form-control qr-question-input qr-dateQuestion-input" max="9999-12-31" value={this.selected} onInput={e => this.handleChange(e)} />
+              <input id="date" type="date" class="form-control qr-question-input qr-dateQuestion-input" max="9999-12-31" value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly}/>
             </div>
             <br />
           </div>

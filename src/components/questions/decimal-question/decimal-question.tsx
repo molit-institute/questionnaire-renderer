@@ -122,7 +122,6 @@ export class DecimalQuestion {
   setSelected() {
     try {
       this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'decimal');
-
     } catch (error) {
       if (this.enableErrorConsoleLogging) {
         console.error(error);
@@ -170,9 +169,7 @@ export class DecimalQuestion {
             <div class="qr-question-head">
               <div class="qr-question-title">
                 <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  {this.question.prefix && this.question.prefix != "" ? (
-                    <span class="qr-question-prefix">{this.question.prefix}</span>
-                  ) : null}
+                  {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
                   <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
                 </div>
               </div>
@@ -199,6 +196,7 @@ export class DecimalQuestion {
                     type="number"
                     value={this.selected}
                     onInput={e => this.handleChange(e)}
+                    disabled={this.question.readOnly}
                   />
                   {this.strings ? (
                     <div style={{ color: this.danger }} class={this.naN === false ? 'qr-question-hidden my-invalid-feedback' : this.naN === null ? 'qr-question-hidden my-invalid-feedback' : 'qr-question-visible my-invalid-feedback'}>
