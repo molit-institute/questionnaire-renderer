@@ -789,8 +789,8 @@ export class QuestionnaireRenderer {
   /**
    * 
    */
-  handleExpressionCheck(){
-    fhirpathController.handleCalculatedExpressions(this.currentQuestionnaire, this.currentQuestionnaireResponse, this.currentValueSets)
+  async handleExpressionCheck(){
+    await fhirpathController.handleCalculatedExpressions(this.currentQuestionnaire, this.currentQuestionnaireResponse, this.currentValueSets)
   }
 
   /**

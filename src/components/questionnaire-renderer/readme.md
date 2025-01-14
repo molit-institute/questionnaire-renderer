@@ -47,6 +47,7 @@
 | `vasSelectedValueLabel`           | `vas-selected-value-label`           | Text for the label of the selected value                                                                                                      | `string`  | `null`                    |
 | `vasShowSelectedValue`            | `vas-show-selected-value`            | If true shows the selected value for the vas scale                                                                                            | `boolean` | `false`                   |
 | `vasVertical`                     | `vas-vertical`                       | Options for Visual Analog Scale                                                                                                               | `boolean` | `false`                   |
+| `visibleBooleanNullOption`        | `visible-boolean-null-option`        | If true shows a third 'no Answer' option in boolean questions.                                                                                | `boolean` | `true`                    |
 
 
 ## Events

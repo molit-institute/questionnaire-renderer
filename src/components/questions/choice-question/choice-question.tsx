@@ -289,13 +289,18 @@ export class ChoiceQuestion {
               </div>
             </div>
             <hr />
-
             {this.isDropDownQuestion() === true ? (
               this.strings &&
               (this.question.readOnly === true ? (
-                <div>
-                  <input id="string" type="text" class="form-control qr-question-input qr-choiceQuestion-input-disabled" value={this.selected.display} disabled /> 
-                </div>
+                this.selected && this.selected.display ? (
+                  <div>
+                    <input id="string" type="text" class="form-control qr-question-input qr-choiceQuestion-input-disabled" value={this.selected.display} disabled />
+                  </div>
+                ) : (
+                  <div>
+                    <input id="string" type="text" class="form-control qr-question-input qr-choiceQuestion-input-disabled" value={this.strings.noResult} disabled />
+                  </div>
+                )
               ) : (
                 <div class={'form-group qr-choiceQuestion-dropdownChoice-container'}>
                   <select-element optionsList={this.optionsList} selected={this.selected} translations={this.strings.select} repeats={this.repeats} onEmitSelectedChoices={ev => this.handleInputSelected(ev)} />

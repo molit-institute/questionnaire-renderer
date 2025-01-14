@@ -10,6 +10,7 @@ export async function handleCalculatedExpressions(questionnaire, questionnaireRe
         if (calculatedExpression) {
           let expression = calculatedExpression.valueExpression.expression;
           let result = evaluate(questionnaireResponse, expression);
+          console.log("result",result)
           if (result) {
             await addAnswersToQuestionnaireResponse(result, questionnaire, questionnaireItems[i], questionnaireResponse, valueSets);
           }
@@ -25,13 +26,20 @@ async function addAnswersToQuestionnaireResponse(result, questionnaire, question
     case 'choice':
       if (valueSets.length !== 0) {
         let options = await questionnaireController.getChoiceOptions(questionnaire, question, valueSets);
-        let option = await options.find(option => option.code === result[0] || option.display === result[0]);
-        if (!option) {
-          console.error('The required option was not found in the available valueSet. The search result was: ', option);
+        console.log(options, result)
+        if(options && options.length !== 0 && result && result.length !== 0){
+          let option = await options.find(option => option.code.toLowerCase() === result[0].toLowerCase() || option.display.toLowerCase() === result[0].toLowerCase());
+          console.log("option",option)
+          if (!option) {
+            console.error('The required option was not found in the available valueSet. The search result was: ', option);
+            questionnaireResponseItem.answer = null;
+          }
+          questionnaireResponseItem.answer = [{ valueCoding: option }];
+        }else{
+          questionnaireResponseItem.answer = null;
         }
-        questionnaireResponseItem.answer = [{ valueCoding: option }];
       } else {
-        console.error('The available valueSet-array was empty: ', valueSets);
+        // console.error('The available valueSet-array was empty: ', valueSets);
       }
       break;
     case 'boolean':

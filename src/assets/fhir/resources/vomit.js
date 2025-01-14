@@ -69,7 +69,7 @@ const vomitQuestionnaire = {
           linkId: "5",
           text: "UICC-Stadium",
           type: "choice",
-          answerValueSet: "https://molit.eu/fhir/ValueSet/vkh-VS-uicc",
+          answerValueSet: "http://molit.eu/fhir/vitu/ValueSet/uiic-stage-extended",
           readOnly: true,
           extension: [
             {
