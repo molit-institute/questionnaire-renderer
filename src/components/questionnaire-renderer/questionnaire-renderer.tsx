@@ -789,8 +789,8 @@ export class QuestionnaireRenderer {
   /**
    * 
    */
-  async handleExpressionCheck(){
-    await fhirpathController.handleCalculatedExpressions(this.currentQuestionnaire, this.currentQuestionnaireResponse, this.currentValueSets)
+  handleExpressionCheck(){
+    fhirpathController.handleCalculatedExpressions(this.currentQuestionnaire, this.currentQuestionnaireResponse, this.currentValueSets)
   }
 
   /**
@@ -874,7 +874,7 @@ export class QuestionnaireRenderer {
       this.handleVariants();
       await this.handleStartQuestion(this.start_question);
       this.handleInformationPage();
-      this.handleExpressionCheck()
+      await this.handleExpressionCheck()
       setTimeout(() => {
         this.spinner = { ...this.spinner, loading: false };
       }, 250);

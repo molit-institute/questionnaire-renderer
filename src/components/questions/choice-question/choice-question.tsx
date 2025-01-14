@@ -294,11 +294,11 @@ export class ChoiceQuestion {
               (this.question.readOnly === true ? (
                 this.selected && this.selected.display ? (
                   <div>
-                    <input id="string" type="text" class="form-control qr-question-input qr-choiceQuestion-input-disabled" value={this.selected.display} disabled />
+                    <input id="uuic-string-disabled" type="text" class="form-control qr-question-input qr-choiceQuestion-input-disabled" value={this.selected.display} disabled />
                   </div>
                 ) : (
                   <div>
-                    <input id="string" type="text" class="form-control qr-question-input qr-choiceQuestion-input-disabled" value={this.strings.noResult} disabled />
+                    <input id="uuic-string-disabled-noResult" type="text" class="form-control qr-question-input qr-choiceQuestion-input-disabled" value={this.strings.noResult} disabled />
                   </div>
                 )
               ) : (
