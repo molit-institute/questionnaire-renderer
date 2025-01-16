@@ -1,12 +1,17 @@
 import { evaluate } from 'fhirpath';
 import questionnaireController from './questionnaireController';
+import questionnaireResponseController from './questionnaireResponseController';
 
 export async function handleCalculatedExpressions(questionnaire, questionnaireResponse, valueSets) {
+  console.log("handleCalculatedExpressions")
   if (questionnaire) {
-    let questionnaireItems = questionnaire.item;
+    console.log("questionnaier")
+    let questionnaireItems = questionnaireResponseController.createItemList(questionnaire);
     if (questionnaireItems) {
       for (let i = 0; i < questionnaireItems.length; i++) {
+        console.log(questionnaireItems[i])
         let calculatedExpression = questionnaireController.lookForExtension('http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression', questionnaireItems[i]);
+        console.log("CalculatedExpression", calculatedExpression)
         if (calculatedExpression) {
           let expression = calculatedExpression.valueExpression.expression;
           let result = evaluate(questionnaireResponse, expression);
