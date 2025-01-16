@@ -27,9 +27,10 @@ export class QuestionnaireRenderer {
   @Event() updated: EventEmitter;
   @Watch('currentQuestionnaireResponse')
   async watchCurrentQuestionnaireResponse() {
+
     this.filterItemList();
     this.handleAnsweredQuestionsList();
-    this.handleExpressionCheck()
+    await this.handleExpressionCheck()
     this.updated.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
   }
   @State() spinner: Object = {
@@ -790,9 +791,7 @@ export class QuestionnaireRenderer {
    * 
    */
   async handleExpressionCheck(){
-    console.log("ExpressionCheck")
     await fhirpathController.handleCalculatedExpressions(this.currentQuestionnaire, this.currentQuestionnaireResponse, this.currentValueSets)
-    console.log("End ExpressionCheck")
   }
 
   /**
@@ -857,7 +856,6 @@ export class QuestionnaireRenderer {
 
   async componentWillLoad(): Promise<void> {
     try {
-      console.log("renderer v1.5")
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
       this.spinner = { ...this.spinner, loading: true };
       this.spinner = { ...this.spinner, message: this.strings.loading.questionnaire };
