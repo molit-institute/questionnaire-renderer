@@ -164,7 +164,7 @@ export class TimeQuestion {
                     {this.strings.time.text}:
                   </label>
                 ) : null}
-                <input id="time" type="time" class="form-control qr-question-input qr-timeQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} />
+                <input id="time" type="time" class="form-control qr-question-input qr-timeQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly}/>
               </div>
             </div>
             <br />

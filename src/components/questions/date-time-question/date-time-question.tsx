@@ -210,7 +210,7 @@ export class DateTimeQuestion {
                       </label>
                     ) : null}
                     {/* sm="6" */}
-                    <input required={this.question.required} id="date" class="form-control" type="date" max="9999-12-31" value={this.date} onInput={e => this.handleChange(e, 'date')} />
+                    <input required={this.question.required} id="date" class="form-control" type="date" max="9999-12-31" value={this.date} onInput={e => this.handleChange(e, 'date')} disabled={this.question.readOnly}/>
                   </div>
                   <div class="col-sm-6">
                     {this.strings ? (
@@ -219,7 +219,7 @@ export class DateTimeQuestion {
                       </label>
                     ) : null}
                     {/* sm="6"  */}
-                    <input required={this.question.required} id="time" type="time" class="form-control qr-question-input qr-dateTimeQuestion-input" value={this.time} onInput={e => this.handleChange(e, 'time')} />
+                    <input required={this.question.required} id="time" type="time" class="form-control qr-question-input qr-dateTimeQuestion-input" value={this.time} onInput={e => this.handleChange(e, 'time')} disabled={this.question.readOnly}/>
                   </div>
                 </div>
               </div>

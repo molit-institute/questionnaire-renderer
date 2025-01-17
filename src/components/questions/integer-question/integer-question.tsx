@@ -278,6 +278,7 @@ export class IntegerQuestion {
                       value={this.selected}
                       onInput={e => this.handleChange(e)}
                       class="form-control qr-question-input qr-integerQuestion-input"
+                      readOnly={this.question.readOnly}
                     />
                     {this.strings ? (
                       <div

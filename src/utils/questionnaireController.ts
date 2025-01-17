@@ -6,7 +6,7 @@ import questionnaireResponseController from './questionnaireResponseController';
  * @param {Object} questionnaire the Questionnaire needed for the referenced Valuesets
  * @param {Object} question
  */
-export function getChoiceOptions(questionnaire, question, valueSets, FHIR_URL) {
+export function getChoiceOptions(questionnaire, question, valueSets) {
   //check if reference or ValueSet
   if (questionnaire && question) {
     if (question.answerValueSet) {
@@ -14,8 +14,8 @@ export function getChoiceOptions(questionnaire, question, valueSets, FHIR_URL) {
       if (reference.startsWith('#')) {
         return getReferenceOptions(questionnaire, reference);
       } else {
-        if (FHIR_URL && valueSets) {
-          return getValueSetOptions(reference, valueSets); //FHIR_URL wurde rausgenommen
+        if (valueSets) {
+          return getValueSetOptions(reference, valueSets);
         } else {
           throw new Error('The given FHIR_URL or ValueSets was null or undefined');
         }

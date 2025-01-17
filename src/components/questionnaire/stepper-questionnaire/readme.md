@@ -35,6 +35,7 @@
 | `vasSelectedValueLabel`      | `vas-selected-value-label`     |                                                                            | `string`  | `undefined` |
 | `vasShowSelectedValue`       | `vas-show-selected-value`      |                                                                            | `boolean` | `undefined` |
 | `vasVertical`                | `vas-vertical`                 | Options for Visual Analog Scale                                            | `boolean` | `undefined` |
+| `visibleBooleanNullOption`   | `visible-boolean-null-option`  |                                                                            | `boolean` | `undefined` |
 
 
 ## Events

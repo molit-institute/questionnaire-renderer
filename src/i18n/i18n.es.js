@@ -15,6 +15,7 @@ export default {
   finish: 'Finalizar',
   group: 'Grupo',
   noAnswer: 'Sin respuesta',
+  noResult: 'Sin resultado',
 
   summary: {
     title: 'Resumen',
