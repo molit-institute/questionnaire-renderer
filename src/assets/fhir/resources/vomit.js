@@ -8,9 +8,15 @@ const vomitQuestionnaire = {
   publisher: "MOLIT Institut gGmbH",
   item: [
     {
-      linkId: "1",
+      linkId: "3",
       prefix: "1.",
-      text: "Have you ever worked with HL7 FHIR?",
+      text: "Date Frage 1 ohne Extension",
+      type: "date"
+    },
+    {
+      linkId: "1",
+      prefix: "2.",
+      text: "Frage mit maxValue Extension",
       type: "date",
       extension : [{
         url : "http://molit-service.de/fhir/isMaxValueCurrentDate",
@@ -19,8 +25,8 @@ const vomitQuestionnaire = {
     },
     {
       linkId: "2",
-      prefix: "2.",
-      text: "Another date?",
+      prefix: "3.",
+      text: "Date Frage 2 ohne Extension",
       type: "date"
     },
     // {

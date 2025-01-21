@@ -77,7 +77,6 @@ export class DateQuestion {
    */
   @Prop() danger: string;
   @Prop() enableInformalLocale: boolean;
-  @State() maxValue: string = '9999-12-31';
   /**
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
@@ -115,16 +114,22 @@ export class DateQuestion {
     event.preventDefault();
   }
 
-  handleMaxValue() {
-    let extension = questionnaireController.lookForExtension('http://molit-service.de/fhir/isMaxValueCurrentDate', this.question);
-    if (extension && extension.valueBoolean) {
-      document.getElementById('dateInput').addEventListener('keydown', this.preventKeyDown);
-      this.maxValue = moment(new Date()).format('YYYY-MM-DD');
-      //prevents any manual input with datepicker still being functional
-    } else {
-      document.getElementById('dateInput').removeEventListener('keydown', this.preventKeyDown);
-      this.maxValue = '9999-12-31';
+  async handleMaxValue() {
+    let extension = await questionnaireController.lookForExtension('http://molit-service.de/fhir/isMaxValueCurrentDate', this.question);
+    let input = await document.getElementById(this.question.linkId + '-dateInput');
+    if (input) {
+      if (extension && extension.valueBoolean) {
+        input.addEventListener('keydown', this.preventKeyDown);
+        input.setAttribute('max', moment(new Date()).format('YYYY-MM-DD'));
+      } else {
+        input.removeEventListener('keydown', this.preventKeyDown);
+        input.setAttribute('max', '9999-12-31');
+      }
     }
+  }
+
+  createDateInputId() {
+    return this.question.linkId + '-dateInput';
   }
   /**
    * Emits an error-event
@@ -179,7 +184,7 @@ export class DateQuestion {
                   {this.strings.date.text}:
                 </label>
               ) : null}
-              <input id="dateInput" type="date" class="form-control qr-question-input qr-dateQuestion-input" max={this.maxValue} value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly}/>
+              <input id={this.createDateInputId()} type="date" class="form-control qr-question-input qr-dateQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly} />
             </div>
             <br />
           </div>

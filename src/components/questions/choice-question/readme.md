@@ -14,7 +14,6 @@
 | `danger`                    | `danger`                       | Color used to symbolise danger                                             | `string`  | `undefined`                    |
 | `enableErrorConsoleLogging` | `enable-error-console-logging` |                                                                            | `boolean` | `undefined`                    |
 | `enableInformalLocale`      | `enable-informal-locale`       |                                                                            | `boolean` | `undefined`                    |
-| `key`                       | `key`                          |                                                                            | `string`  | `null`                         |
 | `locale`                    | `locale`                       | Language property of the component. </br> Currently suported: [de, en, es] | `string`  | `'en'`                         |
 | `mode`                      | `mode`                         |                                                                            | `string`  | `undefined`                    |
 | `primary`                   | `primary`                      | Primary color                                                              | `string`  | `undefined`                    |
