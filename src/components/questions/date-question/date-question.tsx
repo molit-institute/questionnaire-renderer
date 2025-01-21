@@ -3,8 +3,10 @@
  */
 import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '@stencil/core';
 import questionnaireResponseController from '../../../utils/questionnaireResponseController';
+import questionnaireController from '../../../utils/questionnaireController';
 import { getLocaleComponentStrings } from '../../../utils/locale';
 import { textToHtml } from '../../../utils/textToHtml';
+import moment from 'moment';
 
 @Component({
   tag: 'date-question',
@@ -49,7 +51,7 @@ export class DateQuestion {
   @Watch('question')
   watchQuestion() {
     this.setSelected();
-
+    this.handleMaxValue();
     setTimeout(() => {
       this.reset = false;
     }, 5);
@@ -108,9 +110,30 @@ export class DateQuestion {
     this.selected = event.target.value;
   }
 
+  preventKeyDown(event) {
+    event.preventDefault();
+  }
+
+  async handleMaxValue() {
+    let extension = await questionnaireController.lookForExtension('http://molit-service.de/fhir/isMaxValueCurrentDate', this.question);
+    let input = await document.getElementById(this.question.linkId + '-dateInput');
+    if (input) {
+      if (extension && extension.valueBoolean) {
+        input.addEventListener('keydown', this.preventKeyDown);
+        input.setAttribute('max', moment(new Date()).format('YYYY-MM-DD'));
+      } else {
+        input.removeEventListener('keydown', this.preventKeyDown);
+        input.setAttribute('max', '9999-12-31');
+      }
+    }
+  }
+
+  createDateInputId() {
+    return this.question.linkId + '-dateInput';
+  }
   /**
-     * Emits an error-event
-     */
+   * Emits an error-event
+   */
   @Event() errorLog: EventEmitter;
   emitError(error) {
     this.errorLog.emit(error);
@@ -130,6 +153,10 @@ export class DateQuestion {
     }
   }
 
+  componentDidRender() {
+    this.handleMaxValue();
+  }
+
   render() {
     return (
       <div class="qr-question-container">
@@ -138,9 +165,7 @@ export class DateQuestion {
             <div class="qr-question-head">
               <div class="qr-question-title">
                 <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  {this.question.prefix && this.question.prefix != "" ? (
-                    <span class="qr-question-prefix">{this.question.prefix}</span>
-                  ) : null}
+                  {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
                   <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
                 </div>
               </div>
@@ -159,7 +184,7 @@ export class DateQuestion {
                   {this.strings.date.text}:
                 </label>
               ) : null}
-              <input id="date" type="date" class="form-control qr-question-input qr-dateQuestion-input" max="9999-12-31" value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly}/>
+              <input id={this.createDateInputId()} type="date" class="form-control qr-question-input qr-dateQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly} />
             </div>
             <br />
           </div>

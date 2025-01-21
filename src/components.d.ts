@@ -41,7 +41,6 @@ export namespace Components {
         "danger": string;
         "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
-        "key": string;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */
@@ -1182,7 +1181,6 @@ declare namespace LocalJSX {
         "danger"?: string;
         "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
-        "key"?: string;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
          */

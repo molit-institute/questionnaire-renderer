@@ -17,7 +17,6 @@ import fhirpath from '../../../assets/js/fhirpath.min.js';
 export class ChoiceQuestion {
   @Element() element: HTMLElement;
   @Prop() variant: any = null;
-  @Prop() key: string = null;
   @State() keyReset: number = 0;
   /**
    *  String containing the translations for the current locale
