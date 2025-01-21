@@ -187,7 +187,7 @@ export class ChoiceQuestion {
    * Returns the options for in the Question for the view to display
    */
   async getChoiceOptions() {
-    return questionnaireController.getChoiceOptions(this.questionnaire, this.question, this.valueSets, this.baseUrl);
+    return questionnaireController.getChoiceOptions(this.questionnaire, this.question, this.valueSets);
   }
 
   /**
@@ -289,11 +289,22 @@ export class ChoiceQuestion {
             </div>
             <hr />
             {this.isDropDownQuestion() === true ? (
-              this.strings && (
+              this.strings &&
+              (this.question.readOnly === true ? (
+                this.selected && this.selected.display ? (
+                  <div>
+                    <input id="uuic-string-disabled" type="text" class="form-control qr-question-input qr-choiceQuestion-input-disabled" value={this.selected.display} disabled />
+                  </div>
+                ) : (
+                  <div>
+                    <input id="uuic-string-disabled-noResult" type="text" class="form-control qr-question-input qr-choiceQuestion-input-disabled" value={this.strings.noResult} disabled />
+                  </div>
+                )
+              ) : (
                 <div class={'form-group qr-choiceQuestion-dropdownChoice-container'}>
                   <select-element optionsList={this.optionsList} selected={this.selected} translations={this.strings.select} repeats={this.repeats} onEmitSelectedChoices={ev => this.handleInputSelected(ev)} />
                 </div>
-              )
+              ))
             ) : (
               <div class={!this.repeats ? 'form-group qr-choiceQuestion-singleChoice-container' : 'form-group qr-choiceQuestion-multiChoice-container'}>
                 {this.optionsList.map(answer => (

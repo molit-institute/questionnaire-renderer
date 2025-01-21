@@ -28,57 +28,15 @@ export class TestUi {
   lastQuestion: boolean = false;
   edit: boolean = false;
   indexQuestion: Object = null;
-  baseUrl: string = 'https://fhir.molit.eu/fhir';
+  // baseUrl: string = 'https://fhir.molit.eu/fhir';
   // baseUrl: string = 'https://equ.molit-service.de/fhir';
   // baseUrl: string = 'https://dev.lion-app.de/fhir';
+  baseUrl: string = 'https://vitu-dev-app.molit-service.de/fhir';
   questionnaireUrl: string = this.baseUrl + '/Questionnaire/56';
   questionnaire: any = null;
   questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30, q_5d_5l, vomit, lion, dropdown_test];
-  token: string =
-    'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJWUkFjb0VJV2JNTlkwNzJLMGFyaTFpUkxqM1dmVUhuWHpWRmd3bDAyVkdzIn0.eyJleHAiOjE2NTIwODc2MzMsImlhdCI6MTY1MTY1NTYzMywiYXV0aF90aW1lIjoxNjUxNDkyNDUzLCJqdGkiOiJmN2EwZjczMS0zOWI2LTQ0NmItODU2Ni1hMDkyOGY2NmFkNjIiLCJpc3MiOiJodHRwczovL2Rldi5saW9uLWFwcC5kZS9hdXRoL3JlYWxtcy9saW9uLXJlYWxtIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjVjMWRiZWQxLTg5YWEtNGM1MS1iZTkxLWM0YTA5NGIxYWIwYiIsInR5cCI6IkJlYXJlciIsImF6cCI6Imxpb24tYXBwIiwibm9uY2UiOiJHOVdaMTBkakFRRWRZY0ZuMWlQTmhnIiwic2Vzc2lvbl9zdGF0ZSI6IjA3MDI3NTQxLTg4ZDItNDY0ZC1iOGZhLTE4MGZiZWI0NzBkOCIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJkZWZhdWx0LXJvbGVzLWxpb24tcmVhbG0iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJzaWQiOiIwNzAyNzU0MS04OGQyLTQ2NGQtYjhmYS0xODBmYmViNDcwZDgiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZ2VuZGVyIjoiZmVtYWxlIiwicGF0aWVudElkIjoiMTkiLCJuYW1lIjoiS2F0aGFyaW5hcyBUZXN0bnV0emVyIiwicHJlZmVycmVkX3VzZXJuYW1lIjoia2F0aGFyaW5hLnplbGxlckBtb2xpdC5ldSIsImdpdmVuX25hbWUiOiJLYXRoYXJpbmFzIiwiZmFtaWx5X25hbWUiOiJUZXN0bnV0emVyIiwiZW1haWwiOiJrYXRoYXJpbmEuemVsbGVyQG1vbGl0LmV1In0.k6JVgOwPG65MROEDhNrFB8NUYPfBDFF-0TXSAwTaUS12ySSf6h6A68Gdm0znD8p7WP_llcG_j9zyYKp1lMGZBiHfA_Q4gj6pqQ0ssABMI-jpi2UrHwo3anzRnu0ntJRhrbkX1wRFbiGXvYtXV7QKXBB5nGwrXFkDxn9Mz414Tid6fAkZQNja_DzNpCb7L6cQ2hmIpNe9rEYwcQXOymvXJW0PN_PeaeIk6WZToXxmHxrM3TDuK7S4Jbm-kab4Bc0pycV7tth1GqRBQCI0_3i0r1_Z9JOKY547JyCCJWcdYO-aQGYv7zZtKMooKIyNTmHzbWSoB_iUkBQjk4LgzBk9bA';
-  testResp: object = {
-    resourceType: 'QuestionnaireResponse',
-    id: 22,
-    status: 'completed',
-
-    subject: null,
-    authored: '2022-11-28T17:45:28+01:00',
-    questionnaire: 'http://fhir.molit.eu/fhir/Questionnaire/test',
-    source: null,
-    item: [
-      // {
-      //   linkId: '1',
-      //   text: 'Have you ever worked with HL7 FHIR?',
-      //   answer: [
-      //   ],
-      //   item: null,
-      //   type: '',
-      // },
-      {
-        linkId: '1.1',
-        text: 'Have you ever',
-        answer: [
-          {
-            valueCoding: {
-              code: 'A2',
-              display: '2',
-            },
-          },
-        ],
-      },
-      {
-        linkId: '3',
-        text: 'Fraaaaage 3',
-        answer: [
-          {
-            valueString: 'huhu',
-          },
-        ],
-        item: null,
-        type: '',
-      },
-    ],
-  };
+  token: string ='eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJtTmZsdHEyMVhOd19Fdk1uQXlaX2E0Sjk5Zm5kX2JJbjY5NzljMGZNT0JRIn0.eyJleHAiOjE3MzcwMzE3MzQsImlhdCI6MTczNzAzMTEzNCwiYXV0aF90aW1lIjoxNzM3MDMwNTM0LCJqdGkiOiJlNjIyNDIwYi05OWE2LTQ2YzctODQ4OS1lYmJlNTQ0NjdmMDEiLCJpc3MiOiJodHRwczovL3ZpdHUtZGV2LWFwcC5tb2xpdC1zZXJ2aWNlLmRlL2F1dGgvcmVhbG1zL3ZpdHUtcmVhbG0iLCJhdWQiOlsicmVhbG0tbWFuYWdlbWVudCIsImFjY291bnQiXSwic3ViIjoiNzEyNzU3ZGUtOWRhMC00MDRiLWJjYzAtYjlhMzJiNGVlODNhIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoidml0dS1hdXRoIiwic2lkIjoiNzQ2ZTIxMjgtMzRiYy00NDBkLWE4MzgtZDUyMGRjNmZiNzE4IiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3QqIiwiaHR0cDovL2xvY2FsaG9zdDo4MDgwIiwiaHR0cDovL2xvY2FsaG9zdDo0MTczIiwiaHR0cDovL2xvY2FsaG9zdDo4MDgwLyIsImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyIsImh0dHA6Ly9sb2NhbGhvc3Q6NTE3My8iLCJodHRwczovL3ZpdHUtZGV2LWFwcC5tb2xpdC1zZXJ2aWNlLmRlIiwiaHR0cDovL2xvY2FsaG9zdDo0MTczLyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsidml0dS1jYXNlLW1hbmFnZXIiLCJkZWZhdWx0LXJvbGVzLXZpdHUtcmVhbG0iLCJ2aXR1LW1vZGVyYXRvciIsInZpdHUtdXNlciIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ2aXR1LWFkbWluIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsicmVhbG0tbWFuYWdlbWVudCI6eyJyb2xlcyI6WyJ2aWV3LXJlYWxtIiwidmlldy1ldmVudHMiLCJtYW5hZ2UtdXNlcnMiLCJ2aWV3LXVzZXJzIiwibWFuYWdlLWNsaWVudHMiLCJxdWVyeS1ncm91cHMiLCJxdWVyeS11c2VycyJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiSmFuIFJvw58iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqYW4ucm9zc0Btb2xpdC1zZXJ2aWNlLmRlIiwiZ2l2ZW5fbmFtZSI6IkphbiIsImZhbWlseV9uYW1lIjoiUm_DnyIsInZpdHUtZ3JvdXAiOlsidGVzdDIzZXJkMjMiXSwiZW1haWwiOiJqYW4ucm9zc0Btb2xpdC1zZXJ2aWNlLmRlIn0.EYieUz6EEfus6Yvf2uE1dVZACw_0ROgc4Xl6aM7OVPdTc_Kwz1G-hNb6Nzod8NKZca5-R9BKx3DkP8uNrM4jVSuuLmxRmlA19Mxh75rInvskqRHA-n1EpdKQ8S_24Hyj4AFVkivuddV_bTBFsKbRaRHml2nPXOm1f_Pc-QB_4DqexbW05Gpdqxa1X5SOPdDqIQx6ZVxOfIr8QS_UzNOtC00CL_L6eEEdmzzAAiDu3s28Aq41kIRq4sE3hoF6jV0mxZ6TmaS98B37BmKzs3RLi0qf5U00YpnIenNEywcjLFXryrjmi4JtNxSljTc-HzH_lu-L4MCQW96SF_6qS8enow';
+  testResp: object = null
   /* computed */
   examplePatient() {
     return examplePatient;
@@ -198,7 +156,7 @@ export class TestUi {
               // variant={this.questionnaireVariant}
               enableInformalLocale={true}
               showOnlySummary={false}
-              enableExpand={false}
+              enableExpand={true}
               enableGroupDescription={false}
               summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
               vasVertical={true}

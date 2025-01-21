@@ -196,7 +196,7 @@ export class UrlQuestion {
                   <label class="qr-question-inputLabel qr-urlQuestion-inputLabel" htmlFor="url-text">
                     {this.strings.url.text}:
                   </label>
-                  <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control qr-question-input qr-urlQuestion-input" id="url-text" pattern="\S*" />
+                  <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control qr-question-input qr-urlQuestion-input" id="url-text" pattern="\S*" disabled={this.question.readOnly}/>
                   {this.strings ? (
                     this.naUrl ? (
                       <div class={this.naUrl === null ? 'qr-question-hidden qr-integerQuestion-hidden my-invalid-feedback' : 'qr-question-visible my-valid-feedback'}>{this.strings.url.valid}</div>

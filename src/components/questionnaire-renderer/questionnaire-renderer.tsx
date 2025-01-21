@@ -3,6 +3,7 @@ import * as fhirApi from '@molit/fhir-api';
 import { getLocaleComponentStrings } from '../../utils/locale';
 import questionnaireController from '../../utils/questionnaireController';
 import questionnaireResponseController from '../../utils/questionnaireResponseController';
+import fhirpathController from '../../utils/fhirpathController';
 import valueSetController from '../../utils/valueSetController';
 import { cloneDeep } from 'lodash';
 
@@ -26,8 +27,10 @@ export class QuestionnaireRenderer {
   @Event() updated: EventEmitter;
   @Watch('currentQuestionnaireResponse')
   async watchCurrentQuestionnaireResponse() {
+
     this.filterItemList();
     this.handleAnsweredQuestionsList();
+    await this.handleExpressionCheck()
     this.updated.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
   }
   @State() spinner: Object = {
@@ -785,6 +788,13 @@ export class QuestionnaireRenderer {
   }
 
   /**
+   * 
+   */
+  async handleExpressionCheck(){
+    await fhirpathController.handleCalculatedExpressions(this.currentQuestionnaire, this.currentQuestionnaireResponse, this.currentValueSets)
+  }
+
+  /**
    * Filters the itemlist of the current questionnaire. Removes questions that are hidden and not active
    */
   filterItemList() {
@@ -865,6 +875,7 @@ export class QuestionnaireRenderer {
       this.handleVariants();
       await this.handleStartQuestion(this.start_question);
       this.handleInformationPage();
+      await this.handleExpressionCheck()
       setTimeout(() => {
         this.spinner = { ...this.spinner, loading: false };
       }, 250);
@@ -873,7 +884,6 @@ export class QuestionnaireRenderer {
         console.error(e);
       }
       this.emitError(e);
-
     }
   }
   render() {

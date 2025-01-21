@@ -214,9 +214,9 @@ export class BooleanQuestion {
                     >
                       <div class="form-check">
                         {this.selected === answer.code ? (
-                          <input id={'radio-' + answer.code + '-' + this.question.linkId} class="form-check-input qr-booleanQuestion-radioButton" type="radio" name={'Radio' + this.question.linkId} checked />
+                          <input id={'radio-' + answer.code + '-' + this.question.linkId} class="form-check-input qr-booleanQuestion-radioButton" type="radio" name={'Radio' + this.question.linkId} checked disabled={this.question.readOnly} />
                         ) : (
-                          <input id={'radio-' + answer.code + '-' + this.question.linkId} class="form-check-input qr-booleanQuestion-radioButton" type="radio" name={'Radio' + this.question.linkId} />
+                          <input id={'radio-' + answer.code + '-' + this.question.linkId} class="form-check-input qr-booleanQuestion-radioButton" type="radio" name={'Radio' + this.question.linkId} disabled={this.question.readOnly} />
                         )}
                         {this.strings ? (
                           <label class="form-check-label qr-question-inputLabel" htmlFor={'radio-' + answer.code + this.question.linkId}>

@@ -108,7 +108,7 @@ export class StringQuestion {
     try {
       this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'string');
     } catch (error) {
-      this.emitError(error)
+      this.emitError(error);
     }
   }
   /**
@@ -124,8 +124,8 @@ export class StringQuestion {
   }
 
   /**
-  * Emits an error-event
-  */
+   * Emits an error-event
+   */
   @Event() errorLog: EventEmitter;
   emitError(error) {
     this.errorLog.emit(error);
@@ -152,9 +152,7 @@ export class StringQuestion {
             <div class="qr-question-head">
               <div class="qr-question-title">
                 <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  {this.question.prefix && this.question.prefix != "" ? (
-                    <span class="qr-question-prefix">{this.question.prefix}</span>
-                  ) : null}
+                  {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
                   <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
                 </div>
               </div>
@@ -174,7 +172,7 @@ export class StringQuestion {
                   {this.strings.text.text}:
                 </label>
               ) : null}
-              <input id="string" type="text" class="form-control qr-question-input qr-stringQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} />
+              <input id="string" type="text" class="form-control qr-question-input qr-stringQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly} />
             </div>
             <br />
           </div>
