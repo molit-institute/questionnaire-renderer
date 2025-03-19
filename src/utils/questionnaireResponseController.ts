@@ -123,7 +123,9 @@ function createQuestionItem(questionItem) {
   item.linkId = questionItem.linkId;
   item.definition = questionItem.definition;
   item.text = questionItem.text;
-  item.answer = [];
+  if (questionItem.initial != null && questionItem.initial.length)
+    item.answer = questionItem.initial
+  else item.answer = [];
   item.item = null;
   return item;
 }
