@@ -1,6 +1,6 @@
 {
   "name": "@molit/questionnaire-renderer",
-  "version": "1.0.40",
+  "version": "1.0.41",
   "private": false,
   "description": "Stencil Component for questionnaire-renderer",
   "main": "dist/index.cjs.js",
