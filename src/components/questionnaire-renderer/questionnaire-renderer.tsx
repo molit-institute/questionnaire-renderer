@@ -998,7 +998,7 @@ export class QuestionnaireRenderer {
           <div>
             <information-page
               informationPageText={this.informationPageText}
-              questionnaire={this.questionnaire}
+              questionnaire={this.currentQuestionnaire}
               filteredItemList={this.filteredItemList}
               enableInformalLocale={this.enableInformalLocale}
               enableErrorConsoleLogging={this.enableErrorConsoleLogging}
