@@ -3,7 +3,7 @@ import questionnaireResponseController from '../../utils/questionnaireResponseCo
 import * as examplePatient from '../../assets/fhir/resources/patient-example.js';
 import enableQuestionnaire from '../../assets/fhir/resources/questionnaire-lang-enable.js';
 import everyTypeQuestionnaire from '../../assets/fhir/resources/questionnaire-every-type.js';
-import everyTypeWithInitialQuestionnaire from '../../assets/fhir/resources/questionnaire-every-type_with_initial.js';
+// import everyTypeWithInitialQuestionnaire from '../../assets/fhir/resources/questionnaire-every-type_with_initial.js';
 import repeatedQuestionnaire from '../../assets/fhir/resources/questionnaire-repeat.js';
 import qlq_c30 from '../../assets/fhir/resources/qlq-c30.js';
 import q_5d_5l from '../../assets/fhir/resources/5q-5d-5l.js';
@@ -30,15 +30,15 @@ export class TestUi {
   edit: boolean = false;
   indexQuestion: Object = null;
   // baseUrl: string = 'https://fhir.molit.eu/fhir';
-  // baseUrl: string = 'https://equ.molit-service.de/fhir';
+  baseUrl: string = 'https://equ.molit-service.de/fhir';
   // baseUrl: string = 'https://dev.lion-app.de/fhir';
-  baseUrl: string = 'https://vitu-dev-app.molit-service.de/fhir';
-  questionnaireUrl: string = this.baseUrl + '/Questionnaire/56';
+  // baseUrl: string = 'https://vitu-dev-app.molit-service.de/fhir';
+  // questionnaireUrl: string = this.baseUrl + '/Questionnaire/56';
+  questionnaireUrl: any = null;
   questionnaire: any = null;
-  questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, everyTypeWithInitialQuestionnaire, repeatedQuestionnaire, qlq_c30, q_5d_5l, vomit, lion, dropdown_test];
-  token: string =
-    'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJtTmZsdHEyMVhOd19Fdk1uQXlaX2E0Sjk5Zm5kX2JJbjY5NzljMGZNT0JRIn0.eyJleHAiOjE3MzcwMzE3MzQsImlhdCI6MTczNzAzMTEzNCwiYXV0aF90aW1lIjoxNzM3MDMwNTM0LCJqdGkiOiJlNjIyNDIwYi05OWE2LTQ2YzctODQ4OS1lYmJlNTQ0NjdmMDEiLCJpc3MiOiJodHRwczovL3ZpdHUtZGV2LWFwcC5tb2xpdC1zZXJ2aWNlLmRlL2F1dGgvcmVhbG1zL3ZpdHUtcmVhbG0iLCJhdWQiOlsicmVhbG0tbWFuYWdlbWVudCIsImFjY291bnQiXSwic3ViIjoiNzEyNzU3ZGUtOWRhMC00MDRiLWJjYzAtYjlhMzJiNGVlODNhIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoidml0dS1hdXRoIiwic2lkIjoiNzQ2ZTIxMjgtMzRiYy00NDBkLWE4MzgtZDUyMGRjNmZiNzE4IiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3QqIiwiaHR0cDovL2xvY2FsaG9zdDo4MDgwIiwiaHR0cDovL2xvY2FsaG9zdDo0MTczIiwiaHR0cDovL2xvY2FsaG9zdDo4MDgwLyIsImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyIsImh0dHA6Ly9sb2NhbGhvc3Q6NTE3My8iLCJodHRwczovL3ZpdHUtZGV2LWFwcC5tb2xpdC1zZXJ2aWNlLmRlIiwiaHR0cDovL2xvY2FsaG9zdDo0MTczLyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsidml0dS1jYXNlLW1hbmFnZXIiLCJkZWZhdWx0LXJvbGVzLXZpdHUtcmVhbG0iLCJ2aXR1LW1vZGVyYXRvciIsInZpdHUtdXNlciIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJ2aXR1LWFkbWluIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsicmVhbG0tbWFuYWdlbWVudCI6eyJyb2xlcyI6WyJ2aWV3LXJlYWxtIiwidmlldy1ldmVudHMiLCJtYW5hZ2UtdXNlcnMiLCJ2aWV3LXVzZXJzIiwibWFuYWdlLWNsaWVudHMiLCJxdWVyeS1ncm91cHMiLCJxdWVyeS11c2VycyJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiSmFuIFJvw58iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqYW4ucm9zc0Btb2xpdC1zZXJ2aWNlLmRlIiwiZ2l2ZW5fbmFtZSI6IkphbiIsImZhbWlseV9uYW1lIjoiUm_DnyIsInZpdHUtZ3JvdXAiOlsidGVzdDIzZXJkMjMiXSwiZW1haWwiOiJqYW4ucm9zc0Btb2xpdC1zZXJ2aWNlLmRlIn0.EYieUz6EEfus6Yvf2uE1dVZACw_0ROgc4Xl6aM7OVPdTc_Kwz1G-hNb6Nzod8NKZca5-R9BKx3DkP8uNrM4jVSuuLmxRmlA19Mxh75rInvskqRHA-n1EpdKQ8S_24Hyj4AFVkivuddV_bTBFsKbRaRHml2nPXOm1f_Pc-QB_4DqexbW05Gpdqxa1X5SOPdDqIQx6ZVxOfIr8QS_UzNOtC00CL_L6eEEdmzzAAiDu3s28Aq41kIRq4sE3hoF6jV0mxZ6TmaS98B37BmKzs3RLi0qf5U00YpnIenNEywcjLFXryrjmi4JtNxSljTc-HzH_lu-L4MCQW96SF_6qS8enow';
-  testResp: object = null;
+  questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30, q_5d_5l, vomit, lion, dropdown_test];
+  token: string ='eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJuLWFsQXhUM2g2eUFXNnFXRS1uSmlDY3NXaTZhN21Kb1JtTF9lUEtTRTZjIn0.eyJleHAiOjE3NDc5OTY0NjUsImlhdCI6MTc0Nzk5NTg2NSwiYXV0aF90aW1lIjoxNzQ3OTg0Mjk1LCJqdGkiOiI4MWU0NjA1Yy1hZTdmLTQ2NWUtYjAwNi1hZjMxMGI2NTFkYTQiLCJpc3MiOiJodHRwczovL2VxdS5tb2xpdC1zZXJ2aWNlLmRlL2F1dGgvcmVhbG1zL2VxdS1yZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIwMWRkZjJiOS0zOTU3LTQ3ZGYtOWI0Yy04YzE5YjE3OGNhMmQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJlcXUtYXV0aCIsInNpZCI6IjNkMmE3NGViLTJlODYtNGUwMC1hM2Y0LTkwMDFlY2VhYjk3NiIsImFjciI6IjAiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cHM6Ly9lcXUubW9saXQtc2VydmljZS5kZSIsImh0dHA6Ly8xMjcuMC4wLjE6NDE3NCIsImh0dHA6Ly8xMjcuMC4wLjE6NDE3MyIsImh0dHA6Ly9sb2NhbGhvc3QqIiwiaHR0cDovL2xvY2FsaG9zdDo1MTczIiwiaHR0cDovLzEyNy4wLjAuMTo1MTczIiwiaHR0cDovL2xvY2FsaG9zdDo1MTc0IiwiaHR0cDovL2xvY2FsaG9zdDo4MDgwIiwiaHR0cHM6Ly9sb2NhbGhvc3QqIiwiaHR0cDovLzEyNy4wLjE6ODA4MCIsImh0dHBzOi8vMTI3LjAuMTo1MTczIiwiaHR0cDovLzEyNy4wLjE6NTE3MyIsImh0dHBzOi8vaGVhbHRoLWNvbm5lY3Rvci5tb2xpdC1zZXJ2aWNlLmRlIiwiaHR0cDovLzEyNy4wLjE6NTE3NCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1lcXUtcmVhbG0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoidGVzdCBtYW5uIiwicHJlZmVycmVkX3VzZXJuYW1lIjoidGVzdG1hbm4iLCJnaXZlbl9uYW1lIjoidGVzdCIsImZhbWlseV9uYW1lIjoibWFubiIsImVtYWlsIjoidGVzdG1hbm5AbW9saXQtc2VydmljZS5kZSJ9.ISJTwqHXsnVIaCS0ElBF9OohePcaTP-nLo8D6b49QbjMsN02UAA58G2DCWHsjpfKw3Mt6c8ojJjk3BzlaMbXH4RETVjYjaGLs1tFlBm2TMTdWaAUf2-K7Ub0KDaTjHQMFcFPtCTXymQrZ_OlqnOXZS4RJSUoTBkIrYPm6awAMkh9xfrZ_DUJ2W1YtOdrgPvyHQmh2-GigCOGbv6KXDAYGSnenOVcvxJFrQxWFEkCy5doghr6fvh-72yU9FTtq17Ek2H-qxEg7llAZPgfOrznUn4EhAscFxpcKBjOQLwoaSwfx1dJhFIe09eRvdnYEDoTUkwR42SfxjyLukqCwSHp9Q';
+  testResp: object = null
   /* computed */
   examplePatient() {
     return examplePatient;
@@ -56,6 +56,11 @@ export class TestUi {
   }
   openSelectedQuestionnaire(questionnaire) {
     this.questionnaire = questionnaire;
+    this.show_renderer = true;
+    this.show_questionnaire_list = false;
+    this.show_summary = false;
+  }
+  startQuestionnaire(){
     this.show_renderer = true;
     this.show_questionnaire_list = false;
     this.show_summary = false;
@@ -122,7 +127,7 @@ export class TestUi {
               Touch
             </div>
           </div>
-
+          <button onClick={() => this.startQuestionnaire()}>Start via Url</button>
           {this.show_questionnaire_list
             ? this.questionnaires.map(questionnaire => (
                 <div onClick={() => this.openSelectedQuestionnaire(questionnaire)}>
@@ -168,6 +173,7 @@ export class TestUi {
               questionnaireResponseStatus="amended"
               onErrorLog={error => console.info(error)}
               visibleBooleanNullOption={true}
+              questionnaireUrlIdentifier="https://molit.eu/fhir/Questionnaire/Beck-Depressions-Inventar"
             ></questionnaire-renderer>
           ) : null}
           {this.show_summary ? (

@@ -233,6 +233,10 @@ export class QuestionnaireRenderer {
    */
   @Prop() visibleBooleanNullOption: boolean = true;
   /**
+   *  Canonical identifier for this questionnaire, represented as a URI. If provided will be used to fetch the questionnaire from the fhir server using the provided url.
+   */
+  @Prop() questionnaireUrlIdentifier: string;
+  /**
    * Text for back-button
    */
   back: string;
@@ -421,7 +425,7 @@ export class QuestionnaireRenderer {
    * Creates a new QuestionnaireResponse
    */
   createQuestionnaireResponse() {
-    this.currentQuestionnaireResponse = questionnaireResponseController.createQuestionnaireResponse(this.questionnaire, this.subject, this.questionnaireResponse);
+    this.currentQuestionnaireResponse = questionnaireResponseController.createQuestionnaireResponse(this.currentQuestionnaire, this.subject, this.questionnaireResponse);
   }
 
   /**
@@ -507,6 +511,24 @@ export class QuestionnaireRenderer {
     } else if (this.questionnaireUrl) {
       try {
         this.currentQuestionnaire = await fhirApi.fetchByUrl(this.questionnaireUrl, null, this.token, this.basicAuth);
+        // Add Group-Ids to Questions in Groups
+        for (let i = 0; i < this.currentQuestionnaire.item.length; i++) {
+          if (this.currentQuestionnaire.item[i].type === 'group') {
+            this.addGroupIdToItems(this.currentQuestionnaire.item[i].item, this.currentQuestionnaire.item[i].linkId);
+            await this.putDisplayQuestionsIntoGroups(this.currentQuestionnaire.item[i]);
+          }
+        }
+        await this.removeGroupedDisplayQuestions(this.currentQuestionnaire.item);
+      } catch (error) {
+        this.emitError(error);
+        if (this.enableErrorConsoleLogging) {
+          console.error(error);
+        }
+      }
+    } else if(this.questionnaireUrlIdentifier){
+      try {
+        let result = await fhirApi.fetchByUrl(this.baseUrl +"/Questionnaire?url="+this.questionnaireUrlIdentifier, null, this.token, this.basicAuth);
+        this.currentQuestionnaire = result.data.entry[0].resource
         // Add Group-Ids to Questions in Groups
         for (let i = 0; i < this.currentQuestionnaire.item.length; i++) {
           if (this.currentQuestionnaire.item[i].type === 'group') {
@@ -976,7 +998,7 @@ export class QuestionnaireRenderer {
           <div>
             <information-page
               informationPageText={this.informationPageText}
-              questionnaire={this.questionnaire}
+              questionnaire={this.currentQuestionnaire}
               filteredItemList={this.filteredItemList}
               enableInformalLocale={this.enableInformalLocale}
               enableErrorConsoleLogging={this.enableErrorConsoleLogging}
