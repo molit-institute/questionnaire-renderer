@@ -425,7 +425,7 @@ export class QuestionnaireRenderer {
    * Creates a new QuestionnaireResponse
    */
   createQuestionnaireResponse() {
-    this.currentQuestionnaireResponse = questionnaireResponseController.createQuestionnaireResponse(this.questionnaire, this.subject, this.questionnaireResponse);
+    this.currentQuestionnaireResponse = questionnaireResponseController.createQuestionnaireResponse(this.currentQuestionnaire, this.subject, this.questionnaireResponse);
   }
 
   /**
@@ -527,7 +527,8 @@ export class QuestionnaireRenderer {
       }
     } else if(this.questionnaireUrlIdentifier){
       try {
-        this.currentQuestionnaire = await fhirApi.fetchByUrl(this.baseUrl +"/Questionnaire?url="+this.questionnaireUrlIdentifier, null, this.token, this.basicAuth);
+        let result = await fhirApi.fetchByUrl(this.baseUrl +"/Questionnaire?url="+this.questionnaireUrlIdentifier, null, this.token, this.basicAuth);
+        this.currentQuestionnaire = result.data.entry[0].resource
         // Add Group-Ids to Questions in Groups
         for (let i = 0; i < this.currentQuestionnaire.item.length; i++) {
           if (this.currentQuestionnaire.item[i].type === 'group') {

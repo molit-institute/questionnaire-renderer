@@ -393,6 +393,10 @@ export namespace Components {
          */
         "questionnaireUrl": string;
         /**
+          * Canonical identifier for this questionnaire, represented as a URI. If provided will be used to fetch the questionnaire from the fhir server using the provided url.
+         */
+        "questionnaireUrlIdentifier": string;
+        /**
           * Secondary color
          */
         "secondary": string;
@@ -1627,6 +1631,10 @@ declare namespace LocalJSX {
           * The Url to fetch the Questionnaire from
          */
         "questionnaireUrl"?: string;
+        /**
+          * Canonical identifier for this questionnaire, represented as a URI. If provided will be used to fetch the questionnaire from the fhir server using the provided url.
+         */
+        "questionnaireUrlIdentifier"?: string;
         /**
           * Secondary color
          */
