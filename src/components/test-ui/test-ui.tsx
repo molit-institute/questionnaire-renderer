@@ -3,6 +3,7 @@ import questionnaireResponseController from '../../utils/questionnaireResponseCo
 import * as examplePatient from '../../assets/fhir/resources/patient-example.js';
 import enableQuestionnaire from '../../assets/fhir/resources/questionnaire-lang-enable.js';
 import everyTypeQuestionnaire from '../../assets/fhir/resources/questionnaire-every-type.js';
+import everyTypeWithInitialQuestionnaire from '../../assets/fhir/resources/questionnaire-every-type_with_initial.js';
 import repeatedQuestionnaire from '../../assets/fhir/resources/questionnaire-repeat.js';
 import qlq_c30 from '../../assets/fhir/resources/qlq-c30.js';
 import q_5d_5l from '../../assets/fhir/resources/5q-5d-5l.js';
