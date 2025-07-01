@@ -30,6 +30,7 @@ export class UrlQuestion {
     if (this.allow_events) {
       let object = null;
       this.validateUrl();
+      console.log(this.naUrl)
       if (this.selected != null) {
         this.selected = this.selected.trimLeft();
         object = {
@@ -97,6 +98,7 @@ export class UrlQuestion {
    */
   allow_events: boolean = false;
   naUrl: boolean = null;
+  private urlRegex = /^(https?:\/\/)?([\w\-]+\.)+[a-z]{2,}(:\d+)?(\/[^\s]*)?$/
 
   /* computed */
   validate() {
@@ -105,11 +107,12 @@ export class UrlQuestion {
 
   /* methods */
   validateUrl() {
+    console.log(this.selected)
     if (this.selected === '' || this.selected === null) {
       this.naUrl = null;
     } else {
-      let regex = new RegExp('^\\S*$');
-      this.naUrl = this.selected.match(regex) ? true : false;
+      // let regex = new RegExp('^(https?:\/\/)?([\w\-]+\.)+[a-z]{2,}(:\d+)?(\/[^\s]*)?$');
+      this.naUrl = this.urlRegex.test(this.selected);
     }
   }
 
@@ -197,6 +200,7 @@ export class UrlQuestion {
                     {this.strings.url.text}:
                   </label>
                   <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control qr-question-input qr-urlQuestion-input" id="url-text" pattern="\S*" disabled={this.question.readOnly}/>
+                 {this.naUrl}
                   {this.strings ? (
                     this.naUrl ? (
                       <div class={this.naUrl === null ? 'qr-question-hidden qr-integerQuestion-hidden my-invalid-feedback' : 'qr-question-visible my-valid-feedback'}>{this.strings.url.valid}</div>

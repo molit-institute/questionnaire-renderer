@@ -7,27 +7,27 @@ const vomitQuestionnaire = {
   description: "This a short demo questionnaire showcasing different types of questions and functions",
   publisher: "MOLIT Institut gGmbH",
   item: [
-    {
-      linkId: "3",
-      prefix: "1.",
-      text: "Date Frage 1 ohne Extension",
-      type: "date"
-    },
-    {
-      linkId: "1",
-      prefix: "2.",
-      text: "Frage mit maxValue Extension",
-      type: "date",
-      extension : [{
-        url : "http://molit-service.de/fhir/isMaxValueCurrentDate",
-        valueBoolean : true
-      }],
-    },
+    // {
+    //   linkId: "3",
+    //   prefix: "1.",
+    //   text: "Date Frage 1 ohne Extension",
+    //   type: "date"
+    // },
+    // {
+    //   linkId: "1",
+    //   prefix: "2.",
+    //   text: "Frage mit maxValue Extension",
+    //   type: "date",
+    //   extension : [{
+    //     url : "http://molit-service.de/fhir/isMaxValueCurrentDate",
+    //     valueBoolean : true
+    //   }],
+    // },
     {
       linkId: "2",
       prefix: "3.",
       text: "Date Frage 2 ohne Extension",
-      type: "date"
+      type: "url"
     },
     // {
     //   linkId: "1.1",
