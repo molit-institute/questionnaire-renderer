@@ -36,8 +36,9 @@ export class TestUi {
   // questionnaireUrl: string = this.baseUrl + '/Questionnaire/56';
   questionnaireUrl: any = null;
   questionnaire: any = null;
+  @State() questionnaireUrlIdentifier: any = "https://molit.eu/fhir/Questionnaire/qlq30";
   questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30, q_5d_5l, vomit, lion, dropdown_test];
-  token: string ='eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJuLWFsQXhUM2g2eUFXNnFXRS1uSmlDY3NXaTZhN21Kb1JtTF9lUEtTRTZjIn0.eyJleHAiOjE3NDc5OTY0NjUsImlhdCI6MTc0Nzk5NTg2NSwiYXV0aF90aW1lIjoxNzQ3OTg0Mjk1LCJqdGkiOiI4MWU0NjA1Yy1hZTdmLTQ2NWUtYjAwNi1hZjMxMGI2NTFkYTQiLCJpc3MiOiJodHRwczovL2VxdS5tb2xpdC1zZXJ2aWNlLmRlL2F1dGgvcmVhbG1zL2VxdS1yZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIwMWRkZjJiOS0zOTU3LTQ3ZGYtOWI0Yy04YzE5YjE3OGNhMmQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJlcXUtYXV0aCIsInNpZCI6IjNkMmE3NGViLTJlODYtNGUwMC1hM2Y0LTkwMDFlY2VhYjk3NiIsImFjciI6IjAiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cHM6Ly9lcXUubW9saXQtc2VydmljZS5kZSIsImh0dHA6Ly8xMjcuMC4wLjE6NDE3NCIsImh0dHA6Ly8xMjcuMC4wLjE6NDE3MyIsImh0dHA6Ly9sb2NhbGhvc3QqIiwiaHR0cDovL2xvY2FsaG9zdDo1MTczIiwiaHR0cDovLzEyNy4wLjAuMTo1MTczIiwiaHR0cDovL2xvY2FsaG9zdDo1MTc0IiwiaHR0cDovL2xvY2FsaG9zdDo4MDgwIiwiaHR0cHM6Ly9sb2NhbGhvc3QqIiwiaHR0cDovLzEyNy4wLjE6ODA4MCIsImh0dHBzOi8vMTI3LjAuMTo1MTczIiwiaHR0cDovLzEyNy4wLjE6NTE3MyIsImh0dHBzOi8vaGVhbHRoLWNvbm5lY3Rvci5tb2xpdC1zZXJ2aWNlLmRlIiwiaHR0cDovLzEyNy4wLjE6NTE3NCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1lcXUtcmVhbG0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoidGVzdCBtYW5uIiwicHJlZmVycmVkX3VzZXJuYW1lIjoidGVzdG1hbm4iLCJnaXZlbl9uYW1lIjoidGVzdCIsImZhbWlseV9uYW1lIjoibWFubiIsImVtYWlsIjoidGVzdG1hbm5AbW9saXQtc2VydmljZS5kZSJ9.ISJTwqHXsnVIaCS0ElBF9OohePcaTP-nLo8D6b49QbjMsN02UAA58G2DCWHsjpfKw3Mt6c8ojJjk3BzlaMbXH4RETVjYjaGLs1tFlBm2TMTdWaAUf2-K7Ub0KDaTjHQMFcFPtCTXymQrZ_OlqnOXZS4RJSUoTBkIrYPm6awAMkh9xfrZ_DUJ2W1YtOdrgPvyHQmh2-GigCOGbv6KXDAYGSnenOVcvxJFrQxWFEkCy5doghr6fvh-72yU9FTtq17Ek2H-qxEg7llAZPgfOrznUn4EhAscFxpcKBjOQLwoaSwfx1dJhFIe09eRvdnYEDoTUkwR42SfxjyLukqCwSHp9Q';
+  @State() token: string = null
   testResp: object = null
   /* computed */
   examplePatient() {
@@ -100,6 +101,17 @@ export class TestUi {
     this.edit = false;
     this.indexQuestion = null;
   }
+
+  handleTokenInput = (event: Event) => {
+    const input = event.target as HTMLInputElement;
+    this.token = input.value;
+  };
+
+  handleUrlInput = (event: Event) => {
+    const input = event.target as HTMLInputElement;
+    this.questionnaireUrlIdentifier = input.value;
+  };
+
   render() {
     return (
       <div>
@@ -127,7 +139,17 @@ export class TestUi {
               Touch
             </div>
           </div>
+          <br />
+          <div>
+            Token: <input type="text" style={{width:'90%', margin:'0 0 10px 0'}} value={this.token} onInput={this.handleTokenInput}/>
+          </div>
+          <div>
+            Url: <input type="text" style={{width:'90%'}} value={this.questionnaireUrlIdentifier} onInput={this.handleUrlInput}></input>
+          </div>
+          <br />
           <button onClick={() => this.startQuestionnaire()}>Start via Url</button>
+          <br />
+          <br />
           {this.show_questionnaire_list
             ? this.questionnaires.map(questionnaire => (
                 <div onClick={() => this.openSelectedQuestionnaire(questionnaire)}>
@@ -173,7 +195,7 @@ export class TestUi {
               questionnaireResponseStatus="amended"
               onErrorLog={error => console.info(error)}
               visibleBooleanNullOption={true}
-              questionnaireUrlIdentifier="https://molit.eu/fhir/Questionnaire/Beck-Depressions-Inventar"
+              questionnaireUrlIdentifier={this.questionnaireUrlIdentifier}
             ></questionnaire-renderer>
           ) : null}
           {this.show_summary ? (

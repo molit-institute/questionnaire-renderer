@@ -15,6 +15,7 @@ export default {
   finish: 'Finish',
   group: 'Group',
   noResult: 'No result',
+  noAnswer: 'No answer',
 
   numberOfQuestions: 'Number of questions',
   publisher: 'Publisher',

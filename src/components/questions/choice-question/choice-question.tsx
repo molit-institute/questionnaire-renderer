@@ -26,7 +26,6 @@ export class ChoiceQuestion {
    * Variable to store the value of the input
    */
   @State() selected: any = [];
-  // @State() statusi: string="render";
   @Event() emitAnswer: EventEmitter;
   @Watch('selected')
   watchSelected() {
@@ -41,7 +40,7 @@ export class ChoiceQuestion {
         };
       } else {
         //RADIOBUTTONS
-        if (this.selected) {
+        if (this.selected.length !== 0) {
           object = {
             type: 'coding',
             question: this.question,
@@ -156,7 +155,11 @@ export class ChoiceQuestion {
   }
 
   onBoxClickedSingleChoice(display, code) {
-    this.selected = this.formatAnswer(display, code);
+    if(this.selected?.code === code){
+      this.selected = []
+    }else{
+      this.selected = this.formatAnswer(display, code);
+    }
   }
 
   onBoxClickedMultipleChoice(display, code) {
