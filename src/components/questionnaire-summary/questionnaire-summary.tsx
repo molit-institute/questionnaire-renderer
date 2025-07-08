@@ -292,8 +292,23 @@ export class QuestionnaireSummary {
         if (task.executionPeriod) {
           task.executionPeriod.end = new Date().toISOString();
         }
-        if(questionnaireResponseReference){
-          task.output.value = questionnaireResponseReference
+        if (questionnaireResponseReference) {
+          task.output = [
+            {
+              type: {
+                coding: [
+                  {
+                    system: 'http://hl7.org/fhir/ValueSet/resource-types',
+                    code: 'QuestionnaireResponse',
+                    display: 'QuestionnaireResponse',
+                  },
+                ],
+              },
+              valueReference: {
+                reference: questionnaireResponseReference,
+              },
+            },
+          ];
         }
 
         task.status = 'completed';
@@ -326,8 +341,8 @@ export class QuestionnaireSummary {
     this.closeSummary.emit('closeSummary');
   }
 
-  checkIfGroupQuestion(item) {
-    let list = questionnaireResponseController.createItemList(this.questionnaire);
+  async checkIfGroupQuestion(item) {
+    let list = await questionnaireResponseController.createItemList(this.questionnaire);
     for (let i = 0; i < list.length; i++) {
       if (item.linkId === list[i].linkId) {
         if (list[i].groupId) {

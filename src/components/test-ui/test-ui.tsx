@@ -30,7 +30,7 @@ export class TestUi {
   edit: boolean = false;
   indexQuestion: Object = null;
   // baseUrl: string = 'https://fhir.molit.eu/fhir';
-  baseUrl: string = 'https://equ.molit-service.de/fhir';
+  @State() baseUrl: string = 'https://equ.molit-service.de/fhir';
   // baseUrl: string = 'https://dev.lion-app.de/fhir';
   // baseUrl: string = 'https://vitu-dev-app.molit-service.de/fhir';
   // questionnaireUrl: string = this.baseUrl + '/Questionnaire/56';
@@ -44,6 +44,41 @@ export class TestUi {
   examplePatient() {
     return examplePatient;
   }
+  task: any = {
+  resourceType: "Task",
+  meta: {
+    tag: [
+      {
+        code: "pre-OP",
+        display: "vor OP"
+      }
+    ]
+  },
+  status: "active",
+  intent: "order",
+code: {
+    coding: [
+      {
+        system: "http://molit.eu/fhir/CodeSystem/taskTypes",
+        code: "eQuestionnaire",
+        display: "eQU Questionnaire"
+      }
+    ],
+    text: "PatientQuestionnaireTask"
+  },
+  focus: {
+    reference: "Questionnaire/1",
+    display: "QLQ-C30"
+  },
+  for: {
+    reference: "Patient/14",
+    display: "Maier, Peter"
+  },
+  executionPeriod: {
+    start: "2023-10-25T10:38:49.378Z",
+    end: "2025-01-01T09:00:05+01:00"
+  }
+}
 
   /* methods */
   setQuestionnaireMode(selectedMode) {
@@ -111,6 +146,10 @@ export class TestUi {
     const input = event.target as HTMLInputElement;
     this.questionnaireUrlIdentifier = input.value;
   };
+  handleBaseUrlInput = (event: Event) => {
+    const input = event.target as HTMLInputElement;
+    this.baseUrl = input.value;
+  };
 
   render() {
     return (
@@ -141,10 +180,13 @@ export class TestUi {
           </div>
           <br />
           <div>
-            Token: <input type="text" style={{width:'90%', margin:'0 0 10px 0'}} value={this.token} onInput={this.handleTokenInput}/>
+            Token: <input type="text" style={{'min-width':'50%', margin:'0 0 10px 0'}} value={this.token} onInput={this.handleTokenInput}/>
           </div>
           <div>
-            Url: <input type="text" style={{width:'90%'}} value={this.questionnaireUrlIdentifier} onInput={this.handleUrlInput}></input>
+            Questionnaire Url: <input type="text" style={{'min-width':'50%', margin:'0 0 10px 0'}} value={this.questionnaireUrlIdentifier} onInput={this.handleUrlInput}></input>
+          </div>
+          <div>
+            Fhir Base Url: <input type="text" style={{'min-width':'50%'}} value={this.baseUrl} onInput={this.handleBaseUrlInput}></input>
           </div>
           <br />
           <button onClick={() => this.startQuestionnaire()}>Start via Url</button>
@@ -196,6 +238,7 @@ export class TestUi {
               onErrorLog={error => console.info(error)}
               visibleBooleanNullOption={true}
               questionnaireUrlIdentifier={this.questionnaireUrlIdentifier}
+              task={this.task}
             ></questionnaire-renderer>
           ) : null}
           {this.show_summary ? (

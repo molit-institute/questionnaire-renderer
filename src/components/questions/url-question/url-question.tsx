@@ -5,6 +5,7 @@ import { Component, h, Prop, Watch, State, Element, Event, EventEmitter, Listen 
 import questionnaireResponseController from '../../../utils/questionnaireResponseController';
 import { getLocaleComponentStrings } from '../../../utils/locale';
 import { textToHtml } from '../../../utils/textToHtml';
+import debounce from 'lodash.debounce';
 
 @Component({
   tag: 'url-question',
@@ -29,8 +30,6 @@ export class UrlQuestion {
   watchSelected() {
     if (this.allow_events) {
       let object = null;
-      this.validateUrl();
-      console.log(this.naUrl)
       if (this.selected != null) {
         this.selected = this.selected.trimLeft();
         object = {
@@ -45,6 +44,7 @@ export class UrlQuestion {
           value: [],
         };
       }
+      this.debouncedValidateUrl();
       this.emitAnswer.emit(object);
     }
   }
@@ -97,7 +97,7 @@ export class UrlQuestion {
    * Allows events to be emitted if true
    */
   allow_events: boolean = false;
-  naUrl: boolean = null;
+  @State() naUrl: boolean = null;
   private urlRegex = /^(https?:\/\/)?([\w\-]+\.)+[a-z]{2,}(:\d+)?(\/[^\s]*)?$/
 
   /* computed */
@@ -107,17 +107,20 @@ export class UrlQuestion {
 
   /* methods */
   validateUrl() {
-    console.log(this.selected)
     if (this.selected === '' || this.selected === null) {
       this.naUrl = null;
     } else {
-      // let regex = new RegExp('^(https?:\/\/)?([\w\-]+\.)+[a-z]{2,}(:\d+)?(\/[^\s]*)?$');
       this.naUrl = this.urlRegex.test(this.selected);
     }
   }
 
+  debouncedValidateUrl = debounce(() => {
+    this.validateUrl()
+  },300)
+
   handleChange(event) {
     this.selected = event.target.value;
+    this.debouncedValidateUrl()
   }
 
   setSelected() {
