@@ -41,8 +41,8 @@ export default {
 
   url: {
     text: 'Enter the url here',
-    invalid: 'The specified URL was not correct.',
-    valid: 'The specified URL was correct.',
+    invalid: 'The specified URL was formally not correct.',
+    valid: 'The specified URL was formally correct.',
   },
   time: {
     text: 'Enter the time here',
