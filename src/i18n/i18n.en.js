@@ -15,6 +15,7 @@ export default {
   finish: 'Finish',
   group: 'Group',
   noResult: 'No result',
+  noAnswer: 'No answer',
 
   numberOfQuestions: 'Number of questions',
   publisher: 'Publisher',
@@ -40,8 +41,8 @@ export default {
 
   url: {
     text: 'Enter the url here',
-    invalid: 'The specified URL was not correct.',
-    valid: 'The specified URL was correct.',
+    invalid: 'The specified URL was formally not correct.',
+    valid: 'The specified URL was formally correct.',
   },
   time: {
     text: 'Enter the time here',

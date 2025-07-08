@@ -40,8 +40,8 @@ export default {
   },
   url: {
     text: 'Geben Sie hier die Url ein',
-    invalid: 'Die angegebene Url ist nicht korrekt.',
-    valid: 'Die angegebene Url ist korrekt.',
+    invalid: 'Die angegebene Url ist formell nicht korrekt.',
+    valid: 'Die angegebene Url ist formell korrekt.',
   },
   time: {
     text: 'Geben Sie hier die Zeit ein',

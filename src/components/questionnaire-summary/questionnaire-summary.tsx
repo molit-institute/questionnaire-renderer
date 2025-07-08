@@ -255,11 +255,12 @@ export class QuestionnaireSummary {
   @Event() finishTask: EventEmitter;
   async completeQuestionnaireResponse() {
     if (this.questionnaireResponse) {
+      let questionnaireResponseReference = null;
       this.spinner = { ...this.spinner, loading: true };
       this.spinner = { ...this.spinner, message: this.strings.summary.saveQuestionnaire };
-      if(this.questionnaireResponseStatus){
+      if (this.questionnaireResponseStatus) {
         this.questionnaireResponse.status = this.questionnaireResponseStatus;
-      }else{
+      } else {
         this.questionnaireResponse.status = 'completed';
       }
       let questResp = cloneDeep(this.questionnaireResponse);
@@ -273,11 +274,12 @@ export class QuestionnaireSummary {
           if (questResp && questResp.id) {
             let output = await fhirApi.updateResource(this.baseUrl, questResp, this.token, this.basicAuth);
             console.info('Updated Questionnaire Response with ID: ' + output.data.id, 'Url: ' + output.config.url + '/' + output.data.id);
+            questionnaireResponseReference = '/QuestionnaireResponse/' + output.data.id;
           } else {
             let output = await fhirApi.submitResource(this.baseUrl, questResp, this.token, this.basicAuth);
             console.info('Questionnaire Response ID: ' + output.data.id, 'Url: ' + output.config.url + '/' + output.data.id);
+            questionnaireResponseReference = '/QuestionnaireResponse/' + output.data.id;
           }
-
         } catch (error) {
           this.emitError(error);
           if (this.enableErrorConsoleLogging) {
@@ -286,10 +288,29 @@ export class QuestionnaireSummary {
         }
       }
       // Handle Task
-      if (this.task ) {
-        if(task.executionPeriod){
+      if (this.task) {
+        if (task.executionPeriod) {
           task.executionPeriod.end = new Date().toISOString();
         }
+        if (questionnaireResponseReference) {
+          task.output = [
+            {
+              type: {
+                coding: [
+                  {
+                    system: 'http://hl7.org/fhir/ValueSet/resource-types',
+                    code: 'QuestionnaireResponse',
+                    display: 'QuestionnaireResponse',
+                  },
+                ],
+              },
+              valueReference: {
+                reference: questionnaireResponseReference,
+              },
+            },
+          ];
+        }
+
         task.status = 'completed';
         this.finishTask.emit(task);
         if (this.baseUrl) {
@@ -320,8 +341,8 @@ export class QuestionnaireSummary {
     this.closeSummary.emit('closeSummary');
   }
 
-  checkIfGroupQuestion(item) {
-    let list = questionnaireResponseController.createItemList(this.questionnaire);
+  async checkIfGroupQuestion(item) {
+    let list = await questionnaireResponseController.createItemList(this.questionnaire);
     for (let i = 0; i < list.length; i++) {
       if (item.linkId === list[i].linkId) {
         if (list[i].groupId) {
