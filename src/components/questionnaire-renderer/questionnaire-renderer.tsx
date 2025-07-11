@@ -33,7 +33,7 @@ export class QuestionnaireRenderer {
     await this.handleExpressionCheck()
     this.updated.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
   }
-  @State() spinner: Object = {
+  @State() spinner: any = {
     loading: true,
     message: '',
   };
@@ -899,8 +899,9 @@ export class QuestionnaireRenderer {
       this.handleInformationPage();
       await this.handleExpressionCheck()
       setTimeout(() => {
+        console.log(this.spinner.loading)
         this.spinner = { ...this.spinner, loading: false };
-      }, 250);
+      }, 2050);
     } catch (e) {
       if (this.enableErrorConsoleLogging) {
         console.error(e);
@@ -912,6 +913,10 @@ export class QuestionnaireRenderer {
     const Tag = this.currentMode;
     return (
       <div class="qr-questionnaireRenderer-container">
+        test
+        {this.spinner.loading ? (
+          <simple-spinner message={this.spinner.message}></simple-spinner>
+        ) : null}
         {this.show_questionnaire && !this.showOnlySummary ? (
           <div class="qr-questionnaireRenderer-questions">
             <Tag
@@ -975,7 +980,7 @@ export class QuestionnaireRenderer {
               locale={this.locale}
               task={this.task}
               summary_text={this.summaryText}
-              questionnaire={this.questionnaire}
+              questionnaire={this.currentQuestionnaire}
               questionnaireResponse={this.enableFullQuestionnaireResponse ? this.currentQuestionnaireResponse : this.filterQuestionnaireResponse(this.currentQuestionnaireResponse)}
               onToQuestionnaireRenderer={() => this.toQuestionnaire(true)}
               onEditQuestion={question => this.editQuestion(question)}

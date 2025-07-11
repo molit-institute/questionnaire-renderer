@@ -202,7 +202,7 @@ export class UrlQuestion {
                   <label class="qr-question-inputLabel qr-urlQuestion-inputLabel" htmlFor="url-text">
                     {this.strings.url.text}:
                   </label>
-                  <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control qr-question-input qr-urlQuestion-input" id="url-text" pattern="\S*" disabled={this.question.readOnly}/>
+                  <input type="url" value={this.selected} onInput={e => this.handleChange(e)} class="form-control qr-question-input qr-urlQuestion-input" id="url-text" disabled={this.question.readOnly}/>
                  {this.naUrl}
                   {this.strings ? (
                     this.naUrl ? (
