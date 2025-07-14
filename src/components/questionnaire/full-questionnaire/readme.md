@@ -17,13 +17,12 @@
 | `enableNext`                 | `enable-next`                  |                                                                            | `boolean` | `true`      |
 | `enableReturn`               | `enable-return`                |                                                                            | `boolean` | `true`      |
 | `filteredItemList`           | --                             |                                                                            | `any[]`   | `undefined` |
-| `locale`                     | `locale`                       |                                                                            | `string`  | `'en'`      |
+| `locale`                     | `locale`                       | Language property of the component. </br> Currently suported: [de, en, es] | `string`  | `'en'`      |
 | `primary`                    | `primary`                      | Primary color                                                              | `string`  | `undefined` |
 | `questionnaire` _(required)_ | `questionnaire`                |                                                                            | `any`     | `undefined` |
 | `questionnaireResponse`      | --                             |                                                                            | `Object`  | `null`      |
 | `requiredQuestionList`       | --                             |                                                                            | `any[]`   | `undefined` |
 | `secondary`                  | `secondary`                    | Secondary color                                                            | `string`  | `undefined` |
-| `spinner`                    | `spinner`                      | Language property of the component. </br> Currently suported: [de, en, es] | `any`     | `undefined` |
 | `startCount`                 | `start-count`                  |                                                                            | `number`  | `undefined` |
 | `valueSets`                  | --                             |                                                                            | `any[]`   | `undefined` |
 | `variant`                    | `variant`                      |                                                                            | `any`     | `null`      |
@@ -42,19 +41,6 @@
 | `return`   |                      | `CustomEvent<any>` |
 | `summary`  |                      | `CustomEvent<any>` |
 
-
-## Dependencies
-
-### Depends on
-
-- [simple-spinner](../../ui/simple-spinner)
-
-### Graph
-```mermaid
-graph TD;
-  full-questionnaire --> simple-spinner
-  style full-questionnaire fill:#f9f,stroke:#333,stroke-width:4px
-```
 
 ----------------------------------------------
 
