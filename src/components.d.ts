@@ -155,6 +155,9 @@ export namespace Components {
         "enableNext": boolean;
         "enableReturn": boolean;
         "filteredItemList": Array<any>;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
         "locale": string;
         /**
           * Primary color
@@ -167,10 +170,6 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
-        /**
-          * Language property of the component. </br> Currently suported: [de, en, es]
-         */
-        "spinner": any;
         "startCount": number;
         "valueSets": Array<any>;
         "variant": any;
@@ -521,7 +520,6 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
-        "spinner": any;
         "startCount": number;
         "trademarkText": string;
         "valueSets": Array<any>;
@@ -1328,6 +1326,9 @@ declare namespace LocalJSX {
         "enableNext"?: boolean;
         "enableReturn"?: boolean;
         "filteredItemList"?: Array<any>;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
         "locale"?: string;
         /**
           * Emits an error-event
@@ -1347,10 +1348,6 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
-        /**
-          * Language property of the component. </br> Currently suported: [de, en, es]
-         */
-        "spinner"?: any;
         "startCount"?: number;
         "valueSets"?: Array<any>;
         "variant"?: any;
@@ -1784,7 +1781,6 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
-        "spinner"?: any;
         "startCount"?: number;
         "trademarkText"?: string;
         "valueSets"?: Array<any>;

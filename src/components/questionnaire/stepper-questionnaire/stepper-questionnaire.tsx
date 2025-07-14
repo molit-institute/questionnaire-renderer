@@ -92,7 +92,6 @@ export class StepperQuestionnaire {
   @Prop() enableSummary: boolean = true;
   @Prop() enableReturn: boolean = true;
   @Prop() enableNext: boolean = true;
-  @Prop() spinner: any;
   @Prop() enableInformalLocale: boolean;
   @Prop() trademarkText: string = null;
   @Prop() enableGroupDescription: boolean;
@@ -348,13 +347,6 @@ export class StepperQuestionnaire {
       <div class="qr-stepperQuestionnaire-container">
         {/* // <div class="column card-body"> */}
         {/* SPINNER */}
-        spinner
-        {this.spinner.loading && !this.filteredItemList && this.count !== null ? (
-          <div class="qr-stepperQuestionnaire-spinner">
-            <simple-spinner message={this.spinner.message}></simple-spinner>
-          </div>
-        ) : null}
-        {!this.spinner.loading ? (
           <div class="qr-stepperQuestionnaire-progress-container">
             {/* PROGRESS */}
             <div class="progress qr-stepperQuestionnaire-progress">
@@ -379,9 +371,8 @@ export class StepperQuestionnaire {
               </div>
             ) : null}
           </div>
-        ) : null}
         <br />
-        {!this.spinner.loading && this.count !== null && this.filteredItemList && !this.checkIfGroupDisplay(this.getQuestion()) ? (
+        {this.count !== null && this.filteredItemList && !this.checkIfGroupDisplay(this.getQuestion()) ? (
           <div class="qr-stepperQuestionnaire-questions">
             {this.enableGroupDescription ? <span>{this.getQuestion().groupId && !this.getQuestion().item ? <div class="qr-stepperQuestionnaire-group-text">{this.getGroupText(this.getQuestion())}</div> : null}</span> : null}
             <Tag
@@ -408,8 +399,8 @@ export class StepperQuestionnaire {
             ></Tag>
           </div>
         ) : null}
-        {!this.spinner.loading ? <div class="qr-stepperQuestionnaire-spacer"></div> : null}
-        {!this.spinner.loading && this.strings ? (
+        <div class="qr-stepperQuestionnaire-spacer"></div>
+        {this.strings ? (
           <div class="qr-stepperQuestionnaire-buttonContainer">
             {/* Button Back */}
             {(!this.editMode && this.count !== 0) || (!this.editMode && this.enableReturn && this.count === 0) ? (
