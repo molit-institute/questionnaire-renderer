@@ -872,11 +872,14 @@ export class QuestionnaireRenderer {
     this.closeSummary.emit('closeSummary');
   }
   /* Lifecycle Methods */
-
   async componentWillLoad(): Promise<void> {
+    this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
+    this.spinner = { ...this.spinner, loading: true, message: this.strings.loading.data  };
+  }
+
+  async componentDidLoad(): Promise<void> {
     try {
-      this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
-      this.spinner = { ...this.spinner, loading: true, message: this.strings.loading.data  };
+      // this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
       await this.handleQuestionnaire();
       await this.handleValueSets();
       await this.handleQuestionnaireResponse();
