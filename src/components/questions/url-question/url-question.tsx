@@ -5,7 +5,6 @@ import { Component, h, Prop, Watch, State, Element, Event, EventEmitter, Listen 
 import questionnaireResponseController from '../../../utils/questionnaireResponseController';
 import { getLocaleComponentStrings } from '../../../utils/locale';
 import { textToHtml } from '../../../utils/textToHtml';
-import debounce from 'lodash.debounce';
 
 @Component({
   tag: 'url-question',
@@ -44,7 +43,7 @@ export class UrlQuestion {
           value: [],
         };
       }
-      this.debouncedValidateUrl();
+      this.validateUrl();
       this.emitAnswer.emit(object);
     }
   }
@@ -114,13 +113,9 @@ export class UrlQuestion {
     }
   }
 
-  debouncedValidateUrl = debounce(() => {
-    this.validateUrl()
-  },300)
-
   handleChange(event) {
     this.selected = event.target.value;
-    this.debouncedValidateUrl()
+    this.validateUrl()
   }
 
   setSelected() {
@@ -202,7 +197,7 @@ export class UrlQuestion {
                   <label class="qr-question-inputLabel qr-urlQuestion-inputLabel" htmlFor="url-text">
                     {this.strings.url.text}:
                   </label>
-                  <input type="url" value={this.selected} onInput={e => this.handleChange(e)} class="form-control qr-question-input qr-urlQuestion-input" id="url-text" disabled={this.question.readOnly}/>
+                  <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control qr-question-input qr-urlQuestion-input" id="url-text" pattern="^(https?:\/\/)?([\w\-]+\.)+[a-z]{2,}(:\d+)?(\/[^\s]*)?$" disabled={this.question.readOnly}/>
                  {this.naUrl}
                   {this.strings ? (
                     this.naUrl ? (
@@ -227,7 +222,7 @@ export class UrlQuestion {
                   <label class="" htmlFor="url-text">
                     {this.question.text}:
                   </label>
-                  <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control" id="url-text" pattern="\S*" />
+                  <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control" id="url-text" />
                   {this.strings ? (
                     this.naUrl ? (
                       <div class={this.naUrl === null ? 'hidden my-valid-feedback' : 'visible my-valid-feedback'}>{this.strings.url.valid}</div>
@@ -250,7 +245,7 @@ export class UrlQuestion {
                   <label class="" htmlFor="url-text">
                     {this.question.text}:
                   </label>
-                  <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control" id="url-text" pattern="\S*" />
+                  <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control" id="url-text" />
                   {this.strings ? (
                     this.naUrl ? (
                       <div class={this.naUrl === null ? 'hidden my-valid-feedback' : 'visible my-valid-feedback'}>{this.strings.url.valid}</div>
