@@ -341,10 +341,6 @@ export class StepperQuestionnaire {
     this.setDisabled();
   }
 
-  componentDidLoad() {
-    console.log('huhu', this.enableNext, this.enableFinishButton);
-  }
-
   render() {
     const Tag = this.getQuestionType();
     return (
