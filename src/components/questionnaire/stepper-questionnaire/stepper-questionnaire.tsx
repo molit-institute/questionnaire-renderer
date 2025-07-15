@@ -68,7 +68,7 @@ export class StepperQuestionnaire {
   @Prop() startCount: number;
   @Prop() lastQuestion: boolean = false;
   /**
-   * Options for Visual Analog Scale 
+   * Options for Visual Analog Scale
    */
   @Prop() vasVertical: boolean;
   @Prop() vasShowSelectedValue: boolean;
@@ -92,12 +92,11 @@ export class StepperQuestionnaire {
   @Prop() enableSummary: boolean = true;
   @Prop() enableReturn: boolean = true;
   @Prop() enableNext: boolean = true;
-  @Prop() spinner: any;
   @Prop() enableInformalLocale: boolean;
   @Prop() trademarkText: string = null;
   @Prop() enableGroupDescription: boolean;
   @Prop() enableErrorConsoleLogging: boolean;
-  @Prop() enableFinishButton:boolean;
+  @Prop() enableFinishButton: boolean = false;
   @Prop() visibleBooleanNullOption: boolean;
   @Prop() locale: string = 'en';
   @Watch('locale')
@@ -159,7 +158,7 @@ export class StepperQuestionnaire {
     if (this.filteredItemList) {
       for (let i = 0; i < this.filteredItemList.length; i++) {
         if (this.filteredItemList[i].required) {
-          if(!this.filteredItemList[i].hidden){
+          if (!this.filteredItemList[i].hidden) {
             totalNumber++;
           }
         }
@@ -267,7 +266,7 @@ export class StepperQuestionnaire {
       }
       this.disabled = false;
       let currentQuestion: any = this.getQuestion();
-      if (currentQuestion && currentQuestion.required && currentQuestion.type !== "group") {
+      if (currentQuestion && currentQuestion.required && currentQuestion.type !== 'group') {
         this.disabled = true;
         for (let i = 0; i < this.requiredQuestionList.length; i++) {
           if (
@@ -299,8 +298,8 @@ export class StepperQuestionnaire {
   }
 
   /**
-     * Emits an error-event
-     */
+   * Emits an error-event
+   */
   @Event() errorLog: EventEmitter;
   emitError(error) {
     this.errorLog.emit(error);
@@ -346,41 +345,32 @@ export class StepperQuestionnaire {
     const Tag = this.getQuestionType();
     return (
       <div class="qr-stepperQuestionnaire-container">
-        {/* // <div class="column card-body"> */}
-        {/* SPINNER */}
-        {this.spinner.loading && this.filteredItemList && this.count !== null ? (
-          <div class="qr-stepperQuestionnaire-spinner">
-            <simple-spinner message={this.spinner.message}></simple-spinner>
+        <div class="qr-stepperQuestionnaire-progress-container">
+          {/* PROGRESS */}
+          <div class="progress qr-stepperQuestionnaire-progress">
+            <div
+              class="progress-bar qr-stepperQuestionnaire-progress-progressBar"
+              role="progressbar"
+              aria-valuenow={this.questionCount}
+              aria-valuemin="1"
+              aria-valuemax={questionnaireController.getNumberOfQuestions(null, this.filteredItemList)}
+              style={{ width: (this.questionCount / questionnaireController.getNumberOfQuestions(null, this.filteredItemList)) * 100 + '%' }}
+            ></div>
           </div>
-        ) : null}
-        {!this.spinner.loading ? (
-          <div class="qr-stepperQuestionnaire-progress-container">
-            {/* PROGRESS */}
-            <div class="progress qr-stepperQuestionnaire-progress">
-              <div
-                class="progress-bar qr-stepperQuestionnaire-progress-progressBar"
-                role="progressbar"
-                aria-valuenow={this.questionCount}
-                aria-valuemin="1"
-                aria-valuemax={questionnaireController.getNumberOfQuestions(null, this.filteredItemList)}
-                style={{ width: (this.questionCount / questionnaireController.getNumberOfQuestions(null, this.filteredItemList)) * 100 + '%' }}
-              ></div>
+          {/* Progress Counter */}
+          {this.strings ? (
+            <div class={this.isGroupQuestion() ? 'qr-question-hidden progress-counter qr-stepperQuestionnaire-title' : 'progress-counter qr-stepperQuestionnaire-title'}>
+              <span class="qr-stepperQuestionnaire-questionIndex" style={{ color: this.primary }}>
+                {this.strings.question} {this.questionCount} &nbsp;
+              </span>
+              <span class="color-grey qr-stepperQuestionnaire-numberOfQuestions">
+                {this.strings.of} {questionnaireController.getNumberOfQuestions(null, this.filteredItemList)}
+              </span>
             </div>
-            {/* Progress Counter */}
-            {this.strings ? (
-              <div class={this.isGroupQuestion() ? 'qr-question-hidden progress-counter qr-stepperQuestionnaire-title' : 'progress-counter qr-stepperQuestionnaire-title'}>
-                <span class="qr-stepperQuestionnaire-questionIndex" style={{ color: this.primary }}>
-                  {this.strings.question} {this.questionCount} &nbsp;
-                </span>
-                <span class="color-grey qr-stepperQuestionnaire-numberOfQuestions">
-                  {this.strings.of} {questionnaireController.getNumberOfQuestions(null, this.filteredItemList)}
-                </span>
-              </div>
-            ) : null}
-          </div>
-        ) : null}
+          ) : null}
+        </div>
         <br />
-        {!this.spinner.loading && this.count !== null && this.filteredItemList && !this.checkIfGroupDisplay(this.getQuestion()) ? (
+        {this.count !== null && this.filteredItemList && !this.checkIfGroupDisplay(this.getQuestion()) ? (
           <div class="qr-stepperQuestionnaire-questions">
             {this.enableGroupDescription ? <span>{this.getQuestion().groupId && !this.getQuestion().item ? <div class="qr-stepperQuestionnaire-group-text">{this.getGroupText(this.getQuestion())}</div> : null}</span> : null}
             <Tag
@@ -407,8 +397,8 @@ export class StepperQuestionnaire {
             ></Tag>
           </div>
         ) : null}
-        {!this.spinner.loading ? <div class="qr-stepperQuestionnaire-spacer"></div> : null}
-        {!this.spinner.loading && this.strings ? (
+        <div class="qr-stepperQuestionnaire-spacer"></div>
+        {this.strings ? (
           <div class="qr-stepperQuestionnaire-buttonContainer">
             {/* Button Back */}
             {(!this.editMode && this.count !== 0) || (!this.editMode && this.enableReturn && this.count === 0) ? (
@@ -416,7 +406,7 @@ export class StepperQuestionnaire {
                 {this.strings.back}
               </button>
             ) : null}
-            {(this.count === 0 && !this.enableReturn) ? (
+            {this.count === 0 && !this.enableReturn ? (
               <button type="button" class="btn button btn-outline-secondary btn-lg qr-button-outline-secondary" disabled>
                 {this.strings.back}
               </button>
@@ -424,7 +414,7 @@ export class StepperQuestionnaire {
 
             {/* Button Next */}
             <span>
-              {(this.count < this.filteredItemList.length - 1 && !this.disabled && !this.editMode) || (this.count == this.filteredItemList.length - 1 && !this.disabled && !this.editMode && !this.enableFinishButton) ? (
+              {(this.count < this.filteredItemList.length - 1 && !this.disabled && !this.editMode) || (this.count == this.filteredItemList.length - 1 && !this.disabled && !this.editMode && this.enableNext && !this.enableFinishButton) ? (
                 <button id="next-button" type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.countUp()}>
                   {this.strings.next}
                 </button>
@@ -434,17 +424,21 @@ export class StepperQuestionnaire {
                   {this.strings.finish}
                 </button>
               ) : null}
-              {(this.count < this.filteredItemList.length -1 && this.disabled) || (this.count == this.filteredItemList.length && this.disabled && !this.enableFinishButton)? (
+              {(this.count < this.filteredItemList.length - 1 && this.disabled && !this.editMode &&this.enableNext) || (this.count < this.filteredItemList.length && !this.editMode && this.disabled && this.enableNext && !this.enableFinishButton) ? (
                 <button id="disabled-next-button" type="button" class="btn button btn-secondary btn-lg qr-button-secondary" disabled>
                   {this.strings.next}
                 </button>
               ) : null}
-              {this.count == this.filteredItemList.length -1 && this.disabled && this.enableFinishButton ? (
+              {this.count == this.filteredItemList.length - 1 && this.disabled && this.enableFinishButton ? (
                 <button id="disabled-next-button" type="button" class="btn button btn-secondary btn-lg qr-button-secondary" disabled>
                   {this.strings.finish}
                 </button>
               ) : null}
-          
+              {this.editMode && this.disabled ? (
+                <button id="summary-button" type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.goToSummary()} disabled>
+                  {this.strings.accept}
+                </button>
+              ) : null}
               {this.editMode && !this.disabled ? (
                 <button id="summary-button" type="button" class="btn button btn-primary btn-lg qr-button-primary" onClick={() => this.goToSummary()}>
                   {this.strings.accept}

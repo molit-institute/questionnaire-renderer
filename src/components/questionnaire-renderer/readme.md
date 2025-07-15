@@ -71,12 +71,14 @@
 
 ### Depends on
 
+- [simple-spinner](../ui/simple-spinner)
 - [questionnaire-summary](../questionnaire-summary)
 - [information-page](../questionnaire/information-page)
 
 ### Graph
 ```mermaid
 graph TD;
+  questionnaire-renderer --> simple-spinner
   questionnaire-renderer --> questionnaire-summary
   questionnaire-renderer --> information-page
   questionnaire-summary --> simple-spinner

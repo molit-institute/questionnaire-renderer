@@ -222,8 +222,8 @@ code: {
               enableFullQuestionnaireResponse={false}
               enableSummary={true}
               enableReturn={false}
-              enableNext={true}
-              enableFinishButton={true}
+              // enableNext={false}
+              // enableFinishButton={true}
               // variant={this.questionnaireVariant}
               enableInformalLocale={true}
               showOnlySummary={false}

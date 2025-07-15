@@ -42,19 +42,6 @@
 | `summary`  |                                 | `CustomEvent<any>` |
 
 
-## Dependencies
-
-### Depends on
-
-- [simple-spinner](../../ui/simple-spinner)
-
-### Graph
-```mermaid
-graph TD;
-  grouped-questionnaire --> simple-spinner
-  style grouped-questionnaire fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

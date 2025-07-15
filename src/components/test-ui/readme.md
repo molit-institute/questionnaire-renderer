@@ -15,6 +15,7 @@
 ```mermaid
 graph TD;
   test-ui --> questionnaire-renderer
+  questionnaire-renderer --> simple-spinner
   questionnaire-renderer --> questionnaire-summary
   questionnaire-renderer --> information-page
   questionnaire-summary --> simple-spinner

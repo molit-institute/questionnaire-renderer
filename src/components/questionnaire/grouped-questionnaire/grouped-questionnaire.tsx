@@ -337,14 +337,7 @@ export class GroupedQuestionnaire {
     const Tag = this.getQuestionType();
     return this.questionnaire ? (
       <div class="card">
-        {/* SPINNER */}
-        {this.spinner.loading ? (
-          <div class="card card-basic-margins">
-            <div class="card-body">
-              <simple-spinner message={this.spinner.message}></simple-spinner>
-            </div>
-          </div>
-        ) : (
+        
           <div>
             {/* if Questiontype is Group */}
             {this.getQuestionType() === 'group-question' ? (
@@ -438,7 +431,6 @@ export class GroupedQuestionnaire {
               ) : null}
             </div>
           </div>
-        )}
       </div>
     ) : null;
   }

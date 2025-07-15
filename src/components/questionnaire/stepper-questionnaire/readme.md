@@ -27,7 +27,6 @@
 | `questionnaireResponse`      | --                             |                                                                            | `Object`  | `null`      |
 | `requiredQuestionList`       | --                             |                                                                            | `any[]`   | `undefined` |
 | `secondary`                  | `secondary`                    | Secondary color                                                            | `string`  | `undefined` |
-| `spinner`                    | `spinner`                      |                                                                            | `any`     | `undefined` |
 | `startCount`                 | `start-count`                  |                                                                            | `number`  | `undefined` |
 | `trademarkText`              | `trademark-text`               |                                                                            | `string`  | `null`      |
 | `valueSets`                  | --                             |                                                                            | `any[]`   | `undefined` |
@@ -47,19 +46,6 @@
 | `return`   |                      | `CustomEvent<any>` |
 | `summary`  |                      | `CustomEvent<any>` |
 
-
-## Dependencies
-
-### Depends on
-
-- [simple-spinner](../../ui/simple-spinner)
-
-### Graph
-```mermaid
-graph TD;
-  stepper-questionnaire --> simple-spinner
-  style stepper-questionnaire fill:#f9f,stroke:#333,stroke-width:4px
-```
 
 ----------------------------------------------
 

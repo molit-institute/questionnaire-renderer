@@ -52,7 +52,6 @@ export class FullQuestionnaire {
    * Language property of the component. </br>
    * Currently suported: [de, en, es]
    */
-  @Prop() spinner: any;
   @Prop() locale: string = 'en';
   @Prop() enableErrorConsoleLogging: boolean;
   @Watch('locale')
@@ -163,108 +162,93 @@ export class FullQuestionnaire {
   render() {
     return this.questionnaire ? (
       <div class="qr-fullQuestionnaire-container">
-        {/* SPINNER */}
-        {this.spinner.loading ? (
-          <div class="card card-basic-margins qr-fullQuestionnaire-spinner">
-            <div class="card-body">
-              <simple-spinner message={this.spinner.message}></simple-spinner>
-            </div>
-          </div>
-        ) : (
-          <div>
-            <transition-group name="list-complete" tag="p">
-              {this.filteredItemList.map((question, index) => {
-                const Tag = this.getQuestionType(question.type);
+        <div>
+          <transition-group name="list-complete" tag="p">
+            {this.filteredItemList.map((question, index) => {
+              const Tag = this.getQuestionType(question.type);
 
-                return (
-                  <span class="list-complete-item">
-                    <div id={index.toString()} class={question.groupId ? 'card card-basic-margins qr-group-item' : 'card card-basic-margins'}>
-                      {this.strings ? (
-                        <div class="card-body">
-                          {question.type !== 'group' && this.variant !== 'form' && this.variant !== 'compact' ? (
-                            <div class="qr-fullQuestionnaire-progress-counter">
-                              <span class="qr-fullQuestionnaire-questionIndex">
-                                {this.strings.question} {this.getQuestionIndex(question) + 1}
-                              </span>{' '}
-                              <span class="qr-fullQuestionnaire-numberOfQuestions">
-                                {this.strings.of} {this.questionsList().length}
-                              </span>
-                            </div>
-                          ) : null}
-                          {question.groupId && !question.item ? <div class="question-group-text">{this.getGroupText(question)}</div> : null}
-                          <Tag
-                            question={question}
-                            questionnaireResponse={this.questionnaireResponse}
-                            questionnaire={this.questionnaire}
-                            valueSets={this.valueSets}
-                            baseUrl={this.baseUrl}
-                            primary={this.primary}
-                            secondary={this.secondary}
-                            danger={this.danger}
-                            locale={this.locale}
-                            variant={this.variant}
-                            vasVertical={this.vasVertical}
-                            vasShowSelectedValue={this.vasShowSelectedValue}
-                            vasSelectedValueLabel={this.vasSelectedValueLabel}
-                            enableInformalLocale={this.enableInformalLocale}
-                            enableErrorConsoleLogging={this.enableErrorConsoleLogging}
-                            visibleBooleanNullOption={this.visibleBooleanNullOption}
-                            onErrorLog={event => this.emitError(event)}
-                          ></Tag>
-                        </div>
-                      ) : null}
-                    </div>
-                  </span>
-                );
-              })}
-            </transition-group>
-            {/* BUTTONS */}
-            <div class="card-margin-bottom ">
-              {this.strings ? (
-                <div class="qr-fullQuestionnaire-buttonContainer">
-                  {this.enableReturn ? (
-                    <button id="returnButton" type="button" class="btn button btn-outline-primary btn-lg qr-button-outline-primary qr-fullQuestionnaire-button-back" onClick={() => this.backToQuestionnaireList()}>
-                      {this.strings.back}
-                    </button>
-                  ) : null}
-                  {this.enableNext && !this.enableFinishButton ? (
-                    <button
-                      id="toSummaryNextButton"
-                      type="button"
-                      class="btn button btn-primary btn-lg qr-button-primary qr-fullQuestionnaire-button-next"
-                      disabled={this.notAllRequiredQuestionsCompleted()}
-                      onClick={() => this.goToSummary()}
-                    >
-                      {this.strings.next}
-                    </button>
-                  ) : null}
-                  {this.enableNext && this.enableFinishButton ? (
-                    <button
-                      id="toSummaryFinishButton"
-                      type="button"
-                      class="btn button btn-primary btn-lg qr-button-primary qr-fullQuestionnaire-button-finish"
-                      disabled={this.notAllRequiredQuestionsCompleted()}
-                      onClick={() => this.goToSummary()}
-                    >
-                      {this.strings.finish}
-                    </button>
-                  ) : null}
-                  {!this.enableNext && this.enableFinishButton ? (
-                    <button
-                      id="finishButton"
-                      type="button"
-                      class="btn button btn-primary btn-lg qr-button-primary qr-fullQuestionnaire-button-finish"
-                      disabled={this.notAllRequiredQuestionsCompleted()}
-                      onClick={() => this.finish.emit('finish')}
-                    >
-                      {this.strings.finish}
-                    </button>
-                  ) : null}
-                </div>
-              ) : null}
-            </div>
+              return (
+                <span class="list-complete-item">
+                  <div id={index.toString()} class={question.groupId ? 'card card-basic-margins qr-group-item' : 'card card-basic-margins'}>
+                    {this.strings ? (
+                      <div class="card-body">
+                        {question.type !== 'group' && this.variant !== 'form' && this.variant !== 'compact' ? (
+                          <div class="qr-fullQuestionnaire-progress-counter">
+                            <span class="qr-fullQuestionnaire-questionIndex">
+                              {this.strings.question} {this.getQuestionIndex(question) + 1}
+                            </span>{' '}
+                            <span class="qr-fullQuestionnaire-numberOfQuestions">
+                              {this.strings.of} {this.questionsList().length}
+                            </span>
+                          </div>
+                        ) : null}
+                        {question.groupId && !question.item ? <div class="question-group-text">{this.getGroupText(question)}</div> : null}
+                        <Tag
+                          question={question}
+                          questionnaireResponse={this.questionnaireResponse}
+                          questionnaire={this.questionnaire}
+                          valueSets={this.valueSets}
+                          baseUrl={this.baseUrl}
+                          primary={this.primary}
+                          secondary={this.secondary}
+                          danger={this.danger}
+                          locale={this.locale}
+                          variant={this.variant}
+                          vasVertical={this.vasVertical}
+                          vasShowSelectedValue={this.vasShowSelectedValue}
+                          vasSelectedValueLabel={this.vasSelectedValueLabel}
+                          enableInformalLocale={this.enableInformalLocale}
+                          enableErrorConsoleLogging={this.enableErrorConsoleLogging}
+                          visibleBooleanNullOption={this.visibleBooleanNullOption}
+                          onErrorLog={event => this.emitError(event)}
+                        ></Tag>
+                      </div>
+                    ) : null}
+                  </div>
+                </span>
+              );
+            })}
+          </transition-group>
+          {/* BUTTONS */}
+          <div class="card-margin-bottom ">
+            {this.strings ? (
+              <div class="qr-fullQuestionnaire-buttonContainer">
+                {this.enableReturn ? (
+                  <button id="returnButton" type="button" class="btn button btn-outline-primary btn-lg qr-button-outline-primary qr-fullQuestionnaire-button-back" onClick={() => this.backToQuestionnaireList()}>
+                    {this.strings.back}
+                  </button>
+                ) : null}
+                {this.enableNext && !this.enableFinishButton ? (
+                  <button id="toSummaryNextButton" type="button" class="btn button btn-primary btn-lg qr-button-primary qr-fullQuestionnaire-button-next" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
+                    {this.strings.next}
+                  </button>
+                ) : null}
+                {this.enableNext && this.enableFinishButton ? (
+                  <button
+                    id="toSummaryFinishButton"
+                    type="button"
+                    class="btn button btn-primary btn-lg qr-button-primary qr-fullQuestionnaire-button-finish"
+                    disabled={this.notAllRequiredQuestionsCompleted()}
+                    onClick={() => this.goToSummary()}
+                  >
+                    {this.strings.finish}
+                  </button>
+                ) : null}
+                {!this.enableNext && this.enableFinishButton ? (
+                  <button
+                    id="finishButton"
+                    type="button"
+                    class="btn button btn-primary btn-lg qr-button-primary qr-fullQuestionnaire-button-finish"
+                    disabled={this.notAllRequiredQuestionsCompleted()}
+                    onClick={() => this.finish.emit('finish')}
+                  >
+                    {this.strings.finish}
+                  </button>
+                ) : null}
+              </div>
+            ) : null}
           </div>
-        )}
+        </div>
       </div>
     ) : null;
   }
