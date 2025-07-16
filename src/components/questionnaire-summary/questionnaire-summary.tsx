@@ -389,10 +389,8 @@ export class QuestionnaireSummary {
           </div>
           <div class="qr-summary-information">{this.summary_text}</div>
           {this.spinner.loading ? (
-            <div class="card card-basic-margins qr-summary-card">
-              <div class="card-body">
-                <simple-spinner message={this.spinner.message} class="qr-summary-spinner"></simple-spinner>
-              </div>
+            <div class="qr-summary-spinner-wrapper">
+              <simple-spinner message={this.spinner.message} class="qr-summary-spinner"></simple-spinner>
             </div>
           ) : (
             <div>

@@ -911,7 +911,7 @@ export class QuestionnaireRenderer {
       <div class="qr-questionnaireRenderer-container">
         {this.spinner.loading ? (
           <div class="qr-spinner">
-            <simple-spinner message={this.spinner.message}></simple-spinner>
+            <simple-spinner class="qr-simple-spinner"></simple-spinner>
           </div>
         ) : (
           <div>

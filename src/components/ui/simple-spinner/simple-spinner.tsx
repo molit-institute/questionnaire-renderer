@@ -13,7 +13,7 @@ export class SimpleSpinner {
     return (
       <div class="qr-spinner-container">
         <div class="qr-spinner-element" id="loading" style={{ borderTopColor: this.borderTopColor }}></div>
-        {this.message.length > 0 ? (
+        {this.message?.length > 0 ? (
           <div class="qr-spinner-text">
             {this.message}
           </div>
