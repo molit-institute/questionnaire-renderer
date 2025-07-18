@@ -290,6 +290,9 @@ export class QuestionnaireSummary {
       // Handle Task
       if (this.task) {
         if (task.executionPeriod) {
+          if(task.executionPeriod.start > new Date().toISOString()){
+            task.executionPeriod.start = new Date().toISOString()
+          }
           task.executionPeriod.end = new Date().toISOString();
         }
         if (questionnaireResponseReference) {
