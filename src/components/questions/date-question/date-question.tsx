@@ -31,14 +31,12 @@ export class DateQuestion {
   watchSelected() {
     let object = null;
     if (this.validate) {
-      console.log("validated")
       object = {
         type: 'date',
         question: this.question,
         value: [this.selected],
       };
     } else {
-      console.log("not validated")
       object = {
         type: 'date',
         question: this.question,
@@ -62,7 +60,6 @@ export class DateQuestion {
   @Prop() questionnaireResponse: Object = null;
   @Watch('questionnaireResponse')
   async watchQuestionnaireResponse() {
-    console.log("Resp watch")
     this.allow_events = false;
     await this.setSelected();
     this.allow_events = true;
@@ -107,9 +104,7 @@ export class DateQuestion {
 
   /* methods */
   setSelected() {
-
     this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'date');
-    console.log("setSelected", this.selected)
   }
   handleChange(event) {
     this.selected = event.target.value;
