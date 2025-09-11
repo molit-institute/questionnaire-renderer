@@ -75,8 +75,8 @@ code: {
     display: "Maier, Peter"
   },
   executionPeriod: {
-    start: "2023-10-25T10:38:49.378Z",
-    end: "2025-01-01T09:00:05+01:00"
+    start: "2026-10-25",
+    end: "2026-10-25"
   }
 }
 

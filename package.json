@@ -1,6 +1,6 @@
 {
   "name": "@molit/questionnaire-renderer",
-  "version": "1.0.44",
+  "version": "1.0.45",
   "private": false,
   "description": "Stencil Component for questionnaire-renderer",
   "main": "dist/index.cjs.js",
@@ -28,6 +28,7 @@
     "@molit/fhir-util": "^1.0.24",
     "@stencil/core": "^4.26.0",
     "choices.js": "^11.0.3",
+    "dayjs": "^1.11.18",
     "dompurify": "^3.2.4",
     "fhirpath": "^3.15.2",
     "lodash.debounce": "^4.0.8",
