@@ -40,7 +40,7 @@ export default {
   },
 
   url: {
-    text: 'Enter the url here',
+    text: 'Enter the URL here',
     invalid: 'The specified URL was formally not correct.',
     valid: 'The specified URL was formally correct.',
   },
