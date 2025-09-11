@@ -8,6 +8,7 @@ import * as fhirApi from '@molit/fhir-api';
 import questionnaireController from '../../utils/questionnaireController';
 import { cloneDeep } from 'lodash';
 import { textToHtml } from '../../utils/textToHtml';
+import dayjs from 'dayjs';
 
 @Component({
   tag: 'questionnaire-summary',
@@ -290,6 +291,7 @@ export class QuestionnaireSummary {
       // Handle Task
       if (this.task) {
         if (task.executionPeriod) {
+          task.executionPeriod.start = dayjs(new Date()).format("YYYY-MM-DD");
           task.executionPeriod.end = new Date().toISOString();
         }
         if (questionnaireResponseReference) {
