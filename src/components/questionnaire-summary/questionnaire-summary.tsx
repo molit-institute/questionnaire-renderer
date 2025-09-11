@@ -292,7 +292,6 @@ export class QuestionnaireSummary {
       if (this.task) {
         if (task.executionPeriod) {
           task.executionPeriod.start = dayjs(new Date()).format("YYYY-MM-DD");
-          console.log(task.executionPeriod.start)
           task.executionPeriod.end = new Date().toISOString();
         }
         if (questionnaireResponseReference) {
