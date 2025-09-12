@@ -198,7 +198,7 @@ export class UrlQuestion {
                   <label class="qr-question-inputLabel qr-urlQuestion-inputLabel" htmlFor="url-text">
                     {this.strings.url.text}:
                   </label>
-                  <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control qr-question-input qr-urlQuestion-input" id="url-text" pattern="^(https?:\/\/)?([\w\-]+\.)+[a-z]{2,}(:\d+)?(\/[^\s]*)?$" disabled={this.question.readOnly}/>
+                  <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control qr-question-input qr-urlQuestion-input" id="url-text" pattern="^https:\/\/(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?:\/\S*)?$" disabled={this.question.readOnly}/>
                  {this.naUrl}
                   {this.strings ? (
                     this.naUrl ? (
