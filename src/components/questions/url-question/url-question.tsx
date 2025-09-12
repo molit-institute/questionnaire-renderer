@@ -97,7 +97,8 @@ export class UrlQuestion {
    */
   allow_events: boolean = false;
   @State() naUrl: boolean = null;
-  private urlRegex = /^(https?:\/\/)?([\w\-]+\.)+[a-z]{2,}(:\d+)?(\/[^\s]*)?$/
+  // private urlRegex = /^(https?:\/\/)?([\w\-]+\.)+[a-z]{2,}(:\d+)?(\/[^\s]*)?$/
+  private urlRegex = /^https:\/\/(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?:\/\S*)?$/
 
   /* computed */
   validate() {

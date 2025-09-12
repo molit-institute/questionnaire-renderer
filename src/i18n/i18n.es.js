@@ -35,7 +35,7 @@ export default {
   },
 
   url: {
-    text: 'Ingrese la url aquí',
+    text: 'Ingrese la URL aquí',
     invalid: 'La URL especificada no es correcta.',
     valid: 'La URL especificada era correcta.',
   },

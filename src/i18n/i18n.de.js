@@ -39,9 +39,9 @@ export default {
     valueset: 'Lade ValueSets',
   },
   url: {
-    text: 'Geben Sie hier die Url ein',
-    invalid: 'Die angegebene Url ist formell nicht korrekt.',
-    valid: 'Die angegebene Url ist formell korrekt.',
+    text: 'Geben Sie hier die URL ein',
+    invalid: 'Die angegebene URL ist formell nicht korrekt.',
+    valid: 'Die angegebene URL ist formell korrekt.',
   },
   time: {
     text: 'Geben Sie hier die Zeit ein',
