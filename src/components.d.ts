@@ -6,6 +6,29 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface AttachmentQuestion {
+        /**
+          * Color used to symbolise danger
+         */
+        "danger": string;
+        "enableErrorConsoleLogging": boolean;
+        "enableInformalLocale": boolean;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "locale": string;
+        /**
+          * Primary color
+         */
+        "primary": string;
+        "question": any;
+        "questionnaire": Object;
+        "questionnaireResponse": Object;
+        /**
+          * Secondary color
+         */
+        "secondary": string;
+    }
     interface BooleanQuestion {
         /**
           * Color used to symbolise danger
@@ -646,6 +669,10 @@ export namespace Components {
         "vasVertical": boolean;
     }
 }
+export interface AttachmentQuestionCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLAttachmentQuestionElement;
+}
 export interface BooleanQuestionCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLBooleanQuestionElement;
@@ -727,6 +754,24 @@ export interface VasQuestionCustomEvent<T> extends CustomEvent<T> {
     target: HTMLVasQuestionElement;
 }
 declare global {
+    interface HTMLAttachmentQuestionElementEventMap {
+        "emitAnswer": any;
+        "errorLog": any;
+    }
+    interface HTMLAttachmentQuestionElement extends Components.AttachmentQuestion, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLAttachmentQuestionElementEventMap>(type: K, listener: (this: HTMLAttachmentQuestionElement, ev: AttachmentQuestionCustomEvent<HTMLAttachmentQuestionElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLAttachmentQuestionElementEventMap>(type: K, listener: (this: HTMLAttachmentQuestionElement, ev: AttachmentQuestionCustomEvent<HTMLAttachmentQuestionElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLAttachmentQuestionElement: {
+        prototype: HTMLAttachmentQuestionElement;
+        new (): HTMLAttachmentQuestionElement;
+    };
     interface HTMLBooleanQuestionElementEventMap {
         "emitAnswer": any;
         "errorLog": any;
@@ -1118,6 +1163,7 @@ declare global {
         new (): HTMLVasQuestionElement;
     };
     interface HTMLElementTagNameMap {
+        "attachment-question": HTMLAttachmentQuestionElement;
         "boolean-question": HTMLBooleanQuestionElement;
         "choice-question": HTMLChoiceQuestionElement;
         "date-question": HTMLDateQuestionElement;
@@ -1143,6 +1189,34 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface AttachmentQuestion {
+        /**
+          * Color used to symbolise danger
+         */
+        "danger"?: string;
+        "enableErrorConsoleLogging"?: boolean;
+        "enableInformalLocale"?: boolean;
+        /**
+          * Language property of the component. </br> Currently suported: [de, en, es]
+         */
+        "locale"?: string;
+        "onEmitAnswer"?: (event: AttachmentQuestionCustomEvent<any>) => void;
+        /**
+          * Emits an error-event
+         */
+        "onErrorLog"?: (event: AttachmentQuestionCustomEvent<any>) => void;
+        /**
+          * Primary color
+         */
+        "primary"?: string;
+        "question"?: any;
+        "questionnaire"?: Object;
+        "questionnaireResponse"?: Object;
+        /**
+          * Secondary color
+         */
+        "secondary"?: string;
+    }
     interface BooleanQuestion {
         /**
           * Color used to symbolise danger
@@ -1937,6 +2011,7 @@ declare namespace LocalJSX {
         "vasVertical"?: boolean;
     }
     interface IntrinsicElements {
+        "attachment-question": AttachmentQuestion;
         "boolean-question": BooleanQuestion;
         "choice-question": ChoiceQuestion;
         "date-question": DateQuestion;
@@ -1965,6 +2040,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "attachment-question": LocalJSX.AttachmentQuestion & JSXBase.HTMLAttributes<HTMLAttachmentQuestionElement>;
             "boolean-question": LocalJSX.BooleanQuestion & JSXBase.HTMLAttributes<HTMLBooleanQuestionElement>;
             "choice-question": LocalJSX.ChoiceQuestion & JSXBase.HTMLAttributes<HTMLChoiceQuestionElement>;
             "date-question": LocalJSX.DateQuestion & JSXBase.HTMLAttributes<HTMLDateQuestionElement>;

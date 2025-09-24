@@ -104,7 +104,6 @@ export class BooleanQuestion {
   /* computed */
   validate() {
     return this.selected ? true : false;
-    // return false;
   }
 
   /* methods */

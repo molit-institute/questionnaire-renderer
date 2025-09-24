@@ -26,22 +26,22 @@ const vomitQuestionnaire = {
     {
       linkId: "2",
       prefix: "3.",
-      text: "Beantworten Sie bitte die folgende Frage unabhängig davon, inwieweit Sie zurzeit sexuell aktiv sind. Wenn Sie die Frage lieber nicht beantworten möchten, fahren Sie mit dem nächsten Abschnitt fort.<br><br>Ich bin mit meinem Sexualleben zufrieden",
-      type: "url"
+      text: "Attachment Frage",
+      type: "attachment"
     },
-    {
-      linkId: "1.1",
-      prefix: "1.1 ",
-      text: "Beantworten Sie bitte die folgende Frage unabhängig davon, inwieweit Sie zurzeit sexuell aktiv sind. Wenn Sie die Frage lieber nicht beantworten möchten, fahren Sie mit dem nächsten Abschnitt fort.<br><br><i><u>Ich bin mit meinem Sexualleben zufrieden</u></i>",
-      type: "boolean",
-        // extension: [
-        //   {
-        //     url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
-        //     hidden: true
-        //   }
-        // ],
-      answerValueSet: ""
-    },
+    // {
+    //   linkId: "1.1",
+    //   prefix: "1.1 ",
+    //   text: "Beantworten Sie bitte die folgende Frage unabhängig davon, inwieweit Sie zurzeit sexuell aktiv sind. Wenn Sie die Frage lieber nicht beantworten möchten, fahren Sie mit dem nächsten Abschnitt fort.<br><br><i><u>Ich bin mit meinem Sexualleben zufrieden</u></i>",
+    //   type: "boolean",
+    //     extension: [
+    //       {
+    //         url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+    //         hidden: true
+    //       }
+    //     ],
+    //   answerValueSet: ""
+    // },
     // {
     //   linkId: "2",
     //   prefix: "2.",

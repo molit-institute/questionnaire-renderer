@@ -326,6 +326,9 @@ export function getAnswersFromQuestionnaireResponse(questionnaireResponse, linkI
               break;
             case valueTypes.QUANTITY:
               answerValue = itemList[i].answer[0].valueQuantity;
+              break;
+              case valueTypes.ATTACHMENT:
+              answerValue = itemList[i].answer[0].valueAttachment;
             default:
           }
         }

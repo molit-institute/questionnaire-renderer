@@ -415,6 +415,7 @@ export class QuestionnaireRenderer {
    * Takes the given object, adds new answers to the current QuestionnaireRespons and saves the question as the last answered Question
    */
   async handleQuestionnaireResponseEvent(object) {
+    console.log(object)
     this.lastAnsweredQuestion = object.detail.question;
     this.currentQuestionnaireResponse = await questionnaireResponseController.addAnswersToQuestionnaireResponse(this.currentQuestionnaireResponse, object.detail.question.linkId, object.detail.value, object.detail.type);
     this.handleAnsweredQuestionsList();

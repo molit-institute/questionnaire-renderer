@@ -36,49 +36,49 @@ export class TestUi {
   // questionnaireUrl: string = this.baseUrl + '/Questionnaire/56';
   questionnaireUrl: any = null;
   questionnaire: any = null;
-  @State() questionnaireUrlIdentifier: any = "https://molit.eu/fhir/Questionnaire/qlq30";
+  @State() questionnaireUrlIdentifier: any = 'https://molit.eu/fhir/Questionnaire/qlq30';
   questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30, q_5d_5l, vomit, lion, dropdown_test];
-  @State() token: string = null
-  testResp: object = null
+  @State() token: string = null;
+  testResp: object = null;
   /* computed */
   examplePatient() {
     return examplePatient;
   }
   task: any = {
-  resourceType: "Task",
-  meta: {
-    tag: [
-      {
-        code: "pre-OP",
-        display: "vor OP"
-      }
-    ]
-  },
-  status: "active",
-  intent: "order",
-code: {
-    coding: [
-      {
-        system: "http://molit.eu/fhir/CodeSystem/taskTypes",
-        code: "eQuestionnaire",
-        display: "eQU Questionnaire"
-      }
-    ],
-    text: "PatientQuestionnaireTask"
-  },
-  focus: {
-    reference: "Questionnaire/1",
-    display: "QLQ-C30"
-  },
-  for: {
-    reference: "Patient/14",
-    display: "Maier, Peter"
-  },
-  executionPeriod: {
-    start: "2026-10-25",
-    end: "2026-10-25"
-  }
-}
+    resourceType: 'Task',
+    meta: {
+      tag: [
+        {
+          code: 'pre-OP',
+          display: 'vor OP',
+        },
+      ],
+    },
+    status: 'active',
+    intent: 'order',
+    code: {
+      coding: [
+        {
+          system: 'http://molit.eu/fhir/CodeSystem/taskTypes',
+          code: 'eQuestionnaire',
+          display: 'eQU Questionnaire',
+        },
+      ],
+      text: 'PatientQuestionnaireTask',
+    },
+    focus: {
+      reference: 'Questionnaire/1',
+      display: 'QLQ-C30',
+    },
+    for: {
+      reference: 'Patient/14',
+      display: 'Maier, Peter',
+    },
+    executionPeriod: {
+      start: '2026-10-25',
+      end: '2026-10-25',
+    },
+  };
 
   /* methods */
   setQuestionnaireMode(selectedMode) {
@@ -96,7 +96,7 @@ code: {
     this.show_questionnaire_list = false;
     this.show_summary = false;
   }
-  startQuestionnaire(){
+  startQuestionnaire() {
     this.show_renderer = true;
     this.show_questionnaire_list = false;
     this.show_summary = false;
@@ -180,13 +180,13 @@ code: {
           </div>
           <br />
           <div>
-            Token: <input type="text" style={{'min-width':'50%', margin:'0 0 10px 0'}} value={this.token} onInput={this.handleTokenInput}/>
+            Token: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.token} onInput={this.handleTokenInput} />
           </div>
           <div>
-            Questionnaire Url: <input type="text" style={{'min-width':'50%', margin:'0 0 10px 0'}} value={this.questionnaireUrlIdentifier} onInput={this.handleUrlInput}></input>
+            Questionnaire Url: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.questionnaireUrlIdentifier} onInput={this.handleUrlInput}></input>
           </div>
           <div>
-            Fhir Base Url: <input type="text" style={{'min-width':'50%'}} value={this.baseUrl} onInput={this.handleBaseUrlInput}></input>
+            Fhir Base Url: <input type="text" style={{ 'min-width': '50%' }} value={this.baseUrl} onInput={this.handleBaseUrlInput}></input>
           </div>
           <br />
           <button onClick={() => this.startQuestionnaire()}>Start via Url</button>
