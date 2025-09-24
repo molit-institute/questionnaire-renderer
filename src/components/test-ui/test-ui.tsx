@@ -30,16 +30,42 @@ export class TestUi {
   edit: boolean = false;
   indexQuestion: Object = null;
   // baseUrl: string = 'https://fhir.molit.eu/fhir';
-  @State() baseUrl: string = 'https://equ.molit-service.de/fhir';
+  // @State() baseUrl: string = 'https://equ.molit-service.de/fhir';
+  @State() baseUrl: string = 'https://vitu-dev-app.molit-service.de/fhir';
   // baseUrl: string = 'https://dev.lion-app.de/fhir';
   // baseUrl: string = 'https://vitu-dev-app.molit-service.de/fhir';
   // questionnaireUrl: string = this.baseUrl + '/Questionnaire/56';
   questionnaireUrl: any = null;
   questionnaire: any = null;
-  @State() questionnaireUrlIdentifier: any = "https://molit.eu/fhir/Questionnaire/qlq30";
+  // @State() questionnaireUrlIdentifier: any = "https://molit.eu/fhir/Questionnaire/qlq30";
+   @State() questionnaireUrlIdentifier: any = "http://molit.eu/fhir/vitu/Questionnaire/vkh-questionnaire-tumorboard-lunge";
   questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30, q_5d_5l, vomit, lion, dropdown_test];
   @State() token: string = null
-  testResp: object = null
+  testResp: object = {
+  resourceType: "QuestionnaireResponse",
+  id: null,
+  questionnaire: "http://fhir.molit.eu/fhir/Questionnaire/test",
+  status: "amended",
+  subject: null,
+  authored: "2025-09-23T15:44:13+02:00",
+  source: null,
+  item: [
+    {
+      linkId: "2.5",
+      text: "ECOG-Stadium",
+      answer: [
+        {
+          valueCoding: {
+            display: "ECOG 4: (Völlig pflegebedürftig, keinerlei Selbstversorgung möglich; völlig an Bett oder Stuhl gebunden)",
+            code: "LA9626-8"
+          }
+        }
+      ],
+      item: null,
+      type: ""
+    }
+  ]
+}
   /* computed */
   examplePatient() {
     return examplePatient;

@@ -656,6 +656,7 @@ export class QuestionnaireRenderer {
    *  does not match the id of the given questionnaire
    */
   handleQuestionnaireResponse() {
+    console.log(this.questionnaireResponse)
     if (this.questionnaireResponse) {
       if (this.questionnaireResponse.questionnaire) {
         let split = this.questionnaireResponse.questionnaire.split('/');

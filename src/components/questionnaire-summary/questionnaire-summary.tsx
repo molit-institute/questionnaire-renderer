@@ -371,6 +371,7 @@ export class QuestionnaireSummary {
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
       this.addDisplaysToQuestionnaireResponse();
+      console.log(this.questionnaireResponse)
       // this.itemList = questionnaireResponseController.createItemList(this.questionnaireResponse);
     } catch (error) {
       this.emitError(error);
