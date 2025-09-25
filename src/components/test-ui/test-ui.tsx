@@ -38,73 +38,279 @@ export class TestUi {
   questionnaireUrl: any = null;
   questionnaire: any = null;
   // @State() questionnaireUrlIdentifier: any = "https://molit.eu/fhir/Questionnaire/qlq30";
-   @State() questionnaireUrlIdentifier: any = "http://molit.eu/fhir/vitu/Questionnaire/vkh-questionnaire-tumorboard-lunge";
+  @State() questionnaireUrlIdentifier: any = 'http://molit.eu/fhir/vitu/Questionnaire/vkh-questionnaire-tumorboard-lunge';
   questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30, q_5d_5l, vomit, lion, dropdown_test];
-  @State() token: string = null
+  @State() token: string = null;
+  // testResp: object = null;
   testResp: object = {
-  resourceType: "QuestionnaireResponse",
-  id: null,
-  questionnaire: "http://fhir.molit.eu/fhir/Questionnaire/test",
-  status: "amended",
-  subject: null,
-  authored: "2025-09-23T15:44:13+02:00",
-  source: null,
-  item: [
-    {
-      linkId: "2.5",
-      text: "ECOG-Stadium",
-      answer: [
-        {
-          valueCoding: {
-            display: "ECOG 4: (Völlig pflegebedürftig, keinerlei Selbstversorgung möglich; völlig an Bett oder Stuhl gebunden)",
-            code: "LA9626-8"
-          }
-        }
-      ],
-      item: null,
-      type: ""
-    }
-  ]
-}
+      "resourceType": "QuestionnaireResponse",
+      "id": "41315",
+      "meta": {
+        "versionId": "3",
+        "lastUpdated": "2025-07-22T08:24:08.853+02:00"
+      },
+      "questionnaire": "http://molit.eu/fhir/vitu/Questionnaire/vkh-questionnaire-tumorboard-lunge",
+      "status": "completed",
+      "subject": {
+        "reference": "Patient/37025",
+        "display": "miri li"
+      },
+      "authored": "2025-07-22T08:23:39+02:00",
+      "source": {
+        "reference": "Patient/37025",
+        "display": "miri li"
+      },
+      "item": [ {
+        "linkId": "1",
+        "text": "Diagnostik",
+        "item": [ {
+          "linkId": "1.1",
+          "answer": [ {
+            "valueCoding": {
+              "code": "A2",
+              "display": "Erstvorstellung (Verdachtsdiagnose)"
+            }
+          } ]
+        }, {
+          "linkId": "1.4",
+          "text": "Diagnose",
+          "answer": [ {
+            "valueCoding": {
+              "code": "C00.3",
+              "display": "Bösartige Neubildung der Lippe|Oberlippe Innenseite"
+            }
+          } ]
+        }, {
+          "linkId": "1.5",
+          "text": "Nebendiagnose",
+          "answer": [ {
+            "valueCoding": {
+              "code": "C32.8",
+              "display": "Bösartige Neubildung des Larynx|Larynx mehrere Teilbereiche überlappend"
+            }
+          } ]
+        } ]
+      }, {
+        "linkId": "2",
+        "text": "Anamnese",
+        "item": [ {
+          "linkId": "2.1",
+          "text": "cTNM / pTNM",
+          "answer": [ {
+            "valueCoding": {
+              "code": "A2",
+              "display": "pTNM"
+            }
+          } ]
+        }, {
+          "linkId": "2.2",
+          "text": "R-Status",
+          "answer": [ {
+            "valueCoding": {
+              "code": "A1",
+              "display": "R0"
+            }
+          } ]
+        }, {
+          "linkId": "2.3",
+          "text": "Histologie/Pathologe (pTNM)",
+          "item": [ {
+            "linkId": "2.3.1",
+            "text": "Histologie (1)",
+            "answer": [ {
+              "valueString": "yxc"
+            } ]
+          }, {
+            "linkId": "2.3.2",
+            "text": "Pathologe (1)"
+          }, {
+            "linkId": "2.3.3",
+            "text": "Histologie (2)"
+          }, {
+            "linkId": "2.3.4",
+            "text": "Pathologe (2)"
+          }, {
+            "linkId": "2.3.5",
+            "text": "Histologie (3)"
+          }, {
+            "linkId": "2.3.6",
+            "text": "Pathologe (3)"
+          } ]
+        }, {
+          "linkId": "2.4",
+          "text": "Tumorgröße (cm)"
+        }, {
+          "linkId": "2.5",
+          "text": "Histologie/Pathologe (cTNM)"
+        }, {
+          "linkId": "2.13",
+          "text": "TNM T-Wert",
+          "answer": [ {
+            "valueCoding": {
+              "code": "Ta",
+              "display": "Ta"
+            }
+          } ]
+        }, {
+          "linkId": "2.14",
+          "text": "TNM N-Wert",
+          "answer": [ {
+            "valueCoding": {
+              "code": "N3",
+              "display": "N3"
+            }
+          } ]
+        }, {
+          "linkId": "2.14.1",
+          "text": "Metastasen-Anzahl, betroffene Organe"
+        }, {
+          "linkId": "2.15",
+          "text": "TNM M-Wert",
+          "answer": [ {
+            "valueCoding": {
+              "code": "M1a",
+              "display": "M1a"
+            }
+          } ]
+        }, {
+          "linkId": "2.16",
+          "text": "UICC-Stadium",
+          "answer": [ {
+            "valueCoding": {
+              "system": "http://molit.eu/fhir/vitu/CodeSystem/uicc-stage",
+              "version": "0.1.10",
+              "code": "IV",
+              "display": "IV"
+            }
+          } ]
+        }, {
+          "linkId": "2.16.1",
+          "text": "Genutztes Bildgebungsverfahren"
+        }, {
+          "linkId": "2.5",
+          "text": "ECOG-Stadium",
+          "answer": [ {
+            "valueCoding": {
+              "code": "LA9625-0",
+              "display": "ECOG 3: (Nur begrenzte Selbstversorgung möglich; ist 50% oder mehr der Wachzeit an Bett oder Stuhl gebunden)"
+            }
+          } ]
+        }, {
+          "linkId": "2.6",
+          "text": "Raucher?"
+        }, {
+          "linkId": "2.10",
+          "text": "Fall in der Familie?"
+        }, {
+          "linkId": "2.12",
+          "text": "Sonstiges"
+        } ]
+      }, {
+        "linkId": "3",
+        "text": "Befund",
+        "item": [ {
+          "linkId": "3.1",
+          "text": "Bildgebende Diagnostik"
+        }, {
+          "linkId": "3.10",
+          "text": "Endo-Bronchiale Diagnostik"
+        }, {
+          "linkId": "3.12",
+          "text": "Biopsie"
+        }, {
+          "linkId": "3.13",
+          "text": "Endo-Brochoskopie"
+        }, {
+          "linkId": "3.14",
+          "text": "Lungenfunktions-Diagnostik"
+        }, {
+          "linkId": "3.18",
+          "text": "Labor-Diagnostik"
+        }, {
+          "linkId": "3.20",
+          "text": "Blutgruppe",
+          "answer": [ {
+            "valueCoding": {
+              "code": "A3",
+              "display": "O Rhesus positiv"
+            }
+          } ]
+        }, {
+          "linkId": "3.21",
+          "text": "Molekular-Diagnostik"
+        } ]
+      }, {
+        "linkId": "4",
+        "text": "Tumorboardempfehlung",
+        "item": [ {
+          "linkId": "4.1",
+          "text": "Empfehlung:"
+        }, {
+          "linkId": "4.2",
+          "text": "Therapieempfehlung:"
+        }, {
+          "linkId": "4.6",
+          "text": "Primärfall",
+          "answer": [ {
+            "valueBoolean": true
+          } ]
+        }, {
+          "linkId": "4.7",
+          "text": "Leitliniengerechte Entscheidung",
+          "answer": [ {
+            "valueBoolean": true
+          } ]
+        }, {
+          "linkId": "4.10",
+          "text": "Bitte Quelle angeben: Link zur Leitlinie einfügen",
+          "answer": [ {
+            "valueUri": "wew.xyz"
+          } ]
+        }, {
+          "linkId": "4.8",
+          "text": "Dissensentscheidung"
+        } ]
+      } ]
+    };
   /* computed */
   examplePatient() {
     return examplePatient;
   }
   task: any = {
-  resourceType: "Task",
-  meta: {
-    tag: [
-      {
-        code: "pre-OP",
-        display: "vor OP"
-      }
-    ]
-  },
-  status: "active",
-  intent: "order",
-code: {
-    coding: [
-      {
-        system: "http://molit.eu/fhir/CodeSystem/taskTypes",
-        code: "eQuestionnaire",
-        display: "eQU Questionnaire"
-      }
-    ],
-    text: "PatientQuestionnaireTask"
-  },
-  focus: {
-    reference: "Questionnaire/1",
-    display: "QLQ-C30"
-  },
-  for: {
-    reference: "Patient/14",
-    display: "Maier, Peter"
-  },
-  executionPeriod: {
-    start: "2026-10-25",
-    end: "2026-10-25"
-  }
-}
+    resourceType: 'Task',
+    meta: {
+      tag: [
+        {
+          code: 'pre-OP',
+          display: 'vor OP',
+        },
+      ],
+    },
+    status: 'active',
+    intent: 'order',
+    code: {
+      coding: [
+        {
+          system: 'http://molit.eu/fhir/CodeSystem/taskTypes',
+          code: 'eQuestionnaire',
+          display: 'eQU Questionnaire',
+        },
+      ],
+      text: 'PatientQuestionnaireTask',
+    },
+    focus: {
+      reference: 'Questionnaire/1',
+      display: 'QLQ-C30',
+    },
+    for: {
+      reference: 'Patient/14',
+      display: 'Maier, Peter',
+    },
+    executionPeriod: {
+      start: '2026-10-25',
+      end: '2026-10-25',
+    },
+  };
 
   /* methods */
   setQuestionnaireMode(selectedMode) {
@@ -122,7 +328,7 @@ code: {
     this.show_questionnaire_list = false;
     this.show_summary = false;
   }
-  startQuestionnaire(){
+  startQuestionnaire() {
     this.show_renderer = true;
     this.show_questionnaire_list = false;
     this.show_summary = false;
@@ -206,13 +412,13 @@ code: {
           </div>
           <br />
           <div>
-            Token: <input type="text" style={{'min-width':'50%', margin:'0 0 10px 0'}} value={this.token} onInput={this.handleTokenInput}/>
+            Token: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.token} onInput={this.handleTokenInput} />
           </div>
           <div>
-            Questionnaire Url: <input type="text" style={{'min-width':'50%', margin:'0 0 10px 0'}} value={this.questionnaireUrlIdentifier} onInput={this.handleUrlInput}></input>
+            Questionnaire Url: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.questionnaireUrlIdentifier} onInput={this.handleUrlInput}></input>
           </div>
           <div>
-            Fhir Base Url: <input type="text" style={{'min-width':'50%'}} value={this.baseUrl} onInput={this.handleBaseUrlInput}></input>
+            Fhir Base Url: <input type="text" style={{ 'min-width': '50%' }} value={this.baseUrl} onInput={this.handleBaseUrlInput}></input>
           </div>
           <br />
           <button onClick={() => this.startQuestionnaire()}>Start via Url</button>

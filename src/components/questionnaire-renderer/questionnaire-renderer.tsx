@@ -656,15 +656,15 @@ export class QuestionnaireRenderer {
    *  does not match the id of the given questionnaire
    */
   handleQuestionnaireResponse() {
-    console.log(this.questionnaireResponse)
     if (this.questionnaireResponse) {
       if (this.questionnaireResponse.questionnaire) {
         let split = this.questionnaireResponse.questionnaire.split('/');
         let id = split[1];
-        if (this.questionnaireResponse.questionnaire === this.questionnaire.url || (id && id === this.questionnaire.id)) {
+        if (this.questionnaireResponse.questionnaire === this.currentQuestionnaire.url || (id && id === this.currentQuestionnaire.id)) {
           this.createQuestionnaireResponse();
           let questionaireResponseItems = questionnaireResponseController.createItemList(this.questionnaireResponse);
-          this.transferQuestionnaireResponseAnswers(this.currentQuestionnaireResponse, questionaireResponseItems);
+          let questionnaireItems = questionnaireResponseController.createItemList(this.currentQuestionnaire);
+          this.transferQuestionnaireResponseAnswers(this.currentQuestionnaireResponse, questionaireResponseItems, questionnaireItems);
           //filtern?
           this.filterItemList();
         } else {
@@ -689,17 +689,29 @@ export class QuestionnaireRenderer {
    * @param {Array} baseList Items of an empty QuestionnaireResponse to be filled
    * @param {Array} answeredItemList List containing answers
    */
-  transferQuestionnaireResponseAnswers(baseList, answeredItemList) {
+  transferQuestionnaireResponseAnswers(baseList, answeredItemList, questionnaireItems) {
     baseList.item.forEach((element, index) => {
       let result = answeredItemList.find(item => item.linkId === element.linkId);
       if (result) {
         if (element.item && element.item.length > 0) {
-          this.transferQuestionnaireResponseAnswers(element, answeredItemList);
+          this.transferQuestionnaireResponseAnswers(element, answeredItemList, questionnaireItems);
         } else {
-          baseList.item[index].answer = result.answer;
+          if (this.checkAnswerType(result, questionnaireItems)) {
+            baseList.item[index].answer = result.answer;
+          }
         }
       }
     });
+  }
+
+  checkAnswerType(item, questionnaireItems) {
+    console.log('checkAnswerType', item);
+    if (item.answer && item.answer.length !== 0) {
+      let result = questionnaireItems.find(questionnaireItem => questionnaireItem.linkId === item.linkId && questionnaireItem.type == questionnaireResponseController.getAnswerType(item.answer));
+      console.log(result !== undefined ? true : false);
+      return result !== undefined ? true : false;
+    }
+    return false;
   }
 
   /**
@@ -875,7 +887,7 @@ export class QuestionnaireRenderer {
   /* Lifecycle Methods */
   async componentWillLoad(): Promise<void> {
     this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
-    this.spinner = { ...this.spinner, loading: true, message: this.strings.loading.data  };
+    this.spinner = { ...this.spinner, loading: true, message: this.strings.loading.data };
   }
 
   async componentDidLoad(): Promise<void> {

@@ -24,6 +24,13 @@ const vomitQuestionnaire = {
     //   }],
     // },
     {
+      linkId: "2.5",
+      prefix: "1.",
+      text: "Date Frage 1 ohne Extension",
+      type: "group",
+      item:[]
+    },
+    {
       extension: [
         {
           url: 'http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl',

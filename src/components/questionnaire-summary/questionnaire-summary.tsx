@@ -183,7 +183,7 @@ export class QuestionnaireSummary {
           case 'attachment':
             answer = question.answer[0].valueAttachment;
             break;
-          case 'coding':
+          case 'choice':
             answer = this.formatChoice(question.answer);
             break;
           case 'quantity':
