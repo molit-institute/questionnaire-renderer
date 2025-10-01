@@ -665,7 +665,6 @@ export class QuestionnaireRenderer {
           let questionaireResponseItems = questionnaireResponseController.createItemList(this.questionnaireResponse);
           let questionnaireItems = questionnaireResponseController.createItemList(this.currentQuestionnaire);
           this.transferQuestionnaireResponseAnswers(this.currentQuestionnaireResponse, questionaireResponseItems, questionnaireItems);
-          //filtern?
           this.filterItemList();
         } else {
           if (this.enableErrorConsoleLogging) {
@@ -688,30 +687,39 @@ export class QuestionnaireRenderer {
    * Compares the answers in the given answeredItemList and baseList. tranfers the answers of the answeredItemList into the baseList
    * @param {Array} baseList Items of an empty QuestionnaireResponse to be filled
    * @param {Array} answeredItemList List containing answers
+   * @param {Array} quesitonnaireItem List containing questionnaire items
    */
   transferQuestionnaireResponseAnswers(baseList, answeredItemList, questionnaireItems) {
     baseList.item.forEach((element, index) => {
-      let result = answeredItemList.find(item => item.linkId === element.linkId);
+      let result = null;
+      for (let i = 0; i < answeredItemList.length; i++) {
+        if (answeredItemList[i].linkId === element.linkId && this.checkAnswerType(answeredItemList[i], questionnaireItems)) {
+          result = answeredItemList[i];
+        }
+      }
       if (result) {
         if (element.item && element.item.length > 0) {
           this.transferQuestionnaireResponseAnswers(element, answeredItemList, questionnaireItems);
         } else {
-          if (this.checkAnswerType(result, questionnaireItems)) {
-            baseList.item[index].answer = result.answer;
-          }
+          baseList.item[index].answer = result.answer;
         }
       }
     });
   }
 
-  checkAnswerType(item, questionnaireItems) {
-    console.log('checkAnswerType', item);
-    if (item.answer && item.answer.length !== 0) {
-      let result = questionnaireItems.find(questionnaireItem => questionnaireItem.linkId === item.linkId && questionnaireItem.type == questionnaireResponseController.getAnswerType(item.answer));
-      console.log(result !== undefined ? true : false);
+  checkAnswerType(answeredItem, questionnaireItems) {
+    if (answeredItem.answer && answeredItem.answer.length !== 0) {
+      let answerType = questionnaireResponseController.getAnswerType(answeredItem.answer);
+      let result = null;
+      if (answerType === 'string') {
+        result = questionnaireItems.find(questionnaireItem => questionnaireItem.linkId === answeredItem.linkId && (questionnaireItem.type === "text" || questionnaireItem.type === "string"));
+      } else {
+        result = questionnaireItems.find(questionnaireItem => questionnaireItem.linkId === answeredItem.linkId && questionnaireItem.type == answerType);
+      }
       return result !== undefined ? true : false;
+    } else {
+      return true;
     }
-    return false;
   }
 
   /**

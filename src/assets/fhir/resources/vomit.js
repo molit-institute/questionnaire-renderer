@@ -24,11 +24,11 @@ const vomitQuestionnaire = {
     //   }],
     // },
     {
-      linkId: "2.5",
-      prefix: "1.",
-      text: "Date Frage 1 ohne Extension",
-      type: "group",
-      item:[]
+      linkId: '2.4',
+      prefix: '1.',
+      text: 'Date Frage 1 ohne Extension',
+      type: 'group',
+      item: [],
     },
     {
       extension: [
@@ -48,7 +48,7 @@ const vomitQuestionnaire = {
       text: 'ECOG-Stadium',
       type: 'choice',
       answerValueSet: 'http://loinc.org/vs/LL529-9',
-    },
+    }
     // {
     //   linkId: '2',
     //   prefix: '3.',
