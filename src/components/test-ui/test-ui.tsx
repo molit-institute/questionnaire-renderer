@@ -44,21 +44,21 @@ export class TestUi {
   // testResp: object = null;
   testResp: object = {
       "resourceType": "QuestionnaireResponse",
-      "id": "41315",
+      "id": "58781",
       "meta": {
-        "versionId": "3",
-        "lastUpdated": "2025-07-22T08:24:08.853+02:00"
+        "versionId": "1",
+        "lastUpdated": "2025-10-02T11:12:06.194+02:00"
       },
       "questionnaire": "http://molit.eu/fhir/vitu/Questionnaire/vkh-questionnaire-tumorboard-lunge",
-      "status": "completed",
+      "status": "in-progress",
       "subject": {
         "reference": "Patient/37025",
-        "display": "miri li"
+        "display": "mi li"
       },
-      "authored": "2025-07-22T08:23:39+02:00",
+      "authored": "2025-10-02T11:08:37+02:00",
       "source": {
         "reference": "Patient/37025",
-        "display": "miri li"
+        "display": "mi li"
       },
       "item": [ {
         "linkId": "1",
@@ -76,8 +76,13 @@ export class TestUi {
           "text": "Diagnose",
           "answer": [ {
             "valueCoding": {
-              "code": "C00.3",
-              "display": "Bösartige Neubildung der Lippe|Oberlippe Innenseite"
+              "code": "C00.4",
+              "display": "Bösartige Neubildung der Lippe|Unterlippe Innenseite"
+            }
+          }, {
+            "valueCoding": {
+              "code": "C00.8",
+              "display": "Bösartige Neubildung der Lippe|Lippe mehrere Teilbereiche überlappend"
             }
           } ]
         }, {
@@ -85,8 +90,18 @@ export class TestUi {
           "text": "Nebendiagnose",
           "answer": [ {
             "valueCoding": {
-              "code": "C32.8",
-              "display": "Bösartige Neubildung des Larynx|Larynx mehrere Teilbereiche überlappend"
+              "code": "C00.2",
+              "display": "Bösartige Neubildung der Lippe|Äußere Lippe nicht näher bezeichnet"
+            }
+          }, {
+            "valueCoding": {
+              "code": "C00.8",
+              "display": "Bösartige Neubildung der Lippe|Lippe mehrere Teilbereiche überlappend"
+            }
+          }, {
+            "valueCoding": {
+              "code": "C01",
+              "display": "Bösartige Neubildung des Zungengrundes"
             }
           } ]
         } ]
@@ -107,8 +122,8 @@ export class TestUi {
           "text": "R-Status",
           "answer": [ {
             "valueCoding": {
-              "code": "A1",
-              "display": "R0"
+              "code": "A2",
+              "display": "R1"
             }
           } ]
         }, {
@@ -118,37 +133,52 @@ export class TestUi {
             "linkId": "2.3.1",
             "text": "Histologie (1)",
             "answer": [ {
-              "valueString": "yxc"
+              "valueString": "test"
             } ]
           }, {
             "linkId": "2.3.2",
-            "text": "Pathologe (1)"
+            "text": "Pathologe (1)",
+            "answer": [ {
+              "valueString": "test 2"
+            } ]
           }, {
             "linkId": "2.3.3",
-            "text": "Histologie (2)"
+            "text": "Histologie (2)",
+            "answer": [ {
+              "valueString": "test 3"
+            } ]
           }, {
             "linkId": "2.3.4",
-            "text": "Pathologe (2)"
+            "text": "Pathologe (2)",
+            "answer": [ {
+              "valueString": "test 4"
+            } ]
           }, {
             "linkId": "2.3.5",
-            "text": "Histologie (3)"
+            "text": "Histologie (3)",
+            "answer": [ {
+              "valueString": "test 5"
+            } ]
           }, {
             "linkId": "2.3.6",
-            "text": "Pathologe (3)"
+            "text": "Pathologe (3)",
+            "answer": [ {
+              "valueString": "test 6"
+            } ]
           } ]
         }, {
           "linkId": "2.4",
-          "text": "Tumorgröße (cm)"
-        }, {
-          "linkId": "2.5",
-          "text": "Histologie/Pathologe (cTNM)"
+          "text": "Tumorgröße (cm)",
+          "answer": [ {
+            "valueString": "22"
+          } ]
         }, {
           "linkId": "2.13",
           "text": "TNM T-Wert",
           "answer": [ {
             "valueCoding": {
-              "code": "Ta",
-              "display": "Ta"
+              "code": "T1",
+              "display": "T1"
             }
           } ]
         }, {
@@ -156,8 +186,8 @@ export class TestUi {
           "text": "TNM N-Wert",
           "answer": [ {
             "valueCoding": {
-              "code": "N3",
-              "display": "N3"
+              "code": "N1",
+              "display": "N1"
             }
           } ]
         }, {
@@ -168,8 +198,8 @@ export class TestUi {
           "text": "TNM M-Wert",
           "answer": [ {
             "valueCoding": {
-              "code": "M1a",
-              "display": "M1a"
+              "code": "M0",
+              "display": "M0"
             }
           } ]
         }, {
@@ -177,62 +207,159 @@ export class TestUi {
           "text": "UICC-Stadium",
           "answer": [ {
             "valueCoding": {
-              "system": "http://molit.eu/fhir/vitu/CodeSystem/uicc-stage",
-              "version": "0.1.10",
-              "code": "IV",
-              "display": "IV"
+              "system": "http://molit.eu/fhir/vitu/CodeSystem/vkh-uicc-extension",
+              "version": "0.1.12",
+              "code": "IB/IIA",
+              "display": "IB/IIA"
             }
           } ]
         }, {
           "linkId": "2.16.1",
-          "text": "Genutztes Bildgebungsverfahren"
+          "text": "Genutztes Bildgebungsverfahren",
+          "answer": [ {
+            "valueString": "Handy"
+          } ]
         }, {
           "linkId": "2.5",
           "text": "ECOG-Stadium",
           "answer": [ {
             "valueCoding": {
-              "code": "LA9625-0",
-              "display": "ECOG 3: (Nur begrenzte Selbstversorgung möglich; ist 50% oder mehr der Wachzeit an Bett oder Stuhl gebunden)"
+              "code": "LA9624-3",
+              "display": "ECOG 2: (Gehfähig, Selbstversorgung möglich, aber nicht arbeitsfähig; kann mehr als 50% der Wachzeit aufstehen)"
             }
           } ]
         }, {
           "linkId": "2.6",
-          "text": "Raucher?"
+          "text": "Raucher?",
+          "answer": [ {
+            "valueBoolean": true
+          } ]
+        }, {
+          "linkId": "2.9",
+          "text": "Packyears",
+          "answer": [ {
+            "valueString": "2"
+          } ]
         }, {
           "linkId": "2.10",
-          "text": "Fall in der Familie?"
+          "text": "Fall in der Familie?",
+          "answer": [ {
+            "valueBoolean": true
+          } ]
+        }, {
+          "linkId": "2.11",
+          "text": "Fallbeschreibung",
+          "answer": [ {
+            "valueString": "Hunger"
+          } ]
         }, {
           "linkId": "2.12",
-          "text": "Sonstiges"
+          "text": "Sonstiges",
+          "answer": [ {
+            "valueString": "Nüchts"
+          } ]
         } ]
       }, {
         "linkId": "3",
         "text": "Befund",
         "item": [ {
           "linkId": "3.1",
-          "text": "Bildgebende Diagnostik"
+          "text": "Bildgebende Diagnostik",
+          "answer": [ {
+            "valueCoding": {
+              "code": "A1",
+              "display": "Radiologische Diagnostik / Nuklearmedizin"
+            }
+          }, {
+            "valueCoding": {
+              "code": "A6",
+              "display": "PetCT"
+            }
+          }, {
+            "valueCoding": {
+              "code": "A3",
+              "display": "CT"
+            }
+          } ]
+        }, {
+          "linkId": "3.2",
+          "text": "Radiobefund",
+          "answer": [ {
+            "valueString": "nüchts da"
+          } ]
+        }, {
+          "linkId": "3.4",
+          "text": "CT-Befund",
+          "answer": [ {
+            "valueString": "wieder nüchts"
+          } ]
+        }, {
+          "linkId": "3.7",
+          "text": "PET-CT-Befund",
+          "answer": [ {
+            "valueString": "nope"
+          } ]
         }, {
           "linkId": "3.10",
-          "text": "Endo-Bronchiale Diagnostik"
+          "text": "Endo-Bronchiale Diagnostik",
+          "answer": [ {
+            "valueBoolean": false
+          } ]
         }, {
           "linkId": "3.12",
-          "text": "Biopsie"
+          "text": "Biopsie",
+          "answer": [ {
+            "valueBoolean": true
+          } ]
         }, {
           "linkId": "3.13",
-          "text": "Endo-Brochoskopie"
+          "text": "Endo-Brochoskopie",
+          "answer": [ {
+            "valueBoolean": true
+          } ]
         }, {
           "linkId": "3.14",
-          "text": "Lungenfunktions-Diagnostik"
+          "text": "Lungenfunktions-Diagnostik",
+          "answer": [ {
+            "valueBoolean": true
+          } ]
+        }, {
+          "linkId": "3.15",
+          "text": "VC (ml)",
+          "answer": [ {
+            "valueString": "33"
+          } ]
+        }, {
+          "linkId": "3.16",
+          "text": "FEV1 (ml)",
+          "answer": [ {
+            "valueString": "11"
+          } ]
+        }, {
+          "linkId": "3.17",
+          "text": "Post-Op FEV1 (ml)",
+          "answer": [ {
+            "valueString": "55"
+          } ]
         }, {
           "linkId": "3.18",
-          "text": "Labor-Diagnostik"
+          "text": "Labor-Diagnostik",
+          "answer": [ {
+            "valueBoolean": true
+          } ]
+        }, {
+          "linkId": "3.19",
+          "text": "Labor-Befund",
+          "answer": [ {
+            "valueString": "Tolle streifen"
+          } ]
         }, {
           "linkId": "3.20",
           "text": "Blutgruppe",
           "answer": [ {
             "valueCoding": {
-              "code": "A3",
-              "display": "O Rhesus positiv"
+              "code": "A2",
+              "display": "A Rhesus negativ"
             }
           } ]
         }, {
@@ -244,15 +371,41 @@ export class TestUi {
         "text": "Tumorboardempfehlung",
         "item": [ {
           "linkId": "4.1",
-          "text": "Empfehlung:"
+          "text": "Empfehlung:",
+          "answer": [ {
+            "valueString": "Mehr Sonnencreme"
+          } ]
         }, {
           "linkId": "4.2",
-          "text": "Therapieempfehlung:"
+          "text": "Therapieempfehlung:",
+          "answer": [ {
+            "valueCoding": {
+              "code": "A2",
+              "display": "systematische Therapie"
+            }
+          }, {
+            "valueCoding": {
+              "code": "A3",
+              "display": "Strahlentherapie"
+            }
+          } ]
+        }, {
+          "linkId": "4.4",
+          "text": "systemische Therapie (Details)",
+          "answer": [ {
+            "valueString": "touch more grass"
+          } ]
+        }, {
+          "linkId": "4.5",
+          "text": "Strahlentherapie (Details)",
+          "answer": [ {
+            "valueString": "Sonnenbestrahlung"
+          } ]
         }, {
           "linkId": "4.6",
           "text": "Primärfall",
           "answer": [ {
-            "valueBoolean": true
+            "valueBoolean": false
           } ]
         }, {
           "linkId": "4.7",
@@ -264,11 +417,14 @@ export class TestUi {
           "linkId": "4.10",
           "text": "Bitte Quelle angeben: Link zur Leitlinie einfügen",
           "answer": [ {
-            "valueUri": "wew.xyz"
+            "valueUri": "https://heute.de/linkender/link"
           } ]
         }, {
           "linkId": "4.8",
-          "text": "Dissensentscheidung"
+          "text": "Dissensentscheidung",
+          "answer": [ {
+            "valueBoolean": false
+          } ]
         } ]
       } ]
     };
