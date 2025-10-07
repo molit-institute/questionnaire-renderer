@@ -661,11 +661,11 @@ export class QuestionnaireRenderer {
       if (this.questionnaireResponse.questionnaire) {
         let split = this.questionnaireResponse.questionnaire.split('/');
         let id = split[1];
-        if (this.questionnaireResponse.questionnaire === this.questionnaire.url || (id && id === this.questionnaire.id)) {
+        if (this.questionnaireResponse.questionnaire === this.currentQuestionnaire.url || (id && id === this.currentQuestionnaire.id)) {
           this.createQuestionnaireResponse();
           let questionaireResponseItems = questionnaireResponseController.createItemList(this.questionnaireResponse);
-          this.transferQuestionnaireResponseAnswers(this.currentQuestionnaireResponse, questionaireResponseItems);
-          //filtern?
+          let questionnaireItems = questionnaireResponseController.createItemList(this.currentQuestionnaire);
+          this.transferQuestionnaireResponseAnswers(this.currentQuestionnaireResponse, questionaireResponseItems, questionnaireItems);
           this.filterItemList();
         } else {
           if (this.enableErrorConsoleLogging) {
@@ -688,18 +688,39 @@ export class QuestionnaireRenderer {
    * Compares the answers in the given answeredItemList and baseList. tranfers the answers of the answeredItemList into the baseList
    * @param {Array} baseList Items of an empty QuestionnaireResponse to be filled
    * @param {Array} answeredItemList List containing answers
+   * @param {Array} quesitonnaireItem List containing questionnaire items
    */
-  transferQuestionnaireResponseAnswers(baseList, answeredItemList) {
+  transferQuestionnaireResponseAnswers(baseList, answeredItemList, questionnaireItems) {
     baseList.item.forEach((element, index) => {
-      let result = answeredItemList.find(item => item.linkId === element.linkId);
+      let result = null;
+      for (let i = 0; i < answeredItemList.length; i++) {
+        if (answeredItemList[i].linkId === element.linkId && this.checkAnswerType(answeredItemList[i], questionnaireItems)) {
+          result = answeredItemList[i];
+        }
+      }
       if (result) {
         if (element.item && element.item.length > 0) {
-          this.transferQuestionnaireResponseAnswers(element, answeredItemList);
+          this.transferQuestionnaireResponseAnswers(element, answeredItemList, questionnaireItems);
         } else {
           baseList.item[index].answer = result.answer;
         }
       }
     });
+  }
+
+  checkAnswerType(answeredItem, questionnaireItems) {
+    if (answeredItem.answer && answeredItem.answer.length !== 0) {
+      let answerType = questionnaireResponseController.getAnswerType(answeredItem.answer);
+      let result = null;
+      if (answerType === 'string') {
+        result = questionnaireItems.find(questionnaireItem => questionnaireItem.linkId === answeredItem.linkId && (questionnaireItem.type === "text" || questionnaireItem.type === "string"));
+      } else {
+        result = questionnaireItems.find(questionnaireItem => questionnaireItem.linkId === answeredItem.linkId && questionnaireItem.type == answerType);
+      }
+      return result !== undefined ? true : false;
+    } else {
+      return true;
+    }
   }
 
   /**
@@ -875,7 +896,7 @@ export class QuestionnaireRenderer {
   /* Lifecycle Methods */
   async componentWillLoad(): Promise<void> {
     this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
-    this.spinner = { ...this.spinner, loading: true, message: this.strings.loading.data  };
+    this.spinner = { ...this.spinner, loading: true, message: this.strings.loading.data };
   }
 
   async componentDidLoad(): Promise<void> {

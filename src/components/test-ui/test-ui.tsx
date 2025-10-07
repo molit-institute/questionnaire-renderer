@@ -30,7 +30,8 @@ export class TestUi {
   edit: boolean = false;
   indexQuestion: Object = null;
   // baseUrl: string = 'https://fhir.molit.eu/fhir';
-  @State() baseUrl: string = 'https://equ.molit-service.de/fhir';
+  // @State() baseUrl: string = 'https://equ.molit-service.de/fhir';
+  @State() baseUrl: string = 'https://vitu-dev-app.molit-service.de/fhir';
   // baseUrl: string = 'https://dev.lion-app.de/fhir';
   // baseUrl: string = 'https://vitu-dev-app.molit-service.de/fhir';
   // questionnaireUrl: string = this.baseUrl + '/Questionnaire/56';
@@ -45,6 +46,40 @@ export class TestUi {
     return examplePatient;
   }
   task: any = {
+    resourceType: 'Task',
+    meta: {
+      tag: [
+        {
+          code: 'pre-OP',
+          display: 'vor OP',
+        },
+      ],
+    },
+    status: 'active',
+    intent: 'order',
+    code: {
+      coding: [
+        {
+          system: 'http://molit.eu/fhir/CodeSystem/taskTypes',
+          code: 'eQuestionnaire',
+          display: 'eQU Questionnaire',
+        },
+      ],
+      text: 'PatientQuestionnaireTask',
+    },
+    focus: {
+      reference: 'Questionnaire/1',
+      display: 'QLQ-C30',
+    },
+    for: {
+      reference: 'Patient/14',
+      display: 'Maier, Peter',
+    },
+    executionPeriod: {
+      start: '2026-10-25',
+      end: '2026-10-25',
+    },
+  };
     resourceType: 'Task',
     meta: {
       tag: [
@@ -96,6 +131,7 @@ export class TestUi {
     this.show_questionnaire_list = false;
     this.show_summary = false;
   }
+  startQuestionnaire() {
   startQuestionnaire() {
     this.show_renderer = true;
     this.show_questionnaire_list = false;
@@ -181,11 +217,14 @@ export class TestUi {
           <br />
           <div>
             Token: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.token} onInput={this.handleTokenInput} />
+            Token: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.token} onInput={this.handleTokenInput} />
           </div>
           <div>
             Questionnaire Url: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.questionnaireUrlIdentifier} onInput={this.handleUrlInput}></input>
+            Questionnaire Url: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.questionnaireUrlIdentifier} onInput={this.handleUrlInput}></input>
           </div>
           <div>
+            Fhir Base Url: <input type="text" style={{ 'min-width': '50%' }} value={this.baseUrl} onInput={this.handleBaseUrlInput}></input>
             Fhir Base Url: <input type="text" style={{ 'min-width': '50%' }} value={this.baseUrl} onInput={this.handleBaseUrlInput}></input>
           </div>
           <br />
