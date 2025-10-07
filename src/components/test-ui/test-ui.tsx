@@ -30,55 +30,443 @@ export class TestUi {
   edit: boolean = false;
   indexQuestion: Object = null;
   // baseUrl: string = 'https://fhir.molit.eu/fhir';
-  @State() baseUrl: string = 'https://equ.molit-service.de/fhir';
+  // @State() baseUrl: string = 'https://equ.molit-service.de/fhir';
+  @State() baseUrl: string = 'https://vitu-dev-app.molit-service.de/fhir';
   // baseUrl: string = 'https://dev.lion-app.de/fhir';
   // baseUrl: string = 'https://vitu-dev-app.molit-service.de/fhir';
   // questionnaireUrl: string = this.baseUrl + '/Questionnaire/56';
   questionnaireUrl: any = null;
   questionnaire: any = null;
-  @State() questionnaireUrlIdentifier: any = "https://molit.eu/fhir/Questionnaire/qlq30";
+  // @State() questionnaireUrlIdentifier: any = "https://molit.eu/fhir/Questionnaire/qlq30";
+  @State() questionnaireUrlIdentifier: any = 'http://molit.eu/fhir/vitu/Questionnaire/vkh-questionnaire-tumorboard-lunge';
   questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30, q_5d_5l, vomit, lion, dropdown_test];
-  @State() token: string = null
-  testResp: object = null
+  @State() token: string = null;
+  // testResp: object = null;
+  testResp: object = {
+      "resourceType": "QuestionnaireResponse",
+      "id": "58781",
+      "meta": {
+        "versionId": "1",
+        "lastUpdated": "2025-10-02T11:12:06.194+02:00"
+      },
+      "questionnaire": "http://molit.eu/fhir/vitu/Questionnaire/vkh-questionnaire-tumorboard-lunge",
+      "status": "in-progress",
+      "subject": {
+        "reference": "Patient/37025",
+        "display": "mi li"
+      },
+      "authored": "2025-10-02T11:08:37+02:00",
+      "source": {
+        "reference": "Patient/37025",
+        "display": "mi li"
+      },
+      "item": [ {
+        "linkId": "1",
+        "text": "Diagnostik",
+        "item": [ {
+          "linkId": "1.1",
+          "answer": [ {
+            "valueCoding": {
+              "code": "A2",
+              "display": "Erstvorstellung (Verdachtsdiagnose)"
+            }
+          } ]
+        }, {
+          "linkId": "1.4",
+          "text": "Diagnose",
+          "answer": [ {
+            "valueCoding": {
+              "code": "C00.4",
+              "display": "Bösartige Neubildung der Lippe|Unterlippe Innenseite"
+            }
+          }, {
+            "valueCoding": {
+              "code": "C00.8",
+              "display": "Bösartige Neubildung der Lippe|Lippe mehrere Teilbereiche überlappend"
+            }
+          } ]
+        }, {
+          "linkId": "1.5",
+          "text": "Nebendiagnose",
+          "answer": [ {
+            "valueCoding": {
+              "code": "C00.2",
+              "display": "Bösartige Neubildung der Lippe|Äußere Lippe nicht näher bezeichnet"
+            }
+          }, {
+            "valueCoding": {
+              "code": "C00.8",
+              "display": "Bösartige Neubildung der Lippe|Lippe mehrere Teilbereiche überlappend"
+            }
+          }, {
+            "valueCoding": {
+              "code": "C01",
+              "display": "Bösartige Neubildung des Zungengrundes"
+            }
+          } ]
+        } ]
+      }, {
+        "linkId": "2",
+        "text": "Anamnese",
+        "item": [ {
+          "linkId": "2.1",
+          "text": "cTNM / pTNM",
+          "answer": [ {
+            "valueCoding": {
+              "code": "A2",
+              "display": "pTNM"
+            }
+          } ]
+        }, {
+          "linkId": "2.2",
+          "text": "R-Status",
+          "answer": [ {
+            "valueCoding": {
+              "code": "A2",
+              "display": "R1"
+            }
+          } ]
+        }, {
+          "linkId": "2.3",
+          "text": "Histologie/Pathologe (pTNM)",
+          "item": [ {
+            "linkId": "2.3.1",
+            "text": "Histologie (1)",
+            "answer": [ {
+              "valueString": "test"
+            } ]
+          }, {
+            "linkId": "2.3.2",
+            "text": "Pathologe (1)",
+            "answer": [ {
+              "valueString": "test 2"
+            } ]
+          }, {
+            "linkId": "2.3.3",
+            "text": "Histologie (2)",
+            "answer": [ {
+              "valueString": "test 3"
+            } ]
+          }, {
+            "linkId": "2.3.4",
+            "text": "Pathologe (2)",
+            "answer": [ {
+              "valueString": "test 4"
+            } ]
+          }, {
+            "linkId": "2.3.5",
+            "text": "Histologie (3)",
+            "answer": [ {
+              "valueString": "test 5"
+            } ]
+          }, {
+            "linkId": "2.3.6",
+            "text": "Pathologe (3)",
+            "answer": [ {
+              "valueString": "test 6"
+            } ]
+          } ]
+        }, {
+          "linkId": "2.4",
+          "text": "Tumorgröße (cm)",
+          "answer": [ {
+            "valueString": "22"
+          } ]
+        }, {
+          "linkId": "2.13",
+          "text": "TNM T-Wert",
+          "answer": [ {
+            "valueCoding": {
+              "code": "T1",
+              "display": "T1"
+            }
+          } ]
+        }, {
+          "linkId": "2.14",
+          "text": "TNM N-Wert",
+          "answer": [ {
+            "valueCoding": {
+              "code": "N1",
+              "display": "N1"
+            }
+          } ]
+        }, {
+          "linkId": "2.14.1",
+          "text": "Metastasen-Anzahl, betroffene Organe"
+        }, {
+          "linkId": "2.15",
+          "text": "TNM M-Wert",
+          "answer": [ {
+            "valueCoding": {
+              "code": "M0",
+              "display": "M0"
+            }
+          } ]
+        }, {
+          "linkId": "2.16",
+          "text": "UICC-Stadium",
+          "answer": [ {
+            "valueCoding": {
+              "system": "http://molit.eu/fhir/vitu/CodeSystem/vkh-uicc-extension",
+              "version": "0.1.12",
+              "code": "IB/IIA",
+              "display": "IB/IIA"
+            }
+          } ]
+        }, {
+          "linkId": "2.16.1",
+          "text": "Genutztes Bildgebungsverfahren",
+          "answer": [ {
+            "valueString": "Handy"
+          } ]
+        }, {
+          "linkId": "2.5",
+          "text": "ECOG-Stadium",
+          "answer": [ {
+            "valueCoding": {
+              "code": "LA9624-3",
+              "display": "ECOG 2: (Gehfähig, Selbstversorgung möglich, aber nicht arbeitsfähig; kann mehr als 50% der Wachzeit aufstehen)"
+            }
+          } ]
+        }, {
+          "linkId": "2.6",
+          "text": "Raucher?",
+          "answer": [ {
+            "valueBoolean": true
+          } ]
+        }, {
+          "linkId": "2.9",
+          "text": "Packyears",
+          "answer": [ {
+            "valueString": "2"
+          } ]
+        }, {
+          "linkId": "2.10",
+          "text": "Fall in der Familie?",
+          "answer": [ {
+            "valueBoolean": true
+          } ]
+        }, {
+          "linkId": "2.11",
+          "text": "Fallbeschreibung",
+          "answer": [ {
+            "valueString": "Hunger"
+          } ]
+        }, {
+          "linkId": "2.12",
+          "text": "Sonstiges",
+          "answer": [ {
+            "valueString": "Nüchts"
+          } ]
+        } ]
+      }, {
+        "linkId": "3",
+        "text": "Befund",
+        "item": [ {
+          "linkId": "3.1",
+          "text": "Bildgebende Diagnostik",
+          "answer": [ {
+            "valueCoding": {
+              "code": "A1",
+              "display": "Radiologische Diagnostik / Nuklearmedizin"
+            }
+          }, {
+            "valueCoding": {
+              "code": "A6",
+              "display": "PetCT"
+            }
+          }, {
+            "valueCoding": {
+              "code": "A3",
+              "display": "CT"
+            }
+          } ]
+        }, {
+          "linkId": "3.2",
+          "text": "Radiobefund",
+          "answer": [ {
+            "valueString": "nüchts da"
+          } ]
+        }, {
+          "linkId": "3.4",
+          "text": "CT-Befund",
+          "answer": [ {
+            "valueString": "wieder nüchts"
+          } ]
+        }, {
+          "linkId": "3.7",
+          "text": "PET-CT-Befund",
+          "answer": [ {
+            "valueString": "nope"
+          } ]
+        }, {
+          "linkId": "3.10",
+          "text": "Endo-Bronchiale Diagnostik",
+          "answer": [ {
+            "valueBoolean": false
+          } ]
+        }, {
+          "linkId": "3.12",
+          "text": "Biopsie",
+          "answer": [ {
+            "valueBoolean": true
+          } ]
+        }, {
+          "linkId": "3.13",
+          "text": "Endo-Brochoskopie",
+          "answer": [ {
+            "valueBoolean": true
+          } ]
+        }, {
+          "linkId": "3.14",
+          "text": "Lungenfunktions-Diagnostik",
+          "answer": [ {
+            "valueBoolean": true
+          } ]
+        }, {
+          "linkId": "3.15",
+          "text": "VC (ml)",
+          "answer": [ {
+            "valueString": "33"
+          } ]
+        }, {
+          "linkId": "3.16",
+          "text": "FEV1 (ml)",
+          "answer": [ {
+            "valueString": "11"
+          } ]
+        }, {
+          "linkId": "3.17",
+          "text": "Post-Op FEV1 (ml)",
+          "answer": [ {
+            "valueString": "55"
+          } ]
+        }, {
+          "linkId": "3.18",
+          "text": "Labor-Diagnostik",
+          "answer": [ {
+            "valueBoolean": true
+          } ]
+        }, {
+          "linkId": "3.19",
+          "text": "Labor-Befund",
+          "answer": [ {
+            "valueString": "Tolle streifen"
+          } ]
+        }, {
+          "linkId": "3.20",
+          "text": "Blutgruppe",
+          "answer": [ {
+            "valueCoding": {
+              "code": "A2",
+              "display": "A Rhesus negativ"
+            }
+          } ]
+        }, {
+          "linkId": "3.21",
+          "text": "Molekular-Diagnostik"
+        } ]
+      }, {
+        "linkId": "4",
+        "text": "Tumorboardempfehlung",
+        "item": [ {
+          "linkId": "4.1",
+          "text": "Empfehlung:",
+          "answer": [ {
+            "valueString": "Mehr Sonnencreme"
+          } ]
+        }, {
+          "linkId": "4.2",
+          "text": "Therapieempfehlung:",
+          "answer": [ {
+            "valueCoding": {
+              "code": "A2",
+              "display": "systematische Therapie"
+            }
+          }, {
+            "valueCoding": {
+              "code": "A3",
+              "display": "Strahlentherapie"
+            }
+          } ]
+        }, {
+          "linkId": "4.4",
+          "text": "systemische Therapie (Details)",
+          "answer": [ {
+            "valueString": "touch more grass"
+          } ]
+        }, {
+          "linkId": "4.5",
+          "text": "Strahlentherapie (Details)",
+          "answer": [ {
+            "valueString": "Sonnenbestrahlung"
+          } ]
+        }, {
+          "linkId": "4.6",
+          "text": "Primärfall",
+          "answer": [ {
+            "valueBoolean": false
+          } ]
+        }, {
+          "linkId": "4.7",
+          "text": "Leitliniengerechte Entscheidung",
+          "answer": [ {
+            "valueBoolean": true
+          } ]
+        }, {
+          "linkId": "4.10",
+          "text": "Bitte Quelle angeben: Link zur Leitlinie einfügen",
+          "answer": [ {
+            "valueUri": "https://heute.de/linkender/link"
+          } ]
+        }, {
+          "linkId": "4.8",
+          "text": "Dissensentscheidung",
+          "answer": [ {
+            "valueBoolean": false
+          } ]
+        } ]
+      } ]
+    };
   /* computed */
   examplePatient() {
     return examplePatient;
   }
   task: any = {
-  resourceType: "Task",
-  meta: {
-    tag: [
-      {
-        code: "pre-OP",
-        display: "vor OP"
-      }
-    ]
-  },
-  status: "active",
-  intent: "order",
-code: {
-    coding: [
-      {
-        system: "http://molit.eu/fhir/CodeSystem/taskTypes",
-        code: "eQuestionnaire",
-        display: "eQU Questionnaire"
-      }
-    ],
-    text: "PatientQuestionnaireTask"
-  },
-  focus: {
-    reference: "Questionnaire/1",
-    display: "QLQ-C30"
-  },
-  for: {
-    reference: "Patient/14",
-    display: "Maier, Peter"
-  },
-  executionPeriod: {
-    start: "2026-10-25",
-    end: "2026-10-25"
-  }
-}
+    resourceType: 'Task',
+    meta: {
+      tag: [
+        {
+          code: 'pre-OP',
+          display: 'vor OP',
+        },
+      ],
+    },
+    status: 'active',
+    intent: 'order',
+    code: {
+      coding: [
+        {
+          system: 'http://molit.eu/fhir/CodeSystem/taskTypes',
+          code: 'eQuestionnaire',
+          display: 'eQU Questionnaire',
+        },
+      ],
+      text: 'PatientQuestionnaireTask',
+    },
+    focus: {
+      reference: 'Questionnaire/1',
+      display: 'QLQ-C30',
+    },
+    for: {
+      reference: 'Patient/14',
+      display: 'Maier, Peter',
+    },
+    executionPeriod: {
+      start: '2026-10-25',
+      end: '2026-10-25',
+    },
+  };
 
   /* methods */
   setQuestionnaireMode(selectedMode) {
@@ -96,7 +484,7 @@ code: {
     this.show_questionnaire_list = false;
     this.show_summary = false;
   }
-  startQuestionnaire(){
+  startQuestionnaire() {
     this.show_renderer = true;
     this.show_questionnaire_list = false;
     this.show_summary = false;
@@ -180,13 +568,13 @@ code: {
           </div>
           <br />
           <div>
-            Token: <input type="text" style={{'min-width':'50%', margin:'0 0 10px 0'}} value={this.token} onInput={this.handleTokenInput}/>
+            Token: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.token} onInput={this.handleTokenInput} />
           </div>
           <div>
-            Questionnaire Url: <input type="text" style={{'min-width':'50%', margin:'0 0 10px 0'}} value={this.questionnaireUrlIdentifier} onInput={this.handleUrlInput}></input>
+            Questionnaire Url: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.questionnaireUrlIdentifier} onInput={this.handleUrlInput}></input>
           </div>
           <div>
-            Fhir Base Url: <input type="text" style={{'min-width':'50%'}} value={this.baseUrl} onInput={this.handleBaseUrlInput}></input>
+            Fhir Base Url: <input type="text" style={{ 'min-width': '50%' }} value={this.baseUrl} onInput={this.handleBaseUrlInput}></input>
           </div>
           <br />
           <button onClick={() => this.startQuestionnaire()}>Start via Url</button>

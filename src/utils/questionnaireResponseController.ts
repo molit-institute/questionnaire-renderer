@@ -406,7 +406,8 @@ export function getAnswerType(answer) {
     } else if (answer[0].valueAttachment) {
       return valueTypes.ATTACHMENT;
     } else if (answer[0].valueCoding) {
-      return valueTypes.CODING;
+      // return valueTypes.CODING;
+      return "choice"
     } else if (answer[0].valueQuantity) {
       return valueTypes.QUANTITY;
     } else {
