@@ -15,7 +15,6 @@ import { textToHtml } from '../../../utils/textToHtml';
 })
 export class DateTimeQuestion {
   @Element() element: HTMLElement;
-  @Prop() variant: any = null;
   @Prop() enableErrorConsoleLogging: boolean;
   /**
    *  String containing the translations for the current locale
@@ -125,7 +124,6 @@ export class DateTimeQuestion {
   getAnswer() {
     try {
       return questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'dateTime');
-
     } catch (error) {
       if (this.enableErrorConsoleLogging) {
         console.error(error);
@@ -155,8 +153,8 @@ export class DateTimeQuestion {
   }
 
   /**
-     * Emits an error-event
-     */
+   * Emits an error-event
+   */
   @Event() errorLog: EventEmitter;
   emitError(error) {
     this.errorLog.emit(error);
@@ -180,109 +178,57 @@ export class DateTimeQuestion {
   render() {
     return (
       <div class="qr-question-container">
-        {this.variant === 'touch' ? (
-          <div class="qr-question qr-question-dateTime">
-            <div class="qr-question-head">
-              <div class="qr-question-title">
-                <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  {this.question.prefix && this.question.prefix != "" ? (
-                    <span class="qr-question-prefix">{this.question.prefix}</span>
+        <div class="qr-question qr-question-dateTime">
+          <div class="qr-question-head">
+            <div class="qr-question-title">
+              <div class={this.reset ? 'qr-question-hidden' : ''}>
+                {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
+                <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
+              </div>
+            </div>
+            <div class="qr-question-mandatoryQuestion">
+              {this.strings ? (
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
+                  {this.strings.mandatory_question}
+                </div>
+              ) : null}
+            </div>
+          </div>
+          <hr />
+          <div class="card qr-question-optionCard">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-6">
+                  {this.strings ? (
+                    <label class="qr-question-inputLabel qr-dateTimeQuestion-inputLabel" htmlFor="date">
+                      {this.strings.date.text}:
+                    </label>
                   ) : null}
-                  <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
+                  {/* sm="6" */}
+                  <input required={this.question.required} id="date" class="form-control" type="date" max="9999-12-31" value={this.date} onInput={e => this.handleChange(e, 'date')} disabled={this.question.readOnly} />
                 </div>
-              </div>
-              <div class="qr-question-mandatoryQuestion">
-                {this.strings ? (
-                  <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
-                    {this.strings.mandatory_question}
-                  </div>
-                ) : null}
-              </div>
-            </div>
-            <hr />
-            <div class="card qr-question-optionCard">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-sm-6">
-                    {this.strings ? (
-                      <label class="qr-question-inputLabel qr-dateTimeQuestion-inputLabel" htmlFor="date">
-                        {this.strings.date.text}:
-                      </label>
-                    ) : null}
-                    {/* sm="6" */}
-                    <input required={this.question.required} id="date" class="form-control" type="date" max="9999-12-31" value={this.date} onInput={e => this.handleChange(e, 'date')} disabled={this.question.readOnly}/>
-                  </div>
-                  <div class="col-sm-6">
-                    {this.strings ? (
-                      <label class="qr-question-inputLabel qr-dateTimeQuestion-inputLabel" htmlFor="time">
-                        {this.strings.time.text}:
-                      </label>
-                    ) : null}
-                    {/* sm="6"  */}
-                    <input required={this.question.required} id="time" type="time" class="form-control qr-question-input qr-dateTimeQuestion-input" value={this.time} onInput={e => this.handleChange(e, 'time')} disabled={this.question.readOnly}/>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br />
-          </div>
-        ) : null}
-        {this.variant === 'form' ? (
-          <div>
-            <div class="card option-card">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-sm-6">
-                    {this.strings ? (
-                      <label class="" htmlFor="date">
-                        {this.strings.date.text}:
-                      </label>
-                    ) : null}
-                    {/* sm="6" */}
-                    <input required={this.question.required} id="date" class="form-control" type="date" max="9999-12-31" value={this.date} onInput={e => this.handleChange(e, 'date')} />
-                  </div>
-                  <div class="col-sm-6">
-                    {this.strings ? (
-                      <label class="" htmlFor="time">
-                        {this.strings.time.text}:
-                      </label>
-                    ) : null}
-                    {/* sm="6"  */}
-                    <input required={this.question.required} id="time" type="time" class="form-control" value={this.time} onInput={e => this.handleChange(e, 'time')} />
-                  </div>
+                <div class="col-sm-6">
+                  {this.strings ? (
+                    <label class="qr-question-inputLabel qr-dateTimeQuestion-inputLabel" htmlFor="time">
+                      {this.strings.time.text}:
+                    </label>
+                  ) : null}
+                  {/* sm="6"  */}
+                  <input
+                    required={this.question.required}
+                    id="time"
+                    type="time"
+                    class="form-control qr-question-input qr-dateTimeQuestion-input"
+                    value={this.time}
+                    onInput={e => this.handleChange(e, 'time')}
+                    disabled={this.question.readOnly}
+                  />
                 </div>
               </div>
             </div>
           </div>
-        ) : null}
-        {this.variant === 'compact' ? (
-          <div>
-            <div class="card option-card">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-sm-6">
-                    {this.strings ? (
-                      <label class="" htmlFor="date">
-                        {this.strings.date.text}:
-                      </label>
-                    ) : null}
-                    {/* sm="6" */}
-                    <input required={this.question.required} id="date" class="form-control" type="date" max="9999-12-31" value={this.date} onInput={e => this.handleChange(e, 'date')} />
-                  </div>
-                  <div class="col-sm-6">
-                    {this.strings ? (
-                      <label class="" htmlFor="time">
-                        {this.strings.time.text}:
-                      </label>
-                    ) : null}
-                    {/* sm="6"  */}
-                    <input required={this.question.required} id="time" type="time" class="form-control" value={this.time} onInput={e => this.handleChange(e, 'time')} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : null}
+          <br />
+        </div>
       </div>
     );
   }

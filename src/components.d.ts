@@ -52,7 +52,6 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
-        "variant": any;
         "visibleBooleanNullOption": boolean;
     }
     interface ChoiceQuestion {
@@ -81,7 +80,6 @@ export namespace Components {
          */
         "secondary": string;
         "valueSets": Array<any>;
-        "variant": any;
     }
     interface DateQuestion {
         /**
@@ -105,7 +103,6 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
-        "variant": any;
     }
     interface DateTimeQuestion {
         /**
@@ -129,7 +126,6 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
-        "variant": any;
     }
     interface DecimalQuestion {
         /**
@@ -153,7 +149,6 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
-        "variant": any;
     }
     interface DisplayQuestion {
         "enableErrorConsoleLogging": boolean;
@@ -235,7 +230,6 @@ export namespace Components {
         "secondary": string;
         "startCount": Number;
         "valueSets": Array<any>;
-        "variant": any;
     }
     interface GroupedQuestionnaire {
         "baseUrl": string;
@@ -309,7 +303,6 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
-        "variant": any;
         "vasSelectedValueLabel": string;
         "vasShowSelectedValue": boolean;
         /**
@@ -458,7 +451,6 @@ export namespace Components {
           * Array of ValueSets that are needed to display the given questionnaire
          */
         "valueSets": Array<any>;
-        "variant": any;
         /**
           * Text for the label of the selected value
          */
@@ -546,7 +538,6 @@ export namespace Components {
         "startCount": number;
         "trademarkText": string;
         "valueSets": Array<any>;
-        "variant": any;
         "vasSelectedValueLabel": string;
         "vasShowSelectedValue": boolean;
         /**
@@ -577,7 +568,6 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
-        "variant": any;
     }
     interface TestUi {
     }
@@ -603,7 +593,6 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
-        "variant": any;
     }
     interface TimeQuestion {
         /**
@@ -627,7 +616,6 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
-        "variant": any;
     }
     interface UrlQuestion {
         /**
@@ -651,7 +639,6 @@ export namespace Components {
           * Secondary color
          */
         "secondary": string;
-        "variant": any;
     }
     interface VasQuestion {
         "labelLower": String;
@@ -660,7 +647,6 @@ export namespace Components {
         "min": number;
         "selected": number;
         "step": number;
-        "variant": any;
         "vasSelectedValueLabel": string;
         "vasShowSelectedValue": boolean;
         /**
@@ -1245,7 +1231,6 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
-        "variant"?: any;
         "visibleBooleanNullOption"?: boolean;
     }
     interface ChoiceQuestion {
@@ -1280,7 +1265,6 @@ declare namespace LocalJSX {
          */
         "secondary"?: string;
         "valueSets"?: Array<any>;
-        "variant"?: any;
     }
     interface DateQuestion {
         /**
@@ -1309,7 +1293,6 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
-        "variant"?: any;
     }
     interface DateTimeQuestion {
         /**
@@ -1338,7 +1321,6 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
-        "variant"?: any;
     }
     interface DecimalQuestion {
         /**
@@ -1371,7 +1353,6 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
-        "variant"?: any;
     }
     interface DisplayQuestion {
         "enableErrorConsoleLogging"?: boolean;
@@ -1476,7 +1457,6 @@ declare namespace LocalJSX {
         "secondary"?: string;
         "startCount"?: Number;
         "valueSets"?: Array<any>;
-        "variant"?: any;
     }
     interface GroupedQuestionnaire {
         "baseUrl"?: string;
@@ -1573,7 +1553,6 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
-        "variant"?: any;
         "vasSelectedValueLabel"?: string;
         "vasShowSelectedValue"?: boolean;
         /**
@@ -1746,7 +1725,6 @@ declare namespace LocalJSX {
           * Array of ValueSets that are needed to display the given questionnaire
          */
         "valueSets"?: Array<any>;
-        "variant"?: any;
         /**
           * Text for the label of the selected value
          */
@@ -1858,7 +1836,6 @@ declare namespace LocalJSX {
         "startCount"?: number;
         "trademarkText"?: string;
         "valueSets"?: Array<any>;
-        "variant"?: any;
         "vasSelectedValueLabel"?: string;
         "vasShowSelectedValue"?: boolean;
         /**
@@ -1898,7 +1875,6 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
-        "variant"?: any;
     }
     interface TestUi {
     }
@@ -1929,7 +1905,6 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
-        "variant"?: any;
     }
     interface TimeQuestion {
         /**
@@ -1958,7 +1933,6 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
-        "variant"?: any;
     }
     interface UrlQuestion {
         /**
@@ -1992,7 +1966,6 @@ declare namespace LocalJSX {
           * Secondary color
          */
         "secondary"?: string;
-        "variant"?: any;
     }
     interface VasQuestion {
         "labelLower"?: String;
@@ -2002,7 +1975,6 @@ declare namespace LocalJSX {
         "onEmitSelected"?: (event: VasQuestionCustomEvent<any>) => void;
         "selected"?: number;
         "step"?: number;
-        "variant"?: any;
         "vasSelectedValueLabel"?: string;
         "vasShowSelectedValue"?: boolean;
         /**

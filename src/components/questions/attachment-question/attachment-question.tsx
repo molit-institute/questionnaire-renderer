@@ -47,6 +47,7 @@ export class AttachmentQuestion {
   @Watch('questionnaireResponse')
   async watchQuestionnaireResponse() {
     this.allow_events = false;
+    // console.log("watchQUestionnareResponse")
     await this.setSelected();
     this.allow_events = true;
   }
@@ -54,6 +55,7 @@ export class AttachmentQuestion {
   @Watch('question')
   async watchQuestion() {
     this.allow_events = false;
+    console.log("watchQuestion")
     await this.setSelected();
     this.allow_events = true;
 
@@ -86,7 +88,7 @@ export class AttachmentQuestion {
   setSelected() {
     try {
       let value = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'attachment');
-      console.log(value);
+      // console.log(value);
       //   TODO schaun was mit value gemacht werden soll
     } catch (error) {
       if (this.enableErrorConsoleLogging) {
@@ -128,6 +130,7 @@ export class AttachmentQuestion {
     const base64 = await this.fileToBase64(file);
     this.selected = base64;
   }
+
   async componentWillLoad(): Promise<void> {
     try {
       this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
@@ -140,6 +143,7 @@ export class AttachmentQuestion {
       this.emitError(e);
     }
   }
+  
   render() {
     return (
       <div class="qr-question-container">

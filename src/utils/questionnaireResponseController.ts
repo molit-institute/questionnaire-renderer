@@ -225,6 +225,7 @@ export function createAnswers(array, type) {
  * @param {String} type type of the question
  */
 export function addAnswersToQuestionnaireResponse(questionnaireResponse, linkId, array, type) {
+  console.log("addAnswerstoQuestionnaireResponse",questionnaireResponse, linkId, array, type)
   let questResp = questionnaireResponse;
   try {
     if (questResp && linkId && type && array !== null) {
@@ -233,6 +234,7 @@ export function addAnswersToQuestionnaireResponse(questionnaireResponse, linkId,
         throw new Error('Adding Answers to Question did not work, the QuestionnaireResponse items were null or undefined');
       }
     }
+    console.log("return questResp", questResp)
     return questResp;
   } catch (error) {
     throw new Error('Adding Answers to questionnaireResponse failed, because the given parameters were null or undefined');
@@ -248,11 +250,13 @@ export function addAnswersToQuestionnaireResponse(questionnaireResponse, linkId,
  * @param {String} type type of the question
  */
 function addAnswersToQuestion(varitem, linkId, array, type) {
+  console.log("addAnswersToQuestion",varitem, linkId, array, type)
   for (let i = 0; i < varitem.length; i++) {
     if (varitem[i].item) {
       varitem[i].item = addAnswersToQuestion(varitem[i].item, linkId, array, type);
     } else {
       if (varitem[i].linkId === linkId) {
+        console.log("linkId Match")
         varitem[i].answer = createAnswers(array, type);
       }
     }
@@ -389,6 +393,7 @@ function getGroupsAndItems(varitem, itemList) {
  * @param {Object} answer
  */
 export function getAnswerType(answer) {
+  console.log(answer)
   if (answer && answer.length !== 0) {
     if (answer[0].valueBoolean || answer[0].valueBoolean === false) {
       return valueTypes.BOOLEAN;

@@ -23,7 +23,6 @@ export class StepperQuestionnaire {
   watchCount() {
     this.setDisabled();
   }
-  @Prop() variant: any = null;
   @Prop() filteredItemList: Array<any>;
   @Watch('filteredItemList')
   watchFilteredList() {
@@ -386,7 +385,6 @@ export class StepperQuestionnaire {
               danger={this.danger}
               locale={this.locale}
               onEmitNext={() => this.countUp()}
-              variant={this.variant}
               enableInformalLocale={this.enableInformalLocale}
               vasVertical={this.vasVertical}
               vasShowSelectedValue={this.vasShowSelectedValue}

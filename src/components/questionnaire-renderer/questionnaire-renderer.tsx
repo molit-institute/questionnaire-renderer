@@ -65,14 +65,8 @@ export class QuestionnaireRenderer {
       this.handleStartQuestion(this.lastAnsweredQuestion);
     }
     this.currentMode = this.mode;
-    this.handleVariants();
   }
 
-  @Prop() variant: any = 'Touch';
-  @Watch('variant')
-  watchVariant() {
-    this.handleVariants();
-  }
   /**
    * FHIR-Resource Patient
    */
@@ -415,7 +409,7 @@ export class QuestionnaireRenderer {
    * Takes the given object, adds new answers to the current QuestionnaireRespons and saves the question as the last answered Question
    */
   async handleQuestionnaireResponseEvent(object) {
-    console.log(object)
+    console.log("handleQuestionanireResponseEvent",object)
     this.lastAnsweredQuestion = object.detail.question;
     this.currentQuestionnaireResponse = await questionnaireResponseController.addAnswersToQuestionnaireResponse(this.currentQuestionnaireResponse, object.detail.question.linkId, object.detail.value, object.detail.type);
     this.handleAnsweredQuestionsList();
@@ -594,33 +588,6 @@ export class QuestionnaireRenderer {
       item[i].groupId = linkId;
       if (item[i].type === 'group') {
         this.addGroupIdToItems(item[i].item, item[i].linkId);
-      }
-    }
-  }
-
-  /**
-   *
-   */
-  handleVariants() {
-    // if (this.variant.toLowerCase() === 'form') {
-    //   if (this.currentMode === 'stepper-questionnaire' || this.mode === 'stepper-questionnaire') {
-    //     this.currentMode = 'full-questionnaire';
-    //   }
-    // }
-    // if (this.variant.toLowerCase() === 'compact') {
-    //   if (this.currentMode === 'stepper-questionnaire' || this.mode === 'stepper-questionnaire') {
-    //     this.currentMode = 'full-questionnaire';
-    //   }
-    // }
-    if (this.variant.toLowerCase() === 'touch') {
-      if (this.currentMode === 'stepper-questionnaire' || this.mode === 'stepper-questionnaire') {
-        this.currentMode = 'stepper-questionnaire';
-      }
-      if (this.currentMode === 'full-questionnaire' || this.mode === 'full-questionnaire') {
-        this.currentMode = 'full-questionnaire';
-      }
-      if (this.currentMode === 'grouped-questionnaire' || this.mode === 'grouped-questionnaire') {
-        this.currentMode = 'grouped-questionnaire';
       }
     }
   }
@@ -913,7 +880,6 @@ export class QuestionnaireRenderer {
         this.edit_mode = this.editMode;
       }
       this.currentMode = this.mode;
-      this.handleVariants();
       await this.handleStartQuestion(this.start_question);
       this.handleInformationPage();
       await this.handleExpressionCheck();
@@ -940,8 +906,6 @@ export class QuestionnaireRenderer {
             {this.show_questionnaire && !this.showOnlySummary ? (
               <div class="qr-questionnaireRenderer-questions">
                 <Tag
-                  // variant={this.variant.toLowerCase()}
-                  variant="touch"
                   filteredItemList={this.filteredItemList}
                   questionnaireResponse={this.currentQuestionnaireResponse}
                   questionnaire={this.currentQuestionnaire}

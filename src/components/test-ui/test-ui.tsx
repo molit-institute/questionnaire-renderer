@@ -22,7 +22,7 @@ import dropdown_test from '../../assets/fhir/resources/dropdown_test_questionnai
 export class TestUi {
   @State() questionnaireMode: string = 'stepper-questionnaire';
   @State() questionnaireVariant: string = 'Touch';
-  questionnaireResponse: any = null;
+  @State() questionnaireResponse: any = null;
   @State() show_questionnaire_list: boolean = true;
   @State() show_renderer: boolean = false;
   @State() show_summary: boolean = false;
@@ -80,45 +80,12 @@ export class TestUi {
       end: '2026-10-25',
     },
   };
-    resourceType: 'Task',
-    meta: {
-      tag: [
-        {
-          code: 'pre-OP',
-          display: 'vor OP',
-        },
-      ],
-    },
-    status: 'active',
-    intent: 'order',
-    code: {
-      coding: [
-        {
-          system: 'http://molit.eu/fhir/CodeSystem/taskTypes',
-          code: 'eQuestionnaire',
-          display: 'eQU Questionnaire',
-        },
-      ],
-      text: 'PatientQuestionnaireTask',
-    },
-    focus: {
-      reference: 'Questionnaire/1',
-      display: 'QLQ-C30',
-    },
-    for: {
-      reference: 'Patient/14',
-      display: 'Maier, Peter',
-    },
-    executionPeriod: {
-      start: '2026-10-25',
-      end: '2026-10-25',
-    },
-  };
 
   /* methods */
   setQuestionnaireMode(selectedMode) {
     this.questionnaireMode = selectedMode;
   }
+
   setQuestionnaireVariant(selectedVariant) {
     this.questionnaireVariant = selectedVariant;
   }
@@ -131,7 +98,6 @@ export class TestUi {
     this.show_questionnaire_list = false;
     this.show_summary = false;
   }
-  startQuestionnaire() {
   startQuestionnaire() {
     this.show_renderer = true;
     this.show_questionnaire_list = false;
@@ -191,95 +157,93 @@ export class TestUi {
     return (
       <div>
         <div class="container-fluid">
-          {/* QUESTIONNAIRE RENDERER */}
-          <div class="flex">
-            <div onClick={() => this.setQuestionnaireMode('stepper-questionnaire')} class={this.questionnaireMode === 'stepper-questionnaire' ? 'item item-selected' : 'item'}>
-              Stepper
-            </div>
-            <div onClick={() => this.setQuestionnaireMode('grouped-questionnaire')} class={this.questionnaireMode === 'grouped-questionnaire' ? 'item item-selected' : 'item'}>
-              Grouped
-            </div>
-            <div onClick={() => this.setQuestionnaireMode('full-questionnaire')} class={this.questionnaireMode === 'full-questionnaire' ? 'item item-selected' : 'item'}>
-              Full
-            </div>
-          </div>
-          <div class="flex">
-            <div onClick={() => this.setQuestionnaireVariant('Form')} class={this.questionnaireVariant === 'Form' ? 'item item-selected' : 'item'}>
-              Form
-            </div>
-            <div onClick={() => this.setQuestionnaireVariant('Compact')} class={this.questionnaireVariant === 'Compact' ? 'item item-selected' : 'item'}>
-              Compact
-            </div>
-            <div onClick={() => this.setQuestionnaireVariant('Touch')} class={this.questionnaireVariant === 'Touch' ? 'item item-selected' : 'item'}>
-              Touch
-            </div>
-          </div>
-          <br />
-          <div>
-            Token: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.token} onInput={this.handleTokenInput} />
-            Token: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.token} onInput={this.handleTokenInput} />
-          </div>
-          <div>
-            Questionnaire Url: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.questionnaireUrlIdentifier} onInput={this.handleUrlInput}></input>
-            Questionnaire Url: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.questionnaireUrlIdentifier} onInput={this.handleUrlInput}></input>
-          </div>
-          <div>
-            Fhir Base Url: <input type="text" style={{ 'min-width': '50%' }} value={this.baseUrl} onInput={this.handleBaseUrlInput}></input>
-            Fhir Base Url: <input type="text" style={{ 'min-width': '50%' }} value={this.baseUrl} onInput={this.handleBaseUrlInput}></input>
-          </div>
-          <br />
-          <button onClick={() => this.startQuestionnaire()}>Start via Url</button>
-          <br />
-          <br />
-          {this.show_questionnaire_list
-            ? this.questionnaires.map(questionnaire => (
-                <div onClick={() => this.openSelectedQuestionnaire(questionnaire)}>
-                  <div class="padding">{questionnaire.title}</div>
+          <div class="row" style={{'width':'100%'}}>
+            <div class="col-sm-8">
+              {/* QUESTIONNAIRE RENDERER */}
+              <h5> QUESTIONNAIRE RENDERER</h5>
+              <div class="flex">
+                <div onClick={() => this.setQuestionnaireVariant('Form')} class={this.questionnaireVariant === 'Form' ? 'item item-selected' : 'item'}>
+                  Form
                 </div>
-              ))
-            : null}
-          {this.show_renderer ? (
-            <questionnaire-renderer
-              onFinished={event => this.toSummary(event)}
-              onUpdated={event => this.updateQR(event)}
-              onExit={() => this.toQuestionnaireList()}
-              trademarkText="Dont copy meeeeee"
-              enableInformationPage={true}
-              informationPageText="<u>Test</u> Information <br> PageText"
-              // questionnaireResponse={this.questionnaireResponse}
-              // questionnaireResponse={lion_response}
-              questionnaireResponse={this.testResp}
-              questionnaire={this.questionnaire}
-              // questionnaireUrl={this.questionnaireUrl}
-              baseUrl={this.baseUrl}
-              // lastQuestion={this.lastQuestion}
-              locale="de"
-              // danger="red"
-              mode={this.questionnaireMode}
-              // editMode={this.edit}
-              // startQuestion={this.indexQuestion}
-              enableFullQuestionnaireResponse={false}
-              enableSummary={true}
-              enableReturn={false}
-              // enableNext={false}
-              // enableFinishButton={true}
-              // variant={this.questionnaireVariant}
-              enableInformalLocale={true}
-              showOnlySummary={false}
-              enableExpand={true}
-              enableGroupDescription={false}
-              summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
-              vasVertical={true}
-              vasShowSelectedValue={true}
-              token={this.token}
-              enableErrorConsoleLogging={true}
-              questionnaireResponseStatus="amended"
-              onErrorLog={error => console.info(error)}
-              visibleBooleanNullOption={true}
-              questionnaireUrlIdentifier={this.questionnaireUrlIdentifier}
-              task={this.task}
-            ></questionnaire-renderer>
-          ) : null}
+                <div onClick={() => this.setQuestionnaireVariant('Compact')} class={this.questionnaireVariant === 'Compact' ? 'item item-selected' : 'item'}>
+                  Compact
+                </div>
+                <div onClick={() => this.setQuestionnaireVariant('Touch')} class={this.questionnaireVariant === 'Touch' ? 'item item-selected' : 'item'}>
+                  Touch
+                </div>
+              </div>
+              <br />
+              <div>
+                Token: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.token} onInput={this.handleTokenInput} />
+              </div>
+              <div>
+                Questionnaire Url: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.questionnaireUrlIdentifier} onInput={this.handleUrlInput}></input>
+              </div>
+              <div>
+                Fhir Base Url: <input type="text" style={{ 'min-width': '50%' }} value={this.baseUrl} onInput={this.handleBaseUrlInput}></input>
+              </div>
+              <br />
+              <button onClick={() => this.startQuestionnaire()}>Start via Url</button>
+              <br />
+              <br />
+              {this.show_questionnaire_list
+                ? this.questionnaires.map(questionnaire => (
+                    <div onClick={() => this.openSelectedQuestionnaire(questionnaire)}>
+                      <div class="padding">{questionnaire.title}</div>
+                    </div>
+                  ))
+                : null}
+              {this.show_renderer ? (
+                <questionnaire-renderer
+                  onFinished={event => this.toSummary(event)}
+                  onUpdated={event => this.updateQR(event)}
+                  onExit={() => this.toQuestionnaireList()}
+                  trademarkText="Dont copy meeeeee"
+                  enableInformationPage={true}
+                  informationPageText="<u>Test</u> Information <br> PageText"
+                  // questionnaireResponse={this.questionnaireResponse}
+                  // questionnaireResponse={lion_response}
+                  questionnaireResponse={this.questionnaireResponse}
+                  questionnaire={this.questionnaire}
+                  // questionnaireUrl={this.questionnaireUrl}
+                  baseUrl={this.baseUrl}
+                  // lastQuestion={this.lastQuestion}
+                  locale="de"
+                  // danger="red"
+                  mode={this.questionnaireMode}
+                  // editMode={this.edit}
+                  // startQuestion={this.indexQuestion}
+                  enableFullQuestionnaireResponse={false}
+                  enableSummary={true}
+                  enableReturn={false}
+                  // enableNext={false}
+                  // enableFinishButton={true}
+                  // variant={this.questionnaireVariant}
+                  enableInformalLocale={true}
+                  showOnlySummary={false}
+                  enableExpand={true}
+                  enableGroupDescription={false}
+                  summaryText="Ihre Antworten werden nachfolgend abgebildet. Über den Button unterhalb dieser Übersicht gelangen Sie direkt zur Auswertung des Fragebogens"
+                  vasVertical={true}
+                  vasShowSelectedValue={true}
+                  token={this.token}
+                  enableErrorConsoleLogging={true}
+                  questionnaireResponseStatus="amended"
+                  onErrorLog={error => console.info(error)}
+                  visibleBooleanNullOption={true}
+                  questionnaireUrlIdentifier={this.questionnaireUrlIdentifier}
+                  task={this.task}
+                ></questionnaire-renderer>
+              ) : null}
+            </div>
+            <div class="col-sm-4" style={{ backgroundColor: 'lightgrey', 'max-height': '100vh', 'overflow-y': 'auto'}}>
+              <h5>Questionnaire Response</h5>
+              <pre>
+                <pre>{`${JSON.stringify(this.questionnaireResponse, null, 2)}`}</pre>
+              </pre>
+            </div>
+          </div>
+
           {this.show_summary ? (
             <div class="row">
               <div class="col-sm-4" style={{ backgroundColor: 'lightgrey', cursor: 'pointer' }}>
