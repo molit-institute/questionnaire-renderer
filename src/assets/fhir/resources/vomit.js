@@ -7,12 +7,18 @@ const vomitQuestionnaire = {
   description: 'This a short demo questionnaire showcasing different types of questions and functions',
   publisher: 'MOLIT Institut gGmbH',
   item: [
-    {
-      linkId: "3",
-      prefix: "1.",
-      text: "Date Frage 1 ohne Extension",
-      type: "date"
-    },
+    // {
+    //   linkId: "3",
+    //   prefix: "1.",
+    //   text: "boolean",
+    //   type: "boolean"
+    // },
+    // {
+    //   linkId: "4",
+    //   prefix: "1.",
+    //   text: "Date Frage 1 ohne Extension",
+    //   type: "date"
+    // },
     // {
     //   linkId: "1",
     //   prefix: "2.",

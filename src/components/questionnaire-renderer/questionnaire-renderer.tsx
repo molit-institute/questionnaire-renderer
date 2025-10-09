@@ -44,6 +44,7 @@ export class QuestionnaireRenderer {
   @Prop() questionnaire: any = null;
   @Watch('questionnaire')
   watchQuestionnaire() {
+    console.log("watchQuestionnaire")
     this.handleQuestionnaireResponse();
   }
   /**
@@ -52,7 +53,9 @@ export class QuestionnaireRenderer {
   @Prop() questionnaireResponse: any = null;
   @Watch('questionnaireResponse')
   async watchQuestionnaireResponse() {
-    await this.handleQuestionnaireResponse();
+    console.log("Renderer watchQuestionnaireResponse")
+    // await this.handleQuestionnaireResponse();
+    //TODO FIX LOOP
   }
   /**
    * Current type of Questionnaire-Style to display
@@ -419,6 +422,7 @@ export class QuestionnaireRenderer {
    * Creates a new QuestionnaireResponse
    */
   createQuestionnaireResponse() {
+    console.log("createQuestionnaireResponse")
     this.currentQuestionnaireResponse = questionnaireResponseController.createQuestionnaireResponse(this.currentQuestionnaire, this.subject, this.questionnaireResponse);
   }
 
@@ -624,6 +628,7 @@ export class QuestionnaireRenderer {
    *  does not match the id of the given questionnaire
    */
   handleQuestionnaireResponse() {
+    console.log("handleQuestionnaireResponse")
     if (this.questionnaireResponse) {
       if (this.questionnaireResponse.questionnaire) {
         let split = this.questionnaireResponse.questionnaire.split('/');
@@ -647,7 +652,8 @@ export class QuestionnaireRenderer {
         this.createQuestionnaireResponse();
       }
     } else {
-      this.createQuestionnaireResponse();
+      //TODO FIX LOOP
+        this.createQuestionnaireResponse();
     }
   }
 

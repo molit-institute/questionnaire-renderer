@@ -159,7 +159,6 @@ export namespace Components {
         "locale": string;
         "mode": string;
         "question": any;
-        "variant": any;
     }
     interface FullQuestionnaire {
         "baseUrl": string;
@@ -190,7 +189,6 @@ export namespace Components {
         "secondary": string;
         "startCount": number;
         "valueSets": Array<any>;
-        "variant": any;
         "vasSelectedValueLabel": string;
         "vasShowSelectedValue": boolean;
         /**
@@ -261,7 +259,6 @@ export namespace Components {
         "spinner": any;
         "startCount": number;
         "valueSets": Array<any>;
-        "variant": any;
         "vasSelectedValueLabel": string;
         "vasShowSelectedValue": boolean;
         /**
@@ -1367,7 +1364,6 @@ declare namespace LocalJSX {
          */
         "onErrorLog"?: (event: DisplayQuestionCustomEvent<any>) => void;
         "question"?: any;
-        "variant"?: any;
     }
     interface FullQuestionnaire {
         "baseUrl"?: string;
@@ -1405,7 +1401,6 @@ declare namespace LocalJSX {
         "secondary"?: string;
         "startCount"?: number;
         "valueSets"?: Array<any>;
-        "variant"?: any;
         "vasSelectedValueLabel"?: string;
         "vasShowSelectedValue"?: boolean;
         /**
@@ -1501,7 +1496,6 @@ declare namespace LocalJSX {
         "spinner"?: any;
         "startCount"?: number;
         "valueSets"?: Array<any>;
-        "variant"?: any;
         "vasSelectedValueLabel"?: string;
         "vasShowSelectedValue"?: boolean;
         /**

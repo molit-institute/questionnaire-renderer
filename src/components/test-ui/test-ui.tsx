@@ -21,8 +21,7 @@ import dropdown_test from '../../assets/fhir/resources/dropdown_test_questionnai
 })
 export class TestUi {
   @State() questionnaireMode: string = 'stepper-questionnaire';
-  @State() questionnaireVariant: string = 'Touch';
-  @State() questionnaireResponse: any = null;
+  @State() questionnaireResponse: object = null;
   @State() show_questionnaire_list: boolean = true;
   @State() show_renderer: boolean = false;
   @State() show_summary: boolean = false;
@@ -84,10 +83,6 @@ export class TestUi {
   /* methods */
   setQuestionnaireMode(selectedMode) {
     this.questionnaireMode = selectedMode;
-  }
-
-  setQuestionnaireVariant(selectedVariant) {
-    this.questionnaireVariant = selectedVariant;
   }
   setQuestionnaireResponse(response) {
     this.questionnaireResponse = response;
@@ -161,17 +156,6 @@ export class TestUi {
             <div class="col-sm-8">
               {/* QUESTIONNAIRE RENDERER */}
               <h5> QUESTIONNAIRE RENDERER</h5>
-              <div class="flex">
-                <div onClick={() => this.setQuestionnaireVariant('Form')} class={this.questionnaireVariant === 'Form' ? 'item item-selected' : 'item'}>
-                  Form
-                </div>
-                <div onClick={() => this.setQuestionnaireVariant('Compact')} class={this.questionnaireVariant === 'Compact' ? 'item item-selected' : 'item'}>
-                  Compact
-                </div>
-                <div onClick={() => this.setQuestionnaireVariant('Touch')} class={this.questionnaireVariant === 'Touch' ? 'item item-selected' : 'item'}>
-                  Touch
-                </div>
-              </div>
               <br />
               <div>
                 Token: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.token} onInput={this.handleTokenInput} />
@@ -218,7 +202,6 @@ export class TestUi {
                   enableReturn={false}
                   // enableNext={false}
                   // enableFinishButton={true}
-                  // variant={this.questionnaireVariant}
                   enableInformalLocale={true}
                   showOnlySummary={false}
                   enableExpand={true}

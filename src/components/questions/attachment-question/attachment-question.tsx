@@ -39,6 +39,7 @@ export class AttachmentQuestion {
    */
   @Prop() danger: string;
   @State() reset: Boolean = false;
+  base64Convertion: any = null
   /**
    * Allows events to be emitted if true
    */
@@ -55,7 +56,7 @@ export class AttachmentQuestion {
   @Watch('question')
   async watchQuestion() {
     this.allow_events = false;
-    console.log("watchQuestion")
+    console.log('watchQuestion');
     await this.setSelected();
     this.allow_events = true;
 
@@ -66,14 +67,14 @@ export class AttachmentQuestion {
   }
   @Watch('selected')
   watchSelected() {
-      if (this.allow_events) {
-        console.log('selected watch', this.selected);
+    if (this.allow_events) {
+      console.log('selected watch', this.selected);
       let object = null;
       if (this.selected !== null) {
         object = {
           type: 'attachment',
           question: this.question,
-          value: [this.selected],
+          value: [{ contentType: this.selected.type, title: this.selected.name, data: this.base64Convertion, url: null }],
         };
         this.emitAnswer.emit(object);
       }
@@ -99,6 +100,7 @@ export class AttachmentQuestion {
   }
 
   fileToBase64(file) {
+    console.log("filetoBase64",file)
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => {
@@ -120,15 +122,15 @@ export class AttachmentQuestion {
   }
 
   async handleFileChange(event: Event) {
-    console.log(this.selected)
+    console.log(this.selected);
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
 
     if (!file) {
       return;
     }
-    const base64 = await this.fileToBase64(file);
-    this.selected = base64;
+    this.base64Convertion = await this.fileToBase64(file);
+    this.selected = file;
   }
 
   async componentWillLoad(): Promise<void> {
@@ -143,7 +145,7 @@ export class AttachmentQuestion {
       this.emitError(e);
     }
   }
-  
+
   render() {
     return (
       <div class="qr-question-container">
