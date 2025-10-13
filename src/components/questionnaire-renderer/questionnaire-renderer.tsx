@@ -5,6 +5,7 @@ import questionnaireController from '../../utils/questionnaireController';
 import questionnaireResponseController from '../../utils/questionnaireResponseController';
 import fhirpathController from '../../utils/fhirpathController';
 import valueSetController from '../../utils/valueSetController';
+import bundleController from '../../utils/bundleController';
 import { cloneDeep } from 'lodash';
 
 @Component({
@@ -25,12 +26,14 @@ export class QuestionnaireRenderer {
    * The "updated"-event is thrown everytime if the internal questionnaireResponse changes (every time an answer value has changed) and contains the current questionnaireResponse with status "in-progress"
    */
   @Event() updated: EventEmitter;
+  @Event() updatedBundle: EventEmitter;
   @Watch('currentQuestionnaireResponse')
   async watchCurrentQuestionnaireResponse() {
     this.filterItemList();
     this.handleAnsweredQuestionsList();
     await this.handleExpressionCheck();
     this.updated.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
+    this.updatedBundle.emit(bundleController.buildBundle(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse),this.task,this.questionnaireResponseStatus))
   }
   @State() spinner: any = {
     loading: true,
@@ -314,7 +317,6 @@ export class QuestionnaireRenderer {
   /**
    * The "finished"-event is thrown once the next button is pressed or in case of the summary the save-button. It contains the current questionnaireResponse with the status "completed"
    */
-  @Event() finished: EventEmitter;
   backToSummary() {
     if (this.enableFullQuestionnaireResponse) {
       if (this.enableSummary) {
@@ -334,37 +336,39 @@ export class QuestionnaireRenderer {
       }
     }
   }
-
+  
   /**
    *
-   */
-  toQuestionnaire(lastQuestion) {
-    this.show_informationPage = false;
-    this.lastAnsweredQuestion = null;
-    this.currentStartCount = null;
-    this.start_question = null;
-    this.edit_mode = false;
-    this.last_question = lastQuestion;
-    this.show_summary = false;
-    this.show_questionnaire = true;
+  */
+ toQuestionnaire(lastQuestion) {
+   this.show_informationPage = false;
+   this.lastAnsweredQuestion = null;
+   this.currentStartCount = null;
+   this.start_question = null;
+   this.edit_mode = false;
+   this.last_question = lastQuestion;
+   this.show_summary = false;
+   this.show_questionnaire = true;
   }
-
+  
   /**
    *
    * @param question
-   */
-  async editQuestion(question) {
-    this.edit_mode = true;
-    this.start_question = question.detail;
-    await this.handleStartQuestion(this.start_question);
-    this.show_summary = false;
-    this.last_question = false;
-    this.show_questionnaire = true;
+  */
+ async editQuestion(question) {
+   this.edit_mode = true;
+   this.start_question = question.detail;
+   await this.handleStartQuestion(this.start_question);
+   this.show_summary = false;
+   this.last_question = false;
+   this.show_questionnaire = true;
   }
-
+  
   /**
    * Emits an Event wich includes the finished Questionnaire Response
-   */
+  */
+  @Event() finished: EventEmitter;
+  @Event() finishedBundle: EventEmitter;
   async finishQuestionnaire(questionnaireResponse) {
     if (this.enableFullQuestionnaireResponse) {
       if (this.enableSummary) {
@@ -374,6 +378,7 @@ export class QuestionnaireRenderer {
         this.start_question = null;
       }
       this.finished.emit(questionnaireResponse);
+      this.finishedBundle.emit(bundleController.buildBundle(questionnaireResponse,this.task,this.questionnaireResponseStatus))
     } else {
       if (this.enableSummary) {
         this.edit_mode = false;
@@ -388,6 +393,7 @@ export class QuestionnaireRenderer {
         questionnaireResponse.status = 'completed';
       }
       this.finished.emit(await this.filterQuestionnaireResponse(questionnaireResponse));
+      this.finishedBundle.emit(bundleController.buildBundle(await this.filterQuestionnaireResponse(questionnaireResponse),this.task,this.questionnaireResponseStatus))
     }
   }
 
@@ -833,13 +839,16 @@ export class QuestionnaireRenderer {
    * Emits an Event to exit the Renderer. Contains the current questionnaireResponse
    */
   @Event() exit: EventEmitter;
+  @Event() exitBundle: EventEmitter;
   leaveQuestionnaireRenderer() {
     if (this.enableInformationPage) {
       this.show_summary = false;
       this.show_questionnaire = false;
       this.show_informationPage = true;
     } else {
+      //TODO Think about task status when task has been started but not finished
       this.exit.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
+      this.exitBundle.emit(bundleController.buildBundle(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse),this.task,this.questionnaireResponseStatus))
     }
   }
 

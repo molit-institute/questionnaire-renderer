@@ -6,6 +6,7 @@ import { getLocaleComponentStrings } from '../../utils/locale';
 import questionnaireResponseController from '../../utils/questionnaireResponseController';
 import * as fhirApi from '@molit/fhir-api';
 import questionnaireController from '../../utils/questionnaireController';
+import bundleController from '../../utils/bundleController';
 import { cloneDeep } from 'lodash';
 import { textToHtml } from '../../utils/textToHtml';
 import dayjs from 'dayjs';
@@ -256,76 +257,24 @@ export class QuestionnaireSummary {
   @Event() finishTask: EventEmitter;
   async completeQuestionnaireResponse() {
     if (this.questionnaireResponse) {
-      let questionnaireResponseReference = null;
       this.spinner = { ...this.spinner, loading: true };
       this.spinner = { ...this.spinner, message: this.strings.summary.saveQuestionnaire };
-      if (this.questionnaireResponseStatus) {
-        this.questionnaireResponse.status = this.questionnaireResponseStatus;
-      } else {
-        this.questionnaireResponse.status = 'completed';
-      }
       let questResp = cloneDeep(this.questionnaireResponse);
       let task = this.task;
 
       questionnaireResponseController.removeQuestionnaireResponseDisplayQuestions(questResp.item);
 
-      // Handle QuestionnaireResponse
-      if (this.baseUrl && this.enableSendQuestionnaireResponse) {
-        try {
-          if (questResp && questResp.id) {
-            let output = await fhirApi.updateResource(this.baseUrl, questResp, this.token, this.basicAuth);
-            console.info('Updated Questionnaire Response with ID: ' + output.data.id, 'Url: ' + output.config.url + '/' + output.data.id);
-            questionnaireResponseReference = '/QuestionnaireResponse/' + output.data.id;
-          } else {
-            let output = await fhirApi.submitResource(this.baseUrl, questResp, this.token, this.basicAuth);
-            console.info('Questionnaire Response ID: ' + output.data.id, 'Url: ' + output.config.url + '/' + output.data.id);
-            questionnaireResponseReference = '/QuestionnaireResponse/' + output.data.id;
-          }
-        } catch (error) {
-          this.emitError(error);
-          if (this.enableErrorConsoleLogging) {
-            console.error(error);
-          }
+      try {
+        let bundle = bundleController.buildBundle(questResp, task, this.questionnaireResponseStatus);
+        await fhirApi.submitResourceToUrl(this.baseUrl, bundle, this.token, this.basicAuth);
+        // await fhirApi.submitResource(this.baseUrl, bundle, this.token, this.basicAuth);
+      } catch (error) {
+        this.emitError(error);
+        if (this.enableErrorConsoleLogging) {
+          console.error(error);
         }
       }
-      // Handle Task
-      if (this.task) {
-        if (task.executionPeriod) {
-          task.executionPeriod.start = dayjs(new Date()).format("YYYY-MM-DD");
-          task.executionPeriod.end = new Date().toISOString();
-        }
-        if (questionnaireResponseReference) {
-          task.output = [
-            {
-              type: {
-                coding: [
-                  {
-                    system: 'http://hl7.org/fhir/ValueSet/resource-types',
-                    code: 'QuestionnaireResponse',
-                    display: 'QuestionnaireResponse',
-                  },
-                ],
-              },
-              valueReference: {
-                reference: questionnaireResponseReference,
-              },
-            },
-          ];
-        }
 
-        task.status = 'completed';
-        this.finishTask.emit(task);
-        if (this.baseUrl) {
-          try {
-            await fhirApi.updateResource(this.baseUrl, task, this.token, this.basicAuth);
-          } catch (error) {
-            this.emitError(error);
-            if (this.enableErrorConsoleLogging) {
-              console.error(error);
-            }
-          }
-        }
-      }
       setTimeout(() => {
         this.spinner = { ...this.spinner, loading: false };
       }, 250);

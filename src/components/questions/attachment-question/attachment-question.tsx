@@ -39,7 +39,7 @@ export class AttachmentQuestion {
    */
   @Prop() danger: string;
   @State() reset: Boolean = false;
-  base64Convertion: any = null
+  base64Convertion: any = null;
   /**
    * Allows events to be emitted if true
    */
@@ -90,7 +90,9 @@ export class AttachmentQuestion {
     try {
       let value = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'attachment');
       // console.log(value);
-      //   TODO schaun was mit value gemacht werden soll
+      // TODO testen
+      let file = new File([""],value.title,{type: value.contentType})
+      this.selected = file;
     } catch (error) {
       if (this.enableErrorConsoleLogging) {
         console.error(error);
@@ -100,7 +102,7 @@ export class AttachmentQuestion {
   }
 
   fileToBase64(file) {
-    console.log("filetoBase64",file)
+    console.log('filetoBase64', file);
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => {
