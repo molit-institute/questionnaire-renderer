@@ -36,7 +36,7 @@ export function buildBundle(questResp, task, questionnaireResponseStatus) {
   }
   // QuestionnaireResponse ins Bundle
   if (questResp && questResp.id) {
-    bundle.entry.push(createBundleEntry(questionnaireResponseUUID, questionnaireResponse, 'PUT', questionnaireResponse.resourceType));
+    bundle.entry.push(createBundleEntry(null, questionnaireResponse, 'PUT', questionnaireResponse.resourceType));
   } else {
     bundle.entry.push(createBundleEntry(questionnaireResponseUUID, questionnaireResponse, 'POST', questionnaireResponse.resourceType));
   }
@@ -46,6 +46,10 @@ export function buildBundle(questResp, task, questionnaireResponseStatus) {
       task.executionPeriod.start = dayjs(new Date()).format('YYYY-MM-DD');
       task.executionPeriod.end = new Date().toISOString();
     }
+    let questionnaireResponseReference = null
+    if(questResp && questResp.id){
+      questionnaireResponseReference = "QuestionnaireResponse/"+ questResp.id
+    }else
     task.output = [
       {
         type: {

@@ -961,8 +961,11 @@ declare global {
     };
     interface HTMLQuestionnaireRendererElementEventMap {
         "updated": any;
+        "updatedBundle": any;
         "finished": any;
+        "finishedBundle": any;
         "exit": any;
+        "exitBundle": any;
         "errorLog": any;
         "addRemarks": any;
         "closeSummary": any;
@@ -1647,14 +1650,17 @@ declare namespace LocalJSX {
           * Emits an Event to exit the Renderer. Contains the current questionnaireResponse
          */
         "onExit"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
+        "onExitBundle"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
         /**
-          * The "finished"-event is thrown once the next button is pressed or in case of the summary the save-button. It contains the current questionnaireResponse with the status "completed"
+          * Emits an Event wich includes the finished Questionnaire Response
          */
         "onFinished"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
+        "onFinishedBundle"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
         /**
           * The "updated"-event is thrown everytime if the internal questionnaireResponse changes (every time an answer value has changed) and contains the current questionnaireResponse with status "in-progress"
          */
         "onUpdated"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
+        "onUpdatedBundle"?: (event: QuestionnaireRendererCustomEvent<any>) => void;
         /**
           * Primary color
          */

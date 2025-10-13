@@ -14,10 +14,12 @@ import { textToHtml } from '../../../utils/textToHtml';
 })
 export class AttachmentQuestion {
   @Element() element: HTMLElement;
+  private fileInput?: HTMLInputElement
   @Prop() questionnaire: Object = null;
   @Prop() question: any;
   @State() selected: any = null;
   @State() strings: any;
+  @State() fileName: any = null;
   @Prop() enableInformalLocale: boolean;
   /**
    * Language property of the component. </br>
@@ -89,10 +91,13 @@ export class AttachmentQuestion {
   setSelected() {
     try {
       let value = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'attachment');
-      // console.log(value);
       // TODO testen
-      let file = new File([""],value.title,{type: value.contentType})
-      this.selected = file;
+      if (value) {
+        console.log('setSelected', value);
+        let file = new File([''], value.title, { type: value.contentType });
+        this.selected = file;
+        console.log("setSelected selected ", this.selected)
+      }
     } catch (error) {
       if (this.enableErrorConsoleLogging) {
         console.error(error);
@@ -107,6 +112,7 @@ export class AttachmentQuestion {
       const reader = new FileReader();
       reader.onload = () => {
         const result = reader.result as string;
+        console.log('filetoBase64 ', result);
         const base64 = result.split(',')[1];
         resolve(base64);
       };
@@ -133,6 +139,10 @@ export class AttachmentQuestion {
     }
     this.base64Convertion = await this.fileToBase64(file);
     this.selected = file;
+  }
+
+  private triggerFileDialog = () => {
+    this.fileInput?.click()
   }
 
   async componentWillLoad(): Promise<void> {
@@ -171,7 +181,16 @@ export class AttachmentQuestion {
           <div class="qr-question-attachment-input">
             {this.question ? (
               <div class="form-group" id={'radio-attachment-' + this.question.linkId}>
-                <input type="file" id="fileInput" onChange={e => this.handleFileChange(e)} />
+                <input type="file" id="fileInput"  ref={el => (this.fileInput = el as HTMLInputElement)} onChange={e => this.handleFileChange(e)} hidden />
+                <button type="button" class="btn" onClick={this.triggerFileDialog}>
+                  Datei wählen
+                </button>
+                {this.selected && this.selected.name ?(
+                  <span class="file-name">{this.selected.name}</span>
+                ):(
+                  <span class="file-name">Wählen Datei now</span>
+
+                )}
               </div>
             ) : null}
           </div>

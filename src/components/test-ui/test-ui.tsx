@@ -22,6 +22,7 @@ import dropdown_test from '../../assets/fhir/resources/dropdown_test_questionnai
 export class TestUi {
   @State() questionnaireMode: string = 'stepper-questionnaire';
   @State() questionnaireResponse: object = null;
+  @State() bundle: object = null;
   @State() show_questionnaire_list: boolean = true;
   @State() show_renderer: boolean = false;
   @State() show_summary: boolean = false;
@@ -181,6 +182,7 @@ export class TestUi {
                 <questionnaire-renderer
                   onFinished={event => this.toSummary(event)}
                   onUpdated={event => this.updateQR(event)}
+                  onUpdatedBundle={event => this.bundle = event.detail}
                   onExit={() => this.toQuestionnaireList()}
                   trademarkText="Dont copy meeeeee"
                   enableInformationPage={true}
@@ -224,6 +226,10 @@ export class TestUi {
               <pre>
                 <pre>{`${JSON.stringify(this.questionnaireResponse, null, 2)}`}</pre>
               </pre>
+
+              <h5>Bundle</h5>
+
+              <pre>{`${JSON.stringify(this.bundle, null, 2)}`}</pre>
             </div>
           </div>
 

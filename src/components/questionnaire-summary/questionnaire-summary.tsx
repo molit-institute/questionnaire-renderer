@@ -9,7 +9,6 @@ import questionnaireController from '../../utils/questionnaireController';
 import bundleController from '../../utils/bundleController';
 import { cloneDeep } from 'lodash';
 import { textToHtml } from '../../utils/textToHtml';
-import dayjs from 'dayjs';
 
 @Component({
   tag: 'questionnaire-summary',

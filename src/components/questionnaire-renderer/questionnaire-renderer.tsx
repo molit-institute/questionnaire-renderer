@@ -34,6 +34,7 @@ export class QuestionnaireRenderer {
     await this.handleExpressionCheck();
     this.updated.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
     this.updatedBundle.emit(bundleController.buildBundle(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse),this.task,this.questionnaireResponseStatus))
+    console.log("updateBundle",bundleController.buildBundle(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse),this.task,this.questionnaireResponseStatus))
   }
   @State() spinner: any = {
     loading: true,
