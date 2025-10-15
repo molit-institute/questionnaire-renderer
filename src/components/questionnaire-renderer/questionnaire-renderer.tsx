@@ -33,8 +33,7 @@ export class QuestionnaireRenderer {
     this.handleAnsweredQuestionsList();
     await this.handleExpressionCheck();
     this.updated.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
-    this.updatedBundle.emit(bundleController.buildBundle(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse),this.task,this.questionnaireResponseStatus))
-    console.log("updateBundle",bundleController.buildBundle(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse),this.task,this.questionnaireResponseStatus))
+    this.updatedBundle.emit(await bundleController.buildBundle(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse),this.task,this.questionnaireResponseStatus,this.subject))
   }
   @State() spinner: any = {
     loading: true,
@@ -48,7 +47,6 @@ export class QuestionnaireRenderer {
   @Prop() questionnaire: any = null;
   @Watch('questionnaire')
   watchQuestionnaire() {
-    console.log("watchQuestionnaire")
     this.handleQuestionnaireResponse();
   }
   /**
@@ -57,7 +55,6 @@ export class QuestionnaireRenderer {
   @Prop() questionnaireResponse: any = null;
   @Watch('questionnaireResponse')
   async watchQuestionnaireResponse() {
-    console.log("Renderer watchQuestionnaireResponse")
     // await this.handleQuestionnaireResponse();
     //TODO FIX LOOP
   }
@@ -379,7 +376,7 @@ export class QuestionnaireRenderer {
         this.start_question = null;
       }
       this.finished.emit(questionnaireResponse);
-      this.finishedBundle.emit(bundleController.buildBundle(questionnaireResponse,this.task,this.questionnaireResponseStatus))
+      this.finishedBundle.emit( await bundleController.buildBundle(questionnaireResponse,this.task,this.questionnaireResponseStatus,this.subject))
     } else {
       if (this.enableSummary) {
         this.edit_mode = false;
@@ -394,7 +391,7 @@ export class QuestionnaireRenderer {
         questionnaireResponse.status = 'completed';
       }
       this.finished.emit(await this.filterQuestionnaireResponse(questionnaireResponse));
-      this.finishedBundle.emit(bundleController.buildBundle(await this.filterQuestionnaireResponse(questionnaireResponse),this.task,this.questionnaireResponseStatus))
+      this.finishedBundle.emit(await bundleController.buildBundle(await this.filterQuestionnaireResponse(questionnaireResponse),this.task,this.questionnaireResponseStatus,this.subject))
     }
   }
 
@@ -419,7 +416,6 @@ export class QuestionnaireRenderer {
    * Takes the given object, adds new answers to the current QuestionnaireRespons and saves the question as the last answered Question
    */
   async handleQuestionnaireResponseEvent(object) {
-    console.log("handleQuestionanireResponseEvent",object)
     this.lastAnsweredQuestion = object.detail.question;
     this.currentQuestionnaireResponse = await questionnaireResponseController.addAnswersToQuestionnaireResponse(this.currentQuestionnaireResponse, object.detail.question.linkId, object.detail.value, object.detail.type);
     this.handleAnsweredQuestionsList();
@@ -429,7 +425,6 @@ export class QuestionnaireRenderer {
    * Creates a new QuestionnaireResponse
    */
   createQuestionnaireResponse() {
-    console.log("createQuestionnaireResponse")
     this.currentQuestionnaireResponse = questionnaireResponseController.createQuestionnaireResponse(this.currentQuestionnaire, this.subject, this.questionnaireResponse);
   }
 
@@ -635,7 +630,6 @@ export class QuestionnaireRenderer {
    *  does not match the id of the given questionnaire
    */
   handleQuestionnaireResponse() {
-    console.log("handleQuestionnaireResponse")
     if (this.questionnaireResponse) {
       if (this.questionnaireResponse.questionnaire) {
         let split = this.questionnaireResponse.questionnaire.split('/');
@@ -841,7 +835,7 @@ export class QuestionnaireRenderer {
    */
   @Event() exit: EventEmitter;
   @Event() exitBundle: EventEmitter;
-  leaveQuestionnaireRenderer() {
+  async leaveQuestionnaireRenderer() {
     if (this.enableInformationPage) {
       this.show_summary = false;
       this.show_questionnaire = false;
@@ -849,7 +843,7 @@ export class QuestionnaireRenderer {
     } else {
       //TODO Think about task status when task has been started but not finished
       this.exit.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
-      this.exitBundle.emit(bundleController.buildBundle(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse),this.task,this.questionnaireResponseStatus))
+      this.exitBundle.emit(await bundleController.buildBundle(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse),this.task,this.questionnaireResponseStatus,this.subject))
     }
   }
 

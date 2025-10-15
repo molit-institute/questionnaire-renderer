@@ -7,12 +7,12 @@ const vomitQuestionnaire = {
   description: 'This a short demo questionnaire showcasing different types of questions and functions',
   publisher: 'MOLIT Institut gGmbH',
   item: [
-    // {
-    //   linkId: "3",
-    //   prefix: "1.",
-    //   text: "boolean",
-    //   type: "boolean"
-    // },
+    {
+      linkId: '3',
+      prefix: '1.',
+      text: 'boolean',
+      type: 'boolean',
+    },
     // {
     //   linkId: "4",
     //   prefix: "1.",
@@ -30,10 +30,30 @@ const vomitQuestionnaire = {
     //   }],
     // },
     {
-      linkId: "2",
-      prefix: "3.",
-      text: "Attachment Frage",
-      type: "attachment"
+      linkId: '2',
+      prefix: '3.',
+      text: 'Attachment Frage',
+      type: 'attachment',
+    },
+    {
+      linkId: '1',
+      prefix: '3.',
+      required: true,
+      text: 'Attachment Frage 2',
+      type: 'attachment',
+    },
+    {
+      linkId: '4',
+      text: 'Gruppe',
+      type: 'group',
+      item: [
+        {
+          linkId: '41',
+          prefix: '3.',
+          text: 'Attachment Frage 3',
+          type: 'attachment',
+        },
+      ],
     },
     // {
     //   linkId: "1.1",

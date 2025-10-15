@@ -1,0 +1,10 @@
+.qr-question-title{
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.qr-question-hidden {
+  visibility: hidden;
+}

@@ -25,7 +25,6 @@ export class BooleanQuestion {
   @Event() emitAnswer: EventEmitter;
   @Watch('selected')
   watchSelected() {
-    console.log("watchSelected")
     if (this.allow_events) {
       let object = null;
       if (this.selected !== null) {
@@ -42,7 +41,6 @@ export class BooleanQuestion {
             value: [this.selected],
           };
         }
-        console.log("emittingEvent", object)
         this.emitAnswer.emit(object);
       }
     }
@@ -53,7 +51,6 @@ export class BooleanQuestion {
   @State() reset: Boolean = false;
   @Watch('question')
   async watchQuestion() {
-    console.log("watchQuestion")
     this.allow_events = false;
     await this.setSelected();
     this.setOptions();
@@ -70,7 +67,6 @@ export class BooleanQuestion {
   @Watch('questionnaireResponse')
   async watchQuestionnaireResponse() {
     this.allow_events = false;
-    console.log("watchQuestionnaireResponse")
     await this.setSelected();
     this.allow_events = true;
   }
@@ -146,7 +142,6 @@ export class BooleanQuestion {
   }
   setSelected() {
     try {
-      console.log("setSelected")
       let value = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'boolean');
       if (value === true) {
         this.selected = 'yes';

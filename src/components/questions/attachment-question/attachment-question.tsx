@@ -14,7 +14,7 @@ import { textToHtml } from '../../../utils/textToHtml';
 })
 export class AttachmentQuestion {
   @Element() element: HTMLElement;
-  private fileInput?: HTMLInputElement
+  private fileInput?: HTMLInputElement;
   @Prop() questionnaire: Object = null;
   @Prop() question: any;
   @State() selected: any = null;
@@ -50,7 +50,6 @@ export class AttachmentQuestion {
   @Watch('questionnaireResponse')
   async watchQuestionnaireResponse() {
     this.allow_events = false;
-    // console.log("watchQUestionnareResponse")
     await this.setSelected();
     this.allow_events = true;
   }
@@ -58,7 +57,6 @@ export class AttachmentQuestion {
   @Watch('question')
   async watchQuestion() {
     this.allow_events = false;
-    console.log('watchQuestion');
     await this.setSelected();
     this.allow_events = true;
 
@@ -67,10 +65,10 @@ export class AttachmentQuestion {
       this.reset = false;
     }, 5);
   }
+
   @Watch('selected')
   watchSelected() {
     if (this.allow_events) {
-      console.log('selected watch', this.selected);
       let object = null;
       if (this.selected !== null) {
         object = {
@@ -78,25 +76,30 @@ export class AttachmentQuestion {
           question: this.question,
           value: [{ contentType: this.selected.type, title: this.selected.name, data: this.base64Convertion, url: null }],
         };
-        this.emitAnswer.emit(object);
+      } else {
+        object = {
+          type: 'attachment',
+          question: this.question,
+          value: [],
+        };
       }
+      this.emitAnswer.emit(object);
     }
   }
 
   /* computed */
   validate() {
     return this.selected ? true : false;
-    // return false;
   }
+
   setSelected() {
     try {
       let value = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'attachment');
-      // TODO testen
       if (value) {
-        console.log('setSelected', value);
         let file = new File([''], value.title, { type: value.contentType });
         this.selected = file;
-        console.log("setSelected selected ", this.selected)
+      } else {
+        this.selected = null;
       }
     } catch (error) {
       if (this.enableErrorConsoleLogging) {
@@ -107,12 +110,10 @@ export class AttachmentQuestion {
   }
 
   fileToBase64(file) {
-    console.log('filetoBase64', file);
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => {
         const result = reader.result as string;
-        console.log('filetoBase64 ', result);
         const base64 = result.split(',')[1];
         resolve(base64);
       };
@@ -130,7 +131,6 @@ export class AttachmentQuestion {
   }
 
   async handleFileChange(event: Event) {
-    console.log(this.selected);
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
 
@@ -142,7 +142,12 @@ export class AttachmentQuestion {
   }
 
   private triggerFileDialog = () => {
-    this.fileInput?.click()
+    this.fileInput?.click();
+  };
+
+  removeSelectedFile() {
+    this.selected = null;
+    this.fileInput.value = ''
   }
 
   async componentWillLoad(): Promise<void> {
@@ -181,16 +186,21 @@ export class AttachmentQuestion {
           <div class="qr-question-attachment-input">
             {this.question ? (
               <div class="form-group" id={'radio-attachment-' + this.question.linkId}>
-                <input type="file" id="fileInput"  ref={el => (this.fileInput = el as HTMLInputElement)} onChange={e => this.handleFileChange(e)} hidden />
-                <button type="button" class="btn" onClick={this.triggerFileDialog}>
-                  Datei wählen
+                <input type="file" id="fileInput" ref={el => (this.fileInput = el as HTMLInputElement)} onChange={e => this.handleFileChange(e)} hidden />
+                <button type="button" class="btn qr-question-attachment-input-button" onClick={this.triggerFileDialog}>
+                  {this.strings.selectFile}
                 </button>
-                {this.selected && this.selected.name ?(
-                  <span class="file-name">{this.selected.name}</span>
-                ):(
-                  <span class="file-name">Wählen Datei now</span>
-
-                )}
+                {this.selected && this.selected.name ? (
+                  <span>
+                    <span class="qr-question-attachment-input-selected">{this.selected.name}</span>
+                    <svg class="qr-question-attachment-deleteIcon" xmlns="http://www.w3.org/2000/svg" onClick={() => this.removeSelectedFile()} style={{ width: '20px', height: '20px', cursor: 'pointer' }} viewBox="0 0 24 24">
+                      <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                    </svg>
+                  </span>
+                ) : null}
+                {/* ) : (
+                  <span class="qr-question-attachment-input-select">{this.strings.selectFile}</span>
+                )} */}
               </div>
             ) : null}
           </div>

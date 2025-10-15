@@ -1,15 +1,18 @@
 import { cloneDeep } from 'lodash';
 import dayjs from 'dayjs';
+import { v4 as uuidv4 } from 'uuid';
+import * as fhirApi from '@molit/fhir-util';
 
 import questionnaireResponseController from './questionnaireResponseController';
 
-//TODO testen
-export function buildBundle(questResp, task, questionnaireResponseStatus) {
+export function buildBundle(questResp, task, questionnaireResponseStatus, subject) {
+  let subjectReference = null;
+  if (subject) {
+    subjectReference = {reference: 'Patient/' + subject.id, display: fhirApi.getStringFromHumanName(subject.name)};
+  }
   let bundle = createBundleResource();
   // questionnaireResponse clonen
   let questionnaireResponse = cloneDeep(questResp);
-  // uuids generieren
-  const questionnaireResponseUUID = 'urn:uuid:' + crypto.randomUUID();
   // questionnaireResponse bearbeiten
   if (this.questionnaireResponseStatus) {
     questionnaireResponse.status = questionnaireResponseStatus;
@@ -25,15 +28,18 @@ export function buildBundle(questResp, task, questionnaireResponseStatus) {
     // wenn antwort vorhanden
     if (item.answer && item.answer.length !== 0 && questionnaireResponseController.getAnswerType(item.answer) === 'attachment') {
       // uuids generieren
-      const documentReferenceUUID = 'urn:uuid' + crypto.randomUUID();
+      const documentReferenceUUID = 'urn:uuid:' + uuidv4();
       // DocumentReference erstellen
-      let documentReference = createDocumentReferenceResource(item.answer[0].valueAttachment.contentType, item.answer[0].valueAttachment.title, documentReferenceUUID);
+      let documentReference = createDocumentReferenceResource(item.answer[0].valueAttachment.contentType, item.answer[0].valueAttachment.title, item.answer[0].valueAttachment.data, subjectReference);
       // data aus answer entfernen
       item.answer[0].valueAttachment.data = null;
+      item.answer[0].valueAttachment.url = documentReferenceUUID;
       // Resourcen in bundle pushen
       bundle.entry.push(createBundleEntry(documentReferenceUUID, documentReference, 'POST', documentReference.resourceType));
     }
   }
+  // uuids generieren
+  const questionnaireResponseUUID = 'urn:uuid:' + uuidv4();
   // QuestionnaireResponse ins Bundle
   if (questResp && questResp.id) {
     bundle.entry.push(createBundleEntry(null, questionnaireResponse, 'PUT', questionnaireResponse.resourceType));
@@ -46,10 +52,12 @@ export function buildBundle(questResp, task, questionnaireResponseStatus) {
       task.executionPeriod.start = dayjs(new Date()).format('YYYY-MM-DD');
       task.executionPeriod.end = new Date().toISOString();
     }
-    let questionnaireResponseReference = null
-    if(questResp && questResp.id){
-      questionnaireResponseReference = "QuestionnaireResponse/"+ questResp.id
-    }else
+    let questionnaireResponseReference = null;
+    if (questResp && questResp.id) {
+      questionnaireResponseReference = 'QuestionnaireResponse/' + questResp.id;
+    } else {
+      questionnaireResponseReference = questionnaireResponseUUID;
+    }
     task.output = [
       {
         type: {
@@ -62,7 +70,7 @@ export function buildBundle(questResp, task, questionnaireResponseStatus) {
           ],
         },
         valueReference: {
-          reference: questionnaireResponseUUID,
+          reference: questionnaireResponseReference,
         },
       },
     ];
@@ -77,13 +85,20 @@ function createBundleResource() {
   return { resourceType: 'Bundle', type: 'transaction', entry: [] };
 }
 
-function createDocumentReferenceResource(contentType, title, binaryUUID) {
+function createDocumentReferenceResource(contentType, title, data, subjectReference) {
   //TODO date checken
-  return { resourceType: 'DocumentReference', status: 'current', type: { text: contentType }, date: dayjs(new Date()), content: { attachment: { contentType: contentType, title: title, url: binaryUUID } } };
+  return {
+    resourceType: 'DocumentReference',
+    status: 'current',
+    type: { text: contentType },
+    date: dayjs(new Date()),
+    content: { attachment: { contentType: contentType, title: title, data: data } },
+    focus: subjectReference,
+  };
 }
 
 function createBundleEntry(fullUrl, resource, method, methodUrl) {
   return { fullUrl: fullUrl, resource: resource, request: { method: method, url: methodUrl } };
 }
 
-export default {buildBundle};
+export default { buildBundle };

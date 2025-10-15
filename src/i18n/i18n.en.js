@@ -16,6 +16,7 @@ export default {
   group: 'Group',
   noResult: 'No result',
   noAnswer: 'No answer',
+  selectFile: 'Select file',
 
   numberOfQuestions: 'Number of questions',
   publisher: 'Publisher',

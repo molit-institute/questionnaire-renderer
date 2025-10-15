@@ -30,8 +30,8 @@ export class TestUi {
   edit: boolean = false;
   indexQuestion: Object = null;
   // baseUrl: string = 'https://fhir.molit.eu/fhir';
-  // @State() baseUrl: string = 'https://equ.molit-service.de/fhir';
-  @State() baseUrl: string = 'https://vitu-dev-app.molit-service.de/fhir';
+  @State() baseUrl: string = 'https://equ.molit-service.de/fhir';
+  // @State() baseUrl: string = 'https://vitu-dev-app.molit-service.de/fhir';
   // baseUrl: string = 'https://dev.lion-app.de/fhir';
   // baseUrl: string = 'https://vitu-dev-app.molit-service.de/fhir';
   // questionnaireUrl: string = this.baseUrl + '/Questionnaire/56';
@@ -45,8 +45,39 @@ export class TestUi {
   examplePatient() {
     return examplePatient;
   }
+
+  subject: any = {
+    resourceType: 'Patient',
+    id:124143,
+    identifier: [
+      {
+        type: {
+          coding: [
+            {
+              system: 'http://terminology.hl7.org/CodeSystem/v2-0203',
+              code: 'PT',
+            },
+          ],
+        },
+        system: 'http://molit.eu/fhir/identifier/kis-id',
+        value: '44',
+      },
+    ],
+    active: true,
+    name: [
+      {
+        use: 'official',
+        text: 'Paula Ner',
+        family: 'Ner',
+        given: ['Paula'],
+      },
+    ],
+    gender: 'female',
+    birthDate: '1990-03-22',
+  };
   task: any = {
     resourceType: 'Task',
+    id: 3123,
     meta: {
       tag: [
         {
@@ -153,7 +184,7 @@ export class TestUi {
     return (
       <div>
         <div class="container-fluid">
-          <div class="row" style={{'width':'100%'}}>
+          <div class="row" style={{ width: '100%' }}>
             <div class="col-sm-8">
               {/* QUESTIONNAIRE RENDERER */}
               <h5> QUESTIONNAIRE RENDERER</h5>
@@ -182,7 +213,7 @@ export class TestUi {
                 <questionnaire-renderer
                   onFinished={event => this.toSummary(event)}
                   onUpdated={event => this.updateQR(event)}
-                  onUpdatedBundle={event => this.bundle = event.detail}
+                  onUpdatedBundle={event => (this.bundle = event.detail)}
                   onExit={() => this.toQuestionnaireList()}
                   trademarkText="Dont copy meeeeee"
                   enableInformationPage={true}
@@ -202,6 +233,7 @@ export class TestUi {
                   enableFullQuestionnaireResponse={false}
                   enableSummary={true}
                   enableReturn={false}
+                  subject={this.subject}
                   // enableNext={false}
                   // enableFinishButton={true}
                   enableInformalLocale={true}
@@ -221,7 +253,7 @@ export class TestUi {
                 ></questionnaire-renderer>
               ) : null}
             </div>
-            <div class="col-sm-4" style={{ backgroundColor: 'lightgrey', 'max-height': '100vh', 'overflow-y': 'auto'}}>
+            <div class="col-sm-4" style={{ 'backgroundColor': 'lightgrey', 'max-height': '100vh', 'overflow-y': 'auto' }}>
               <h5>Questionnaire Response</h5>
               <pre>
                 <pre>{`${JSON.stringify(this.questionnaireResponse, null, 2)}`}</pre>

@@ -15,6 +15,7 @@ export namespace Components {
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale": string;
         /**
@@ -22,7 +23,13 @@ export namespace Components {
          */
         "primary": string;
         "question": any;
+        /**
+          * @default null
+         */
         "questionnaire": Object;
+        /**
+          * @default null
+         */
         "questionnaireResponse": Object;
         /**
           * Secondary color
@@ -38,6 +45,7 @@ export namespace Components {
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale": string;
         "mode": string;
@@ -46,7 +54,13 @@ export namespace Components {
          */
         "primary": string;
         "question": any;
+        /**
+          * @default null
+         */
         "questionnaire": Object;
+        /**
+          * @default null
+         */
         "questionnaireResponse": Object;
         /**
           * Secondary color
@@ -56,6 +70,9 @@ export namespace Components {
     }
     interface ChoiceQuestion {
         "answers": any;
+        /**
+          * @default 'https://fhir.molit.eu/fhir'
+         */
         "baseUrl": string;
         /**
           * Color used to symbolise danger
@@ -65,6 +82,7 @@ export namespace Components {
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale": string;
         "mode": string;
@@ -74,6 +92,9 @@ export namespace Components {
         "primary": string;
         "question": any;
         "questionnaire": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse": Object;
         /**
           * Secondary color
@@ -90,6 +111,7 @@ export namespace Components {
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale": string;
         "mode": string;
@@ -98,6 +120,9 @@ export namespace Components {
          */
         "primary": string;
         "question": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse": Object;
         /**
           * Secondary color
@@ -113,6 +138,7 @@ export namespace Components {
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale": string;
         "mode": string;
@@ -121,6 +147,9 @@ export namespace Components {
          */
         "primary": string;
         "question": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse": Object;
         /**
           * Secondary color
@@ -136,6 +165,7 @@ export namespace Components {
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale": string;
         "mode": string;
@@ -144,6 +174,9 @@ export namespace Components {
          */
         "primary": string;
         "question": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse": Object;
         /**
           * Secondary color
@@ -155,6 +188,7 @@ export namespace Components {
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale": string;
         "mode": string;
@@ -169,11 +203,18 @@ export namespace Components {
         "enableErrorConsoleLogging": boolean;
         "enableFinishButton": boolean;
         "enableInformalLocale": boolean;
+        /**
+          * @default true
+         */
         "enableNext": boolean;
+        /**
+          * @default true
+         */
         "enableReturn": boolean;
         "filteredItemList": Array<any>;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale": string;
         /**
@@ -181,6 +222,9 @@ export namespace Components {
          */
         "primary": string;
         "questionnaire": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse": Object;
         "requiredQuestionList": Array<any>;
         /**
@@ -203,14 +247,24 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        /**
+          * @default false
+         */
         "editMode": boolean;
         "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
+        /**
+          * @default true
+         */
         "enableReturn": boolean;
         "filteredItemList": Array<any>;
+        /**
+          * @default false
+         */
         "lastQuestion": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale": string;
         "mode": string;
@@ -220,6 +274,9 @@ export namespace Components {
         "primary": string;
         "question": any;
         "questionnaire": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse": Object;
         "requiredQuestionList": Array<any>;
         /**
@@ -235,21 +292,34 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        /**
+          * @default false
+         */
         "editMode": boolean;
         "enableErrorConsoleLogging": boolean;
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default true
          */
         "enableReturn": boolean;
         "filteredItemList": Array<any>;
+        /**
+          * @default false
+         */
         "lastQuestion": boolean;
+        /**
+          * @default 'en'
+         */
         "locale": string;
         /**
           * Primary color
          */
         "primary": string;
         "questionnaire": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse": Object;
         "requiredQuestionList": Array<any>;
         /**
@@ -268,14 +338,27 @@ export namespace Components {
     }
     interface InformationPage {
         "enableErrorConsoleLogging": boolean;
+        /**
+          * @default false
+         */
         "enableInformalLocale": boolean;
         "filteredItemList": Array<any>;
+        /**
+          * @default ''
+         */
         "informationPageText": String;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale": string;
+        /**
+          * @default null
+         */
         "questionnaire": any;
+        /**
+          * @default null
+         */
         "trademarkText": string;
     }
     interface IntegerQuestion {
@@ -287,6 +370,7 @@ export namespace Components {
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale": string;
         "mode": string;
@@ -295,6 +379,9 @@ export namespace Components {
          */
         "primary": string;
         "question": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse": Object;
         /**
           * Secondary color
@@ -314,6 +401,7 @@ export namespace Components {
         "baseUrl": string;
         /**
           * If basicAuth is true, the authorization header in server requests will be set to "Basic "
+          * @default false
          */
         "basicAuth": boolean;
         /**
@@ -322,66 +410,82 @@ export namespace Components {
         "danger": string;
         /**
           * If true the render will show the button to exit the renderer. It can be used in combination with the summary to edit answers.
+          * @default false
          */
         "editMode": boolean;
         /**
           * Allows the renderer to show errors in the console while emitting error-events
+          * @default false
          */
         "enableErrorConsoleLogging": boolean;
         /**
           * If true, enables the renderer to expand valueSets to also load included code systems
+          * @default true
          */
         "enableExpand": boolean;
         /**
           * Shows a finish-button instead of next at the last question
+          * @default false
          */
         "enableFinishButton": boolean;
         /**
           * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
+          * @default false
          */
         "enableFullQuestionnaireResponse": boolean;
         /**
           * If true, shows the description of the group for every question thats part of the group
+          * @default true
          */
         "enableGroupDescription": boolean;
         /**
           * If true enables the use of the informalLocal - only available for german translation
+          * @default false
          */
         "enableInformalLocale": boolean;
         /**
           * If true enables the renderer to show the informationPage
+          * @default false
          */
         "enableInformationPage": boolean;
         /**
           * Enable the button that can be used to show the summary or end the questionnaire.
+          * @default true
          */
         "enableNext": boolean;
         /**
           * Enable the return-button to exit the render-view. This will also enable the "exit"-Event to be thrown if the information-page is deactivated.
+          * @default true
          */
         "enableReturn": boolean;
         /**
           * If true, enables the summary to send QuestionnaireResponses to the FHIR Server. Needs the fhir-base url to be able send to the server
+          * @default true
          */
         "enableSendQuestionnaireResponse": boolean;
         /**
           * Enable the summary. The summary will be shown if enableSummary is true
+          * @default false
          */
         "enableSummary": boolean;
         /**
           * Text shown in the top half of the information page
+          * @default null
          */
         "informationPageText": string;
         /**
           * If true, the Renderer will start with the last question
+          * @default false
          */
         "lastQuestion": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale": string;
         /**
           * Current type of Questionnaire-Style to display Available: stepper-questionnaire, grouped-questionnaire, full-questionnaire
+          * @default 'stepper-questionnaire'
          */
         "mode": string;
         /**
@@ -390,10 +494,12 @@ export namespace Components {
         "primary": string;
         /**
           * FHIR-Resource Questionnaire
+          * @default null
          */
         "questionnaire": any;
         /**
           * FHIR-Resource QuestionnaireResponse
+          * @default null
          */
         "questionnaireResponse": any;
         /**
@@ -402,6 +508,7 @@ export namespace Components {
         "questionnaireResponseStatus": string;
         /**
           * The Url to fetch the Questionnaire from
+          * @default null
          */
         "questionnaireUrl": string;
         /**
@@ -414,26 +521,32 @@ export namespace Components {
         "secondary": string;
         /**
           * If showOnlySummary is true, the questionnaire-renderer will only show the summary
+          * @default false
          */
         "showOnlySummary": boolean;
         /**
           * if true shows the remarks at the bottom of the summary
+          * @default false
          */
         "showSummaryRemarks": boolean;
         /**
           * The question where in the list of questions the renderer should start. Expects the question as an object.
+          * @default null
          */
         "startQuestion": Object;
         /**
           * FHIR-Resource Patient
+          * @default null
          */
         "subject": any;
         /**
           * The text shown in the top half of the Summary
+          * @default null
          */
         "summaryText": string;
         /**
           * FHIR-Resource Task
+          * @default null
          */
         "task": any;
         /**
@@ -442,26 +555,32 @@ export namespace Components {
         "token": string;
         /**
           * Shows a trademark/copyright text at the bottom of the renderer
+          * @default null
          */
         "trademarkText": string;
         /**
           * Array of ValueSets that are needed to display the given questionnaire
+          * @default null
          */
         "valueSets": Array<any>;
         /**
           * Text for the label of the selected value
+          * @default null
          */
         "vasSelectedValueLabel": string;
         /**
           * If true shows the selected value for the vas scale
+          * @default false
          */
         "vasShowSelectedValue": boolean;
         /**
           * Options for Visual Analog Scale
+          * @default false
          */
         "vasVertical": boolean;
         /**
           * If true shows a third 'no Answer' option in boolean questions.
+          * @default true
          */
         "visibleBooleanNullOption": boolean;
     }
@@ -475,10 +594,17 @@ export namespace Components {
         "enableSendQuestionnaireResponse": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale": string;
         "mode": string;
+        /**
+          * @default null
+         */
         "questionnaire": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse": any;
         "questionnaireResponseStatus": string;
         "showSummaryRemarks": boolean;
@@ -489,15 +615,27 @@ export namespace Components {
         "summary_text": string;
         "task": any;
         "token": string;
+        /**
+          * @default null
+         */
         "trademarkText": string;
     }
     interface SelectElement {
         "optionsList": any;
+        /**
+          * @default false
+         */
         "repeats": Boolean;
         "selected": any;
+        /**
+          * @default {     placeholder: 'Please select',     noResults: 'No entries found',     loadingText: 'Loading...',   }
+         */
         "translations": any;
     }
     interface SimpleSpinner {
+        /**
+          * @default '#004A6B'
+         */
         "borderTopColor": string;
         "message": String;
     }
@@ -507,25 +645,47 @@ export namespace Components {
           * Color used to symbolise danger
          */
         "danger": string;
+        /**
+          * @default false
+         */
         "editMode": boolean;
         "enableErrorConsoleLogging": boolean;
+        /**
+          * @default false
+         */
         "enableFinishButton": boolean;
         "enableGroupDescription": boolean;
         "enableInformalLocale": boolean;
+        /**
+          * @default true
+         */
         "enableNext": boolean;
+        /**
+          * @default true
+         */
         "enableReturn": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default true
          */
         "enableSummary": boolean;
         "filteredItemList": Array<any>;
+        /**
+          * @default false
+         */
         "lastQuestion": boolean;
+        /**
+          * @default 'en'
+         */
         "locale": string;
         /**
           * Primary color
          */
         "primary": string;
         "questionnaire": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse": Object;
         "requiredQuestionList": Array<any>;
         /**
@@ -533,6 +693,9 @@ export namespace Components {
          */
         "secondary": string;
         "startCount": number;
+        /**
+          * @default null
+         */
         "trademarkText": string;
         "valueSets": Array<any>;
         "vasSelectedValueLabel": string;
@@ -552,6 +715,7 @@ export namespace Components {
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale": string;
         "mode": string;
@@ -560,6 +724,9 @@ export namespace Components {
          */
         "primary": string;
         "question": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse": Object;
         /**
           * Secondary color
@@ -577,6 +744,7 @@ export namespace Components {
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale": string;
         "mode": string;
@@ -585,6 +753,9 @@ export namespace Components {
          */
         "primary": string;
         "question": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse": Object;
         /**
           * Secondary color
@@ -600,6 +771,7 @@ export namespace Components {
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale": string;
         "mode": string;
@@ -608,6 +780,9 @@ export namespace Components {
          */
         "primary": string;
         "question": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse": Object;
         /**
           * Secondary color
@@ -623,6 +798,7 @@ export namespace Components {
         "enableInformalLocale": boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale": string;
         "mode": string;
@@ -631,6 +807,9 @@ export namespace Components {
          */
         "primary": string;
         "question": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse": Object;
         /**
           * Secondary color
@@ -638,16 +817,41 @@ export namespace Components {
         "secondary": string;
     }
     interface VasQuestion {
+        /**
+          * @default 'Lower-bound'
+         */
         "labelLower": String;
+        /**
+          * @default 'Upper-bound'
+         */
         "labelUpper": String;
+        /**
+          * @default 100
+         */
         "max": number;
+        /**
+          * @default 0
+         */
         "min": number;
+        /**
+          * @default 0
+         */
         "selected": number;
+        /**
+          * @default 1
+         */
         "step": number;
+        /**
+          * @default null
+         */
         "vasSelectedValueLabel": string;
+        /**
+          * @default false
+         */
         "vasShowSelectedValue": boolean;
         /**
           * Options for Visual Analog Scale
+          * @default false
          */
         "vasVertical": boolean;
     }
@@ -1184,6 +1388,7 @@ declare namespace LocalJSX {
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale"?: string;
         "onEmitAnswer"?: (event: AttachmentQuestionCustomEvent<any>) => void;
@@ -1196,7 +1401,13 @@ declare namespace LocalJSX {
          */
         "primary"?: string;
         "question"?: any;
+        /**
+          * @default null
+         */
         "questionnaire"?: Object;
+        /**
+          * @default null
+         */
         "questionnaireResponse"?: Object;
         /**
           * Secondary color
@@ -1212,6 +1423,7 @@ declare namespace LocalJSX {
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale"?: string;
         "mode"?: string;
@@ -1225,7 +1437,13 @@ declare namespace LocalJSX {
          */
         "primary"?: string;
         "question"?: any;
+        /**
+          * @default null
+         */
         "questionnaire"?: Object;
+        /**
+          * @default null
+         */
         "questionnaireResponse"?: Object;
         /**
           * Secondary color
@@ -1235,6 +1453,9 @@ declare namespace LocalJSX {
     }
     interface ChoiceQuestion {
         "answers"?: any;
+        /**
+          * @default 'https://fhir.molit.eu/fhir'
+         */
         "baseUrl"?: string;
         /**
           * Color used to symbolise danger
@@ -1244,6 +1465,7 @@ declare namespace LocalJSX {
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale"?: string;
         "mode"?: string;
@@ -1259,6 +1481,9 @@ declare namespace LocalJSX {
         "primary"?: string;
         "question"?: any;
         "questionnaire"?: any;
+        /**
+          * @default null
+         */
         "questionnaireResponse"?: Object;
         /**
           * Secondary color
@@ -1275,6 +1500,7 @@ declare namespace LocalJSX {
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale"?: string;
         "mode"?: string;
@@ -1288,6 +1514,9 @@ declare namespace LocalJSX {
          */
         "primary"?: string;
         "question"?: any;
+        /**
+          * @default null
+         */
         "questionnaireResponse"?: Object;
         /**
           * Secondary color
@@ -1303,6 +1532,7 @@ declare namespace LocalJSX {
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale"?: string;
         "mode"?: string;
@@ -1316,6 +1546,9 @@ declare namespace LocalJSX {
          */
         "primary"?: string;
         "question"?: any;
+        /**
+          * @default null
+         */
         "questionnaireResponse"?: Object;
         /**
           * Secondary color
@@ -1331,6 +1564,7 @@ declare namespace LocalJSX {
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale"?: string;
         "mode"?: string;
@@ -1348,6 +1582,9 @@ declare namespace LocalJSX {
          */
         "primary"?: string;
         "question"?: any;
+        /**
+          * @default null
+         */
         "questionnaireResponse"?: Object;
         /**
           * Secondary color
@@ -1359,6 +1596,7 @@ declare namespace LocalJSX {
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale"?: string;
         "mode"?: string;
@@ -1377,11 +1615,18 @@ declare namespace LocalJSX {
         "enableErrorConsoleLogging"?: boolean;
         "enableFinishButton"?: boolean;
         "enableInformalLocale"?: boolean;
+        /**
+          * @default true
+         */
         "enableNext"?: boolean;
+        /**
+          * @default true
+         */
         "enableReturn"?: boolean;
         "filteredItemList"?: Array<any>;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale"?: string;
         /**
@@ -1396,6 +1641,9 @@ declare namespace LocalJSX {
          */
         "primary"?: string;
         "questionnaire": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse"?: Object;
         "requiredQuestionList"?: Array<any>;
         /**
@@ -1418,14 +1666,24 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        /**
+          * @default false
+         */
         "editMode"?: boolean;
         "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
+        /**
+          * @default true
+         */
         "enableReturn"?: boolean;
         "filteredItemList"?: Array<any>;
+        /**
+          * @default false
+         */
         "lastQuestion"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale"?: string;
         "mode"?: string;
@@ -1447,6 +1705,9 @@ declare namespace LocalJSX {
         "primary"?: string;
         "question"?: any;
         "questionnaire": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse"?: Object;
         "requiredQuestionList"?: Array<any>;
         /**
@@ -1462,15 +1723,25 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        /**
+          * @default false
+         */
         "editMode"?: boolean;
         "enableErrorConsoleLogging"?: boolean;
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default true
          */
         "enableReturn"?: boolean;
         "filteredItemList"?: Array<any>;
+        /**
+          * @default false
+         */
         "lastQuestion"?: boolean;
+        /**
+          * @default 'en'
+         */
         "locale"?: string;
         /**
           * Emits an error-event
@@ -1490,6 +1761,9 @@ declare namespace LocalJSX {
          */
         "primary"?: string;
         "questionnaire": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse"?: Object;
         "requiredQuestionList"?: Array<any>;
         /**
@@ -1508,15 +1782,28 @@ declare namespace LocalJSX {
     }
     interface InformationPage {
         "enableErrorConsoleLogging"?: boolean;
+        /**
+          * @default false
+         */
         "enableInformalLocale"?: boolean;
         "filteredItemList"?: Array<any>;
+        /**
+          * @default ''
+         */
         "informationPageText"?: String;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale"?: string;
         "onStartQuestionnaire"?: (event: InformationPageCustomEvent<any>) => void;
+        /**
+          * @default null
+         */
         "questionnaire"?: any;
+        /**
+          * @default null
+         */
         "trademarkText"?: string;
     }
     interface IntegerQuestion {
@@ -1528,6 +1815,7 @@ declare namespace LocalJSX {
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale"?: string;
         "mode"?: string;
@@ -1545,6 +1833,9 @@ declare namespace LocalJSX {
          */
         "primary"?: string;
         "question"?: any;
+        /**
+          * @default null
+         */
         "questionnaireResponse"?: Object;
         /**
           * Secondary color
@@ -1564,6 +1855,7 @@ declare namespace LocalJSX {
         "baseUrl"?: string;
         /**
           * If basicAuth is true, the authorization header in server requests will be set to "Basic "
+          * @default false
          */
         "basicAuth"?: boolean;
         /**
@@ -1572,66 +1864,82 @@ declare namespace LocalJSX {
         "danger"?: string;
         /**
           * If true the render will show the button to exit the renderer. It can be used in combination with the summary to edit answers.
+          * @default false
          */
         "editMode"?: boolean;
         /**
           * Allows the renderer to show errors in the console while emitting error-events
+          * @default false
          */
         "enableErrorConsoleLogging"?: boolean;
         /**
           * If true, enables the renderer to expand valueSets to also load included code systems
+          * @default true
          */
         "enableExpand"?: boolean;
         /**
           * Shows a finish-button instead of next at the last question
+          * @default false
          */
         "enableFinishButton"?: boolean;
         /**
           * If true the Renderer will return a QuestionnaireResponse with all items, even if some items have been deactivated by enableWhen
+          * @default false
          */
         "enableFullQuestionnaireResponse"?: boolean;
         /**
           * If true, shows the description of the group for every question thats part of the group
+          * @default true
          */
         "enableGroupDescription"?: boolean;
         /**
           * If true enables the use of the informalLocal - only available for german translation
+          * @default false
          */
         "enableInformalLocale"?: boolean;
         /**
           * If true enables the renderer to show the informationPage
+          * @default false
          */
         "enableInformationPage"?: boolean;
         /**
           * Enable the button that can be used to show the summary or end the questionnaire.
+          * @default true
          */
         "enableNext"?: boolean;
         /**
           * Enable the return-button to exit the render-view. This will also enable the "exit"-Event to be thrown if the information-page is deactivated.
+          * @default true
          */
         "enableReturn"?: boolean;
         /**
           * If true, enables the summary to send QuestionnaireResponses to the FHIR Server. Needs the fhir-base url to be able send to the server
+          * @default true
          */
         "enableSendQuestionnaireResponse"?: boolean;
         /**
           * Enable the summary. The summary will be shown if enableSummary is true
+          * @default false
          */
         "enableSummary"?: boolean;
         /**
           * Text shown in the top half of the information page
+          * @default null
          */
         "informationPageText"?: string;
         /**
           * If true, the Renderer will start with the last question
+          * @default false
          */
         "lastQuestion"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale"?: string;
         /**
           * Current type of Questionnaire-Style to display Available: stepper-questionnaire, grouped-questionnaire, full-questionnaire
+          * @default 'stepper-questionnaire'
          */
         "mode"?: string;
         /**
@@ -1667,10 +1975,12 @@ declare namespace LocalJSX {
         "primary"?: string;
         /**
           * FHIR-Resource Questionnaire
+          * @default null
          */
         "questionnaire"?: any;
         /**
           * FHIR-Resource QuestionnaireResponse
+          * @default null
          */
         "questionnaireResponse"?: any;
         /**
@@ -1679,6 +1989,7 @@ declare namespace LocalJSX {
         "questionnaireResponseStatus"?: string;
         /**
           * The Url to fetch the Questionnaire from
+          * @default null
          */
         "questionnaireUrl"?: string;
         /**
@@ -1691,26 +2002,32 @@ declare namespace LocalJSX {
         "secondary"?: string;
         /**
           * If showOnlySummary is true, the questionnaire-renderer will only show the summary
+          * @default false
          */
         "showOnlySummary"?: boolean;
         /**
           * if true shows the remarks at the bottom of the summary
+          * @default false
          */
         "showSummaryRemarks"?: boolean;
         /**
           * The question where in the list of questions the renderer should start. Expects the question as an object.
+          * @default null
          */
         "startQuestion"?: Object;
         /**
           * FHIR-Resource Patient
+          * @default null
          */
         "subject"?: any;
         /**
           * The text shown in the top half of the Summary
+          * @default null
          */
         "summaryText"?: string;
         /**
           * FHIR-Resource Task
+          * @default null
          */
         "task"?: any;
         /**
@@ -1719,26 +2036,32 @@ declare namespace LocalJSX {
         "token"?: string;
         /**
           * Shows a trademark/copyright text at the bottom of the renderer
+          * @default null
          */
         "trademarkText"?: string;
         /**
           * Array of ValueSets that are needed to display the given questionnaire
+          * @default null
          */
         "valueSets"?: Array<any>;
         /**
           * Text for the label of the selected value
+          * @default null
          */
         "vasSelectedValueLabel"?: string;
         /**
           * If true shows the selected value for the vas scale
+          * @default false
          */
         "vasShowSelectedValue"?: boolean;
         /**
           * Options for Visual Analog Scale
+          * @default false
          */
         "vasVertical"?: boolean;
         /**
           * If true shows a third 'no Answer' option in boolean questions.
+          * @default true
          */
         "visibleBooleanNullOption"?: boolean;
     }
@@ -1752,6 +2075,7 @@ declare namespace LocalJSX {
         "enableSendQuestionnaireResponse"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale"?: string;
         "mode"?: string;
@@ -1771,7 +2095,13 @@ declare namespace LocalJSX {
           * Emits an event to return to the questionnaire renderer
          */
         "onToQuestionnaireRenderer"?: (event: QuestionnaireSummaryCustomEvent<any>) => void;
+        /**
+          * @default null
+         */
         "questionnaire"?: any;
+        /**
+          * @default null
+         */
         "questionnaireResponse"?: any;
         "questionnaireResponseStatus"?: string;
         "showSummaryRemarks"?: boolean;
@@ -1782,16 +2112,28 @@ declare namespace LocalJSX {
         "summary_text"?: string;
         "task"?: any;
         "token"?: string;
+        /**
+          * @default null
+         */
         "trademarkText"?: string;
     }
     interface SelectElement {
         "onEmitSelectedChoices"?: (event: SelectElementCustomEvent<any>) => void;
         "optionsList"?: any;
+        /**
+          * @default false
+         */
         "repeats"?: Boolean;
         "selected"?: any;
+        /**
+          * @default {     placeholder: 'Please select',     noResults: 'No entries found',     loadingText: 'Loading...',   }
+         */
         "translations"?: any;
     }
     interface SimpleSpinner {
+        /**
+          * @default '#004A6B'
+         */
         "borderTopColor"?: string;
         "message"?: String;
     }
@@ -1801,19 +2143,38 @@ declare namespace LocalJSX {
           * Color used to symbolise danger
          */
         "danger"?: string;
+        /**
+          * @default false
+         */
         "editMode"?: boolean;
         "enableErrorConsoleLogging"?: boolean;
+        /**
+          * @default false
+         */
         "enableFinishButton"?: boolean;
         "enableGroupDescription"?: boolean;
         "enableInformalLocale"?: boolean;
+        /**
+          * @default true
+         */
         "enableNext"?: boolean;
+        /**
+          * @default true
+         */
         "enableReturn"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default true
          */
         "enableSummary"?: boolean;
         "filteredItemList"?: Array<any>;
+        /**
+          * @default false
+         */
         "lastQuestion"?: boolean;
+        /**
+          * @default 'en'
+         */
         "locale"?: string;
         /**
           * Emits an error-event
@@ -1827,6 +2188,9 @@ declare namespace LocalJSX {
          */
         "primary"?: string;
         "questionnaire": any;
+        /**
+          * @default null
+         */
         "questionnaireResponse"?: Object;
         "requiredQuestionList"?: Array<any>;
         /**
@@ -1834,6 +2198,9 @@ declare namespace LocalJSX {
          */
         "secondary"?: string;
         "startCount"?: number;
+        /**
+          * @default null
+         */
         "trademarkText"?: string;
         "valueSets"?: Array<any>;
         "vasSelectedValueLabel"?: string;
@@ -1853,6 +2220,7 @@ declare namespace LocalJSX {
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale"?: string;
         "mode"?: string;
@@ -1870,6 +2238,9 @@ declare namespace LocalJSX {
          */
         "primary"?: string;
         "question"?: any;
+        /**
+          * @default null
+         */
         "questionnaireResponse"?: Object;
         /**
           * Secondary color
@@ -1887,6 +2258,7 @@ declare namespace LocalJSX {
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale"?: string;
         "mode"?: string;
@@ -1900,6 +2272,9 @@ declare namespace LocalJSX {
          */
         "primary"?: string;
         "question"?: any;
+        /**
+          * @default null
+         */
         "questionnaireResponse"?: Object;
         /**
           * Secondary color
@@ -1915,6 +2290,7 @@ declare namespace LocalJSX {
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale"?: string;
         "mode"?: string;
@@ -1928,6 +2304,9 @@ declare namespace LocalJSX {
          */
         "primary"?: string;
         "question"?: any;
+        /**
+          * @default null
+         */
         "questionnaireResponse"?: Object;
         /**
           * Secondary color
@@ -1943,6 +2322,7 @@ declare namespace LocalJSX {
         "enableInformalLocale"?: boolean;
         /**
           * Language property of the component. </br> Currently suported: [de, en, es]
+          * @default 'en'
          */
         "locale"?: string;
         "mode"?: string;
@@ -1961,6 +2341,9 @@ declare namespace LocalJSX {
          */
         "primary"?: string;
         "question"?: any;
+        /**
+          * @default null
+         */
         "questionnaireResponse"?: Object;
         /**
           * Secondary color
@@ -1968,17 +2351,42 @@ declare namespace LocalJSX {
         "secondary"?: string;
     }
     interface VasQuestion {
+        /**
+          * @default 'Lower-bound'
+         */
         "labelLower"?: String;
+        /**
+          * @default 'Upper-bound'
+         */
         "labelUpper"?: String;
+        /**
+          * @default 100
+         */
         "max"?: number;
+        /**
+          * @default 0
+         */
         "min"?: number;
         "onEmitSelected"?: (event: VasQuestionCustomEvent<any>) => void;
+        /**
+          * @default 0
+         */
         "selected"?: number;
+        /**
+          * @default 1
+         */
         "step"?: number;
+        /**
+          * @default null
+         */
         "vasSelectedValueLabel"?: string;
+        /**
+          * @default false
+         */
         "vasShowSelectedValue"?: boolean;
         /**
           * Options for Visual Analog Scale
+          * @default false
          */
         "vasVertical"?: boolean;
     }

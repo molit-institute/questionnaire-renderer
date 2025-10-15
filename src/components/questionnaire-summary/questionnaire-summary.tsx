@@ -264,7 +264,7 @@ export class QuestionnaireSummary {
       questionnaireResponseController.removeQuestionnaireResponseDisplayQuestions(questResp.item);
 
       try {
-        let bundle = bundleController.buildBundle(questResp, task, this.questionnaireResponseStatus);
+        let bundle = bundleController.buildBundle(questResp, task, this.questionnaireResponseStatus,this.subject);
         await fhirApi.submitResourceToUrl(this.baseUrl, bundle, this.token, this.basicAuth);
         // await fhirApi.submitResource(this.baseUrl, bundle, this.token, this.basicAuth);
       } catch (error) {
