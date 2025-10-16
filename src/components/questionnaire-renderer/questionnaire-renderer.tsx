@@ -56,7 +56,7 @@ export class QuestionnaireRenderer {
   @Watch('questionnaireResponse')
   async watchQuestionnaireResponse() {
     // await this.handleQuestionnaireResponse();
-    //TODO FIX LOOP
+    // TODO FIX LOOP
   }
   /**
    * Current type of Questionnaire-Style to display
@@ -653,7 +653,6 @@ export class QuestionnaireRenderer {
         this.createQuestionnaireResponse();
       }
     } else {
-      //TODO FIX LOOP
         this.createQuestionnaireResponse();
     }
   }

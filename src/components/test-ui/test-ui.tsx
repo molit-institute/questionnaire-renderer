@@ -45,72 +45,81 @@ export class TestUi {
   examplePatient() {
     return examplePatient;
   }
-
-  subject: any = {
-    resourceType: 'Patient',
-    id:124143,
-    identifier: [
-      {
-        type: {
-          coding: [
-            {
-              system: 'http://terminology.hl7.org/CodeSystem/v2-0203',
-              code: 'PT',
-            },
-          ],
-        },
-        system: 'http://molit.eu/fhir/identifier/kis-id',
-        value: '44',
-      },
-    ],
-    active: true,
-    name: [
-      {
-        use: 'official',
-        text: 'Paula Ner',
-        family: 'Ner',
-        given: ['Paula'],
-      },
-    ],
-    gender: 'female',
-    birthDate: '1990-03-22',
-  };
-  task: any = {
-    resourceType: 'Task',
-    id: 3123,
-    meta: {
-      tag: [
-        {
-          code: 'pre-OP',
-          display: 'vor OP',
-        },
-      ],
-    },
-    status: 'active',
-    intent: 'order',
-    code: {
-      coding: [
-        {
-          system: 'http://molit.eu/fhir/CodeSystem/taskTypes',
-          code: 'eQuestionnaire',
-          display: 'eQU Questionnaire',
-        },
-      ],
-      text: 'PatientQuestionnaireTask',
-    },
-    focus: {
-      reference: 'Questionnaire/1',
-      display: 'QLQ-C30',
-    },
-    for: {
-      reference: 'Patient/14',
-      display: 'Maier, Peter',
-    },
-    executionPeriod: {
-      start: '2026-10-25',
-      end: '2026-10-25',
-    },
-  };
+  subject: any = null;
+  // subject: any = {
+  //   resourceType: 'Patient',
+  //   id: '105',
+  //   meta: {
+  //     versionId: '2',
+  //     lastUpdated: '2025-02-20T10:58:40.351+00:00',
+  //     source: '#H7SK3IkAyHEMFx9D',
+  //   },
+  //   identifier: [
+  //     {
+  //       type: {
+  //         coding: [
+  //           {
+  //             system: 'http://terminology.hl7.org/CodeSystem/v2-0203',
+  //             code: 'PT',
+  //           },
+  //         ],
+  //       },
+  //       system: 'http://molit.eu/fhir/identifier/kis-id',
+  //       value: 'cc',
+  //     },
+  //   ],
+  //   active: true,
+  //   name: [
+  //     {
+  //       use: 'official',
+  //       text: 'Charles Charts',
+  //       family: 'Charts',
+  //       given: ['Charles'],
+  //     },
+  //   ],
+  //   gender: 'male',
+  //   birthDate: '2024-01-01',
+  // };
+  task: any = null;
+  // task: any = {
+  //   resourceType: 'Task',
+  //   id: '2067',
+  //   meta: {
+  //     versionId: '1',
+  //     lastUpdated: '2025-07-31T09:02:28.619+00:00',
+  //     source: '#cnzfK9zEbK7yvpq4',
+  //     tag: [
+  //       {
+  //         code: 'Beginn',
+  //         display: 'Beginn',
+  //       },
+  //     ],
+  //   },
+  //   status: 'ready',
+  //   intent: 'order',
+  //   code: {
+  //     coding: [
+  //       {
+  //         system: 'http://molit.eu/fhir/CodeSystem/taskTypes',
+  //         code: 'eQuestionnaire',
+  //         display: 'eQU Questionnaire',
+  //       },
+  //     ],
+  //     text: 'PatientQuestionnaireTask',
+  //   },
+  //   focus: {
+  //     reference: 'Questionnaire/1',
+  //     display: 'QLQ-C30',
+  //   },
+  //   for: {
+  //     reference: 'Patient/105',
+  //     display: 'Charts, Charles',
+  //   },
+  //   executionPeriod: {
+  //     start: '2025-07-31',
+  //     end: '2025-07-31',
+  //   },
+  // };
 
   /* methods */
   setQuestionnaireMode(selectedMode) {

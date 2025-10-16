@@ -306,7 +306,6 @@ export class StepperQuestionnaire {
 
   /* Lifecycle Methods */
   componentDidUpdate() {
-    //TODO Is this the correct lifecycle hook?
     if (this.lastquestion && this.filteredItemList && this.filteredItemList.length > 0) {
       this.count = this.filteredItemList.length - 1;
       this.lastquestion = false;
