@@ -147,7 +147,7 @@ export class AttachmentQuestion {
 
   removeSelectedFile() {
     this.selected = null;
-    this.fileInput.value = ''
+    this.fileInput.value = '';
   }
 
   async componentWillLoad(): Promise<void> {
@@ -183,27 +183,22 @@ export class AttachmentQuestion {
             </div>
           </div>
           <hr />
-          <div class="qr-question-attachment-input">
-            {this.question ? (
-              <div class="form-group" id={'radio-attachment-' + this.question.linkId}>
-                <input type="file" id="fileInput" ref={el => (this.fileInput = el as HTMLInputElement)} onChange={e => this.handleFileChange(e)} hidden />
-                <button type="button" class="btn qr-question-attachment-input-button" onClick={this.triggerFileDialog}>
-                  {this.strings.selectFile}
-                </button>
-                {this.selected && this.selected.name ? (
-                  <span>
-                    <span class="qr-question-attachment-input-selected">{this.selected.name}</span>
-                    <svg class="qr-question-attachment-deleteIcon" xmlns="http://www.w3.org/2000/svg" onClick={() => this.removeSelectedFile()} style={{ width: '20px', height: '20px', cursor: 'pointer' }} viewBox="0 0 24 24">
-                      <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
-                    </svg>
-                  </span>
-                ) : null}
-                {/* ) : (
-                  <span class="qr-question-attachment-input-select">{this.strings.selectFile}</span>
-                )} */}
-              </div>
-            ) : null}
-          </div>
+          {this.question ? (
+            <div class="form-group qr-question-attachment-input" id={'radio-attachment-' + this.question.linkId}>
+              <input type="file" id="fileInput" ref={el => (this.fileInput = el as HTMLInputElement)} onChange={e => this.handleFileChange(e)} hidden />
+              <button type="button" class="btn qr-question-attachment-input-button" onClick={this.triggerFileDialog}>
+                {this.strings.selectFile}
+              </button>
+              {this.selected && this.selected.name ? (
+                <span class="qr-question-attachment-input-selected">
+                  <span class="qr-question-attachment-input-name">{this.selected.name}</span>
+                  <svg class="qr-question-attachment-deleteIcon" xmlns="http://www.w3.org/2000/svg" onClick={() => this.removeSelectedFile()} style={{ width: '20px', height: '20px', cursor: 'pointer' }} viewBox="0 0 24 24">
+                    <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                  </svg>
+                </span>
+              ) : null}
+            </div>
+          ) : null}
           <br />
         </div>
       </div>
