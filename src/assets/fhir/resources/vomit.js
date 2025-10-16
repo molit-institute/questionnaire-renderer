@@ -7,8 +7,14 @@ const vomitQuestionnaire = {
   description: 'This a short demo questionnaire showcasing different types of questions and functions',
   publisher: 'MOLIT Institut gGmbH',
   item: [
+    {
+      linkId: '3',
+      prefix: '1.',
+      text: 'boolean',
+      type: 'boolean',
+    },
     // {
-    //   linkId: "3",
+    //   linkId: "4",
     //   prefix: "1.",
     //   text: "Date Frage 1 ohne Extension",
     //   type: "date"
@@ -24,49 +30,43 @@ const vomitQuestionnaire = {
     //   }],
     // },
     {
-      linkId: '2.4',
-      prefix: '1.',
-      text: 'Date Frage 1 ohne Extension',
-      type: 'group',
-      item: [],
+      linkId: '2',
+      prefix: '3.',
+      text: 'Attachment Frage',
+      type: 'attachment',
     },
     {
-      extension: [
+      linkId: '1',
+      prefix: '3.',
+      required: true,
+      text: 'Attachment Frage 2',
+      type: 'attachment',
+    },
+    {
+      linkId: '4',
+      text: 'Gruppe',
+      type: 'group',
+      item: [
         {
-          url: 'http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl',
-          valueCodeableConcept: {
-            coding: [
-              {
-                system: 'http://hl7.org/fhir/questionnaire-item-control',
-                code: 'drop-down',
-              },
-            ],
-          },
+          linkId: '41',
+          prefix: '3.',
+          text: 'Attachment Frage 3',
+          type: 'attachment',
         },
       ],
-      linkId: '2.5',
-      text: 'ECOG-Stadium',
-      type: 'choice',
-      answerValueSet: 'http://loinc.org/vs/LL529-9',
-    }
+    },
     // {
-    //   linkId: '2',
-    //   prefix: '3.',
-    //   text: 'Beantworten Sie bitte die folgende Frage unabhängig davon, inwieweit Sie zurzeit sexuell aktiv sind. Wenn Sie die Frage lieber nicht beantworten möchten, fahren Sie mit dem nächsten Abschnitt fort.<br><br>Ich bin mit meinem Sexualleben zufrieden',
-    //   type: 'url',
-    // },
-    // {
-    //   linkId: '1.1',
-    //   prefix: '1.1 ',
-    //   text: 'Beantworten Sie bitte die folgende Frage unabhängig davon, inwieweit Sie zurzeit sexuell aktiv sind. Wenn Sie die Frage lieber nicht beantworten möchten, fahren Sie mit dem nächsten Abschnitt fort.<br><br><i><u>Ich bin mit meinem Sexualleben zufrieden</u></i>',
-    //   type: 'boolean',
-    //   extension: [
-    //     {
-    //       url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
-    //       hidden: true
-    //     }
-    //   ],
-    //   answerValueSet: '',
+    //   linkId: "1.1",
+    //   prefix: "1.1 ",
+    //   text: "Beantworten Sie bitte die folgende Frage unabhängig davon, inwieweit Sie zurzeit sexuell aktiv sind. Wenn Sie die Frage lieber nicht beantworten möchten, fahren Sie mit dem nächsten Abschnitt fort.<br><br><i><u>Ich bin mit meinem Sexualleben zufrieden</u></i>",
+    //   type: "boolean",
+    //     extension: [
+    //       {
+    //         url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+    //         hidden: true
+    //       }
+    //     ],
+    //   answerValueSet: ""
     // },
     // {
     //   linkId: "2",

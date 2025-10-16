@@ -18,7 +18,7 @@ export function createQuestionnaireResponse(questionnaire, subject, questionnair
   if (questionnaire) {
     const questResp = QuestionnaireResponse.create();
     //ID
-    if(questionnaireResponse && questionnaireResponse.id){
+    if (questionnaireResponse && questionnaireResponse.id) {
       questResp.id = questionnaireResponse.id;
     }
     //QUESTIONNAIRE
@@ -47,9 +47,9 @@ export function createQuestionnaireResponse(questionnaire, subject, questionnair
     }
 
     //AUTHORED date when response created
-    if(questionnaireResponse && questionnaireResponse.authored){
+    if (questionnaireResponse && questionnaireResponse.authored) {
       questResp.authored = questionnaireResponse.authored;
-    }else{
+    } else {
       questResp.authored = dateTimeController.getTimestamp();
     }
     //ITEMS | filling item with items
@@ -66,15 +66,15 @@ export function createQuestionnaireResponse(questionnaire, subject, questionnair
 
 //#region HANDLING DISPLAY-QUESTIONS
 /**
-   * Removes questions of the type "display" from the list.
-   */
- async function removeQuestionnaireResponseDisplayQuestions(list){
-  await list.reduceRight((_acc,question,index,object) => {
-    if(question.type === "display"){
-      object.splice(index,1)
+ * Removes questions of the type "display" from the list.
+ */
+async function removeQuestionnaireResponseDisplayQuestions(list) {
+  await list.reduceRight((_acc, question, index, object) => {
+    if (question.type === 'display') {
+      object.splice(index, 1);
     }
-    if(question.item && question.item.length !== 0){
-      this.removeQuestionnaireResponseDisplayQuestions(question.item)
+    if (question.item && question.item.length !== 0) {
+      this.removeQuestionnaireResponseDisplayQuestions(question.item);
     }
   }, []);
 }
@@ -92,7 +92,7 @@ function createItemArray(questionnaireItem) {
   for (let i = 0; i < questionnaireItem.length; i++) {
     if (questionnaireItem[i].type === `group`) {
       itemList.push(createGroupItem(questionnaireItem[i]));
-    } else if(questionnaireItem[i].type !=="display") {
+    } else if (questionnaireItem[i].type !== 'display') {
       itemList.push(createQuestionItem(questionnaireItem[i]));
     }
   }
@@ -123,8 +123,7 @@ function createQuestionItem(questionItem) {
   item.linkId = questionItem.linkId;
   item.definition = questionItem.definition;
   item.text = questionItem.text;
-  if (questionItem.initial != null && questionItem.initial.length)
-    item.answer = questionItem.initial
+  if (questionItem.initial != null && questionItem.initial.length) item.answer = questionItem.initial;
   else item.answer = [];
   item.item = null;
   return item;
@@ -188,7 +187,9 @@ export function createAnswer(data, type) {
         value = Object.assign({ valueUri: data });
         break;
       case valueTypes.QUANTITY:
-        value = Object.assign({ valueQuantity:{value: data.value,unit: data.unit, code: data.code, system: data.system}})
+        value = Object.assign({ valueQuantity: { value: data.value, unit: data.unit, code: data.code, system: data.system } });
+      case valueTypes.ATTACHMENT:
+        value = Object.assign({ valueAttachment: { contentType: data.contentType, title: data.title, data: data.data, url: data.url } });
       default:
     }
   }
@@ -326,6 +327,9 @@ export function getAnswersFromQuestionnaireResponse(questionnaireResponse, linkI
               break;
             case valueTypes.QUANTITY:
               answerValue = itemList[i].answer[0].valueQuantity;
+              break;
+            case valueTypes.ATTACHMENT:
+              answerValue = itemList[i].answer[0].valueAttachment;
             default:
           }
         }
@@ -407,15 +411,15 @@ export function getAnswerType(answer) {
       return valueTypes.ATTACHMENT;
     } else if (answer[0].valueCoding) {
       // return valueTypes.CODING;
-      return "choice"
+      return 'choice';
     } else if (answer[0].valueQuantity) {
       return valueTypes.QUANTITY;
     } else {
       return 'notype';
     }
-  }else if(answer && answer.length === 0){
+  } else if (answer && answer.length === 0) {
     return 'notype';
-  }else {
+  } else {
     throw new Error('Getting the AnswerType failed because the given answer object was null or undefined');
   }
 }
@@ -428,5 +432,5 @@ export default {
   getAnswersFromQuestionnaireResponse,
   createItemList,
   getAnswerType,
-  removeQuestionnaireResponseDisplayQuestions
+  removeQuestionnaireResponseDisplayQuestions,
 };

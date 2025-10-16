@@ -8,7 +8,6 @@ import { Component, h, Prop, Event, EventEmitter } from '@stencil/core';
   scoped: true,
 })
 export class VasQuestion {
-  @Prop() variant: any = null;
   @Prop() selected: number = 0;
   @Prop() min: number = 0;
   @Prop() max: number = 100;
@@ -41,30 +40,35 @@ export class VasQuestion {
   render() {
     return (
       <div class={!this.vasVertical ? 'qr-vasQuestion-container' : 'qr-vasQuestion-container qr-vasQuestion-container-vertical'}>
-        {this.variant === 'touch' ? (
-          <div class={!this.vasVertical ? 'qr-vasQuestion-touch-container' : 'qr-vasQuestion-touch-container-vertical qr-vasQuestion-touch-container'}>
-            <div class="class qr-question-optionCard">
-              <div class={!this.vasVertical ? 'qr-vasQuestion-labels' : 'qr-vasQuestion-labels qr-vasQuestion-labels-vertical'}>
-                <p class="qr-vasQuestion-lower-label">{this.labelLower}</p>
-                {this.vasShowSelectedValue && (
-                  <p class="qr-vasQuestion-selected-value-container">
-                    {this.vasSelectedValueLabel && <div class="qr-vasQuestion-selected-value-label">{this.vasSelectedValueLabel}</div>}
-                    <div class="qr-vasQuestion-selected-value-display">{this.selected}</div>
-                  </p>
-                )}
-                <p class="qr-vasQuestion-upper-label">{this.labelUpper}</p>
-              </div>
-              <input name="vas" type="range"  min={this.min} max={this.max} step={this.step} value={this.selected} class={!this.vasVertical ? 'qr-vasQuestion-input' : 'qr-vasQuestion-input qr-vasQuestion-input-vertical'} onInput={ev => this.emitHandler(ev)} />
-              <div class={!this.vasVertical ? 'qr-vasQuestion-slider-ticks' : 'qr-vasQuestion-slider-ticks qr-vasQuestion-slider-ticks-vertical'}>
-                {this.range().map(n => (
-                  <p>{n}</p>
-                ))}
-              </div>
+        <div class={!this.vasVertical ? 'qr-vasQuestion-touch-container' : 'qr-vasQuestion-touch-container-vertical qr-vasQuestion-touch-container'}>
+          <div class="class qr-question-optionCard">
+            <div class={!this.vasVertical ? 'qr-vasQuestion-labels' : 'qr-vasQuestion-labels qr-vasQuestion-labels-vertical'}>
+              <p class="qr-vasQuestion-lower-label">{this.labelLower}</p>
+              {this.vasShowSelectedValue && (
+                <p class="qr-vasQuestion-selected-value-container">
+                  {this.vasSelectedValueLabel && <div class="qr-vasQuestion-selected-value-label">{this.vasSelectedValueLabel}</div>}
+                  <div class="qr-vasQuestion-selected-value-display">{this.selected}</div>
+                </p>
+              )}
+              <p class="qr-vasQuestion-upper-label">{this.labelUpper}</p>
+            </div>
+            <input
+              name="vas"
+              type="range"
+              min={this.min}
+              max={this.max}
+              step={this.step}
+              value={this.selected}
+              class={!this.vasVertical ? 'qr-vasQuestion-input' : 'qr-vasQuestion-input qr-vasQuestion-input-vertical'}
+              onInput={ev => this.emitHandler(ev)}
+            />
+            <div class={!this.vasVertical ? 'qr-vasQuestion-slider-ticks' : 'qr-vasQuestion-slider-ticks qr-vasQuestion-slider-ticks-vertical'}>
+              {this.range().map(n => (
+                <p>{n}</p>
+              ))}
             </div>
           </div>
-        ) : null}
-        {this.variant === 'form' ? <div>Boolean</div> : null}
-        {this.variant === 'compact' ? <div></div> : null}
+        </div>
       </div>
     );
   }

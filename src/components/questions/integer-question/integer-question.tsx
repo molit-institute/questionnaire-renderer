@@ -17,7 +17,6 @@ export class IntegerQuestion {
   @Element() element: HTMLElement;
   integerInput!: HTMLInputElement;
   @State() reset: Boolean = false;
-  @Prop() variant: any = null;
   @Prop() enableErrorConsoleLogging: boolean;
   /**
    *  String containing the translations for the current locale
@@ -189,7 +188,6 @@ export class IntegerQuestion {
   setSelected() {
     try {
       this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'integer');
-
     } catch (error) {
       this.emitError(error);
     }
@@ -202,8 +200,8 @@ export class IntegerQuestion {
   }
 
   /**
-  * Emits an error-event
-  */
+   * Emits an error-event
+   */
   @Event() errorLog: EventEmitter;
   emitError(error) {
     this.errorLog.emit(error);
@@ -223,121 +221,41 @@ export class IntegerQuestion {
   render() {
     return (
       <div class="qr-question-container">
-        {this.variant === 'touch' ? (
-          <div class="qr-question qr-question-integer">
-            <div class="qr-question-head">
-              <div class="qr-question-title">
-                <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  {this.question.prefix && this.question.prefix != "" ? (
-                    <span class="qr-question-prefix">{this.question.prefix}</span>
-                  ) : null}
-                  <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
-                </div>
-              </div>
-              <div class="qr-question-mandatoryQuestion">
-                {this.strings ? (
-                  <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
-                    {this.strings.mandatory_question}
-                  </div>
-                ) : null}
+        <div class="qr-question qr-question-integer">
+          <div class="qr-question-head">
+            <div class="qr-question-title">
+              <div class={this.reset ? 'qr-question-hidden' : ''}>
+                {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
+                <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
               </div>
             </div>
+            <div class="qr-question-mandatoryQuestion">
+              {this.strings ? (
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
+                  {this.strings.mandatory_question}
+                </div>
+              ) : null}
+            </div>
+          </div>
 
-            <hr />
-            {this.isVasQuestion() === true ? (
-              <vas-question
-                min={this.minVas()}
-                max={this.maxVas()}
-                step={this.stepVas()}
-                selected={this.selected}
-                labelLower={this.labelLowerVas()}
-                labelUpper={this.labelUpperVas()}
-                variant={this.variant}
-                vasVertical={this.vasVertical}
-                vasShowSelectedValue={this.vasShowSelectedValue}
-                vasSelectedValueLabel={this.vasSelectedValueLabel}
-              />
-            ) : (
-              <div class="qr-question-optionCard">
-                <div class="form-row">
-                  <div id={'integer' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
-                    <label class="qr-question-inputLabel qr-integerQuestion-inputLabel" htmlFor="integerInput">
-                      {this.strings.integer.text}:
-                    </label>
-                    <input
-                      ref={el => (this.integerInput = el as HTMLInputElement)}
-                      type="number"
-                      step="1"
-                      onKeyPress={e => {
-                        if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].indexOf(e.key) === -1) {
-                          e.preventDefault();
-                        }
-                      }}
-                      inputMode="numeric"
-                      pattern="[0-9]*"
-                      value={this.selected}
-                      onInput={e => this.handleChange(e)}
-                      class="form-control qr-question-input qr-integerQuestion-input"
-                      readOnly={this.question.readOnly}
-                    />
-                    {this.strings ? (
-                      <div
-                        style={{ color: this.danger }}
-                        class={
-                          this.validate() !== false
-                            ? 'qr-question-hidden qr-integerQuestion-hidden my-invalid-feedback'
-                            : this.selected === null
-                              ? 'qr-question-hidden qr-integerQuestion-hidden my-invalid-feedback'
-                              : 'qr-question-visible qr-integerQuestion-visible my-invalid-feedback'
-                        }
-                      >
-                        {this.strings.integer.invalid}
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
-                <br />
-              </div>
-            )}
-          </div>
-        ) : null}
-        {this.variant === 'form' ? (
-          <div class="class option-card">
-            <div class="row">
-              <div id={'integer' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
-                <label class="" htmlFor="integerInput">
-                  {this.question.text}:
-                </label>
-                <input
-                  ref={el => (this.integerInput = el as HTMLInputElement)}
-                  type="number"
-                  step="1"
-                  onKeyPress={e => {
-                    if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].indexOf(e.key) === -1) {
-                      e.preventDefault();
-                    }
-                  }}
-                  inputMode="numeric"
-                  pattern="[0-9]*"
-                  value={this.selected}
-                  onInput={e => this.handleChange(e)}
-                  class="form-control"
-                />
-                {this.strings ? (
-                  <span style={{ color: this.danger }} class={this.validate() !== false ? 'hidden my-invalid-feedback' : this.selected === null ? 'hidden my-invalid-feedback' : 'visible my-invalid-feedback'}>
-                    {this.strings.integer.invalid}
-                  </span>
-                ) : null}
-              </div>
-            </div>
-          </div>
-        ) : null}
-        {this.variant === 'compact' ? (
-          <div>
-            <div class="class option-card">
+          <hr />
+          {this.isVasQuestion() === true ? (
+            <vas-question
+              min={this.minVas()}
+              max={this.maxVas()}
+              step={this.stepVas()}
+              selected={this.selected}
+              labelLower={this.labelLowerVas()}
+              labelUpper={this.labelUpperVas()}
+              vasVertical={this.vasVertical}
+              vasShowSelectedValue={this.vasShowSelectedValue}
+              vasSelectedValueLabel={this.vasSelectedValueLabel}
+            />
+          ) : (
+            <div class="qr-question-optionCard">
               <div class="form-row">
                 <div id={'integer' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
-                  <label class="" htmlFor="integerInput">
+                  <label class="qr-question-inputLabel qr-integerQuestion-inputLabel" htmlFor="integerInput">
                     {this.strings.integer.text}:
                   </label>
                   <input
@@ -353,18 +271,29 @@ export class IntegerQuestion {
                     pattern="[0-9]*"
                     value={this.selected}
                     onInput={e => this.handleChange(e)}
-                    class="form-control"
+                    class="form-control qr-question-input qr-integerQuestion-input"
+                    readOnly={this.question.readOnly}
                   />
                   {this.strings ? (
-                    <div style={{ color: this.danger }} class={this.validate() !== false ? 'hidden my-invalid-feedback' : this.selected === null ? 'hidden my-invalid-feedback' : 'visible my-invalid-feedback'}>
+                    <div
+                      style={{ color: this.danger }}
+                      class={
+                        this.validate() !== false
+                          ? 'qr-question-hidden qr-integerQuestion-hidden my-invalid-feedback'
+                          : this.selected === null
+                          ? 'qr-question-hidden qr-integerQuestion-hidden my-invalid-feedback'
+                          : 'qr-question-visible qr-integerQuestion-visible my-invalid-feedback'
+                      }
+                    >
                       {this.strings.integer.invalid}
                     </div>
                   ) : null}
                 </div>
               </div>
+              <br />
             </div>
-          </div>
-        ) : null}
+          )}
+        </div>
       </div>
     );
   }

@@ -12,7 +12,6 @@ import { textToHtml } from '../../../utils/textToHtml';
 export class DisplayQuestion {
   @Element() element: HTMLElement;
   @State() strings: any;
-  @Prop() variant: any = null;
   @Prop() question: any;
   @Prop() mode: string;
   @Prop() enableInformalLocale: boolean;

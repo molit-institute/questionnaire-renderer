@@ -15,7 +15,6 @@ import { textToHtml } from '../../../utils/textToHtml';
 export class DecimalQuestion {
   @Element() element: HTMLElement;
   decimalInput!: HTMLInputElement;
-  @Prop() variant: any = null;
   @Prop() enableErrorConsoleLogging: boolean;
   /**
    *  String containing the translations for the current locale
@@ -164,84 +163,48 @@ export class DecimalQuestion {
   render() {
     return (
       <div class="qr-question-container">
-        {this.variant === 'touch' ? (
-          <div class="qr-question qr-question-decimal">
-            <div class="qr-question-head">
-              <div class="qr-question-title">
-                <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
-                  <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
-                </div>
-              </div>
-              <div class="qr-question-mandatoryQuestion">
-                {this.strings ? (
-                  <div style={{ color: this.danger }} class={this.selected || !this.question.required ? 'qr-question-hidden' : ''}>
-                    {this.strings.mandatory_question}
-                  </div>
-                ) : null}
+        <div class="qr-question qr-question-decimal">
+          <div class="qr-question-head">
+            <div class="qr-question-title">
+              <div class={this.reset ? 'qr-question-hidden' : ''}>
+                {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
+                <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
               </div>
             </div>
-            <hr />
-            <div class="card qr-question-optionCard">
-              <div class="form-row">
-                <div id={'decimal' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
-                  <label class="qr-question-inputLabel qr-decimalQuestion-inputLabel" htmlFor="decimalInput">
-                    {this.strings.decimal.text}:
-                  </label>
-                  <input
-                    ref={el => (this.decimalInput = el as HTMLInputElement)}
-                    class="form-control qr-question-input qr-decimalQuestion-input"
-                    id="decimal"
-                    step="any"
-                    type="number"
-                    value={this.selected}
-                    onInput={e => this.handleChange(e)}
-                    disabled={this.question.readOnly}
-                  />
-                  {this.strings ? (
-                    <div style={{ color: this.danger }} class={this.naN === false ? 'qr-question-hidden my-invalid-feedback' : this.naN === null ? 'qr-question-hidden my-invalid-feedback' : 'qr-question-visible my-invalid-feedback'}>
-                      {this.strings.decimal.invalid}
-                    </div>
-                  ) : null}
+            <div class="qr-question-mandatoryQuestion">
+              {this.strings ? (
+                <div style={{ color: this.danger }} class={this.selected || !this.question.required ? 'qr-question-hidden' : ''}>
+                  {this.strings.mandatory_question}
                 </div>
-              </div>
+              ) : null}
             </div>
           </div>
-        ) : null}
-        {this.variant === 'form' ? (
-          <div>
+          <hr />
+          <div class="card qr-question-optionCard">
             <div class="form-row">
               <div id={'decimal' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
-                <label class="" htmlFor="decimalInput">
-                  {this.question.text}:
+                <label class="qr-question-inputLabel qr-decimalQuestion-inputLabel" htmlFor="decimalInput">
+                  {this.strings.decimal.text}:
                 </label>
-                <input ref={el => (this.decimalInput = el as HTMLInputElement)} class="form-control" id="decimal" step="any" type="number" value={this.selected} onInput={e => this.handleChange(e)} />
+                <input
+                  ref={el => (this.decimalInput = el as HTMLInputElement)}
+                  class="form-control qr-question-input qr-decimalQuestion-input"
+                  id="decimal"
+                  step="any"
+                  type="number"
+                  value={this.selected}
+                  onInput={e => this.handleChange(e)}
+                  disabled={this.question.readOnly}
+                />
                 {this.strings ? (
-                  <div style={{ color: this.danger }} class={this.naN === false ? 'hidden my-invalid-feedback' : this.naN === null ? 'hidden my-invalid-feedback' : 'visible my-invalid-feedback'}>
+                  <div style={{ color: this.danger }} class={this.naN === false ? 'qr-question-hidden my-invalid-feedback' : this.naN === null ? 'qr-question-hidden my-invalid-feedback' : 'qr-question-visible my-invalid-feedback'}>
                     {this.strings.decimal.invalid}
                   </div>
                 ) : null}
               </div>
             </div>
           </div>
-        ) : null}
-        {this.variant === 'compact' ? (
-          <div>
-            <div class="form-row">
-              <div id={'decimal' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
-                <label class="" htmlFor="decimalInput">
-                  {this.question.text}:
-                </label>
-                <input ref={el => (this.decimalInput = el as HTMLInputElement)} class="form-control" id="decimal" step="any" type="number" value={this.selected} onInput={e => this.handleChange(e)} />
-                {this.strings ? (
-                  <div style={{ color: this.danger }} class={this.naN === false ? 'hidden my-invalid-feedback' : this.naN === null ? 'hidden my-invalid-feedback' : 'visible my-invalid-feedback'}>
-                    {this.strings.decimal.invalid}
-                  </div>
-                ) : null}
-              </div>
-            </div>
-          </div>
-        ) : null}
+        </div>
       </div>
     );
   }

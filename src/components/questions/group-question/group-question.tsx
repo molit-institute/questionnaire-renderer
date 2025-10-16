@@ -13,7 +13,6 @@ import { textToHtml } from '../../../utils/textToHtml';
 })
 export class GroupQuestion {
   @Element() element: HTMLElement;
-  @Prop() variant: any = null;
   /**
    *  String containing the translations for the current locale
    */
@@ -38,7 +37,7 @@ export class GroupQuestion {
   @Prop() enableReturn: boolean = true;
   @Prop() mode: string;
   @Prop() enableInformalLocale: boolean;
-  @Prop() enableErrorConsoleLogging:boolean;
+  @Prop() enableErrorConsoleLogging: boolean;
   /**
    * Primary color
    */
@@ -96,10 +95,10 @@ export class GroupQuestion {
   /**
    * Emits an error-event
    */
-   @Event() errorLog: EventEmitter;
-   emitError(error) {
-     this.errorLog.emit(error);
-   }
+  @Event() errorLog: EventEmitter;
+  emitError(error) {
+    this.errorLog.emit(error);
+  }
 
   /* Lifecycle Methods */
   async componentWillLoad(): Promise<void> {}

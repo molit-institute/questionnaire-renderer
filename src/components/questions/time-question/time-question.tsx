@@ -14,7 +14,6 @@ import { textToHtml } from '../../../utils/textToHtml';
 })
 export class TimeQuestion {
   @Element() element: HTMLElement;
-  @Prop() variant: any = null;
   /**
    *  String containing the translations for the current locale
    */
@@ -113,8 +112,8 @@ export class TimeQuestion {
   }
 
   /**
-  * Emits an error-event
-  */
+   * Emits an error-event
+   */
   @Event() errorLog: EventEmitter;
   emitError(error) {
     this.errorLog.emit(error);
@@ -137,68 +136,35 @@ export class TimeQuestion {
   render() {
     return (
       <div class="qr-question-container">
-        {this.variant === 'touch' ? (
-          <div class="qr-question qr-question-time">
-            <div class="qr-question-head">
-              <div class="qr-question-title">
-                <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  {this.question.prefix && this.question.prefix != "" ? (
-                    <span class="qr-question-prefix">{this.question.prefix}</span>
-                  ) : null}
-                  <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
+        <div class="qr-question qr-question-time">
+          <div class="qr-question-head">
+            <div class="qr-question-title">
+              <div class={this.reset ? 'qr-question-hidden' : ''}>
+                {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
+                <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
+              </div>
+            </div>
+            <div class="qr-question-mandatoryQuestion">
+              {this.strings ? (
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
+                  {this.strings.mandatory_question}
                 </div>
-              </div>
-              <div class="qr-question-mandatoryQuestion">
-                {this.strings ? (
-                  <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
-                    {this.strings.mandatory_question}
-                  </div>
-                ) : null}
-              </div>
-            </div>
-            <hr />
-            <div class="card qr-question-optionCard">
-              <div>
-                {this.strings ? (
-                  <label class="qr-question-inputLabel qr-timeQuestion-inputLabel" htmlFor="time">
-                    {this.strings.time.text}:
-                  </label>
-                ) : null}
-                <input id="time" type="time" class="form-control qr-question-input qr-timeQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly}/>
-              </div>
-            </div>
-            <br />
-          </div>
-        ) : null}
-        {this.variant === 'form' ? (
-          <div>
-            {' '}
-            <div class="card option-card">
-              <div>
-                {this.strings ? (
-                  <label class="" htmlFor="time">
-                    {this.question.text}:
-                  </label>
-                ) : null}
-                <input id="time" type="time" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
-              </div>
+              ) : null}
             </div>
           </div>
-        ) : null}
-        {this.variant === 'compact' ? (
-          <div>
-            <div class="card option-card">
-              <div>
-                {this.strings ? (
-                  <label class="" htmlFor="time">
-                    {this.question.text}:
-                  </label>
-                ) : null}
-                <input id="time" type="time" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
-              </div>
+          <hr />
+          <div class="card qr-question-optionCard">
+            <div>
+              {this.strings ? (
+                <label class="qr-question-inputLabel qr-timeQuestion-inputLabel" htmlFor="time">
+                  {this.strings.time.text}:
+                </label>
+              ) : null}
+              <input id="time" type="time" class="form-control qr-question-input qr-timeQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly} />
             </div>
           </div>
-        ) : null}
+          <br />
+        </div>
       </div>
     );
   }

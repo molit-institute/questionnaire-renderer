@@ -17,6 +17,7 @@ export default {
   group: 'Gruppe',
   noAnswer: 'Keine Angabe',
   noResult: 'Kein Ergebnis',
+  selectFile: 'Datei wählen',
 
   numberOfQuestions: 'Anzahl der Fragen',
   publisher: 'Herausgeber',

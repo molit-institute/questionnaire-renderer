@@ -14,7 +14,6 @@ import { textToHtml } from '../../../utils/textToHtml';
 })
 export class UrlQuestion {
   @Element() element: HTMLElement;
-  @Prop() variant: any = null;
   @Prop() enableErrorConsoleLogging: boolean;
   /**
    *  String containing the translations for the current locale
@@ -97,7 +96,7 @@ export class UrlQuestion {
    */
   allow_events: boolean = false;
   @State() naUrl: boolean = null;
-  private urlRegex = /^https:\/\/(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?:\/\S*)?$/
+  private urlRegex = /^https:\/\/(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?:\/\S*)?$/;
 
   /* computed */
   validate() {
@@ -115,14 +114,13 @@ export class UrlQuestion {
 
   handleChange(event) {
     this.selected = event.target.value;
-    this.validateUrl()
+    this.validateUrl();
   }
 
   setSelected() {
     try {
       this.selected = '';
       this.selected = questionnaireResponseController.getAnswersFromQuestionnaireResponse(this.questionnaireResponse, this.question.linkId, 'url');
-
     } catch (error) {
       if (this.enableErrorConsoleLogging) {
         console.error(error);
@@ -170,96 +168,54 @@ export class UrlQuestion {
   render() {
     return (
       <div class="qr-question-container">
-        {this.variant === 'touch' ? (
-          <div class="qr-question qr-question-url">
-            <div class="qr-question-head">
-              <div class="qr-question-title">
-                <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  {this.question.prefix && this.question.prefix != "" ? (
-                    <span class="qr-question-prefix">{this.question.prefix}</span>
-                  ) : null}
-                  <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
-                </div>
+        <div class="qr-question qr-question-url">
+          <div class="qr-question-head">
+            <div class="qr-question-title">
+              <div class={this.reset ? 'qr-question-hidden' : ''}>
+                {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
+                <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
               </div>
-              <div class="qr-question-mandatoryQuestion">
+            </div>
+            <div class="qr-question-mandatoryQuestion">
+              {this.strings ? (
+                <div id="url-mandatory" style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
+                  {this.strings.mandatory_question}
+                </div>
+              ) : null}
+            </div>
+          </div>
+          <hr />
+
+          <div class="qr-question-optionCard">
+            <div class="form-row">
+              <div id={'url' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
+                <label class="qr-question-inputLabel qr-urlQuestion-inputLabel" htmlFor="url-text">
+                  {this.strings.url.text}:
+                </label>
+                <input
+                  type="text"
+                  value={this.selected}
+                  onInput={e => this.handleChange(e)}
+                  class="form-control qr-question-input qr-urlQuestion-input"
+                  id="url-text"
+                  pattern="https:\/\/?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,}(?:\/\S*)?"
+                  disabled={this.question.readOnly}
+                />
+                {this.naUrl}
                 {this.strings ? (
-                  <div id="url-mandatory" style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
-                    {this.strings.mandatory_question}
-                  </div>
+                  this.naUrl ? (
+                    <div class={this.naUrl === null ? 'qr-question-hidden qr-integerQuestion-hidden my-invalid-feedback' : 'qr-question-visible my-valid-feedback'}>{this.strings.url.valid}</div>
+                  ) : (
+                    <div style={{ color: this.danger }} class={this.naUrl === false ? 'qr-question-visible my-invalid-feedback' : this.naUrl === null ? 'qr-question-hidden my-invalid-feedback' : 'qr-question-hidden my-invalid-feedback'}>
+                      {this.strings.url.invalid}
+                    </div>
+                  )
                 ) : null}
               </div>
             </div>
-            <hr />
-
-            <div class="qr-question-optionCard">
-              <div class="form-row">
-                <div id={'url' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
-                  <label class="qr-question-inputLabel qr-urlQuestion-inputLabel" htmlFor="url-text">
-                    {this.strings.url.text}:
-                  </label>
-                  <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control qr-question-input qr-urlQuestion-input" id="url-text" pattern="https:\/\/?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,}(?:\/\S*)?" disabled={this.question.readOnly}/>
-                 {this.naUrl}
-                  {this.strings ? (
-                    this.naUrl ? (
-                      <div class={this.naUrl === null ? 'qr-question-hidden qr-integerQuestion-hidden my-invalid-feedback' : 'qr-question-visible my-valid-feedback'}>{this.strings.url.valid}</div>
-                    ) : (
-                      <div style={{ color: this.danger }} class={this.naUrl === false ? 'qr-question-visible my-invalid-feedback' : this.naUrl === null ? 'qr-question-hidden my-invalid-feedback' : 'qr-question-hidden my-invalid-feedback'}>
-                        {this.strings.url.invalid}
-                      </div>
-                    )
-                  ) : null}
-                </div>
-              </div>
-            </div>
-            <br />
           </div>
-        ) : null}
-        {this.variant === 'form' ? (
-          <div>
-            <div class="option-card">
-              <div class="form-row">
-                <div id={'url' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
-                  <label class="" htmlFor="url-text">
-                    {this.question.text}:
-                  </label>
-                  <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control" id="url-text" />
-                  {this.strings ? (
-                    this.naUrl ? (
-                      <div class={this.naUrl === null ? 'hidden my-valid-feedback' : 'visible my-valid-feedback'}>{this.strings.url.valid}</div>
-                    ) : (
-                      <div style={{ color: this.danger }} class={this.naUrl === false ? 'visible my-invalid-feedback' : this.naUrl === null ? 'hidden my-invalid-feedback' : 'hidden my-invalid-feedback'}>
-                        {this.strings.url.invalid}
-                      </div>
-                    )
-                  ) : null}
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : null}
-        {this.variant === 'compact' ? (
-          <div>
-            <div class="option-card">
-              <div class="form-row">
-                <div id={'url' + this.question.linkId} class={this.selected !== '' && this.selected ? 'size was-validated' : 'size'}>
-                  <label class="" htmlFor="url-text">
-                    {this.question.text}:
-                  </label>
-                  <input type="text" value={this.selected} onInput={e => this.handleChange(e)} class="form-control" id="url-text" />
-                  {this.strings ? (
-                    this.naUrl ? (
-                      <div class={this.naUrl === null ? 'hidden my-valid-feedback' : 'visible my-valid-feedback'}>{this.strings.url.valid}</div>
-                    ) : (
-                      <div style={{ color: this.danger }} class={this.naUrl === false ? 'visible my-invalid-feedback' : this.naUrl === null ? 'hidden my-invalid-feedback' : 'hidden my-invalid-feedback'}>
-                        {this.strings.url.invalid}
-                      </div>
-                    )
-                  ) : null}
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : null}
+          <br />
+        </div>
       </div>
     );
   }

@@ -16,6 +16,11 @@ export default {
   group: 'Grupo',
   noAnswer: 'Sin respuesta',
   noResult: 'Sin resultado',
+  selectFile: 'Seleccionar archivo',
+
+  numberOfQuestions: 'Número de preguntas',
+  publisher: 'Editor',
+  start: 'Inicio',
 
   summary: {
     title: 'Resumen',

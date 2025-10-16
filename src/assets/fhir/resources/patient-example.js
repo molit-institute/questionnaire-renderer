@@ -1,5 +1,6 @@
 export default {
   resourceType: 'Patient',
+  id: 222,
   meta: {
     profile: ['http://fhir.de/StructureDefinition/patient-de-basis/0.2'],
   },
