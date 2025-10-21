@@ -5,7 +5,6 @@ import enableQuestionnaire from '../../assets/fhir/resources/questionnaire-lang-
 import everyTypeQuestionnaire from '../../assets/fhir/resources/questionnaire-every-type.js';
 // import everyTypeWithInitialQuestionnaire from '../../assets/fhir/resources/questionnaire-every-type_with_initial.js';
 import repeatedQuestionnaire from '../../assets/fhir/resources/questionnaire-repeat.js';
-import qlq_c30 from '../../assets/fhir/resources/qlq-c30.js';
 import q_5d_5l from '../../assets/fhir/resources/5q-5d-5l.js';
 import vomit from '../../assets/fhir/resources/vomit.js';
 import lion from '../../assets/fhir/resources/lion_questionnaire.js';
@@ -38,7 +37,7 @@ export class TestUi {
   questionnaireUrl: any = null;
   questionnaire: any = null;
   @State() questionnaireUrlIdentifier: any = 'https://molit.eu/fhir/Questionnaire/qlq30';
-  questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, qlq_c30, q_5d_5l, vomit, lion, dropdown_test];
+  questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, q_5d_5l, vomit, lion, dropdown_test];
   @State() token: string = null;
   testResp: object = null;
   /* computed */
@@ -80,46 +79,46 @@ export class TestUi {
   //   gender: 'male',
   //   birthDate: '2024-01-01',
   // };
-  task: any = null;
-  // task: any = {
-  //   resourceType: 'Task',
-  //   id: '2067',
-  //   meta: {
-  //     versionId: '1',
-  //     lastUpdated: '2025-07-31T09:02:28.619+00:00',
-  //     source: '#cnzfK9zEbK7yvpq4',
-  //     tag: [
-  //       {
-  //         code: 'Beginn',
-  //         display: 'Beginn',
-  //       },
-  //     ],
-  //   },
-  //   status: 'ready',
-  //   intent: 'order',
-  //   code: {
-  //     coding: [
-  //       {
-  //         system: 'http://molit.eu/fhir/CodeSystem/taskTypes',
-  //         code: 'eQuestionnaire',
-  //         display: 'eQU Questionnaire',
-  //       },
-  //     ],
-  //     text: 'PatientQuestionnaireTask',
-  //   },
-  //   focus: {
-  //     reference: 'Questionnaire/1',
-  //     display: 'QLQ-C30',
-  //   },
-  //   for: {
-  //     reference: 'Patient/105',
-  //     display: 'Charts, Charles',
-  //   },
-  //   executionPeriod: {
-  //     start: '2025-07-31',
-  //     end: '2025-07-31',
-  //   },
-  // };
+  // task: any = null;
+  task: any = {
+    resourceType: 'Task',
+    id: '2067',
+    meta: {
+      versionId: '1',
+      lastUpdated: '2025-07-31T09:02:28.619+00:00',
+      source: '#cnzfK9zEbK7yvpq4',
+      tag: [
+        {
+          code: 'Beginn',
+          display: 'Beginn',
+        },
+      ],
+    },
+    status: 'ready',
+    intent: 'order',
+    code: {
+      coding: [
+        {
+          system: 'http://molit.eu/fhir/CodeSystem/taskTypes',
+          code: 'eQuestionnaire',
+          display: 'eQU Questionnaire',
+        },
+      ],
+      text: 'PatientQuestionnaireTask',
+    },
+    focus: {
+      reference: 'Questionnaire/1',
+      display: 'QLQ-C30',
+    },
+    for: {
+      reference: 'Patient/105',
+      display: 'Charts, Charles',
+    },
+    executionPeriod: {
+      start: '2025-07-31',
+      end: '2025-07-31',
+    },
+  };
 
   /* methods */
   setQuestionnaireMode(selectedMode) {
@@ -202,13 +201,15 @@ export class TestUi {
                 Token: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.token} onInput={this.handleTokenInput} />
               </div>
               <div>
-                Questionnaire Url: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.questionnaireUrlIdentifier} onInput={this.handleUrlInput}></input>
-              </div>
-              <div>
                 Fhir Base Url: <input type="text" style={{ 'min-width': '50%' }} value={this.baseUrl} onInput={this.handleBaseUrlInput}></input>
               </div>
               <br />
-              <button onClick={() => this.startQuestionnaire()}>Start via Url</button>
+              
+              <div>
+                Questionnaire Url: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.questionnaireUrlIdentifier} onInput={this.handleUrlInput}></input>
+              </div>
+              <button onClick={() => this.startQuestionnaire()}>Start with Questionnaire Url</button>
+              
               <br />
               <br />
               {this.show_questionnaire_list

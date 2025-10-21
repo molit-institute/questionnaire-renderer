@@ -5,48 +5,43 @@ import * as fhirApi from '@molit/fhir-util';
 
 import questionnaireResponseController from './questionnaireResponseController';
 
-export function buildBundle(questResp, task, questionnaireResponseStatus, subject) {
+export function buildBundle(questResp, task, status, questionnaireResponseStatus, subject) {
   let subjectReference = null;
   if (subject) {
-    subjectReference = {reference: 'Patient/' + subject.id, display: fhirApi.getStringFromHumanName(subject.name)};
+    subjectReference = { reference: 'Patient/' + subject.id, display: fhirApi.getStringFromHumanName(subject.name) };
   }
   let bundle = createBundleResource();
-  // questionnaireResponse clonen
   let questionnaireResponse = cloneDeep(questResp);
-  // questionnaireResponse bearbeiten
+
   if (this.questionnaireResponseStatus) {
     questionnaireResponse.status = questionnaireResponseStatus;
   } else {
-    questionnaireResponse.status = 'completed';
+    questionnaireResponse.status = status;
   }
   questionnaireResponseController.removeQuestionnaireResponseDisplayQuestions(questionnaireResponse.item);
-  // flachklopfen
+  // create flat itemlist
   let questionnaireResponseItems = questionnaireResponseController.createItemList(questionnaireResponse);
-  // durch questionnaireResponse item iterieren und nach type attachment suchen
+  // iterate through flat itemlist and search for questions of type attachment
   for (let i = 0; i < questionnaireResponseItems.length; i++) {
     let item = questionnaireResponseItems[i];
-    // wenn antwort vorhanden
+    // if item has answer
     if (item.answer && item.answer.length !== 0 && questionnaireResponseController.getAnswerType(item.answer) === 'attachment') {
-      // uuids generieren
       const documentReferenceUUID = 'urn:uuid:' + uuidv4();
-      // DocumentReference erstellen
       let documentReference = createDocumentReferenceResource(item.answer[0].valueAttachment.contentType, item.answer[0].valueAttachment.title, item.answer[0].valueAttachment.data, subjectReference);
-      // data aus answer entfernen
+      // remove data from answer after it has been stored in the documentReference
       item.answer[0].valueAttachment.data = null;
       item.answer[0].valueAttachment.url = documentReferenceUUID;
-      // Resourcen in bundle pushen
       bundle.entry.push(createBundleEntry(documentReferenceUUID, documentReference, 'POST', documentReference.resourceType));
     }
   }
-  // uuids generieren
   const questionnaireResponseUUID = 'urn:uuid:' + uuidv4();
-  // QuestionnaireResponse ins Bundle
+  // if questionnaireResponse already has an id, dont use the uuid as the resource already exists and needs to be updated
   if (questResp && questResp.id) {
     bundle.entry.push(createBundleEntry(null, questionnaireResponse, 'PUT', questionnaireResponse.resourceType));
   } else {
     bundle.entry.push(createBundleEntry(questionnaireResponseUUID, questionnaireResponse, 'POST', questionnaireResponse.resourceType));
   }
-  // wenn task vorhanden, dann bearbeiten
+
   if (task) {
     if (task.executionPeriod) {
       task.executionPeriod.start = dayjs(new Date()).format('YYYY-MM-DD');
@@ -74,8 +69,9 @@ export function buildBundle(questResp, task, questionnaireResponseStatus, subjec
         },
       },
     ];
-    task.status = 'completed';
-    // task ins Bundle
+
+    task.status = status;
+
     bundle.entry.push(createBundleEntry(null, task, 'PUT', 'Task/' + task.id));
   }
   return bundle;
@@ -86,7 +82,6 @@ function createBundleResource() {
 }
 
 function createDocumentReferenceResource(contentType, title, data, subjectReference) {
-  //TODO date checken
   return {
     resourceType: 'DocumentReference',
     status: 'current',

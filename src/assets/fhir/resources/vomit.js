@@ -55,6 +55,89 @@ const vomitQuestionnaire = {
         },
       ],
     },
+    {
+      linkId: '6',
+      text: 'Wir wollen herausfinden, wie gut oder schlecht Ihre Gesundheit HEUTE ist.',
+      type: 'group',
+      item: [
+        {
+          linkId: '6-subtitle',
+          text: '<li> Diese Skala ist mit Zahlen von 0 bis 100 versehen. </br></br> <li> 100 ist die <u>beste</u> Gesundheit, die Sie sich vorstellen können. 0 (Null) ist die <u>schlechteste</u> Gesundheit, die Sie sich vorstellen können.',
+          type: 'display',
+        },
+        {
+          extension: [
+            {
+              url: 'http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl',
+              valueCodeableConcept: {
+                coding: [
+                  {
+                    system: 'http://hl7.org/fhir/questionnaire-item-control',
+                    code: 'slider',
+                  },
+                ],
+              },
+            },
+            {
+              url: 'http://hl7.org/fhir/StructureDefinition/minValue',
+              valueInteger: 0,
+            },
+            {
+              url: 'http://hl7.org/fhir/StructureDefinition/maxValue',
+              valueInteger: 100,
+            },
+            {
+              url: 'http://hl7.org/fhir/StructureDefinition/questionnaire-sliderStepValue',
+              valueInteger: 1,
+            },
+          ],
+          linkId: '6.1',
+          prefix: '6.',
+          text: 'Bitte tippen Sie den Punkt auf der Skala an, der Ihre Gesundheit HEUTE am besten beschreibt.',
+          type: 'integer',
+          item: [
+            {
+              extension: [
+                {
+                  url: 'http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl',
+                  valueCodeableConcept: {
+                    coding: [
+                      {
+                        system: 'http://hl7.org/fhir/questionnaire-item-control',
+                        code: 'lower',
+                        display: 'Lower-bound',
+                      },
+                    ],
+                  },
+                },
+              ],
+              linkId: '6.1.1',
+              text: 'Schlechteste Gesundheit, die Sie sich vorstellen können',
+              type: 'display',
+            },
+            {
+              extension: [
+                {
+                  url: 'http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl',
+                  valueCodeableConcept: {
+                    coding: [
+                      {
+                        system: 'http://hl7.org/fhir/questionnaire-item-control',
+                        code: 'upper',
+                        display: 'Upper-bound',
+                      },
+                    ],
+                  },
+                },
+              ],
+              linkId: '6.1.2',
+              text: 'Beste Gesundheit, die Sie sich vorstellen können',
+              type: 'display',
+            },
+          ],
+        },
+      ],
+    },
     // {
     //   linkId: "1.1",
     //   prefix: "1.1 ",
