@@ -16,7 +16,6 @@ import moment from 'moment';
 })
 export class DateQuestion {
   @Element() element: HTMLElement;
-  @Prop() variant: any = null;
   @Prop() enableErrorConsoleLogging: boolean;
   /**
    *  String containing the translations for the current locale
@@ -160,59 +159,33 @@ export class DateQuestion {
   render() {
     return (
       <div class="qr-question-container">
-        {this.variant === 'touch' ? (
-          <div class="qr-question qr-question-date">
-            <div class="qr-question-head">
-              <div class="qr-question-title">
-                <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
-                  <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
+        <div class="qr-question qr-question-date">
+          <div class="qr-question-head">
+            <div class="qr-question-title">
+              <div class={this.reset ? 'qr-question-hidden' : ''}>
+                {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
+                <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
+              </div>
+            </div>
+            <div class="qr-question-mandatoryQuestion">
+              {this.strings ? (
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
+                  {this.strings.mandatory_question}
                 </div>
-              </div>
-              <div class="qr-question-mandatoryQuestion">
-                {this.strings ? (
-                  <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
-                    {this.strings.mandatory_question}
-                  </div>
-                ) : null}
-              </div>
-            </div>
-            <hr />
-            <div class="qr-question-optionCard">
-              {this.strings ? (
-                <label class="qr-question-inputLabel qr-dateQuestion-inputLabel" htmlFor="date">
-                  {this.strings.date.text}:
-                </label>
               ) : null}
-              <input id={this.createDateInputId()} type="date" class="form-control qr-question-input qr-dateQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly} />
-            </div>
-            <br />
-          </div>
-        ) : null}
-        {this.variant === 'form' ? (
-          <div>
-            <div class="option-card">
-              {this.strings ? (
-                <label class="" htmlFor="date">
-                  {this.question.text}:
-                </label>
-              ) : null}
-              <input id="date" type="date" class="form-control" max="9999-12-31" value={this.selected} onInput={e => this.handleChange(e)} />
             </div>
           </div>
-        ) : null}
-        {this.variant === 'compact' ? (
-          <div>
-            <div class="option-card">
-              {this.strings ? (
-                <label class="" htmlFor="date">
-                  {this.question.text}:
-                </label>
-              ) : null}
-              <input id="date" type="date" class="form-control" max="9999-12-31" value={this.selected} onInput={e => this.handleChange(e)} />
-            </div>
+          <hr />
+          <div class="qr-question-optionCard">
+            {this.strings ? (
+              <label class="qr-question-inputLabel qr-dateQuestion-inputLabel" htmlFor="date">
+                {this.strings.date.text}:
+              </label>
+            ) : null}
+            <input id={this.createDateInputId()} type="date" class="form-control qr-question-input qr-dateQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly} />
           </div>
-        ) : null}
+          <br />
+        </div>
       </div>
     );
   }

@@ -23,7 +23,6 @@ export class StepperQuestionnaire {
   watchCount() {
     this.setDisabled();
   }
-  @Prop() variant: any = null;
   @Prop() filteredItemList: Array<any>;
   @Watch('filteredItemList')
   watchFilteredList() {
@@ -307,7 +306,6 @@ export class StepperQuestionnaire {
 
   /* Lifecycle Methods */
   componentDidUpdate() {
-    //TODO Is this the correct lifecycle hook?
     if (this.lastquestion && this.filteredItemList && this.filteredItemList.length > 0) {
       this.count = this.filteredItemList.length - 1;
       this.lastquestion = false;
@@ -386,7 +384,6 @@ export class StepperQuestionnaire {
               danger={this.danger}
               locale={this.locale}
               onEmitNext={() => this.countUp()}
-              variant={this.variant}
               enableInformalLocale={this.enableInformalLocale}
               vasVertical={this.vasVertical}
               vasShowSelectedValue={this.vasShowSelectedValue}

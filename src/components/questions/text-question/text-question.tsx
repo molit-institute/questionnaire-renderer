@@ -14,7 +14,6 @@ import { textToHtml } from '../../../utils/textToHtml';
 })
 export class TextQuestion {
   @Element() element: HTMLElement;
-  @Prop() variant: any = null;
   /**
    *  String containing the translations for the current locale
    */
@@ -145,66 +144,36 @@ export class TextQuestion {
   render() {
     return (
       <div class="qr-question-container">
-        {this.variant === 'touch' ? (
-          <div class="qr-question qr-question-text">
-            <div class="qr-question-head">
-              <div class="qr-question-title">
-                <div class={this.reset ? 'qr-question-hidden' : ''}>
-                  {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
-                  <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
+        <div class="qr-question qr-question-text">
+          <div class="qr-question-head">
+            <div class="qr-question-title">
+              <div class={this.reset ? 'qr-question-hidden' : ''}>
+                {this.question.prefix && this.question.prefix != '' ? <span class="qr-question-prefix">{this.question.prefix}</span> : null}
+                <span class="qr-question-text" innerHTML={textToHtml(this.question.text)}></span>
+              </div>
+            </div>
+            <div class="qr-question-mandatoryQuestion">
+              {this.strings ? (
+                <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
+                  {this.strings.mandatory_question}
                 </div>
-              </div>
-              <div class="qr-question-mandatoryQuestion">
-                {this.strings ? (
-                  <div style={{ color: this.danger }} class={this.validate() || !this.question.required ? 'qr-question-hidden' : ''}>
-                    {this.strings.mandatory_question}
-                  </div>
-                ) : null}
-              </div>
+              ) : null}
             </div>
-            <hr />
+          </div>
+          <hr />
 
-            <div id={'text' + this.question.linkId} class="qr-question-optionCard">
-              {this.strings ? (
-                <label class="qr-question-inputLabel qr-textQuestion-inputLabel" htmlFor="textarea">
-                  {this.strings.text.text}:
-                </label>
-              ) : null}
-              <div class="grow-wrap">
-                <textarea id="textarea" class="form-control qr-question-input qr-textQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly}/>
-              </div>
-            </div>
-            <br />
-          </div>
-        ) : null}
-        {this.variant === 'form' ? (
-          <div>
-            <div id={'text' + this.question.linkId} class="option-card">
-              {this.strings ? (
-                <label class="" htmlFor="textarea">
-                  {this.question.text}
-                </label>
-              ) : null}
-              <div class="grow-wrap">
-                <textarea id="textarea" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
-              </div>
+          <div id={'text' + this.question.linkId} class="qr-question-optionCard">
+            {this.strings ? (
+              <label class="qr-question-inputLabel qr-textQuestion-inputLabel" htmlFor="textarea">
+                {this.strings.text.text}:
+              </label>
+            ) : null}
+            <div class="grow-wrap">
+              <textarea id="textarea" class="form-control qr-question-input qr-textQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly} />
             </div>
           </div>
-        ) : null}
-        {this.variant === 'compact' ? (
-          <div>
-            <div id={'text' + this.question.linkId} class="option-card">
-              {this.strings ? (
-                <label class="" htmlFor="textarea">
-                  {this.question.text}
-                </label>
-              ) : null}
-              <div class="grow-wrap">
-                <textarea id="textarea" class="form-control" value={this.selected} onInput={e => this.handleChange(e)} />
-              </div>
-            </div>
-          </div>
-        ) : null}
+          <br />
+        </div>
       </div>
     );
   }

@@ -28,7 +28,6 @@ export class GroupedQuestionnaire {
     //TODO Make sure deep changes are noticed
     this.setDisabled();
   }
-  @Prop() variant: any = null;
   @Prop() filteredItemList: Array<any>;
   @Watch('filteredItemList')
   watchFilteredItemList() {
@@ -373,7 +372,6 @@ export class GroupedQuestionnaire {
                     secondary={this.secondary}
                     danger={this.danger}
                     locale={this.locale}
-                    variant={this.variant}
                     vasVertical={this.vasVertical}
                     vasShowSelectedValue={this.vasShowSelectedValue}
                     vasSelectedValueLabel={this.vasSelectedValueLabel}

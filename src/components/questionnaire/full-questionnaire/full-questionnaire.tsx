@@ -14,7 +14,6 @@ export class FullQuestionnaire {
    *  String containing the translations for the current locale
    */
   @State() strings: any;
-  @Prop() variant: any = null;
   @Prop() filteredItemList: Array<any>;
   @Prop() questionnaire!: any;
   @Watch('questionnaire')
@@ -172,7 +171,7 @@ export class FullQuestionnaire {
                   <div id={index.toString()} class={question.groupId ? 'card card-basic-margins qr-group-item' : 'card card-basic-margins'}>
                     {this.strings ? (
                       <div class="card-body">
-                        {question.type !== 'group' && this.variant !== 'form' && this.variant !== 'compact' ? (
+                        {question.type !== 'group' ? (
                           <div class="qr-fullQuestionnaire-progress-counter">
                             <span class="qr-fullQuestionnaire-questionIndex">
                               {this.strings.question} {this.getQuestionIndex(question) + 1}
@@ -193,7 +192,6 @@ export class FullQuestionnaire {
                           secondary={this.secondary}
                           danger={this.danger}
                           locale={this.locale}
-                          variant={this.variant}
                           vasVertical={this.vasVertical}
                           vasShowSelectedValue={this.vasShowSelectedValue}
                           vasSelectedValueLabel={this.vasSelectedValueLabel}

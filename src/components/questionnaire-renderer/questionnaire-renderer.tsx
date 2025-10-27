@@ -5,6 +5,7 @@ import questionnaireController from '../../utils/questionnaireController';
 import questionnaireResponseController from '../../utils/questionnaireResponseController';
 import fhirpathController from '../../utils/fhirpathController';
 import valueSetController from '../../utils/valueSetController';
+import bundleController from '../../utils/bundleController';
 import { cloneDeep } from 'lodash';
 
 @Component({
@@ -25,12 +26,14 @@ export class QuestionnaireRenderer {
    * The "updated"-event is thrown everytime if the internal questionnaireResponse changes (every time an answer value has changed) and contains the current questionnaireResponse with status "in-progress"
    */
   @Event() updated: EventEmitter;
+  @Event() updatedBundle: EventEmitter;
   @Watch('currentQuestionnaireResponse')
   async watchCurrentQuestionnaireResponse() {
     this.filterItemList();
     this.handleAnsweredQuestionsList();
     await this.handleExpressionCheck();
     this.updated.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
+    this.updatedBundle.emit(await bundleController.buildBundle(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse),this.task,"in-progress",this.questionnaireResponseStatus,this.subject))
   }
   @State() spinner: any = {
     loading: true,
@@ -50,10 +53,7 @@ export class QuestionnaireRenderer {
    * FHIR-Resource QuestionnaireResponse
    */
   @Prop() questionnaireResponse: any = null;
-  @Watch('questionnaireResponse')
-  async watchQuestionnaireResponse() {
-    await this.handleQuestionnaireResponse();
-  }
+  
   /**
    * Current type of Questionnaire-Style to display
    * Available: stepper-questionnaire, grouped-questionnaire, full-questionnaire
@@ -65,14 +65,8 @@ export class QuestionnaireRenderer {
       this.handleStartQuestion(this.lastAnsweredQuestion);
     }
     this.currentMode = this.mode;
-    this.handleVariants();
   }
 
-  @Prop() variant: any = 'Touch';
-  @Watch('variant')
-  watchVariant() {
-    this.handleVariants();
-  }
   /**
    * FHIR-Resource Patient
    */
@@ -317,7 +311,6 @@ export class QuestionnaireRenderer {
   /**
    * The "finished"-event is thrown once the next button is pressed or in case of the summary the save-button. It contains the current questionnaireResponse with the status "completed"
    */
-  @Event() finished: EventEmitter;
   backToSummary() {
     if (this.enableFullQuestionnaireResponse) {
       if (this.enableSummary) {
@@ -337,37 +330,39 @@ export class QuestionnaireRenderer {
       }
     }
   }
-
+  
   /**
    *
-   */
-  toQuestionnaire(lastQuestion) {
-    this.show_informationPage = false;
-    this.lastAnsweredQuestion = null;
-    this.currentStartCount = null;
-    this.start_question = null;
-    this.edit_mode = false;
-    this.last_question = lastQuestion;
-    this.show_summary = false;
-    this.show_questionnaire = true;
+  */
+ toQuestionnaire(lastQuestion) {
+   this.show_informationPage = false;
+   this.lastAnsweredQuestion = null;
+   this.currentStartCount = null;
+   this.start_question = null;
+   this.edit_mode = false;
+   this.last_question = lastQuestion;
+   this.show_summary = false;
+   this.show_questionnaire = true;
   }
-
+  
   /**
    *
    * @param question
-   */
-  async editQuestion(question) {
-    this.edit_mode = true;
-    this.start_question = question.detail;
-    await this.handleStartQuestion(this.start_question);
-    this.show_summary = false;
-    this.last_question = false;
-    this.show_questionnaire = true;
+  */
+ async editQuestion(question) {
+   this.edit_mode = true;
+   this.start_question = question.detail;
+   await this.handleStartQuestion(this.start_question);
+   this.show_summary = false;
+   this.last_question = false;
+   this.show_questionnaire = true;
   }
-
+  
   /**
    * Emits an Event wich includes the finished Questionnaire Response
-   */
+  */
+  @Event() finished: EventEmitter;
+  @Event() finishedBundle: EventEmitter;
   async finishQuestionnaire(questionnaireResponse) {
     if (this.enableFullQuestionnaireResponse) {
       if (this.enableSummary) {
@@ -377,6 +372,7 @@ export class QuestionnaireRenderer {
         this.start_question = null;
       }
       this.finished.emit(questionnaireResponse);
+      this.finishedBundle.emit( await bundleController.buildBundle(questionnaireResponse,this.task,"completed",this.questionnaireResponseStatus,this.subject))
     } else {
       if (this.enableSummary) {
         this.edit_mode = false;
@@ -391,6 +387,7 @@ export class QuestionnaireRenderer {
         questionnaireResponse.status = 'completed';
       }
       this.finished.emit(await this.filterQuestionnaireResponse(questionnaireResponse));
+      this.finishedBundle.emit(await bundleController.buildBundle(await this.filterQuestionnaireResponse(questionnaireResponse),this.task,"completed",this.questionnaireResponseStatus,this.subject))
     }
   }
 
@@ -598,33 +595,6 @@ export class QuestionnaireRenderer {
   }
 
   /**
-   *
-   */
-  handleVariants() {
-    // if (this.variant.toLowerCase() === 'form') {
-    //   if (this.currentMode === 'stepper-questionnaire' || this.mode === 'stepper-questionnaire') {
-    //     this.currentMode = 'full-questionnaire';
-    //   }
-    // }
-    // if (this.variant.toLowerCase() === 'compact') {
-    //   if (this.currentMode === 'stepper-questionnaire' || this.mode === 'stepper-questionnaire') {
-    //     this.currentMode = 'full-questionnaire';
-    //   }
-    // }
-    if (this.variant.toLowerCase() === 'touch') {
-      if (this.currentMode === 'stepper-questionnaire' || this.mode === 'stepper-questionnaire') {
-        this.currentMode = 'stepper-questionnaire';
-      }
-      if (this.currentMode === 'full-questionnaire' || this.mode === 'full-questionnaire') {
-        this.currentMode = 'full-questionnaire';
-      }
-      if (this.currentMode === 'grouped-questionnaire' || this.mode === 'grouped-questionnaire') {
-        this.currentMode = 'grouped-questionnaire';
-      }
-    }
-  }
-
-  /**
    * Adds and Removes Questions from the requiredAnswersList
    */
   handleAnsweredQuestionsList() {
@@ -679,7 +649,7 @@ export class QuestionnaireRenderer {
         this.createQuestionnaireResponse();
       }
     } else {
-      this.createQuestionnaireResponse();
+        this.createQuestionnaireResponse();
     }
   }
 
@@ -859,13 +829,15 @@ export class QuestionnaireRenderer {
    * Emits an Event to exit the Renderer. Contains the current questionnaireResponse
    */
   @Event() exit: EventEmitter;
-  leaveQuestionnaireRenderer() {
+  @Event() exitBundle: EventEmitter;
+  async leaveQuestionnaireRenderer() {
     if (this.enableInformationPage) {
       this.show_summary = false;
       this.show_questionnaire = false;
       this.show_informationPage = true;
     } else {
       this.exit.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
+      this.exitBundle.emit(await bundleController.buildBundle(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse),this.task,"in-progress",this.questionnaireResponseStatus,this.subject))
     }
   }
 
@@ -912,7 +884,6 @@ export class QuestionnaireRenderer {
         this.edit_mode = this.editMode;
       }
       this.currentMode = this.mode;
-      this.handleVariants();
       await this.handleStartQuestion(this.start_question);
       this.handleInformationPage();
       await this.handleExpressionCheck();
@@ -939,8 +910,6 @@ export class QuestionnaireRenderer {
             {this.show_questionnaire && !this.showOnlySummary ? (
               <div class="qr-questionnaireRenderer-questions">
                 <Tag
-                  // variant={this.variant.toLowerCase()}
-                  variant="touch"
                   filteredItemList={this.filteredItemList}
                   questionnaireResponse={this.currentQuestionnaireResponse}
                   questionnaire={this.currentQuestionnaire}
