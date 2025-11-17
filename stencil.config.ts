@@ -21,5 +21,9 @@ export const config: Config = {
   extras: {
     // depricated in newer stencil versions, once updated use enableImportInjection: true
     experimentalImportInjection: true
+  },
+   testing: {
+    // deactivating tests completly
+    testPathIgnorePatterns: ['.']
   }
 };
