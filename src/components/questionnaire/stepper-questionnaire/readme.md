@@ -13,7 +13,7 @@
 | `danger`                     | `danger`                       | Color used to symbolise danger                                             | `string`  | `undefined` |
 | `editMode`                   | `edit-mode`                    |                                                                            | `boolean` | `false`     |
 | `enableErrorConsoleLogging`  | `enable-error-console-logging` |                                                                            | `boolean` | `undefined` |
-| `enableFinishButton`         | `enable-finish-button`         |                                                                            | `boolean` | `undefined` |
+| `enableFinishButton`         | `enable-finish-button`         |                                                                            | `boolean` | `false`     |
 | `enableGroupDescription`     | `enable-group-description`     |                                                                            | `boolean` | `undefined` |
 | `enableInformalLocale`       | `enable-informal-locale`       |                                                                            | `boolean` | `undefined` |
 | `enableNext`                 | `enable-next`                  |                                                                            | `boolean` | `true`      |
@@ -30,7 +30,6 @@
 | `startCount`                 | `start-count`                  |                                                                            | `number`  | `undefined` |
 | `trademarkText`              | `trademark-text`               |                                                                            | `string`  | `null`      |
 | `valueSets`                  | --                             |                                                                            | `any[]`   | `undefined` |
-| `variant`                    | `variant`                      |                                                                            | `any`     | `null`      |
 | `vasSelectedValueLabel`      | `vas-selected-value-label`     |                                                                            | `string`  | `undefined` |
 | `vasShowSelectedValue`       | `vas-show-selected-value`      |                                                                            | `boolean` | `undefined` |
 | `vasVertical`                | `vas-vertical`                 | Options for Visual Analog Scale                                            | `boolean` | `undefined` |

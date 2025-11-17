@@ -1,4 +1,4 @@
-# decimal-question
+# attachment-question
 
 
 
@@ -13,20 +13,19 @@
 | `enableErrorConsoleLogging` | `enable-error-console-logging` |                                                                            | `boolean` | `undefined` |
 | `enableInformalLocale`      | `enable-informal-locale`       |                                                                            | `boolean` | `undefined` |
 | `locale`                    | `locale`                       | Language property of the component. </br> Currently suported: [de, en, es] | `string`  | `'en'`      |
-| `mode`                      | `mode`                         |                                                                            | `string`  | `undefined` |
 | `primary`                   | `primary`                      | Primary color                                                              | `string`  | `undefined` |
 | `question`                  | `question`                     |                                                                            | `any`     | `undefined` |
+| `questionnaire`             | --                             |                                                                            | `Object`  | `null`      |
 | `questionnaireResponse`     | --                             |                                                                            | `Object`  | `null`      |
 | `secondary`                 | `secondary`                    | Secondary color                                                            | `string`  | `undefined` |
 
 
 ## Events
 
-| Event        | Description                                 | Type               |
-| ------------ | ------------------------------------------- | ------------------ |
-| `emitAnswer` |                                             | `CustomEvent<any>` |
-| `emitNext`   | Handles KeyPresses by adding Eventlisteners | `CustomEvent<any>` |
-| `errorLog`   | Emits an error-event                        | `CustomEvent<any>` |
+| Event        | Description          | Type               |
+| ------------ | -------------------- | ------------------ |
+| `emitAnswer` |                      | `CustomEvent<any>` |
+| `errorLog`   | Emits an error-event | `CustomEvent<any>` |
 
 
 ----------------------------------------------

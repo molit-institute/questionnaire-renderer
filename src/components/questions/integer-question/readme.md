@@ -18,7 +18,6 @@
 | `question`                  | `question`                     |                                                                            | `any`     | `undefined` |
 | `questionnaireResponse`     | --                             |                                                                            | `Object`  | `null`      |
 | `secondary`                 | `secondary`                    | Secondary color                                                            | `string`  | `undefined` |
-| `variant`                   | `variant`                      |                                                                            | `any`     | `null`      |
 | `vasSelectedValueLabel`     | `vas-selected-value-label`     |                                                                            | `string`  | `undefined` |
 | `vasShowSelectedValue`      | `vas-show-selected-value`      |                                                                            | `boolean` | `undefined` |
 | `vasVertical`               | `vas-vertical`                 | Options for Visual Analog Scale                                            | `boolean` | `undefined` |

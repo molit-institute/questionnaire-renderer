@@ -22,7 +22,6 @@
 | `questionnaireResponse`     | --                             |                                                                            | `Object`  | `null`                         |
 | `secondary`                 | `secondary`                    | Secondary color                                                            | `string`  | `undefined`                    |
 | `valueSets`                 | --                             |                                                                            | `any[]`   | `undefined`                    |
-| `variant`                   | `variant`                      |                                                                            | `any`     | `null`                         |
 
 
 ## Events
