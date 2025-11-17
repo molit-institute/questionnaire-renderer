@@ -44,7 +44,6 @@
 | `token`                           | `token`                              | A token that can be send with server-requests                                                                                                                       | `string`  | `undefined`               |
 | `trademarkText`                   | `trademark-text`                     | Shows a trademark/copyright text at the bottom of the renderer                                                                                                      | `string`  | `null`                    |
 | `valueSets`                       | --                                   | Array of ValueSets that are needed to display the given questionnaire                                                                                               | `any[]`   | `null`                    |
-| `variant`                         | `variant`                            |                                                                                                                                                                     | `any`     | `'Touch'`                 |
 | `vasSelectedValueLabel`           | `vas-selected-value-label`           | Text for the label of the selected value                                                                                                                            | `string`  | `null`                    |
 | `vasShowSelectedValue`            | `vas-show-selected-value`            | If true shows the selected value for the vas scale                                                                                                                  | `boolean` | `false`                   |
 | `vasVertical`                     | `vas-vertical`                       | Options for Visual Analog Scale                                                                                                                                     | `boolean` | `false`                   |
@@ -53,14 +52,17 @@
 
 ## Events
 
-| Event          | Description                                                                                                                                                                                             | Type               |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `addRemarks`   | Emits the addRemarks if the "remarks"-button in the summary as been pressed.                                                                                                                            | `CustomEvent<any>` |
-| `closeSummary` | Emits an event to close the summary                                                                                                                                                                     | `CustomEvent<any>` |
-| `errorLog`     | Emits an error-event                                                                                                                                                                                    | `CustomEvent<any>` |
-| `exit`         | Emits an Event to exit the Renderer. Contains the current questionnaireResponse                                                                                                                         | `CustomEvent<any>` |
-| `finished`     | The "finished"-event is thrown once the next button is pressed or in case of the summary the save-button. It contains the current questionnaireResponse with the status "completed"                     | `CustomEvent<any>` |
-| `updated`      | The "updated"-event is thrown everytime if the internal questionnaireResponse changes (every time an answer value has changed) and contains the current questionnaireResponse with status "in-progress" | `CustomEvent<any>` |
+| Event            | Description                                                                                                                                                                                             | Type               |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| `addRemarks`     | Emits the addRemarks if the "remarks"-button in the summary as been pressed.                                                                                                                            | `CustomEvent<any>` |
+| `closeSummary`   | Emits an event to close the summary                                                                                                                                                                     | `CustomEvent<any>` |
+| `errorLog`       | Emits an error-event                                                                                                                                                                                    | `CustomEvent<any>` |
+| `exit`           | Emits an Event to exit the Renderer. Contains the current questionnaireResponse                                                                                                                         | `CustomEvent<any>` |
+| `exitBundle`     |                                                                                                                                                                                                         | `CustomEvent<any>` |
+| `finished`       | Emits an Event wich includes the finished Questionnaire Response                                                                                                                                        | `CustomEvent<any>` |
+| `finishedBundle` |                                                                                                                                                                                                         | `CustomEvent<any>` |
+| `updated`        | The "updated"-event is thrown everytime if the internal questionnaireResponse changes (every time an answer value has changed) and contains the current questionnaireResponse with status "in-progress" | `CustomEvent<any>` |
+| `updatedBundle`  |                                                                                                                                                                                                         | `CustomEvent<any>` |
 
 
 ## Dependencies

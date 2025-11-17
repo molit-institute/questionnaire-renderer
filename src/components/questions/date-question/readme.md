@@ -18,7 +18,6 @@
 | `question`                  | `question`                     |                                                                            | `any`     | `undefined` |
 | `questionnaireResponse`     | --                             |                                                                            | `Object`  | `null`      |
 | `secondary`                 | `secondary`                    | Secondary color                                                            | `string`  | `undefined` |
-| `variant`                   | `variant`                      |                                                                            | `any`     | `null`      |
 
 
 ## Events

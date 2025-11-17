@@ -19,7 +19,6 @@
 | `questionnaire`             | --                             |                                                                            | `Object`  | `null`      |
 | `questionnaireResponse`     | --                             |                                                                            | `Object`  | `null`      |
 | `secondary`                 | `secondary`                    | Secondary color                                                            | `string`  | `undefined` |
-| `variant`                   | `variant`                      |                                                                            | `any`     | `null`      |
 | `visibleBooleanNullOption`  | `visible-boolean-null-option`  |                                                                            | `boolean` | `undefined` |
 
 

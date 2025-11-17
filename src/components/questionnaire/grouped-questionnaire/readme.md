@@ -26,7 +26,6 @@
 | `spinner`                    | `spinner`                      |                                                                            | `any`     | `undefined` |
 | `startCount`                 | `start-count`                  |                                                                            | `number`  | `undefined` |
 | `valueSets`                  | --                             |                                                                            | `any[]`   | `undefined` |
-| `variant`                    | `variant`                      |                                                                            | `any`     | `null`      |
 | `vasSelectedValueLabel`      | `vas-selected-value-label`     |                                                                            | `string`  | `undefined` |
 | `vasShowSelectedValue`       | `vas-show-selected-value`      |                                                                            | `boolean` | `undefined` |
 | `vasVertical`                | `vas-vertical`                 | Options for Visual Analog Scale                                            | `boolean` | `undefined` |
