@@ -122,7 +122,9 @@ export class DateQuestion {
         input.setAttribute('max', moment(new Date()).format('YYYY-MM-DD'));
       } else {
         input.removeEventListener('keydown', this.preventKeyDown);
-        input.setAttribute('max', '9999-12-31');
+        //TODO THIS BREAKS THE INPUT somehow, but i need to reset the max if no extension is present
+        // input.setAttribute('max', '9999-12-31');
+        input.removeAttribute('max');
       }
     }
   }
