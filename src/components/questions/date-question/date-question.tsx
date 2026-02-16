@@ -114,16 +114,17 @@ export class DateQuestion {
   }
 
   async handleMaxValue() {
+    //TODO Figure out why this method gets called 3-4 times after switching between questions
     let extension = await questionnaireController.lookForExtension('http://molit-service.de/fhir/isMaxValueCurrentDate', this.question);
     let input = await document.getElementById(this.question.linkId + '-dateInput');
     if (input) {
-      if (extension && extension.valueBoolean) {
+      if (extension !== null && extension?.valueBoolean) {
+        console.log("extension")
         input.addEventListener('keydown', this.preventKeyDown);
         input.setAttribute('max', moment(new Date()).format('YYYY-MM-DD'));
       } else {
+        console.log("no extension")
         input.removeEventListener('keydown', this.preventKeyDown);
-        //TODO THIS BREAKS THE INPUT somehow, but i need to reset the max if no extension is present
-        // input.setAttribute('max', '9999-12-31');
         input.removeAttribute('max');
       }
     }

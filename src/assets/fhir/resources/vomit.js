@@ -14,10 +14,22 @@ const vomitQuestionnaire = {
     //   type: 'boolean',
     // },
     {
-      linkId: "4",
-      prefix: "1.",
+      linkId: "4.1",
+      prefix: "11.",
       text: "Date Frage 1 ohne Extension",
       type: "date"
+    },
+    {
+      linkId: "4",
+      prefix: "1.",
+      text: "Date Frage 1 mit Extension",
+      type: "date",
+      extension: [
+        {
+          url: "http://molit-service.de/fhir/isMaxValueCurrentDate",
+          valueBoolean: true
+          }
+      ],
     },
     // {
     //   linkId: "1",
