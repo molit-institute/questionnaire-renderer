@@ -20,6 +20,12 @@ const vomitQuestionnaire = {
       type: "date"
     },
     {
+      linkId: "4.2",
+      prefix: "12.",
+      text: "Date Frage 2 ohne Extension",
+      type: "date"
+    },
+    {
       linkId: "4",
       prefix: "1.",
       text: "Date Frage 1 mit Extension",
@@ -28,7 +34,7 @@ const vomitQuestionnaire = {
         {
           url: "http://molit-service.de/fhir/isMaxValueCurrentDate",
           valueBoolean: true
-          }
+        }
       ],
     },
     // {

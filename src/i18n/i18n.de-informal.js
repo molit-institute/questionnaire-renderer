@@ -60,6 +60,7 @@ export default {
   },
   date: {
     text: 'Gebe hier das Datum ein',
+    select: 'Wähle hier ein Datum aus',
   },
   select: {
     placeholder: 'Bitte auswählen',

@@ -60,6 +60,7 @@ export default {
   },
   date: {
     text: 'Ingrese la fecha aquí',
+    select: 'Seleccione aquí una fecha'
   },
   select: {
     placeholder: 'Seleccione una opción',
