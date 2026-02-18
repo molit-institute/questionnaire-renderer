@@ -1379,6 +1379,8 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    type OneOf<K extends string, PropT, AttrT = PropT> = { [P in K]: PropT } & { [P in `attr:${K}` | `prop:${K}`]?: never } | { [P in `attr:${K}`]: AttrT } & { [P in K | `prop:${K}`]?: never } | { [P in `prop:${K}`]: PropT } & { [P in K | `attr:${K}`]?: never };
+
     interface AttachmentQuestion {
         /**
           * Color used to symbolise danger
@@ -2390,59 +2392,339 @@ declare namespace LocalJSX {
          */
         "vasVertical"?: boolean;
     }
+
+    interface AttachmentQuestionAttributes {
+        "question": string;
+        "enableInformalLocale": boolean;
+        "locale": string;
+        "enableErrorConsoleLogging": boolean;
+        "primary": string;
+        "secondary": string;
+        "danger": string;
+    }
+    interface BooleanQuestionAttributes {
+        "question": string;
+        "mode": string;
+        "primary": string;
+        "secondary": string;
+        "danger": string;
+        "enableInformalLocale": boolean;
+        "locale": string;
+        "enableErrorConsoleLogging": boolean;
+        "visibleBooleanNullOption": boolean;
+    }
+    interface ChoiceQuestionAttributes {
+        "questionnaire": string;
+        "question": string;
+        "answers": string;
+        "mode": string;
+        "baseUrl": string;
+        "primary": string;
+        "secondary": string;
+        "danger": string;
+        "enableInformalLocale": boolean;
+        "locale": string;
+        "enableErrorConsoleLogging": boolean;
+    }
+    interface DateQuestionAttributes {
+        "enableErrorConsoleLogging": boolean;
+        "question": string;
+        "mode": string;
+        "primary": string;
+        "secondary": string;
+        "danger": string;
+        "enableInformalLocale": boolean;
+        "locale": string;
+    }
+    interface DateTimeQuestionAttributes {
+        "enableErrorConsoleLogging": boolean;
+        "question": string;
+        "mode": string;
+        "primary": string;
+        "secondary": string;
+        "danger": string;
+        "locale": string;
+        "enableInformalLocale": boolean;
+    }
+    interface DecimalQuestionAttributes {
+        "enableErrorConsoleLogging": boolean;
+        "question": string;
+        "mode": string;
+        "primary": string;
+        "secondary": string;
+        "danger": string;
+        "enableInformalLocale": boolean;
+        "locale": string;
+    }
+    interface DisplayQuestionAttributes {
+        "question": string;
+        "mode": string;
+        "enableInformalLocale": boolean;
+        "enableErrorConsoleLogging": boolean;
+        "locale": string;
+    }
+    interface FullQuestionnaireAttributes {
+        "questionnaire": string;
+        "baseUrl": string;
+        "startCount": number;
+        "enableInformalLocale": boolean;
+        "vasVertical": boolean;
+        "vasShowSelectedValue": boolean;
+        "vasSelectedValueLabel": string;
+        "enableFinishButton": boolean;
+        "primary": string;
+        "secondary": string;
+        "danger": string;
+        "locale": string;
+        "enableErrorConsoleLogging": boolean;
+        "enableReturn": boolean;
+        "enableNext": boolean;
+        "visibleBooleanNullOption": boolean;
+    }
+    interface GroupQuestionAttributes {
+        "questionnaire": string;
+        "question": string;
+        "lastQuestion": boolean;
+        "baseUrl": string;
+        "editMode": boolean;
+        "enableReturn": boolean;
+        "mode": string;
+        "enableInformalLocale": boolean;
+        "enableErrorConsoleLogging": boolean;
+        "primary": string;
+        "secondary": string;
+        "danger": string;
+        "locale": string;
+    }
+    interface GroupedQuestionnaireAttributes {
+        "questionnaire": string;
+        "baseUrl": string;
+        "editMode": boolean;
+        "startCount": number;
+        "lastQuestion": boolean;
+        "vasVertical": boolean;
+        "vasShowSelectedValue": boolean;
+        "vasSelectedValueLabel": string;
+        "primary": string;
+        "secondary": string;
+        "danger": string;
+        "enableReturn": boolean;
+        "spinner": string;
+        "locale": string;
+        "enableInformalLocale": boolean;
+        "enableErrorConsoleLogging": boolean;
+    }
+    interface InformationPageAttributes {
+        "questionnaire": string;
+        "enableInformalLocale": boolean;
+        "trademarkText": string;
+        "enableErrorConsoleLogging": boolean;
+        "locale": string;
+    }
+    interface IntegerQuestionAttributes {
+        "enableErrorConsoleLogging": boolean;
+        "question": string;
+        "mode": string;
+        "vasVertical": boolean;
+        "vasShowSelectedValue": boolean;
+        "vasSelectedValueLabel": string;
+        "primary": string;
+        "secondary": string;
+        "danger": string;
+        "enableInformalLocale": boolean;
+        "locale": string;
+    }
+    interface QuestionnaireRendererAttributes {
+        "questionnaire": string;
+        "questionnaireResponse": string;
+        "mode": string;
+        "subject": string;
+        "task": string;
+        "baseUrl": string;
+        "enableFullQuestionnaireResponse": boolean;
+        "enableSummary": boolean;
+        "questionnaireUrl": string;
+        "editMode": boolean;
+        "enableReturn": boolean;
+        "enableNext": boolean;
+        "lastQuestion": boolean;
+        "vasVertical": boolean;
+        "vasShowSelectedValue": boolean;
+        "vasSelectedValueLabel": string;
+        "summaryText": string;
+        "informationPageText": string;
+        "showSummaryRemarks": boolean;
+        "enableSendQuestionnaireResponse": boolean;
+        "enableInformalLocale": boolean;
+        "enableInformationPage": boolean;
+        "trademarkText": string;
+        "enableGroupDescription": boolean;
+        "enableExpand": boolean;
+        "primary": string;
+        "secondary": string;
+        "danger": string;
+        "showOnlySummary": boolean;
+        "token": string;
+        "basicAuth": boolean;
+        "enableErrorConsoleLogging": boolean;
+        "enableFinishButton": boolean;
+        "questionnaireResponseStatus": string;
+        "visibleBooleanNullOption": boolean;
+        "questionnaireUrlIdentifier": string;
+        "locale": string;
+    }
+    interface QuestionnaireSummaryAttributes {
+        "baseUrl": string;
+        "task": string;
+        "mode": string;
+        "questionnaire": string;
+        "questionnaireResponse": string;
+        "summary_text": string;
+        "token": string;
+        "basicAuth": boolean;
+        "editable": boolean;
+        "showSummaryRemarks": boolean;
+        "enableSendQuestionnaireResponse": boolean;
+        "enableInformalLocale": boolean;
+        "trademarkText": string;
+        "enableErrorConsoleLogging": boolean;
+        "questionnaireResponseStatus": string;
+        "locale": string;
+    }
+    interface SelectElementAttributes {
+        "translations": string;
+        "optionsList": string;
+        "selected": string;
+    }
+    interface SimpleSpinnerAttributes {
+        "borderTopColor": string;
+    }
+    interface StepperQuestionnaireAttributes {
+        "questionnaire": string;
+        "baseUrl": string;
+        "editMode": boolean;
+        "startCount": number;
+        "lastQuestion": boolean;
+        "vasVertical": boolean;
+        "vasShowSelectedValue": boolean;
+        "vasSelectedValueLabel": string;
+        "primary": string;
+        "secondary": string;
+        "danger": string;
+        "enableSummary": boolean;
+        "enableReturn": boolean;
+        "enableNext": boolean;
+        "enableInformalLocale": boolean;
+        "trademarkText": string;
+        "enableGroupDescription": boolean;
+        "enableErrorConsoleLogging": boolean;
+        "enableFinishButton": boolean;
+        "visibleBooleanNullOption": boolean;
+        "locale": string;
+    }
+    interface StringQuestionAttributes {
+        "question": string;
+        "mode": string;
+        "enableErrorConsoleLogging": boolean;
+        "primary": string;
+        "secondary": string;
+        "danger": string;
+        "enableInformalLocale": boolean;
+        "locale": string;
+    }
+    interface TextQuestionAttributes {
+        "question": string;
+        "enableErrorConsoleLogging": boolean;
+        "mode": string;
+        "primary": string;
+        "secondary": string;
+        "danger": string;
+        "enableInformalLocale": boolean;
+        "locale": string;
+    }
+    interface TimeQuestionAttributes {
+        "question": string;
+        "mode": string;
+        "primary": string;
+        "secondary": string;
+        "danger": string;
+        "enableInformalLocale": boolean;
+        "enableErrorConsoleLogging": boolean;
+        "locale": string;
+    }
+    interface UrlQuestionAttributes {
+        "enableErrorConsoleLogging": boolean;
+        "question": string;
+        "mode": string;
+        "primary": string;
+        "secondary": string;
+        "danger": string;
+        "enableInformalLocale": boolean;
+        "locale": string;
+    }
+    interface VasQuestionAttributes {
+        "selected": number;
+        "min": number;
+        "max": number;
+        "step": number;
+        "vasVertical": boolean;
+        "vasShowSelectedValue": boolean;
+        "vasSelectedValueLabel": string;
+    }
+
     interface IntrinsicElements {
-        "attachment-question": AttachmentQuestion;
-        "boolean-question": BooleanQuestion;
-        "choice-question": ChoiceQuestion;
-        "date-question": DateQuestion;
-        "date-time-question": DateTimeQuestion;
-        "decimal-question": DecimalQuestion;
-        "display-question": DisplayQuestion;
-        "full-questionnaire": FullQuestionnaire;
-        "group-question": GroupQuestion;
-        "grouped-questionnaire": GroupedQuestionnaire;
-        "information-page": InformationPage;
-        "integer-question": IntegerQuestion;
-        "questionnaire-renderer": QuestionnaireRenderer;
-        "questionnaire-summary": QuestionnaireSummary;
-        "select-element": SelectElement;
-        "simple-spinner": SimpleSpinner;
-        "stepper-questionnaire": StepperQuestionnaire;
-        "string-question": StringQuestion;
+        "attachment-question": Omit<AttachmentQuestion, keyof AttachmentQuestionAttributes> & { [K in keyof AttachmentQuestion & keyof AttachmentQuestionAttributes]?: AttachmentQuestion[K] } & { [K in keyof AttachmentQuestion & keyof AttachmentQuestionAttributes as `attr:${K}`]?: AttachmentQuestionAttributes[K] } & { [K in keyof AttachmentQuestion & keyof AttachmentQuestionAttributes as `prop:${K}`]?: AttachmentQuestion[K] };
+        "boolean-question": Omit<BooleanQuestion, keyof BooleanQuestionAttributes> & { [K in keyof BooleanQuestion & keyof BooleanQuestionAttributes]?: BooleanQuestion[K] } & { [K in keyof BooleanQuestion & keyof BooleanQuestionAttributes as `attr:${K}`]?: BooleanQuestionAttributes[K] } & { [K in keyof BooleanQuestion & keyof BooleanQuestionAttributes as `prop:${K}`]?: BooleanQuestion[K] };
+        "choice-question": Omit<ChoiceQuestion, keyof ChoiceQuestionAttributes> & { [K in keyof ChoiceQuestion & keyof ChoiceQuestionAttributes]?: ChoiceQuestion[K] } & { [K in keyof ChoiceQuestion & keyof ChoiceQuestionAttributes as `attr:${K}`]?: ChoiceQuestionAttributes[K] } & { [K in keyof ChoiceQuestion & keyof ChoiceQuestionAttributes as `prop:${K}`]?: ChoiceQuestion[K] };
+        "date-question": Omit<DateQuestion, keyof DateQuestionAttributes> & { [K in keyof DateQuestion & keyof DateQuestionAttributes]?: DateQuestion[K] } & { [K in keyof DateQuestion & keyof DateQuestionAttributes as `attr:${K}`]?: DateQuestionAttributes[K] } & { [K in keyof DateQuestion & keyof DateQuestionAttributes as `prop:${K}`]?: DateQuestion[K] };
+        "date-time-question": Omit<DateTimeQuestion, keyof DateTimeQuestionAttributes> & { [K in keyof DateTimeQuestion & keyof DateTimeQuestionAttributes]?: DateTimeQuestion[K] } & { [K in keyof DateTimeQuestion & keyof DateTimeQuestionAttributes as `attr:${K}`]?: DateTimeQuestionAttributes[K] } & { [K in keyof DateTimeQuestion & keyof DateTimeQuestionAttributes as `prop:${K}`]?: DateTimeQuestion[K] };
+        "decimal-question": Omit<DecimalQuestion, keyof DecimalQuestionAttributes> & { [K in keyof DecimalQuestion & keyof DecimalQuestionAttributes]?: DecimalQuestion[K] } & { [K in keyof DecimalQuestion & keyof DecimalQuestionAttributes as `attr:${K}`]?: DecimalQuestionAttributes[K] } & { [K in keyof DecimalQuestion & keyof DecimalQuestionAttributes as `prop:${K}`]?: DecimalQuestion[K] };
+        "display-question": Omit<DisplayQuestion, keyof DisplayQuestionAttributes> & { [K in keyof DisplayQuestion & keyof DisplayQuestionAttributes]?: DisplayQuestion[K] } & { [K in keyof DisplayQuestion & keyof DisplayQuestionAttributes as `attr:${K}`]?: DisplayQuestionAttributes[K] } & { [K in keyof DisplayQuestion & keyof DisplayQuestionAttributes as `prop:${K}`]?: DisplayQuestion[K] };
+        "full-questionnaire": Omit<FullQuestionnaire, keyof FullQuestionnaireAttributes> & { [K in keyof FullQuestionnaire & keyof FullQuestionnaireAttributes]?: FullQuestionnaire[K] } & { [K in keyof FullQuestionnaire & keyof FullQuestionnaireAttributes as `attr:${K}`]?: FullQuestionnaireAttributes[K] } & { [K in keyof FullQuestionnaire & keyof FullQuestionnaireAttributes as `prop:${K}`]?: FullQuestionnaire[K] } & OneOf<"questionnaire", FullQuestionnaire["questionnaire"], FullQuestionnaireAttributes["questionnaire"]>;
+        "group-question": Omit<GroupQuestion, keyof GroupQuestionAttributes> & { [K in keyof GroupQuestion & keyof GroupQuestionAttributes]?: GroupQuestion[K] } & { [K in keyof GroupQuestion & keyof GroupQuestionAttributes as `attr:${K}`]?: GroupQuestionAttributes[K] } & { [K in keyof GroupQuestion & keyof GroupQuestionAttributes as `prop:${K}`]?: GroupQuestion[K] } & OneOf<"questionnaire", GroupQuestion["questionnaire"], GroupQuestionAttributes["questionnaire"]>;
+        "grouped-questionnaire": Omit<GroupedQuestionnaire, keyof GroupedQuestionnaireAttributes> & { [K in keyof GroupedQuestionnaire & keyof GroupedQuestionnaireAttributes]?: GroupedQuestionnaire[K] } & { [K in keyof GroupedQuestionnaire & keyof GroupedQuestionnaireAttributes as `attr:${K}`]?: GroupedQuestionnaireAttributes[K] } & { [K in keyof GroupedQuestionnaire & keyof GroupedQuestionnaireAttributes as `prop:${K}`]?: GroupedQuestionnaire[K] } & OneOf<"questionnaire", GroupedQuestionnaire["questionnaire"], GroupedQuestionnaireAttributes["questionnaire"]>;
+        "information-page": Omit<InformationPage, keyof InformationPageAttributes> & { [K in keyof InformationPage & keyof InformationPageAttributes]?: InformationPage[K] } & { [K in keyof InformationPage & keyof InformationPageAttributes as `attr:${K}`]?: InformationPageAttributes[K] } & { [K in keyof InformationPage & keyof InformationPageAttributes as `prop:${K}`]?: InformationPage[K] };
+        "integer-question": Omit<IntegerQuestion, keyof IntegerQuestionAttributes> & { [K in keyof IntegerQuestion & keyof IntegerQuestionAttributes]?: IntegerQuestion[K] } & { [K in keyof IntegerQuestion & keyof IntegerQuestionAttributes as `attr:${K}`]?: IntegerQuestionAttributes[K] } & { [K in keyof IntegerQuestion & keyof IntegerQuestionAttributes as `prop:${K}`]?: IntegerQuestion[K] };
+        "questionnaire-renderer": Omit<QuestionnaireRenderer, keyof QuestionnaireRendererAttributes> & { [K in keyof QuestionnaireRenderer & keyof QuestionnaireRendererAttributes]?: QuestionnaireRenderer[K] } & { [K in keyof QuestionnaireRenderer & keyof QuestionnaireRendererAttributes as `attr:${K}`]?: QuestionnaireRendererAttributes[K] } & { [K in keyof QuestionnaireRenderer & keyof QuestionnaireRendererAttributes as `prop:${K}`]?: QuestionnaireRenderer[K] };
+        "questionnaire-summary": Omit<QuestionnaireSummary, keyof QuestionnaireSummaryAttributes> & { [K in keyof QuestionnaireSummary & keyof QuestionnaireSummaryAttributes]?: QuestionnaireSummary[K] } & { [K in keyof QuestionnaireSummary & keyof QuestionnaireSummaryAttributes as `attr:${K}`]?: QuestionnaireSummaryAttributes[K] } & { [K in keyof QuestionnaireSummary & keyof QuestionnaireSummaryAttributes as `prop:${K}`]?: QuestionnaireSummary[K] };
+        "select-element": Omit<SelectElement, keyof SelectElementAttributes> & { [K in keyof SelectElement & keyof SelectElementAttributes]?: SelectElement[K] } & { [K in keyof SelectElement & keyof SelectElementAttributes as `attr:${K}`]?: SelectElementAttributes[K] } & { [K in keyof SelectElement & keyof SelectElementAttributes as `prop:${K}`]?: SelectElement[K] };
+        "simple-spinner": Omit<SimpleSpinner, keyof SimpleSpinnerAttributes> & { [K in keyof SimpleSpinner & keyof SimpleSpinnerAttributes]?: SimpleSpinner[K] } & { [K in keyof SimpleSpinner & keyof SimpleSpinnerAttributes as `attr:${K}`]?: SimpleSpinnerAttributes[K] } & { [K in keyof SimpleSpinner & keyof SimpleSpinnerAttributes as `prop:${K}`]?: SimpleSpinner[K] };
+        "stepper-questionnaire": Omit<StepperQuestionnaire, keyof StepperQuestionnaireAttributes> & { [K in keyof StepperQuestionnaire & keyof StepperQuestionnaireAttributes]?: StepperQuestionnaire[K] } & { [K in keyof StepperQuestionnaire & keyof StepperQuestionnaireAttributes as `attr:${K}`]?: StepperQuestionnaireAttributes[K] } & { [K in keyof StepperQuestionnaire & keyof StepperQuestionnaireAttributes as `prop:${K}`]?: StepperQuestionnaire[K] } & OneOf<"questionnaire", StepperQuestionnaire["questionnaire"], StepperQuestionnaireAttributes["questionnaire"]>;
+        "string-question": Omit<StringQuestion, keyof StringQuestionAttributes> & { [K in keyof StringQuestion & keyof StringQuestionAttributes]?: StringQuestion[K] } & { [K in keyof StringQuestion & keyof StringQuestionAttributes as `attr:${K}`]?: StringQuestionAttributes[K] } & { [K in keyof StringQuestion & keyof StringQuestionAttributes as `prop:${K}`]?: StringQuestion[K] };
         "test-ui": TestUi;
-        "text-question": TextQuestion;
-        "time-question": TimeQuestion;
-        "url-question": UrlQuestion;
-        "vas-question": VasQuestion;
+        "text-question": Omit<TextQuestion, keyof TextQuestionAttributes> & { [K in keyof TextQuestion & keyof TextQuestionAttributes]?: TextQuestion[K] } & { [K in keyof TextQuestion & keyof TextQuestionAttributes as `attr:${K}`]?: TextQuestionAttributes[K] } & { [K in keyof TextQuestion & keyof TextQuestionAttributes as `prop:${K}`]?: TextQuestion[K] };
+        "time-question": Omit<TimeQuestion, keyof TimeQuestionAttributes> & { [K in keyof TimeQuestion & keyof TimeQuestionAttributes]?: TimeQuestion[K] } & { [K in keyof TimeQuestion & keyof TimeQuestionAttributes as `attr:${K}`]?: TimeQuestionAttributes[K] } & { [K in keyof TimeQuestion & keyof TimeQuestionAttributes as `prop:${K}`]?: TimeQuestion[K] };
+        "url-question": Omit<UrlQuestion, keyof UrlQuestionAttributes> & { [K in keyof UrlQuestion & keyof UrlQuestionAttributes]?: UrlQuestion[K] } & { [K in keyof UrlQuestion & keyof UrlQuestionAttributes as `attr:${K}`]?: UrlQuestionAttributes[K] } & { [K in keyof UrlQuestion & keyof UrlQuestionAttributes as `prop:${K}`]?: UrlQuestion[K] };
+        "vas-question": Omit<VasQuestion, keyof VasQuestionAttributes> & { [K in keyof VasQuestion & keyof VasQuestionAttributes]?: VasQuestion[K] } & { [K in keyof VasQuestion & keyof VasQuestionAttributes as `attr:${K}`]?: VasQuestionAttributes[K] } & { [K in keyof VasQuestion & keyof VasQuestionAttributes as `prop:${K}`]?: VasQuestion[K] };
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "attachment-question": LocalJSX.AttachmentQuestion & JSXBase.HTMLAttributes<HTMLAttachmentQuestionElement>;
-            "boolean-question": LocalJSX.BooleanQuestion & JSXBase.HTMLAttributes<HTMLBooleanQuestionElement>;
-            "choice-question": LocalJSX.ChoiceQuestion & JSXBase.HTMLAttributes<HTMLChoiceQuestionElement>;
-            "date-question": LocalJSX.DateQuestion & JSXBase.HTMLAttributes<HTMLDateQuestionElement>;
-            "date-time-question": LocalJSX.DateTimeQuestion & JSXBase.HTMLAttributes<HTMLDateTimeQuestionElement>;
-            "decimal-question": LocalJSX.DecimalQuestion & JSXBase.HTMLAttributes<HTMLDecimalQuestionElement>;
-            "display-question": LocalJSX.DisplayQuestion & JSXBase.HTMLAttributes<HTMLDisplayQuestionElement>;
-            "full-questionnaire": LocalJSX.FullQuestionnaire & JSXBase.HTMLAttributes<HTMLFullQuestionnaireElement>;
-            "group-question": LocalJSX.GroupQuestion & JSXBase.HTMLAttributes<HTMLGroupQuestionElement>;
-            "grouped-questionnaire": LocalJSX.GroupedQuestionnaire & JSXBase.HTMLAttributes<HTMLGroupedQuestionnaireElement>;
-            "information-page": LocalJSX.InformationPage & JSXBase.HTMLAttributes<HTMLInformationPageElement>;
-            "integer-question": LocalJSX.IntegerQuestion & JSXBase.HTMLAttributes<HTMLIntegerQuestionElement>;
-            "questionnaire-renderer": LocalJSX.QuestionnaireRenderer & JSXBase.HTMLAttributes<HTMLQuestionnaireRendererElement>;
-            "questionnaire-summary": LocalJSX.QuestionnaireSummary & JSXBase.HTMLAttributes<HTMLQuestionnaireSummaryElement>;
-            "select-element": LocalJSX.SelectElement & JSXBase.HTMLAttributes<HTMLSelectElementElement>;
-            "simple-spinner": LocalJSX.SimpleSpinner & JSXBase.HTMLAttributes<HTMLSimpleSpinnerElement>;
-            "stepper-questionnaire": LocalJSX.StepperQuestionnaire & JSXBase.HTMLAttributes<HTMLStepperQuestionnaireElement>;
-            "string-question": LocalJSX.StringQuestion & JSXBase.HTMLAttributes<HTMLStringQuestionElement>;
-            "test-ui": LocalJSX.TestUi & JSXBase.HTMLAttributes<HTMLTestUiElement>;
-            "text-question": LocalJSX.TextQuestion & JSXBase.HTMLAttributes<HTMLTextQuestionElement>;
-            "time-question": LocalJSX.TimeQuestion & JSXBase.HTMLAttributes<HTMLTimeQuestionElement>;
-            "url-question": LocalJSX.UrlQuestion & JSXBase.HTMLAttributes<HTMLUrlQuestionElement>;
-            "vas-question": LocalJSX.VasQuestion & JSXBase.HTMLAttributes<HTMLVasQuestionElement>;
+            "attachment-question": LocalJSX.IntrinsicElements["attachment-question"] & JSXBase.HTMLAttributes<HTMLAttachmentQuestionElement>;
+            "boolean-question": LocalJSX.IntrinsicElements["boolean-question"] & JSXBase.HTMLAttributes<HTMLBooleanQuestionElement>;
+            "choice-question": LocalJSX.IntrinsicElements["choice-question"] & JSXBase.HTMLAttributes<HTMLChoiceQuestionElement>;
+            "date-question": LocalJSX.IntrinsicElements["date-question"] & JSXBase.HTMLAttributes<HTMLDateQuestionElement>;
+            "date-time-question": LocalJSX.IntrinsicElements["date-time-question"] & JSXBase.HTMLAttributes<HTMLDateTimeQuestionElement>;
+            "decimal-question": LocalJSX.IntrinsicElements["decimal-question"] & JSXBase.HTMLAttributes<HTMLDecimalQuestionElement>;
+            "display-question": LocalJSX.IntrinsicElements["display-question"] & JSXBase.HTMLAttributes<HTMLDisplayQuestionElement>;
+            "full-questionnaire": LocalJSX.IntrinsicElements["full-questionnaire"] & JSXBase.HTMLAttributes<HTMLFullQuestionnaireElement>;
+            "group-question": LocalJSX.IntrinsicElements["group-question"] & JSXBase.HTMLAttributes<HTMLGroupQuestionElement>;
+            "grouped-questionnaire": LocalJSX.IntrinsicElements["grouped-questionnaire"] & JSXBase.HTMLAttributes<HTMLGroupedQuestionnaireElement>;
+            "information-page": LocalJSX.IntrinsicElements["information-page"] & JSXBase.HTMLAttributes<HTMLInformationPageElement>;
+            "integer-question": LocalJSX.IntrinsicElements["integer-question"] & JSXBase.HTMLAttributes<HTMLIntegerQuestionElement>;
+            "questionnaire-renderer": LocalJSX.IntrinsicElements["questionnaire-renderer"] & JSXBase.HTMLAttributes<HTMLQuestionnaireRendererElement>;
+            "questionnaire-summary": LocalJSX.IntrinsicElements["questionnaire-summary"] & JSXBase.HTMLAttributes<HTMLQuestionnaireSummaryElement>;
+            "select-element": LocalJSX.IntrinsicElements["select-element"] & JSXBase.HTMLAttributes<HTMLSelectElementElement>;
+            "simple-spinner": LocalJSX.IntrinsicElements["simple-spinner"] & JSXBase.HTMLAttributes<HTMLSimpleSpinnerElement>;
+            "stepper-questionnaire": LocalJSX.IntrinsicElements["stepper-questionnaire"] & JSXBase.HTMLAttributes<HTMLStepperQuestionnaireElement>;
+            "string-question": LocalJSX.IntrinsicElements["string-question"] & JSXBase.HTMLAttributes<HTMLStringQuestionElement>;
+            "test-ui": LocalJSX.IntrinsicElements["test-ui"] & JSXBase.HTMLAttributes<HTMLTestUiElement>;
+            "text-question": LocalJSX.IntrinsicElements["text-question"] & JSXBase.HTMLAttributes<HTMLTextQuestionElement>;
+            "time-question": LocalJSX.IntrinsicElements["time-question"] & JSXBase.HTMLAttributes<HTMLTimeQuestionElement>;
+            "url-question": LocalJSX.IntrinsicElements["url-question"] & JSXBase.HTMLAttributes<HTMLUrlQuestionElement>;
+            "vas-question": LocalJSX.IntrinsicElements["vas-question"] & JSXBase.HTMLAttributes<HTMLVasQuestionElement>;
         }
     }
 }

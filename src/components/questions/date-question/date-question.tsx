@@ -29,7 +29,7 @@ export class DateQuestion {
   @Watch('selected')
   watchSelected() {
     let object = null;
-    if (this.validate) {
+    if (this.validate && this.selected !== null && this.selected !== "") {
       object = {
         type: 'date',
         question: this.question,
@@ -42,7 +42,9 @@ export class DateQuestion {
         value: [],
       };
     }
-    this.emitAnswer.emit(object);
+    if(this.allow_events){
+      this.emitAnswer.emit(object);
+    }
   }
 
   @Prop() question: any;
@@ -86,6 +88,7 @@ export class DateQuestion {
     this.strings = await getLocaleComponentStrings(this.element, newValue, this.enableInformalLocale);
   }
 
+  @State() onlyDatePicker: boolean = false;
   /**
    * Allows events to be emitted if true
    */
@@ -98,7 +101,7 @@ export class DateQuestion {
   /* computed */
   validate() {
     let regex = new RegExp(this.dateRegex);
-    return (this.selected ? true : false) && regex.test(this.selected);
+    return regex.test(this.selected);
   }
 
   /* methods */
@@ -120,9 +123,11 @@ export class DateQuestion {
       if (extension && extension.valueBoolean) {
         input.addEventListener('keydown', this.preventKeyDown);
         input.setAttribute('max', moment(new Date()).format('YYYY-MM-DD'));
+        this.onlyDatePicker = true;
       } else {
         input.removeEventListener('keydown', this.preventKeyDown);
-        input.setAttribute('max', '9999-12-31');
+        input.removeAttribute('max');
+        this.onlyDatePicker = false;
       }
     }
   }
@@ -130,6 +135,7 @@ export class DateQuestion {
   createDateInputId() {
     return this.question.linkId + '-dateInput';
   }
+
   /**
    * Emits an error-event
    */
@@ -179,9 +185,10 @@ export class DateQuestion {
           <div class="qr-question-optionCard">
             {this.strings ? (
               <label class="qr-question-inputLabel qr-dateQuestion-inputLabel" htmlFor="date">
-                {this.strings.date.text}:
+                {this.onlyDatePicker ? this.strings.date.select : this.strings.date.text}:
               </label>
             ) : null}
+
             <input id={this.createDateInputId()} type="date" class="form-control qr-question-input qr-dateQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly} />
           </div>
           <br />

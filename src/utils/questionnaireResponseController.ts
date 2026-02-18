@@ -390,7 +390,7 @@ function getGroupsAndItems(varitem, itemList) {
  * @param {Object} answer
  */
 export function getAnswerType(answer) {
-  if (answer && answer.length !== 0) {
+  if (answer !== null && answer.length !== 0) {
     if (answer[0].valueBoolean || answer[0].valueBoolean === false) {
       return valueTypes.BOOLEAN;
     } else if (answer[0].valueDecimal || answer[0].valueDecimal === 0) {
