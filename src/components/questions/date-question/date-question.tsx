@@ -29,7 +29,7 @@ export class DateQuestion {
   @Watch('selected')
   watchSelected() {
     let object = null;
-    if (this.validate && this.selected !== null) {
+    if (this.validate && this.selected !== null && this.selected !== "") {
       object = {
         type: 'date',
         question: this.question,
