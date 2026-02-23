@@ -45,6 +45,9 @@
     "Components",
     "Stencil"
   ],
-  "repository": "github:molitinstitute/questionnaire-renderer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/molit-institute/questionnaire-renderer"
+  },
   "author": "MOLIT Insitut gGmbH"
 }
