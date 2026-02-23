@@ -5,6 +5,10 @@ on:
   release:
     types: [created]
 
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
 jobs:
   # This workflow contains a single job called "publish"
   publish:
@@ -45,8 +49,4 @@ jobs:
 
       # Publish if all previous steps run through
       - name: Publish 🚀
-        if: ${{ success() }}
-        uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_AUTH_TOKEN }}
-          access: public
+        run: npm publish
