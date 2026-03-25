@@ -30,7 +30,7 @@
     "choices.js": "^11.2.1",
     "dayjs": "^1.11.20",
     "dompurify": "^3.3.3",
-    "fhirpath": "^4.9.1",
+    "fhirpath": "^4.8.5",
     "lodash.debounce": "^4.0.8",
     "uuid": "^13.0.0"
   },

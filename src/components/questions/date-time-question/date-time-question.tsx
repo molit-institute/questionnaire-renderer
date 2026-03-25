@@ -26,7 +26,7 @@ export class DateTimeQuestion {
   @State() date: any = '';
   @Watch('date')
   watchDate() {
-    this.dateTime = dayjs(this.date + 'T00:00:00-00:00').format();
+    this.dateTime = dayjs(this.date + 'T00:00:00-00:00').format("YYYY-MM-DDTHH:mm:ss");
   }
   /**
    * Variable to store the time of the input
@@ -34,7 +34,7 @@ export class DateTimeQuestion {
   @State() time: any = '';
   @Watch('time')
   watchTime() {
-    this.dateTime = dayjs(this.date + 'T' + this.time + ':00').format();
+    this.dateTime = dayjs(this.date + 'T' + this.time + ':00').format("YYYY-MM-DDTHH:mm:ss");
   }
   /**
    * Variable to store the dateTime of the input
