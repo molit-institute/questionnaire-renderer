@@ -6,7 +6,7 @@ import questionnaireResponseController from '../../../utils/questionnaireRespons
 import questionnaireController from '../../../utils/questionnaireController';
 import { getLocaleComponentStrings } from '../../../utils/locale';
 import { textToHtml } from '../../../utils/textToHtml';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 @Component({
   tag: 'date-question',
@@ -122,7 +122,7 @@ export class DateQuestion {
     if (input) {
       if (extension && extension.valueBoolean) {
         input.addEventListener('keydown', this.preventKeyDown);
-        input.setAttribute('max', moment(new Date()).format('YYYY-MM-DD'));
+        input.setAttribute('max', dayjs(new Date()).format('YYYY-MM-DD'));
         this.onlyDatePicker = true;
       } else {
         input.removeEventListener('keydown', this.preventKeyDown);

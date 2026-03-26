@@ -1,6 +1,6 @@
 {
   "name": "@molit/questionnaire-renderer",
-  "version": "1.0.52",
+  "version": "1.0.53",
   "private": false,
   "description": "Stencil Component for questionnaire-renderer",
   "main": "dist/index.cjs.js",
@@ -26,19 +26,18 @@
   "dependencies": {
     "@molit/fhir-api": "^1.0.44",
     "@molit/fhir-util": "^1.0.24",
-    "@stencil/core": "^4.43.0",
-    "choices.js": "^11.1.0",
-    "dayjs": "^1.11.19",
-    "dompurify": "^3.3.1",
+    "@stencil/core": "^4.43.3",
+    "choices.js": "^11.2.1",
+    "dayjs": "^1.11.20",
+    "dompurify": "^3.3.3",
     "fhirpath": "^4.8.5",
     "lodash.debounce": "^4.0.8",
-    "moment": "^2.30.1",
     "uuid": "^13.0.0"
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "@types/node": "^22.19.11",
-    "puppeteer": "^24.37.3"
+    "@types/node": "^22.19.15",
+    "puppeteer": "^24.40.0"
   },
   "keywords": [
     "FHIR",

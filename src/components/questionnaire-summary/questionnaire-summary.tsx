@@ -9,6 +9,7 @@ import questionnaireController from '../../utils/questionnaireController';
 import bundleController from '../../utils/bundleController';
 import { cloneDeep } from 'lodash';
 import { textToHtml } from '../../utils/textToHtml';
+import dayjs from 'dayjs';
 
 @Component({
   tag: 'questionnaire-summary',
@@ -162,10 +163,18 @@ export class QuestionnaireSummary {
             answer = question.answer[0].valueInteger;
             break;
           case 'date':
-            answer = question.answer[0].valueDate;
+            if (this.locale === 'de') {
+              answer = dayjs(question.answer[0].valueDate).format('DD.MM.YYYY');
+            } else {
+              answer = dayjs(question.answer[0].valueDate).format('YYYY-MM-DD');
+            }
             break;
           case 'dateTime':
-            answer = question.answer[0].valueDateTime;
+            if (this.locale === 'de') {
+              answer = dayjs(question.answer[0].valueDateTime).format('DD.MM.YYYY HH:mm');
+            } else {
+              answer = dayjs(question.answer[0].valueDateTime).format('YYYY-MM-DD HH:mm');
+            }
             break;
           case 'time':
             answer = question.answer[0].valueTime;
@@ -264,7 +273,7 @@ export class QuestionnaireSummary {
       questionnaireResponseController.removeQuestionnaireResponseDisplayQuestions(questResp.item);
 
       try {
-        let bundle = bundleController.buildBundle(questResp, task, "completed", this.questionnaireResponseStatus,this.subject);
+        let bundle = bundleController.buildBundle(questResp, task, 'completed', this.questionnaireResponseStatus, this.subject);
         await fhirApi.submitResourceToUrl(this.baseUrl, bundle, this.token, this.basicAuth);
       } catch (error) {
         this.emitError(error);

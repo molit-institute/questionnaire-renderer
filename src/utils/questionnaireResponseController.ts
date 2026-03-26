@@ -1,5 +1,5 @@
 import { QuestionnaireResponse, Item, Answer } from './questionnaireResponse';
-import dateTimeController from './dateTimeController';
+import dayjs from 'dayjs';
 import { valueTypes } from './valueTypes';
 import * as fhirApi from '@molit/fhir-util';
 
@@ -50,7 +50,7 @@ export function createQuestionnaireResponse(questionnaire, subject, questionnair
     if (questionnaireResponse && questionnaireResponse.authored) {
       questResp.authored = questionnaireResponse.authored;
     } else {
-      questResp.authored = dateTimeController.getTimestamp();
+      questResp.authored = dayjs().format("YYYY-MM-DDTHH:mm:ss");
     }
     //ITEMS | filling item with items
     if (questionnaire.item) {

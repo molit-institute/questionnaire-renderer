@@ -4,7 +4,7 @@
 import { Component, h, Prop, Watch, State, Element, Event, EventEmitter } from '@stencil/core';
 import questionnaireResponseController from '../../../utils/questionnaireResponseController';
 import { getLocaleComponentStrings } from '../../../utils/locale';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { textToHtml } from '../../../utils/textToHtml';
 
 @Component({
@@ -26,7 +26,7 @@ export class DateTimeQuestion {
   @State() date: any = '';
   @Watch('date')
   watchDate() {
-    this.dateTime = moment(this.date + 'T00:00:00-00:00').format();
+    this.dateTime = dayjs(this.date + 'T00:00:00-00:00').format("YYYY-MM-DDTHH:mm:ss");
   }
   /**
    * Variable to store the time of the input
@@ -34,7 +34,7 @@ export class DateTimeQuestion {
   @State() time: any = '';
   @Watch('time')
   watchTime() {
-    this.dateTime = moment(this.date + 'T' + this.time + ':00').format();
+    this.dateTime = dayjs(this.date + 'T' + this.time + ':00').format("YYYY-MM-DDTHH:mm:ss");
   }
   /**
    * Variable to store the dateTime of the input
@@ -135,8 +135,8 @@ export class DateTimeQuestion {
   getDateAndTime() {
     if (this.getAnswer()) {
       let datetime = this.getAnswer();
-      this.date = moment(datetime).format('YYYY-MM-DD');
-      this.time = moment(datetime).format('HH:mm');
+      this.date = dayjs(datetime).format('YYYY-MM-DD');
+      this.time = dayjs(datetime).format('HH:mm');
     } else {
       (this.date = ''), (this.time = '');
     }
