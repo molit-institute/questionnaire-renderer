@@ -26,18 +26,18 @@
   "dependencies": {
     "@molit/fhir-api": "^1.0.44",
     "@molit/fhir-util": "^1.0.24",
-    "@stencil/core": "^4.43.3",
-    "choices.js": "^11.2.1",
+    "@stencil/core": "^4.43.4",
+    "choices.js": "^11.2.2",
     "dayjs": "^1.11.20",
-    "dompurify": "^3.3.3",
+    "dompurify": "^3.4.1",
     "fhirpath": "^4.8.5",
     "lodash.debounce": "^4.0.8",
-    "uuid": "^13.0.0"
+    "uuid": "^14.0.0"
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "@types/node": "^22.19.15",
-    "puppeteer": "^24.40.0"
+    "@types/node": "^25.6.0",
+    "puppeteer": "^24.42.0"
   },
   "keywords": [
     "FHIR",
