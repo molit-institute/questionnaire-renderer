@@ -191,7 +191,6 @@ export class DateQuestion {
 
             <input id={this.createDateInputId()} type="date" class="form-control qr-question-input qr-dateQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly} />
           </div>
-          <br />
         </div>
       </div>
     );

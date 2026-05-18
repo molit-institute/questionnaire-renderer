@@ -172,7 +172,6 @@ export class TextQuestion {
               <textarea id="textarea" class="form-control qr-question-input qr-textQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly} />
             </div>
           </div>
-          <br />
         </div>
       </div>
     );

@@ -290,7 +290,6 @@ export class IntegerQuestion {
                   ) : null}
                 </div>
               </div>
-              <br />
             </div>
           )}
         </div>

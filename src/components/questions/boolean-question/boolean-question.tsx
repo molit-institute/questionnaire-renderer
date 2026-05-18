@@ -226,7 +226,6 @@ export class BooleanQuestion {
               </div>
             ) : null}
           </div>
-          <br />
         </div>
       </div>
     );
