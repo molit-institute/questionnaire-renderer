@@ -171,7 +171,6 @@ export class StringQuestion {
             ) : null}
             <input id="string" type="text" class="form-control qr-question-input qr-stringQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly} />
           </div>
-          <br />
         </div>
       </div>
     );

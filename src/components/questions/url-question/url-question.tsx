@@ -214,7 +214,6 @@ export class UrlQuestion {
               </div>
             </div>
           </div>
-          <br />
         </div>
       </div>
     );

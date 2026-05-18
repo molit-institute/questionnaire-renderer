@@ -367,7 +367,6 @@ export class StepperQuestionnaire {
             </div>
           ) : null}
         </div>
-        <br />
         {this.count !== null && this.filteredItemList && !this.checkIfGroupDisplay(this.getQuestion()) ? (
           <div class="qr-stepperQuestionnaire-questions">
             {this.enableGroupDescription ? <span>{this.getQuestion().groupId && !this.getQuestion().item ? <div class="qr-stepperQuestionnaire-group-text">{this.getGroupText(this.getQuestion())}</div> : null}</span> : null}

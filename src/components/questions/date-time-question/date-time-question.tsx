@@ -227,7 +227,6 @@ export class DateTimeQuestion {
               </div>
             </div>
           </div>
-          <br />
         </div>
       </div>
     );

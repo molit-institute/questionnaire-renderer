@@ -163,7 +163,6 @@ export class TimeQuestion {
               <input id="time" type="time" class="form-control qr-question-input qr-timeQuestion-input" value={this.selected} onInput={e => this.handleChange(e)} disabled={this.question.readOnly} />
             </div>
           </div>
-          <br />
         </div>
       </div>
     );
