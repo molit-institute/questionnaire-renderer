@@ -144,8 +144,9 @@ function addItemToList(answersList, itemList, newItemList) {
         }
       }
       if (itemList[i].enableBehavior) {
-        switch (itemList[i].enableBehavior) {
-          case 'All':
+        let enableBehavior = itemList[i].enableBehavior.toLowerCase()
+        switch (enableBehavior) {
+          case 'all':
             if (results.length === itemList[i].enableWhen.length) {
               newItemList.push(itemList[i]);
               if (itemList[i].type === 'group') {
@@ -153,7 +154,7 @@ function addItemToList(answersList, itemList, newItemList) {
               }
             }
             break;
-          case 'Any':
+          case 'any':
             if (results.length > 0) {
               newItemList.push(itemList[i]);
               if (itemList[i].type === 'group') {
