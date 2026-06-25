@@ -7,24 +7,61 @@ const vomitQuestionnaire = {
   description: 'This a short demo questionnaire showcasing different types of questions and functions',
   publisher: 'MOLIT Institut gGmbH',
   item: [
+    {
+      linkId: '5',
+      prefix: '5.',
+      text: 'boolean',
+      type: 'boolean',
+      initial: [{ "valueBoolean": true }]
+    },
+    {
+      linkId: '6',
+      prefix: '6.',
+      text: 'boolean',
+      type: 'boolean',
+    },
+    {
+      linkId: '8',
+      prefix: '8.',
+      text: 'boolean',
+      type: 'boolean',
+    },
     // {
-    //   linkId: '3',
-    //   prefix: '1.',
-    //   text: 'boolean',
-    //   type: 'boolean',
+    //   linkId: "4.1",
+    //   prefix: "11.",
+    //   text: "Date Frage 1 ohne Extension",
+    //   type: "dateTime"
+    // },
+    // {
+    //   linkId: "4.2",
+    //   prefix: "12.",
+    //   text: "Date Frage 2 ohne Extension",
+    //   type: "date"
     // },
     {
-      linkId: "4.1",
-      prefix: "11.",
-      text: "Date Frage 1 ohne Extension",
-      type: "dateTime"
-    },
-    {
-      linkId: "4.2",
-      prefix: "12.",
-      text: "Date Frage 2 ohne Extension",
-      type: "date"
-    },
+      linkId: "12",
+      text: "Zeitachse",
+      type: "boolean",
+      enableBehavior:"any",
+      enableWhen: [
+        {
+          question: "5",
+          operator: "=",
+          answerBoolean: true
+        },
+        {
+          question: "6",
+          operator: "=",
+          answerBoolean: true
+        },
+        {
+          question: "8",
+          operator: "=",
+          answerBoolean: true
+        }
+      ]
+    }
+
     // {
     //   linkId: "4",
     //   prefix: "1.",
