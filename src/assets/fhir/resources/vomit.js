@@ -38,29 +38,29 @@ const vomitQuestionnaire = {
     //   text: "Date Frage 2 ohne Extension",
     //   type: "date"
     // },
-    {
-      linkId: "12",
-      text: "Zeitachse",
-      type: "boolean",
-      enableBehavior:"any",
-      enableWhen: [
-        {
-          question: "5",
-          operator: "=",
-          answerBoolean: true
-        },
-        {
-          question: "6",
-          operator: "=",
-          answerBoolean: true
-        },
-        {
-          question: "8",
-          operator: "=",
-          answerBoolean: true
-        }
-      ]
-    }
+    // {
+    //   linkId: "12",
+    //   text: "Zeitachse",
+    //   type: "boolean",
+    //   enableBehavior:"any",
+    //   enableWhen: [
+    //     {
+    //       question: "5",
+    //       operator: "=",
+    //       answerBoolean: true
+    //     },
+    //     {
+    //       question: "6",
+    //       operator: "=",
+    //       answerBoolean: true
+    //     },
+    //     {
+    //       question: "8",
+    //       operator: "=",
+    //       answerBoolean: true
+    //     }
+    //   ]
+    // }
 
     // {
     //   linkId: "4",
@@ -193,19 +193,19 @@ const vomitQuestionnaire = {
     //     },
     //   ],
     // },
-    // {
-    //   linkId: "1.1",
-    //   prefix: "1.1 ",
-    //   text: "Beantworten Sie bitte die folgende Frage unabhängig davon, inwieweit Sie zurzeit sexuell aktiv sind. Wenn Sie die Frage lieber nicht beantworten möchten, fahren Sie mit dem nächsten Abschnitt fort.<br><br><i><u>Ich bin mit meinem Sexualleben zufrieden</u></i>",
-    //   type: "boolean",
-    //     extension: [
-    //       {
-    //         url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
-    //         hidden: true
-    //       }
-    //     ],
-    //   answerValueSet: ""
-    // },
+    {
+      linkId: "1.1",
+      prefix: "1.1 ",
+      text: "Beantworten Sie bitte die folgende Frage unabhängig davon, inwieweit Sie zurzeit sexuell aktiv sind. Wenn Sie die Frage lieber nicht beantworten möchten, fahren Sie mit dem nächsten Abschnitt fort.<br><br><i><u>Ich bin mit meinem Sexualleben zufrieden</u></i>",
+      type: "boolean",
+        extension: [
+          {
+            url: "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+            valueBoolean: true
+          }
+        ],
+      answerValueSet: ""
+    },
     // {
     //   linkId: "2",
     //   prefix: "2.",

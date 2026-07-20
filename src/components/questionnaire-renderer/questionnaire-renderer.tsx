@@ -819,7 +819,7 @@ export class QuestionnaireRenderer {
 
     newItemList = newItemList.filter(item => {
       let hiddenExtension = questionnaireController.lookForExtension(URL_QUESTIONNAIRE_HIDDEN, item);
-      return hiddenExtension == null || !hiddenExtension.hidden;
+      return hiddenExtension == null || !hiddenExtension.valueBoolean;
     });
 
     this.filteredItemList = newItemList;
