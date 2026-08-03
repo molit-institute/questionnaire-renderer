@@ -44,13 +44,20 @@ export function createQuestionnaireResponse(questionnaire, subject, questionnair
           reference: subject.resourceType + '/' + subject.id,
         };
       }
+    } else if (questionnaireResponse) {
+      if (questionnaireResponse.source) {
+        questResp.source = questionnaireResponse.source;
+      }
+      if (questionnaireResponse.subject) {
+        questResp.subject = questionnaireResponse.subject;
+      }
     }
 
     //AUTHORED date when response created
     if (questionnaireResponse && questionnaireResponse.authored) {
       questResp.authored = questionnaireResponse.authored;
     } else {
-      questResp.authored = dayjs().format("YYYY-MM-DDTHH:mm:ss");
+      questResp.authored = dayjs().format('YYYY-MM-DDTHH:mm:ss');
     }
     //ITEMS | filling item with items
     if (questionnaire.item) {
