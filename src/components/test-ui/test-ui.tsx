@@ -39,7 +39,55 @@ export class TestUi {
   @State() questionnaireUrlIdentifier: any = 'https://molit.eu/fhir/Questionnaire/qlq30';
   questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, q_5d_5l, vomit, lion, dropdown_test];
   @State() token: string = null;
-  testResp: object = null;
+  // testResp: object = null;
+
+  testResp: any = {
+    resourceType: 'QuestionnaireResponse',
+    id: null,
+    questionnaire: 'http://fhir.molit.eu/fhir/Questionnaire/test',
+    status: 'in-progress',
+    subject: {
+      reference: 'Patient/105',
+      display: 'Charles Charts',
+    },
+    authored: '2026-08-03T10:15:45',
+    source: {
+      reference: 'Patient/105',
+      display: 'Charles Charts',
+    },
+    item: [
+      {
+        linkId: '5',
+        text: 'boolean',
+        answer: [
+          {
+            valueBoolean: true,
+          },
+        ],
+        item: null,
+        type: '',
+      },
+      {
+        linkId: '6',
+        text: 'boolean',
+        answer: [
+          {
+            valueBoolean: false,
+          },
+        ],
+        item: null,
+        type: '',
+      },
+      {
+        linkId: '8',
+        text: 'boolean',
+        answer: [],
+        item: null,
+        type: '',
+      },
+    ],
+  };
+
   /* computed */
   examplePatient() {
     return examplePatient;
@@ -71,9 +119,9 @@ export class TestUi {
   //   name: [
   //     {
   //       use: 'official',
-  //       text: 'Charles Charts',
+  //       text: 'Peter Charts',
   //       family: 'Charts',
-  //       given: ['Charles'],
+  //       given: ['Peter'],
   //     },
   //   ],
   //   gender: 'male',
@@ -204,12 +252,12 @@ export class TestUi {
                 Fhir Base Url: <input type="text" style={{ 'min-width': '50%' }} value={this.baseUrl} onInput={this.handleBaseUrlInput}></input>
               </div>
               <br />
-              
+
               <div>
                 Questionnaire Url: <input type="text" style={{ 'min-width': '50%', 'margin': '0 0 10px 0' }} value={this.questionnaireUrlIdentifier} onInput={this.handleUrlInput}></input>
               </div>
               <button onClick={() => this.startQuestionnaire()}>Start with Questionnaire Url</button>
-              
+
               <br />
               <br />
               {this.show_questionnaire_list
@@ -230,7 +278,7 @@ export class TestUi {
                   informationPageText="<u>Test</u> Information <br> PageText"
                   // questionnaireResponse={this.questionnaireResponse}
                   // questionnaireResponse={lion_response}
-                  questionnaireResponse={this.questionnaireResponse}
+                  questionnaireResponse={this.testResp}
                   questionnaire={this.questionnaire}
                   // questionnaireUrl={this.questionnaireUrl}
                   baseUrl={this.baseUrl}
