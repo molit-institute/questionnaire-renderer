@@ -1,6 +1,6 @@
 {
   "name": "@molit/questionnaire-renderer",
-  "version": "1.0.58",
+  "version": "1.0.59",
   "private": false,
   "description": "Stencil Component for questionnaire-renderer",
   "main": "dist/index.cjs.js",
@@ -30,7 +30,7 @@
     "choices.js": "^11.2.4",
     "dayjs": "^1.11.23",
     "dompurify": "^3.4.15",
-    "fhirpath": "^4.8.5",
+    "fhirpath": "^5.2.0",
     "lodash.debounce": "^4.0.8",
     "uuid": "^14.0.2"
   },
@@ -38,6 +38,11 @@
   "devDependencies": {
     "@types/node": "^26.4.1",
     "puppeteer": "^25.10.0"
+  },
+  "overrides": {
+    "@lhncbc/ucum-lhc": {
+      "csv-parse": "^7.0.2"
+    }
   },
   "keywords": [
     "FHIR",
