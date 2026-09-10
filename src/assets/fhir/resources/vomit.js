@@ -13,20 +13,50 @@ const vomitQuestionnaire = {
       text: 'boolean',
       type: 'boolean',
       initial: [{ "valueBoolean": true }],
-      readOnly: true
+      // readOnly: true
     },
-    // {
-    //   linkId: '6',
-    //   prefix: '6.',
-    //   text: 'boolean',
-    //   type: 'boolean',
-    // },
-    // {
-    //   linkId: '8',
-    //   prefix: '8.',
-    //   text: 'boolean',
-    //   type: 'boolean',
-    // },
+    {
+      linkId: '6',
+      prefix: '6.',
+      text: 'boolean',
+      type: 'boolean',
+      initial: [{ "valueBoolean": true }],
+    },
+    {
+      linkId: '7',
+      prefix: '7.',
+      text: 'boolean',
+      type: 'boolean',
+      initial: [{ "valueBoolean": true }],
+    },
+    {
+      linkId: '8',
+      prefix: '8.',
+      text: 'boolean',
+      type: 'boolean',
+      initial: [{ "valueBoolean": true }],
+      enableWhen: [
+        {
+          question: "6",
+          operator: "=",
+          answerBoolean: true
+        },
+      ],
+    },
+    {
+      linkId: '9',
+      prefix: '9.',
+      text: 'boolean',
+      type: 'boolean',
+      initial: [{ "valueBoolean": true }],
+    },
+    {
+      linkId: '10',
+      prefix: '10.',
+      text: 'boolean',
+      type: 'boolean',
+      initial: [{ "valueBoolean": true }],
+    },
     // {
     //   linkId: "4.1",
     //   prefix: "11.",

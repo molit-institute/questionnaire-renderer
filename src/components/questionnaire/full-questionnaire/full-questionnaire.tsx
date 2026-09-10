@@ -167,7 +167,7 @@ export class FullQuestionnaire {
               const Tag = this.getQuestionType(question.type);
 
               return (
-                <span class="list-complete-item">
+                <span class="list-complete-item" key={question.linkId}>
                   <div id={index.toString()} class={question.groupId ? 'card card-basic-margins qr-group-item' : 'card card-basic-margins'}>
                     {this.strings ? (
                       <div class="card-body">

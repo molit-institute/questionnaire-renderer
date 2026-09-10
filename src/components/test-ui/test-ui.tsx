@@ -19,7 +19,7 @@ import dropdown_test from '../../assets/fhir/resources/dropdown_test_questionnai
   scoped: true,
 })
 export class TestUi {
-  @State() questionnaireMode: string = 'stepper-questionnaire';
+  @State() questionnaireMode: string = 'full-questionnaire';
   @State() questionnaireResponse: object = null;
   @State() bundle: object = null;
   @State() show_questionnaire_list: boolean = true;

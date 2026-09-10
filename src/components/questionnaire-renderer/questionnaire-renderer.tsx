@@ -33,7 +33,7 @@ export class QuestionnaireRenderer {
     this.handleAnsweredQuestionsList();
     await this.handleExpressionCheck();
     this.updated.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
-    this.updatedBundle.emit(await bundleController.buildBundle(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse),this.task,"in-progress",this.questionnaireResponseStatus,this.subject))
+    this.updatedBundle.emit(await bundleController.buildBundle(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse), this.task, 'in-progress', this.questionnaireResponseStatus, this.subject));
   }
   @State() spinner: any = {
     loading: true,
@@ -53,7 +53,7 @@ export class QuestionnaireRenderer {
    * FHIR-Resource QuestionnaireResponse
    */
   @Prop() questionnaireResponse: any = null;
-  
+
   /**
    * Current type of Questionnaire-Style to display
    * Available: stepper-questionnaire, grouped-questionnaire, full-questionnaire
@@ -330,37 +330,37 @@ export class QuestionnaireRenderer {
       }
     }
   }
-  
+
   /**
    *
-  */
- toQuestionnaire(lastQuestion) {
-   this.show_informationPage = false;
-   this.lastAnsweredQuestion = null;
-   this.currentStartCount = null;
-   this.start_question = null;
-   this.edit_mode = false;
-   this.last_question = lastQuestion;
-   this.show_summary = false;
-   this.show_questionnaire = true;
+   */
+  toQuestionnaire(lastQuestion) {
+    this.show_informationPage = false;
+    this.lastAnsweredQuestion = null;
+    this.currentStartCount = null;
+    this.start_question = null;
+    this.edit_mode = false;
+    this.last_question = lastQuestion;
+    this.show_summary = false;
+    this.show_questionnaire = true;
   }
-  
+
   /**
    *
    * @param question
-  */
- async editQuestion(question) {
-   this.edit_mode = true;
-   this.start_question = question.detail;
-   await this.handleStartQuestion(this.start_question);
-   this.show_summary = false;
-   this.last_question = false;
-   this.show_questionnaire = true;
+   */
+  async editQuestion(question) {
+    this.edit_mode = true;
+    this.start_question = question.detail;
+    await this.handleStartQuestion(this.start_question);
+    this.show_summary = false;
+    this.last_question = false;
+    this.show_questionnaire = true;
   }
-  
+
   /**
    * Emits an Event wich includes the finished Questionnaire Response
-  */
+   */
   @Event() finished: EventEmitter;
   @Event() finishedBundle: EventEmitter;
   async finishQuestionnaire(questionnaireResponse) {
@@ -372,7 +372,7 @@ export class QuestionnaireRenderer {
         this.start_question = null;
       }
       this.finished.emit(questionnaireResponse);
-      this.finishedBundle.emit( await bundleController.buildBundle(questionnaireResponse,this.task,"completed",this.questionnaireResponseStatus,this.subject))
+      this.finishedBundle.emit(await bundleController.buildBundle(questionnaireResponse, this.task, 'completed', this.questionnaireResponseStatus, this.subject));
     } else {
       if (this.enableSummary) {
         this.edit_mode = false;
@@ -387,7 +387,7 @@ export class QuestionnaireRenderer {
         questionnaireResponse.status = 'completed';
       }
       this.finished.emit(await this.filterQuestionnaireResponse(questionnaireResponse));
-      this.finishedBundle.emit(await bundleController.buildBundle(await this.filterQuestionnaireResponse(questionnaireResponse),this.task,"completed",this.questionnaireResponseStatus,this.subject))
+      this.finishedBundle.emit(await bundleController.buildBundle(await this.filterQuestionnaireResponse(questionnaireResponse), this.task, 'completed', this.questionnaireResponseStatus, this.subject));
     }
   }
 
@@ -649,7 +649,7 @@ export class QuestionnaireRenderer {
         this.createQuestionnaireResponse();
       }
     } else {
-        this.createQuestionnaireResponse();
+      this.createQuestionnaireResponse();
     }
   }
 
@@ -682,7 +682,7 @@ export class QuestionnaireRenderer {
       let answerType = questionnaireResponseController.getAnswerType(answeredItem.answer);
       let result = null;
       if (answerType === 'string') {
-        result = questionnaireItems.find(questionnaireItem => questionnaireItem.linkId === answeredItem.linkId && (questionnaireItem.type === "text" || questionnaireItem.type === "string"));
+        result = questionnaireItems.find(questionnaireItem => questionnaireItem.linkId === answeredItem.linkId && (questionnaireItem.type === 'text' || questionnaireItem.type === 'string'));
       } else {
         result = questionnaireItems.find(questionnaireItem => questionnaireItem.linkId === answeredItem.linkId && questionnaireItem.type == answerType);
       }
@@ -837,7 +837,7 @@ export class QuestionnaireRenderer {
       this.show_informationPage = true;
     } else {
       this.exit.emit(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse));
-      this.exitBundle.emit(await bundleController.buildBundle(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse),this.task,"in-progress",this.questionnaireResponseStatus,this.subject))
+      this.exitBundle.emit(await bundleController.buildBundle(this.filterQuestionnaireResponse(this.currentQuestionnaireResponse), this.task, 'in-progress', this.questionnaireResponseStatus, this.subject));
     }
   }
 

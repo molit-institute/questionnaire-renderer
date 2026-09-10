@@ -342,6 +342,7 @@ export class GroupedQuestionnaire {
             {this.getQuestionType() === 'group-question' ? (
               <div class="component-container container">
                 <Tag
+                  key={this.getQuestion().linkId}
                   question={this.getQuestion()}
                   mode="GROUPS"
                   filteredItemList={this.filteredItemList}
@@ -362,6 +363,7 @@ export class GroupedQuestionnaire {
               <div class="container">
                 <div class="column card card-body">
                   <Tag
+                    key={this.getQuestion().linkId}
                     question={this.getQuestion()}
                     mode="GROUPS"
                     questionnaireResponse={this.questionnaireResponse}

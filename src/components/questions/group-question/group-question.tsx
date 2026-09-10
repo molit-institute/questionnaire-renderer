@@ -146,7 +146,7 @@ export class GroupQuestion {
               {this.question.item.map(groupquestion => {
                 const Tag = this.getQuestionType(groupquestion);
                 return (
-                  <div class="card-margin-top">
+                  <div class="card-margin-top" key={groupquestion.linkId}>
                     {groupquestion.type == 'group' ? (
                       <div class="card">
                         <div class="card-body">
