@@ -107,7 +107,7 @@ export class BooleanQuestion {
 
   /* methods */
   onCardClick(selectedValue) {
-    this.selected = selectedValue;
+    if(!this.question.readOnly)this.selected = selectedValue;
   }
 
   /**
