@@ -39,54 +39,54 @@ export class TestUi {
   @State() questionnaireUrlIdentifier: any = 'https://molit.eu/fhir/Questionnaire/qlq30';
   questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, q_5d_5l, vomit, lion, dropdown_test];
   @State() token: string = null;
-  // testResp: object = null;
+  testResp: object = null;
 
-  testResp: any = {
-    resourceType: 'QuestionnaireResponse',
-    id: null,
-    questionnaire: 'http://fhir.molit.eu/fhir/Questionnaire/test',
-    status: 'in-progress',
-    subject: {
-      reference: 'Patient/105',
-      display: 'Charles Charts',
-    },
-    authored: '2026-08-03T10:15:45',
-    source: {
-      reference: 'Patient/105',
-      display: 'Charles Charts',
-    },
-    item: [
-      {
-        linkId: '5',
-        text: 'boolean',
-        answer: [
-          {
-            valueBoolean: true,
-          },
-        ],
-        item: null,
-        type: '',
-      },
-      {
-        linkId: '6',
-        text: 'boolean',
-        answer: [
-          {
-            valueBoolean: false,
-          },
-        ],
-        item: null,
-        type: '',
-      },
-      {
-        linkId: '8',
-        text: 'boolean',
-        answer: [],
-        item: null,
-        type: '',
-      },
-    ],
-  };
+  // testResp: any = {
+  //   resourceType: 'QuestionnaireResponse',
+  //   id: null,
+  //   questionnaire: 'http://fhir.molit.eu/fhir/Questionnaire/test',
+  //   status: 'in-progress',
+  //   subject: {
+  //     reference: 'Patient/105',
+  //     display: 'Charles Charts',
+  //   },
+  //   authored: '2026-08-03T10:15:45',
+  //   source: {
+  //     reference: 'Patient/105',
+  //     display: 'Charles Charts',
+  //   },
+  //   item: [
+  //     {
+  //       linkId: '5',
+  //       text: 'boolean',
+  //       answer: [
+  //         {
+  //           valueBoolean: true,
+  //         },
+  //       ],
+  //       item: null,
+  //       type: '',
+  //     },
+  //     {
+  //       linkId: '6',
+  //       text: 'boolean',
+  //       answer: [
+  //         {
+  //           valueBoolean: false,
+  //         },
+  //       ],
+  //       item: null,
+  //       type: '',
+  //     },
+  //     {
+  //       linkId: '8',
+  //       text: 'boolean',
+  //       answer: [],
+  //       item: null,
+  //       type: '',
+  //     },
+  //   ],
+  // };
 
   /* computed */
   examplePatient() {
