@@ -371,7 +371,7 @@ export class StepperQuestionnaire {
           <div class="qr-stepperQuestionnaire-questions">
             {this.enableGroupDescription ? <span>{this.getQuestion().groupId && !this.getQuestion().item ? <div class="qr-stepperQuestionnaire-group-text">{this.getGroupText(this.getQuestion())}</div> : null}</span> : null}
             <Tag
-              key={this.getQuestion().id}
+              key={this.getQuestion().linkId}
               question={this.getQuestion()}
               mode="STEPPER"
               questionnaireResponse={this.questionnaireResponse}

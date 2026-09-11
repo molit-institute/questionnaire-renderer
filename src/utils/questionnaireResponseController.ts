@@ -2,7 +2,11 @@ import { QuestionnaireResponse, Item, Answer } from './questionnaireResponse';
 import dayjs from 'dayjs';
 import { valueTypes } from './valueTypes';
 import * as fhirApi from '@molit/fhir-util';
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
 
+dayjs.extend(utc)
+dayjs.extend(timezone)
 //#region CREATE QUESTIONNAIRE RESPONSE
 
 /**
@@ -57,7 +61,7 @@ export function createQuestionnaireResponse(questionnaire, subject, questionnair
     if (questionnaireResponse && questionnaireResponse.authored) {
       questResp.authored = questionnaireResponse.authored;
     } else {
-      questResp.authored = dayjs().format('YYYY-MM-DDTHH:mm:ss');
+      questResp.authored = dayjs().tz('Europe/Berlin').format('YYYY-MM-DDThh:mm:ssZ');
     }
     //ITEMS | filling item with items
     if (questionnaire.item) {
