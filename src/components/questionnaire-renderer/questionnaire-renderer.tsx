@@ -506,7 +506,19 @@ export class QuestionnaireRenderer {
       await this.removeGroupedDisplayQuestions(this.currentQuestionnaire.item);
     } else if (this.questionnaireUrl) {
       try {
-        this.currentQuestionnaire = await fhirApi.fetchByUrl(this.questionnaireUrl, null, this.token, this.basicAuth);
+        if (this.questionnaireUrl.includes('|')) {
+          if (!this.baseUrl) {
+            throw new Error('Loading a versioned questionnaireUrl (url|version) requires the baseUrl prop to be set');
+          }
+          let [canonicalUrl, version] = this.questionnaireUrl.split('|');
+          let result = await fhirApi.fetchResources(this.baseUrl, 'Questionnaire', { url: canonicalUrl, version: version }, this.token, this.basicAuth);
+          this.currentQuestionnaire = fhirApi.mapFhirResponse(result)[0];
+          if (!this.currentQuestionnaire) {
+            throw new Error('No Questionnaire found for url ' + canonicalUrl + ' with version ' + version);
+          }
+        } else {
+          this.currentQuestionnaire = (await fhirApi.fetchByUrl(this.questionnaireUrl, null, this.token, this.basicAuth)).data;
+        }
         // Add Group-Ids to Questions in Groups
         for (let i = 0; i < this.currentQuestionnaire.item.length; i++) {
           if (this.currentQuestionnaire.item[i].type === 'group') {
@@ -628,9 +640,9 @@ export class QuestionnaireRenderer {
   handleQuestionnaireResponse() {
     if (this.questionnaireResponse) {
       if (this.questionnaireResponse.questionnaire) {
-        let split = this.questionnaireResponse.questionnaire.split('/');
-        let id = split[1];
-        if (this.questionnaireResponse.questionnaire === this.currentQuestionnaire.url || (id && id === this.currentQuestionnaire.id)) {
+        let questionnaireRef = this.questionnaireResponse.questionnaire.split('|')[0];
+        let id = questionnaireRef.split('/')[1];
+        if (questionnaireRef === this.currentQuestionnaire.url || (id && id === this.currentQuestionnaire.id)) {
           this.createQuestionnaireResponse();
           let questionaireResponseItems = questionnaireResponseController.createItemList(this.questionnaireResponse);
           let questionnaireItems = questionnaireResponseController.createItemList(this.currentQuestionnaire);

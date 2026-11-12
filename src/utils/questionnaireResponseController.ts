@@ -27,6 +27,9 @@ export function createQuestionnaireResponse(questionnaire, subject, questionnair
     }
     //QUESTIONNAIRE
     questResp.questionnaire = questionnaire.url;
+    if (questionnaire.version) {
+      questResp.questionnaire = questionnaire.url + '|' + questionnaire.version;
+    }
     //STATUS
     questResp.status = 'in-progress';
     //SOURCE

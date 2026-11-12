@@ -4,6 +4,7 @@ const vomitQuestionnaire = {
   url: 'http://fhir.molit.eu/fhir/Questionnaire/test',
   title: 'demo questionnaire',
   status: 'active',
+  version: '1.0.0',
   description: 'This a short demo questionnaire showcasing different types of questions and functions',
   publisher: 'MOLIT Institut gGmbH',
   item: [
