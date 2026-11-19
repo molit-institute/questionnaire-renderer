@@ -15,7 +15,17 @@ export interface Identifier {
 }
 
 export interface Task {
+  resourceType?: string;
+  id?: string;
+  meta?: any;
+  status?: string;
+  intent?: string;
+  code?: {
+    coding?: Coding[];
+    text?: string;
+  };
   focus?: Reference;
+  for?: Reference;
   input?: Array<{
     type?: { coding?: Coding[] };
     valueReference?: Reference;
@@ -25,12 +35,17 @@ export interface Task {
     valueString?: string;
   }>;
   partOf?: Reference[];
+  executionPeriod?: {
+    start?: string;
+    end?: string;
+  };
 }
 
 export interface Questionnaire {
   id?: string;
   url?: string;
   version?: string;
+  title?: string;
   identifier?: Identifier[];
 }
 

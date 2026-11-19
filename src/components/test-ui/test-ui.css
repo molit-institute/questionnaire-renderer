@@ -91,3 +91,22 @@ pre {
 .render{
   width: 500px;
 }
+.test-ui-error {
+  color: #b00020;
+  margin: 10px 0;
+}
+.test-ui-options {
+  padding: 10px 0;
+}
+.test-ui-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 16px;
+  margin: 10px 0;
+}
+.test-ui-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
