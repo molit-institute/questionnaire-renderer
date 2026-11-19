@@ -1,14 +1,14 @@
 import { Component, h, State } from '@stencil/core';
 import questionnaireResponseController from '../../utils/questionnaireResponseController';
 import * as examplePatient from '../../assets/fhir/resources/patient-example.js';
-import enableQuestionnaire from '../../assets/fhir/resources/questionnaire-lang-enable.js';
-import everyTypeQuestionnaire from '../../assets/fhir/resources/questionnaire-every-type.js';
+// import enableQuestionnaire from '../../assets/fhir/resources/questionnaire-lang-enable.js';
+// import everyTypeQuestionnaire from '../../assets/fhir/resources/questionnaire-every-type.js';
 // import everyTypeWithInitialQuestionnaire from '../../assets/fhir/resources/questionnaire-every-type_with_initial.js';
-import repeatedQuestionnaire from '../../assets/fhir/resources/questionnaire-repeat.js';
-import q_5d_5l from '../../assets/fhir/resources/5q-5d-5l.js';
+// import repeatedQuestionnaire from '../../assets/fhir/resources/questionnaire-repeat.js';
+// import q_5d_5l from '../../assets/fhir/resources/5q-5d-5l.js';
 import vomit from '../../assets/fhir/resources/vomit.js';
-import lion from '../../assets/fhir/resources/lion_questionnaire.js';
-import dropdown_test from '../../assets/fhir/resources/dropdown_test_questionnaire.js';
+// import lion from '../../assets/fhir/resources/lion_questionnaire.js';
+// import dropdown_test from '../../assets/fhir/resources/dropdown_test_questionnaire.js';
 // import lion_response from '../../assets/fhir/resources/lion_questionnaire_response2.js';
 // import qlq30_response from '../../assets/fhir/resources/qlq30_response.js';
 
@@ -37,7 +37,7 @@ export class TestUi {
   questionnaireUrl: any = null;
   questionnaire: any = null;
   @State() questionnaireUrlIdentifier: any = 'https://molit.eu/fhir/Questionnaire/qlq30';
-  questionnaires: Array<any> = [enableQuestionnaire, everyTypeQuestionnaire, repeatedQuestionnaire, q_5d_5l, vomit, lion, dropdown_test];
+  questionnaires: Array<any> = [vomit];
   @State() token: string = null;
   testResp: object = null;
 
@@ -177,6 +177,9 @@ export class TestUi {
   }
   openSelectedQuestionnaire(questionnaire) {
     this.questionnaire = questionnaire;
+    // this.task.focus.reference = 'Questionnaire/' + questionnaire.id;
+    // this.task.focus.display = questionnaire.title;
+    // this.task.extension = questionnaire.version ? [{ url: 'http://molit.eu/fhir/Task/questionnaireVersion', valueString: questionnaire.version }] : [];
     this.show_renderer = true;
     this.show_questionnaire_list = false;
     this.show_summary = false;
@@ -269,6 +272,7 @@ export class TestUi {
                 : null}
               {this.show_renderer ? (
                 <questionnaire-renderer
+                  onErrorLog={event => console.error(event.detail)}
                   onFinished={event => this.toSummary(event)}
                   onUpdated={event => this.updateQR(event)}
                   onUpdatedBundle={event => (this.bundle = event.detail)}
@@ -304,7 +308,6 @@ export class TestUi {
                   token={this.token}
                   enableErrorConsoleLogging={true}
                   questionnaireResponseStatus="amended"
-                  onErrorLog={error => console.info(error)}
                   visibleBooleanNullOption={true}
                   questionnaireUrlIdentifier={this.questionnaireUrlIdentifier}
                   task={this.task}

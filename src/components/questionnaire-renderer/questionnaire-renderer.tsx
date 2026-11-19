@@ -6,6 +6,7 @@ import questionnaireResponseController from '../../utils/questionnaireResponseCo
 import fhirpathController from '../../utils/fhirpathController';
 import valueSetController from '../../utils/valueSetController';
 import bundleController from '../../utils/bundleController';
+import taskController from '../../utils/taskController';
 import { cloneDeep } from 'lodash';
 
 @Component({
@@ -75,6 +76,10 @@ export class QuestionnaireRenderer {
    * FHIR-Resource Task
    */
   @Prop() task: any = null;
+  @Watch('task')
+  watchTask() {
+    this.checkTaskQuestionnaireMatch();
+  }
   /**
    * Array of ValueSets that are needed to display the given questionnaire
    */
@@ -258,6 +263,7 @@ export class QuestionnaireRenderer {
   @State() show_questionnaire: boolean = false;
   @State() show_summary: boolean = false;
   @State() show_informationPage: boolean = true;
+  @State() questionnaireMismatch: boolean = false;
   @State() last_question: boolean = false;
 
   /* computed */
@@ -666,6 +672,47 @@ export class QuestionnaireRenderer {
   }
 
   /**
+   * Checks if the loaded questionnaire matches the questionnaire referenced in the given task.
+   * If the task contains a questionnaireVersion extension, the questionnaire version is compared as well.
+   * If the given questionnaireResponse does not match the QuestionnaireResponse referenced in the task, the questionnaire is blocked as well.
+   */
+  checkTaskQuestionnaireMatch() {
+    if (!this.task || !this.currentQuestionnaire) {
+      this.questionnaireMismatch = false;
+      return;
+    }
+    let reference = taskController.getQuestionnaireReferenceFromTask(this.task);
+    if (!reference) {
+      this.questionnaireMismatch = false;
+      return;
+    }
+    let expectedVersion = taskController.getQuestionnaireVersionFromTask(this.task);
+    if (!taskController.questionnaireMatchesReference(this.currentQuestionnaire, reference, expectedVersion)) {
+      let error;
+      if (!taskController.questionnaireMatchesReference(this.currentQuestionnaire, reference)) {
+        error = new Error('QuestionnaireRenderer | Error: The questionnaire does not match the questionnaire referenced in the task (task reference: ' + reference + ', questionnaire id: ' + this.currentQuestionnaire.id + ', questionnaire url: ' + this.currentQuestionnaire.url + ')');
+      } else {
+        error = new Error('QuestionnaireRenderer | Error: The questionnaire version (' + (this.currentQuestionnaire.version || 'none') + ') does not match the version required by the task (' + expectedVersion + ')');
+      }
+      this.questionnaireMismatch = true;
+      this.emitError(error);
+      if (this.enableErrorConsoleLogging) {
+        console.info('QuestionnaireRenderer | Info: Questionnaire does not match the task, the questionnaire is not displayed');
+      }
+    } else {
+      this.questionnaireMismatch = false;
+    }
+    let questionnaireResponseMatch = taskController.taskMatchesQuestionnaireResponse(this.task, this.questionnaireResponse);
+    if (questionnaireResponseMatch === false) {
+      this.questionnaireMismatch = true;
+      this.emitError(new Error('QuestionnaireRenderer | Error: The given questionnaireResponse does not match the QuestionnaireResponse referenced in the task (task reference: ' + this.task.partOf[0].reference + ', questionnaireResponse id: ' + this.questionnaireResponse.id + ')'));
+      if (this.enableErrorConsoleLogging) {
+        console.info('QuestionnaireRenderer | Info: QuestionnaireResponse does not match the task, the questionnaire is not displayed');
+      }
+    }
+  }
+
+  /**
    * Compares the answers in the given answeredItemList and baseList. tranfers the answers of the answeredItemList into the baseList
    * @param {Array} baseList Items of an empty QuestionnaireResponse to be filled
    * @param {Array} answeredItemList List containing answers
@@ -886,6 +933,7 @@ export class QuestionnaireRenderer {
     try {
       // this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
       await this.handleQuestionnaire();
+      this.checkTaskQuestionnaireMatch();
       await this.handleValueSets();
       await this.handleQuestionnaireResponse();
       await this.filterItemList();
@@ -916,6 +964,10 @@ export class QuestionnaireRenderer {
         {this.spinner.loading ? (
           <div class="qr-spinner">
             <simple-spinner class="qr-simple-spinner"></simple-spinner>
+          </div>
+        ) : this.questionnaireMismatch ? (
+          <div class="qr-questionnaireRenderer-questionMismatch">
+            <div class="qr-questionnaireRenderer-questionMismatch-message">{this.strings.questionnaireMismatch}</div>
           </div>
         ) : (
           <div>
