@@ -16,17 +16,36 @@ export function getQuestionnaireReferenceFromTask(task: Task | null | undefined)
         return entry.valueReference.reference;
       }
     }
+    for (let i = 0; i < task.input.length; i++) {
+      let entry = task.input[i];
+      if (entry && entry.type && entry.type.coding && entry.type.coding.some(coding => coding.code === 'questionnaire') && typeof entry.valueCanonical === 'string' && entry.valueCanonical) {
+        return entry.valueCanonical;
+      }
+    }
   }
   return null;
 }
 
 export function getQuestionnaireVersionFromTask(task: Task | null | undefined): string | null {
-  if (!task || !task.extension || !Array.isArray(task.extension)) {
+  if (!task) {
     return null;
   }
-  let extension = task.extension.find(extension => extension.url === QUESTIONNAIRE_VERSION_EXTENSION_URL);
-  if (extension && extension.valueString) {
-    return extension.valueString;
+  if (task.extension && Array.isArray(task.extension)) {
+    let extension = task.extension.find(extension => extension.url === QUESTIONNAIRE_VERSION_EXTENSION_URL);
+    if (extension && extension.valueString) {
+      return extension.valueString;
+    }
+  }
+  if (task.input && Array.isArray(task.input)) {
+    for (let i = 0; i < task.input.length; i++) {
+      let entry = task.input[i];
+      if (entry && entry.type && entry.type.coding && entry.type.coding.some(coding => coding.code === 'questionnaire') && typeof entry.valueCanonical === 'string' && entry.valueCanonical.includes('|')) {
+        let version = entry.valueCanonical.split('|')[1];
+        if (version) {
+          return version;
+        }
+      }
+    }
   }
   return null;
 }

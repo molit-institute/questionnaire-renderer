@@ -29,6 +29,7 @@ export interface Task {
   input?: Array<{
     type?: { coding?: Coding[] };
     valueReference?: Reference;
+    valueCanonical?: string;
   }>;
   extension?: Array<{
     url?: string;
