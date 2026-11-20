@@ -3,6 +3,7 @@ export default {
   summary: 'Resumen',
   backtoSummary: 'Volver al resumen',
   questionDeactivated: 'La pregunta seleccionada está desactivada o no se encontró',
+  questionnaireMismatch: 'El cuestionario no coincide con la tarea y no se puede mostrar',
   question: 'Pregunta',
   of: 'de',
   questionGroup: 'Grupo de preguntas',

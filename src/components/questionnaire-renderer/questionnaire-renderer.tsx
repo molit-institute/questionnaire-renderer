@@ -6,6 +6,7 @@ import questionnaireResponseController from '../../utils/questionnaireResponseCo
 import fhirpathController from '../../utils/fhirpathController';
 import valueSetController from '../../utils/valueSetController';
 import bundleController from '../../utils/bundleController';
+import taskController from '../../utils/taskController';
 import { cloneDeep } from 'lodash';
 
 @Component({
@@ -255,6 +256,7 @@ export class QuestionnaireRenderer {
   currentValueSets: Array<any> = [];
   currentStartCount: number = null;
   lastAnsweredQuestion: any = null;
+  lastTaskMismatch: boolean = false;
   @State() show_questionnaire: boolean = false;
   @State() show_summary: boolean = false;
   @State() show_informationPage: boolean = true;
@@ -506,7 +508,19 @@ export class QuestionnaireRenderer {
       await this.removeGroupedDisplayQuestions(this.currentQuestionnaire.item);
     } else if (this.questionnaireUrl) {
       try {
-        this.currentQuestionnaire = await fhirApi.fetchByUrl(this.questionnaireUrl, null, this.token, this.basicAuth);
+        if (this.questionnaireUrl.includes('|')) {
+          if (!this.baseUrl) {
+            throw new Error('Loading a versioned questionnaireUrl (url|version) requires the baseUrl prop to be set');
+          }
+          let [canonicalUrl, version] = this.questionnaireUrl.split('|');
+          let result = await fhirApi.fetchResources(this.baseUrl, 'Questionnaire', { url: canonicalUrl, version: version }, this.token, this.basicAuth);
+          this.currentQuestionnaire = fhirApi.mapFhirResponse(result)[0];
+          if (!this.currentQuestionnaire) {
+            throw new Error('No Questionnaire found for url ' + canonicalUrl + ' with version ' + version);
+          }
+        } else {
+          this.currentQuestionnaire = (await fhirApi.fetchByUrl(this.questionnaireUrl, null, this.token, this.basicAuth)).data;
+        }
         // Add Group-Ids to Questions in Groups
         for (let i = 0; i < this.currentQuestionnaire.item.length; i++) {
           if (this.currentQuestionnaire.item[i].type === 'group') {
@@ -628,9 +642,9 @@ export class QuestionnaireRenderer {
   handleQuestionnaireResponse() {
     if (this.questionnaireResponse) {
       if (this.questionnaireResponse.questionnaire) {
-        let split = this.questionnaireResponse.questionnaire.split('/');
-        let id = split[1];
-        if (this.questionnaireResponse.questionnaire === this.currentQuestionnaire.url || (id && id === this.currentQuestionnaire.id)) {
+        let questionnaireRef = this.questionnaireResponse.questionnaire.split('|')[0];
+        let id = questionnaireRef.split('/')[1];
+        if (questionnaireRef === this.currentQuestionnaire.url || (id && id === this.currentQuestionnaire.id)) {
           this.createQuestionnaireResponse();
           let questionaireResponseItems = questionnaireResponseController.createItemList(this.questionnaireResponse);
           let questionnaireItems = questionnaireResponseController.createItemList(this.currentQuestionnaire);
@@ -650,6 +664,49 @@ export class QuestionnaireRenderer {
       }
     } else {
       this.createQuestionnaireResponse();
+    }
+  }
+
+  /**
+   * Checks if the loaded questionnaire matches the questionnaire referenced in the given task.
+   * If the task contains a questionnaireVersion extension, the questionnaire version is compared as well.
+   * If the given questionnaireResponse does not match the QuestionnaireResponse referenced in the task, the questionnaire is blocked as well.
+   */
+  checkTaskQuestionnaireMatch() {
+    let errors: Error[] = [];
+    if (!this.task || !this.currentQuestionnaire) {
+      return { mismatch: false, errors };
+    }
+    let reference = taskController.getQuestionnaireReferenceFromTask(this.task);
+    if (reference) {
+      let expectedVersion = taskController.getQuestionnaireVersionFromTask(this.task);
+      if (!taskController.questionnaireMatchesReference(this.currentQuestionnaire, reference, expectedVersion)) {
+        if (!taskController.questionnaireMatchesReference(this.currentQuestionnaire, reference)) {
+          errors.push(new Error('QuestionnaireRenderer | Error: The questionnaire does not match the questionnaire referenced in the task (task reference: ' + reference + ', questionnaire id: ' + this.currentQuestionnaire.id + ', questionnaire url: ' + this.currentQuestionnaire.url + ')'));
+        } else {
+          errors.push(new Error('QuestionnaireRenderer | Error: The questionnaire version (' + (this.currentQuestionnaire.version || 'none') + ') does not match the version required by the task (' + expectedVersion + ')'));
+        }
+      }
+    }
+    let questionnaireResponseMatch = taskController.taskMatchesQuestionnaireResponse(this.task, this.questionnaireResponse);
+    if (questionnaireResponseMatch === false) {
+      errors.push(new Error('QuestionnaireRenderer | Error: The given questionnaireResponse does not match the QuestionnaireResponse referenced in the task (task reference: ' + this.task.partOf[0].reference + ', questionnaireResponse id: ' + this.questionnaireResponse.id + ')'));
+    }
+    return { mismatch: errors.length > 0, errors };
+  }
+
+  handleTaskMatchChange() {
+    let taskMatch = this.checkTaskQuestionnaireMatch();
+    if (taskMatch.mismatch !== this.lastTaskMismatch) {
+      if (taskMatch.mismatch) {
+        for (let i = 0; i < taskMatch.errors.length; i++) {
+          this.emitError(taskMatch.errors[i]);
+        }
+        if (this.enableErrorConsoleLogging) {
+          console.info('QuestionnaireRenderer | Info: Questionnaire does not match the task, the questionnaire is not displayed');
+        }
+      }
+      this.lastTaskMismatch = taskMatch.mismatch;
     }
   }
 
@@ -865,6 +922,10 @@ export class QuestionnaireRenderer {
     this.closeSummary.emit('closeSummary');
   }
   /* Lifecycle Methods */
+  componentWillUpdate() {
+    this.handleTaskMatchChange();
+  }
+
   async componentWillLoad(): Promise<void> {
     this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
     this.spinner = { ...this.spinner, loading: true, message: this.strings.loading.data };
@@ -874,6 +935,7 @@ export class QuestionnaireRenderer {
     try {
       // this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
       await this.handleQuestionnaire();
+      this.handleTaskMatchChange();
       await this.handleValueSets();
       await this.handleQuestionnaireResponse();
       await this.filterItemList();
@@ -899,11 +961,16 @@ export class QuestionnaireRenderer {
   }
   render() {
     const Tag = this.currentMode;
+    let taskMatch = this.checkTaskQuestionnaireMatch();
     return (
       <div class="qr-questionnaireRenderer-container">
         {this.spinner.loading ? (
           <div class="qr-spinner">
             <simple-spinner class="qr-simple-spinner"></simple-spinner>
+          </div>
+        ) : taskMatch.mismatch ? (
+          <div class="qr-questionnaireRenderer-questionMismatch">
+            <div class="qr-questionnaireRenderer-questionMismatch-message">{this.strings.questionnaireMismatch}</div>
           </div>
         ) : (
           <div>

@@ -3,6 +3,7 @@ export default {
   summary: 'Zusammenfassung',
   backtoSummary: 'Zurück zur Zusammenfassung',
   questionDeactivated: 'Die ausgewählte Frage ist deaktiviert oder konnte nicht gefunden werden.',
+  questionnaireMismatch: 'Aufgrund fehlender Übereinstimmung der Daten kann der Fragebogen nicht angezeigt werden.',
   question: 'Frage',
   of: 'von',
   placeholder: 'Hier Antwort eingeben',
