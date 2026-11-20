@@ -76,10 +76,6 @@ export class QuestionnaireRenderer {
    * FHIR-Resource Task
    */
   @Prop() task: any = null;
-  @Watch('task')
-  watchTask() {
-    this.checkTaskQuestionnaireMatch();
-  }
   /**
    * Array of ValueSets that are needed to display the given questionnaire
    */
@@ -260,10 +256,10 @@ export class QuestionnaireRenderer {
   currentValueSets: Array<any> = [];
   currentStartCount: number = null;
   lastAnsweredQuestion: any = null;
+  lastTaskMismatch: boolean = false;
   @State() show_questionnaire: boolean = false;
   @State() show_summary: boolean = false;
   @State() show_informationPage: boolean = true;
-  @State() questionnaireMismatch: boolean = false;
   @State() last_question: boolean = false;
 
   /* computed */
@@ -677,38 +673,40 @@ export class QuestionnaireRenderer {
    * If the given questionnaireResponse does not match the QuestionnaireResponse referenced in the task, the questionnaire is blocked as well.
    */
   checkTaskQuestionnaireMatch() {
+    let errors: Error[] = [];
     if (!this.task || !this.currentQuestionnaire) {
-      this.questionnaireMismatch = false;
-      return;
+      return { mismatch: false, errors };
     }
     let reference = taskController.getQuestionnaireReferenceFromTask(this.task);
-    if (!reference) {
-      this.questionnaireMismatch = false;
-      return;
-    }
-    let expectedVersion = taskController.getQuestionnaireVersionFromTask(this.task);
-    if (!taskController.questionnaireMatchesReference(this.currentQuestionnaire, reference, expectedVersion)) {
-      let error;
-      if (!taskController.questionnaireMatchesReference(this.currentQuestionnaire, reference)) {
-        error = new Error('QuestionnaireRenderer | Error: The questionnaire does not match the questionnaire referenced in the task (task reference: ' + reference + ', questionnaire id: ' + this.currentQuestionnaire.id + ', questionnaire url: ' + this.currentQuestionnaire.url + ')');
-      } else {
-        error = new Error('QuestionnaireRenderer | Error: The questionnaire version (' + (this.currentQuestionnaire.version || 'none') + ') does not match the version required by the task (' + expectedVersion + ')');
+    if (reference) {
+      let expectedVersion = taskController.getQuestionnaireVersionFromTask(this.task);
+      if (!taskController.questionnaireMatchesReference(this.currentQuestionnaire, reference, expectedVersion)) {
+        if (!taskController.questionnaireMatchesReference(this.currentQuestionnaire, reference)) {
+          errors.push(new Error('QuestionnaireRenderer | Error: The questionnaire does not match the questionnaire referenced in the task (task reference: ' + reference + ', questionnaire id: ' + this.currentQuestionnaire.id + ', questionnaire url: ' + this.currentQuestionnaire.url + ')'));
+        } else {
+          errors.push(new Error('QuestionnaireRenderer | Error: The questionnaire version (' + (this.currentQuestionnaire.version || 'none') + ') does not match the version required by the task (' + expectedVersion + ')'));
+        }
       }
-      this.questionnaireMismatch = true;
-      this.emitError(error);
-      if (this.enableErrorConsoleLogging) {
-        console.info('QuestionnaireRenderer | Info: Questionnaire does not match the task, the questionnaire is not displayed');
-      }
-    } else {
-      this.questionnaireMismatch = false;
     }
     let questionnaireResponseMatch = taskController.taskMatchesQuestionnaireResponse(this.task, this.questionnaireResponse);
     if (questionnaireResponseMatch === false) {
-      this.questionnaireMismatch = true;
-      this.emitError(new Error('QuestionnaireRenderer | Error: The given questionnaireResponse does not match the QuestionnaireResponse referenced in the task (task reference: ' + this.task.partOf[0].reference + ', questionnaireResponse id: ' + this.questionnaireResponse.id + ')'));
-      if (this.enableErrorConsoleLogging) {
-        console.info('QuestionnaireRenderer | Info: QuestionnaireResponse does not match the task, the questionnaire is not displayed');
+      errors.push(new Error('QuestionnaireRenderer | Error: The given questionnaireResponse does not match the QuestionnaireResponse referenced in the task (task reference: ' + this.task.partOf[0].reference + ', questionnaireResponse id: ' + this.questionnaireResponse.id + ')'));
+    }
+    return { mismatch: errors.length > 0, errors };
+  }
+
+  handleTaskMatchChange() {
+    let taskMatch = this.checkTaskQuestionnaireMatch();
+    if (taskMatch.mismatch !== this.lastTaskMismatch) {
+      if (taskMatch.mismatch) {
+        for (let i = 0; i < taskMatch.errors.length; i++) {
+          this.emitError(taskMatch.errors[i]);
+        }
+        if (this.enableErrorConsoleLogging) {
+          console.info('QuestionnaireRenderer | Info: Questionnaire does not match the task, the questionnaire is not displayed');
+        }
       }
+      this.lastTaskMismatch = taskMatch.mismatch;
     }
   }
 
@@ -924,6 +922,10 @@ export class QuestionnaireRenderer {
     this.closeSummary.emit('closeSummary');
   }
   /* Lifecycle Methods */
+  componentWillUpdate() {
+    this.handleTaskMatchChange();
+  }
+
   async componentWillLoad(): Promise<void> {
     this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
     this.spinner = { ...this.spinner, loading: true, message: this.strings.loading.data };
@@ -933,7 +935,7 @@ export class QuestionnaireRenderer {
     try {
       // this.strings = await getLocaleComponentStrings(this.element, this.locale, this.enableInformalLocale);
       await this.handleQuestionnaire();
-      this.checkTaskQuestionnaireMatch();
+      this.handleTaskMatchChange();
       await this.handleValueSets();
       await this.handleQuestionnaireResponse();
       await this.filterItemList();
@@ -959,13 +961,14 @@ export class QuestionnaireRenderer {
   }
   render() {
     const Tag = this.currentMode;
+    let taskMatch = this.checkTaskQuestionnaireMatch();
     return (
       <div class="qr-questionnaireRenderer-container">
         {this.spinner.loading ? (
           <div class="qr-spinner">
             <simple-spinner class="qr-simple-spinner"></simple-spinner>
           </div>
-        ) : this.questionnaireMismatch ? (
+        ) : taskMatch.mismatch ? (
           <div class="qr-questionnaireRenderer-questionMismatch">
             <div class="qr-questionnaireRenderer-questionMismatch-message">{this.strings.questionnaireMismatch}</div>
           </div>

@@ -26,9 +26,14 @@ export function createQuestionnaireResponse(questionnaire, subject, questionnair
       questResp.id = questionnaireResponse.id;
     }
     //QUESTIONNAIRE
-    questResp.questionnaire = questionnaire.url;
-    if (questionnaire.version) {
-      questResp.questionnaire = questionnaire.url + '|' + questionnaire.version;
+    let questionnaireReference = null;
+    if (questionnaire.url) {
+      questionnaireReference = questionnaire.url;
+    } else if (questionnaire.id) {
+      questionnaireReference = 'Questionnaire/' + questionnaire.id;
+    }
+    if (questionnaireReference) {
+      questResp.questionnaire = questionnaire.version ? questionnaireReference + '|' + questionnaire.version : questionnaireReference;
     }
     //STATUS
     questResp.status = 'in-progress';
