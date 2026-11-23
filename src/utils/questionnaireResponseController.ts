@@ -17,8 +17,9 @@ dayjs.extend(timezone)
  * @param {Object} questionnaire The Questionnaire
  * @param {Object} subject FHIR patient
  * @param {Object} questionnaireResponse FHIR questionnaireResponse
+ * @param {Boolean} enableVersioning If false, the version is not appended to the questionnaire reference
  */
-export function createQuestionnaireResponse(questionnaire, subject, questionnaireResponse) {
+export function createQuestionnaireResponse(questionnaire, subject, questionnaireResponse, enableVersioning) {
   if (questionnaire) {
     const questResp = QuestionnaireResponse.create();
     //ID
@@ -33,7 +34,7 @@ export function createQuestionnaireResponse(questionnaire, subject, questionnair
       questionnaireReference = 'Questionnaire/' + questionnaire.id;
     }
     if (questionnaireReference) {
-      questResp.questionnaire = questionnaire.version ? questionnaireReference + '|' + questionnaire.version : questionnaireReference;
+      questResp.questionnaire = enableVersioning && questionnaire.version ? questionnaireReference + '|' + questionnaire.version : questionnaireReference;
     }
     //STATUS
     questResp.status = 'in-progress';

@@ -57,6 +57,13 @@ const RENDERER_OPTIONS: RendererOption[] = [
     description: 'If true enables the summary to send QuestionnaireResponses to the FHIR Server. Needs the fhir-base url to be able send to the server',
   },
   { key: 'enableSummary', label: 'enableSummary', type: 'checkbox', default: true, description: 'Enable the summary. The summary will be shown if enableSummary is true' },
+  {
+    key: 'enableVersioning',
+    label: 'enableVersioning',
+    type: 'checkbox',
+    default: true,
+    description: 'If true, the Renderer handles questionnaire versions: the version is appended to the questionnaire reference in the created QuestionnaireResponse, the task-questionnaire match includes the version and a versioned questionnaireUrl is fetched with the version. If false, all version handling is deactivated.',
+  },
   { key: 'informationPageText', label: 'informationPageText', type: 'text', default: '<u>Test</u> Information <br> PageText', description: 'Text shown in the top half of the information page' },
   { key: 'lastQuestion', label: 'lastQuestion', type: 'checkbox', default: false, description: 'If true, the Renderer will start with the last question' },
   { key: 'locale', label: 'locale', type: 'select', default: 'de', values: ['de', 'en', 'es'], description: 'Language property of the component. Currently supported: [de, en, es]' },
@@ -512,6 +519,7 @@ export class TestUi {
                   lastQuestion={this.rendererOptions.lastQuestion}
                   showSummaryRemarks={this.rendererOptions.showSummaryRemarks}
                   enableSendQuestionnaireResponse={this.rendererOptions.enableSendQuestionnaireResponse}
+                  enableVersioning={this.rendererOptions.enableVersioning}
                   basicAuth={this.rendererOptions.basicAuth}
                   primary={this.rendererOptions.primary || null}
                   secondary={this.rendererOptions.secondary || null}

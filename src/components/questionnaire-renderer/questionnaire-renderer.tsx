@@ -186,6 +186,10 @@ export class QuestionnaireRenderer {
    */
   @Prop() enableExpand: boolean = true;
   /**
+   * If true, the Renderer handles questionnaire versions: the version is appended to the questionnaire reference in the created QuestionnaireResponse, the task-questionnaire match includes the version and a versioned questionnaireUrl is fetched with the version. If false, all version handling is deactivated.
+   */
+  @Prop() enableVersioning: boolean = false;
+  /**
    * Primary color
    */
   @Prop() primary: string;
@@ -423,7 +427,7 @@ export class QuestionnaireRenderer {
    * Creates a new QuestionnaireResponse
    */
   createQuestionnaireResponse() {
-    this.currentQuestionnaireResponse = questionnaireResponseController.createQuestionnaireResponse(this.currentQuestionnaire, this.subject, this.questionnaireResponse);
+    this.currentQuestionnaireResponse = questionnaireResponseController.createQuestionnaireResponse(this.currentQuestionnaire, this.subject, this.questionnaireResponse, this.enableVersioning);
   }
 
   /**
@@ -508,18 +512,22 @@ export class QuestionnaireRenderer {
       await this.removeGroupedDisplayQuestions(this.currentQuestionnaire.item);
     } else if (this.questionnaireUrl) {
       try {
-        if (this.questionnaireUrl.includes('|')) {
+        let url = this.questionnaireUrl;
+        if (!this.enableVersioning && this.questionnaireUrl.includes('|')) {
+          url = this.questionnaireUrl.split('|')[0];
+        }
+        if (url.includes('|')) {
           if (!this.baseUrl) {
             throw new Error('Loading a versioned questionnaireUrl (url|version) requires the baseUrl prop to be set');
           }
-          let [canonicalUrl, version] = this.questionnaireUrl.split('|');
+          let [canonicalUrl, version] = url.split('|');
           let result = await fhirApi.fetchResources(this.baseUrl, 'Questionnaire', { url: canonicalUrl, version: version }, this.token, this.basicAuth);
           this.currentQuestionnaire = fhirApi.mapFhirResponse(result)[0];
           if (!this.currentQuestionnaire) {
             throw new Error('No Questionnaire found for url ' + canonicalUrl + ' with version ' + version);
           }
         } else {
-          this.currentQuestionnaire = (await fhirApi.fetchByUrl(this.questionnaireUrl, null, this.token, this.basicAuth)).data;
+          this.currentQuestionnaire = (await fhirApi.fetchByUrl(url, null, this.token, this.basicAuth)).data;
         }
         // Add Group-Ids to Questions in Groups
         for (let i = 0; i < this.currentQuestionnaire.item.length; i++) {
@@ -669,7 +677,7 @@ export class QuestionnaireRenderer {
 
   /**
    * Checks if the loaded questionnaire matches the questionnaire referenced in the given task.
-   * If the task contains a questionnaireVersion extension, the questionnaire version is compared as well.
+   * If the task contains a questionnaireVersion extension, the questionnaire version is compared as well, unless versioning is deactivated via the enableVersioning prop.
    * If the given questionnaireResponse does not match the QuestionnaireResponse referenced in the task, the questionnaire is blocked as well.
    */
   checkTaskQuestionnaireMatch() {
@@ -679,7 +687,7 @@ export class QuestionnaireRenderer {
     }
     let reference = taskController.getQuestionnaireReferenceFromTask(this.task);
     if (reference) {
-      let expectedVersion = taskController.getQuestionnaireVersionFromTask(this.task);
+      let expectedVersion = this.enableVersioning ? taskController.getQuestionnaireVersionFromTask(this.task) : null;
       if (!taskController.questionnaireMatchesReference(this.currentQuestionnaire, reference, expectedVersion)) {
         if (!taskController.questionnaireMatchesReference(this.currentQuestionnaire, reference)) {
           errors.push(new Error('QuestionnaireRenderer | Error: The questionnaire does not match the questionnaire referenced in the task (task reference: ' + reference + ', questionnaire id: ' + this.currentQuestionnaire.id + ', questionnaire url: ' + this.currentQuestionnaire.url + ')'));
