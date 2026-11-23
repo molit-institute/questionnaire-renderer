@@ -895,8 +895,8 @@ export class QuestionnaireRenderer {
    */
   @Event() exit: EventEmitter;
   @Event() exitBundle: EventEmitter;
-  async leaveQuestionnaireRenderer() {
-    if (this.enableInformationPage) {
+  async leaveQuestionnaireRenderer(forceExit = false) {
+    if (this.enableInformationPage && !forceExit) {
       this.show_summary = false;
       this.show_questionnaire = false;
       this.show_informationPage = true;
@@ -978,7 +978,14 @@ export class QuestionnaireRenderer {
           </div>
         ) : taskMatch.mismatch ? (
           <div class="qr-questionnaireRenderer-questionMismatch">
-            <div class="qr-questionnaireRenderer-questionMismatch-message">{this.strings.questionnaireMismatch}</div>
+            <div class="qr-questionnaireRenderer-questionMismatch-message">
+              <div>{this.strings.questionnaireMismatch}</div>
+              <div class="qr-questionnaireRenderer-questionMismatch-button-container">
+                <button class="btn btn-primary qr-mismatch-back-button" onClick={() => this.leaveQuestionnaireRenderer(true)}>
+                  {this.strings.back}
+                </button>
+              </div>
+            </div>
           </div>
         ) : (
           <div>

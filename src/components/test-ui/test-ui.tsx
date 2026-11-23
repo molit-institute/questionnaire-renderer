@@ -115,6 +115,8 @@ export class TestUi {
   @State() bundle: object | null = null;
   @State() show_renderer: boolean = false;
   @State() show_summary: boolean = false;
+  @State() showRendererOptions: boolean = false;
+  @State() showManualInput: boolean = false;
   lastQuestion: boolean = false;
   edit: boolean = false;
   indexQuestion: any = null;
@@ -165,6 +167,12 @@ export class TestUi {
         if (typeof stored.baseUrl === 'string') {
           this.baseUrl = stored.baseUrl;
         }
+        if (typeof stored.showRendererOptions === 'boolean') {
+          this.showRendererOptions = stored.showRendererOptions;
+        }
+        if (typeof stored.showManualInput === 'boolean') {
+          this.showManualInput = stored.showManualInput;
+        }
         if (typeof stored.manualQuestionnaire === 'string') {
           this.manualQuestionnaire = stored.manualQuestionnaire;
         }
@@ -200,6 +208,8 @@ export class TestUi {
         JSON.stringify({
           token: this.token,
           baseUrl: this.baseUrl,
+          showRendererOptions: this.showRendererOptions,
+          showManualInput: this.showManualInput,
           manualQuestionnaire: this.manualQuestionnaire,
           manualTask: this.manualTask,
           manualPatient: this.manualPatient,
@@ -350,6 +360,14 @@ export class TestUi {
     this.baseUrl = input.value;
     this.persistSettings();
   };
+  handleRendererOptionsToggle = (event: Event) => {
+    this.showRendererOptions = (event.target as HTMLDetailsElement).open;
+    this.persistSettings();
+  };
+  handleManualInputToggle = (event: Event) => {
+    this.showManualInput = (event.target as HTMLDetailsElement).open;
+    this.persistSettings();
+  };
   handleQuestionnaireSelect = (event: Event) => {
     const select = event.target as HTMLSelectElement;
     this.selectedQuestionnaireIndex = select.value;
@@ -418,7 +436,7 @@ export class TestUi {
                 </select>
               </div>
               <div style={{ margin: '0 0 10px 0' }}>
-                <details open>
+                <details open={this.showRendererOptions} onToggle={this.handleRendererOptionsToggle}>
                   <summary>Renderer-Optionen</summary>
                   <div class="test-ui-options">
                     {RENDERER_OPTIONS.filter(option => option.type === 'select').map(option => (
@@ -453,7 +471,7 @@ export class TestUi {
                 </details>
               </div>
               <div style={{ margin: '0 0 10px 0' }}>
-                <details open>
+                <details open={this.showManualInput} onToggle={this.handleManualInputToggle}>
                   <summary>Manuelle Eingabe</summary>
                   <div class="test-ui-options">
                     <div>Questionnaire (JSON):</div>
