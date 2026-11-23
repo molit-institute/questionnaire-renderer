@@ -18,6 +18,23 @@
   max-width: 600px;
   padding: 22px;
 }
+.qr-questionnaireRenderer-questionMismatch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.qr-questionnaireRenderer-questionMismatch-message {
+  border: white solid 2px;
+  background: white;
+  border-radius: 0.25rem;
+  max-width: 600px;
+  padding: 22px;
+}
+.qr-questionnaireRenderer-questionMismatch-button-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+}
 .qr-spinner {
   width: 100% ;
   display: flex;

@@ -212,12 +212,12 @@ export class FullQuestionnaire {
             {this.strings ? (
               <div class="qr-fullQuestionnaire-buttonContainer">
                 {this.enableReturn ? (
-                  <button id="returnButton" type="button" class="btn button btn-outline-primary btn-lg qr-button-outline-primary qr-fullQuestionnaire-button-back" onClick={() => this.backToQuestionnaireList()}>
+                  <button id="returnButton" type="button" class="btn button btn-outline-primary btn qr-button-outline-primary qr-fullQuestionnaire-button-back" onClick={() => this.backToQuestionnaireList()}>
                     {this.strings.back}
                   </button>
                 ) : null}
                 {this.enableNext && !this.enableFinishButton ? (
-                  <button id="toSummaryNextButton" type="button" class="btn button btn-primary btn-lg qr-button-primary qr-fullQuestionnaire-button-next" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
+                  <button id="toSummaryNextButton" type="button" class="btn button btn-primary btn qr-button-primary qr-fullQuestionnaire-button-next" disabled={this.notAllRequiredQuestionsCompleted()} onClick={() => this.goToSummary()}>
                     {this.strings.next}
                   </button>
                 ) : null}

@@ -469,6 +469,11 @@ export namespace Components {
          */
         "enableSummary": boolean;
         /**
+          * If true, the Renderer handles questionnaire versions: the version is appended to the questionnaire reference in the created QuestionnaireResponse, the task-questionnaire match includes the version and a versioned questionnaireUrl is fetched with the version. If false, all version handling is deactivated.
+          * @default false
+         */
+        "enableVersioning": boolean;
+        /**
           * Text shown in the top half of the information page
           * @default null
          */
@@ -1925,6 +1930,11 @@ declare namespace LocalJSX {
          */
         "enableSummary"?: boolean;
         /**
+          * If true, the Renderer handles questionnaire versions: the version is appended to the questionnaire reference in the created QuestionnaireResponse, the task-questionnaire match includes the version and a versioned questionnaireUrl is fetched with the version. If false, all version handling is deactivated.
+          * @default false
+         */
+        "enableVersioning"?: boolean;
+        /**
           * Text shown in the top half of the information page
           * @default null
          */
@@ -2560,6 +2570,7 @@ declare namespace LocalJSX {
         "trademarkText": string;
         "enableGroupDescription": boolean;
         "enableExpand": boolean;
+        "enableVersioning": boolean;
         "primary": string;
         "secondary": string;
         "danger": string;

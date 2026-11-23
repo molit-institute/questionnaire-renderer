@@ -3,6 +3,7 @@ export default {
   summary: 'Summary',
   backtoSummary: 'Back to summary',
   questionDeactivated: 'The selected question is deactivated or was not found',
+  questionnaireMismatch: 'The questionnaire does not match the task and cannot be displayed',
   question: 'Question',
   of: 'of',
   questionGroup: 'Question group',
