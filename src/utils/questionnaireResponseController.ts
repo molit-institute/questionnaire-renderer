@@ -70,7 +70,7 @@ export function createQuestionnaireResponse(questionnaire, subject, questionnair
     if (questionnaireResponse && questionnaireResponse.authored) {
       questResp.authored = questionnaireResponse.authored;
     } else {
-      questResp.authored = dayjs().tz('Europe/Berlin').format('YYYY-MM-DDThh:mm:ssZ');
+      questResp.authored = dayjs().tz('Europe/Berlin').format('YYYY-MM-DDTHH:mm:ssZ');
     }
     //ITEMS | filling item with items
     if (questionnaire.item) {
